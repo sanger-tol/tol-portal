@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2023 Genome Research Ltd.
+#
+# SPDX-License-Identifier: MIT
+
+include:
+  - project: 'tol/tol-core'
+    ref: v1.3.6
+    file: '/gitlab/app.yml'
+
+variables:
+  APP_NAME: tol-portal
+  SERVICE_NAME: portal

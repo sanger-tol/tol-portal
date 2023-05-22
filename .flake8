@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2023 Genome Research Ltd.
+#
+# SPDX-License-Identifier: MIT
+
+[flake8]
+max-line-length = 99
+extend-ignore = B902,D

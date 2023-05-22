@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2023 Genome Research Ltd.
+#
+# SPDX-License-Identifier: MIT
+
+# This is used for local development only
+version: '3.1'
+
+services:
+  tol-portal-db:
+    image: elasticsearch:7.17.10
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - 9201:9200
+
+  tol-portal-api:
+    build:
+      context: tol-portal-api/.
+      dockerfile: Dockerfile.dev
+    image: tol-portal-api
+    # force amd64 on M1 MacOS
+    #platform: linux/amd64
+    environment:
+      - ELASTIC_URI
+      - ELASTIC_USER
+      - ELASTIC_PASSWORD
+      - ELASTIC_INDEX_PREFIX
+      - TOL_PORTAL_URL
+      - ELIXIR_CLIENT_ID
+      - ELIXIR_CLIENT_SECRET
+      - ELIXIR_REDIRECT_URI
+      - ELIXIR_JWK
+    ports:
+      - 8088:80
+    volumes:
+      - './tol-portal-api/app/main:/app/main'
+      - '../tol-sdk:/packages/tol-sdk:rw'
+
+  tol-portal-ui:
+    build:
+      context: tol-portal-ui/.
+      dockerfile: Dockerfile.dev
+    image: tol-portal-ui
+    # force amd64 on M1 MacOS
+    platform: linux/amd64
+    stdin_open: true
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_VERSION
+    ports:
+      - 3010:3000
+    volumes:
+      - './tol-portal-ui/app:/usr/src/app'
+      - '/usr/src/app/node_modules'
+
+  tol-portal-python-db:
+    image: elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+  
+  tol-portal-python-unit-test:
+    build:
+      context: tol-portal-api
+      dockerfile: Dockerfile.test
+    command: pytest -v unit
+
+  tol-portal-python-system-test:
+    build:
+      context: tol-portal-api
+      dockerfile: Dockerfile.test
+    command: pytest -v system
+    depends_on:
+      - tol-portal-python-db
