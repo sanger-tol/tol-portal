@@ -5,3 +5,7 @@
  */
 
 export { default as Home } from "./Home";
+export { default as Samples } from "./Samples";
+export { default as Species } from "./Species";
+export { default as SequencingRequests } from "./SequencingRequests";
+export { default as SequencingRuns } from "./SequencingRuns";

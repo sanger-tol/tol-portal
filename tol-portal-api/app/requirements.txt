@@ -6,4 +6,4 @@
 
 python_dateutil == 2.8.1
 setuptools == 53.0.0
-tol-sdk[all]==0.11.7
+tol-sdk[all]==0.11.10

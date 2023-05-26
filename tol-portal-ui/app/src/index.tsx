@@ -5,16 +5,44 @@ SPDX-License-Identifier: MIT
 */
 
 import ReactDOM from 'react-dom';
-import { Home } from './pages';
+import { Home, Samples, Species, SequencingRequests, SequencingRuns } from './pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp } from '@tol/tol-ui'
+import { TolApp, Page } from '@tol/tol-ui'
 import './scss/styling.scss';
+
+const species: Page = {
+  name: "Species",
+  authRequired: false,
+  adminOnly: false,
+  uiElement: <Species />
+};
+
+const samples: Page = {
+  name: "Samples",
+  authRequired: false,
+  adminOnly: false,
+  uiElement: <Samples />
+};
+
+const sequencingRequests: Page = {
+  name: "Sequencing",
+  authRequired: false,
+  adminOnly: false,
+  uiElement: <SequencingRequests />
+};
+
+const sequencingRuns: Page = {
+  name: "Runs",
+  authRequired: false,
+  adminOnly: false,
+  uiElement: <SequencingRuns />
+};
 
 ReactDOM.render(
   <TolApp
     brand='ToL Portal'
     homePage={<Home />}
-    pages={[]}
+    pages={[species, samples, sequencingRequests, sequencingRuns]}
     login={false}
   />,
   document.getElementById('root')
