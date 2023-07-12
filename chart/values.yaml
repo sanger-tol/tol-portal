@@ -119,7 +119,9 @@ tolcore:
     enabled: true
     fullname: "tol-portal-api"
     probe_url: '/api/v1/system/healthz'
+    path: '/api/v1'
     extra_env:
+      API_PATH: api.path
       ELASTIC_URI: elastic.uri
       ELASTIC_USER: elastic.user
       ELASTIC_PASSWORD: elastic.password
@@ -129,9 +131,8 @@ tolcore:
   ui:
     fullname: "tol-portal-ui"
     probe_url: '/'
-    api_version: '1'
     extra_env:
-      REACT_APP_API_VERSION: ui.api_version
+      REACT_APP_API_PATH: api.path
   s3:
     uri: ""
     access_key: ""

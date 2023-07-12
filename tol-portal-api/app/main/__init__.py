@@ -8,6 +8,8 @@ import os
 
 from flask import Flask
 
+from flask_cors import CORS
+
 from tol.api_base2 import (
     data_blueprint,
     system_blueprint
@@ -18,6 +20,7 @@ from tol.elastic import ElasticDataSource
 
 def application():
     app = Flask(__name__)
+    CORS(app, resources={r'/api/*': {'origins': '*'}})
     eds = ElasticDataSource({'uri': os.getenv('ELASTIC_URI'),
                              'user': os.getenv('ELASTIC_USER'),
                              'password': os.getenv('ELASTIC_PASSWORD'),
@@ -25,7 +28,7 @@ def application():
     datasources = [eds]
     core_data_object(*datasources)
     blueprint_data = data_blueprint(eds)
-    app.register_blueprint(blueprint_data, url_prefix='/api/v1')
+    app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
     blueprint_system = system_blueprint(eds)
-    app.register_blueprint(blueprint_system, url_prefix='/api/v1/system')
+    app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
     return app
