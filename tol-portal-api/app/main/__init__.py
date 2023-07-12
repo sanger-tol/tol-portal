@@ -21,6 +21,7 @@ from tol.elastic import ElasticDataSource
 def application():
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
+    app.config['CORS_HEADERS'] = 'Content-Type'
     eds = ElasticDataSource({'uri': os.getenv('ELASTIC_URI'),
                              'user': os.getenv('ELASTIC_USER'),
                              'password': os.getenv('ELASTIC_PASSWORD'),
