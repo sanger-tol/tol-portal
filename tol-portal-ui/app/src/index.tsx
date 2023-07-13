@@ -42,7 +42,12 @@ ReactDOM.render(
   <TolApp
     brand='ToL Portal'
     homePage={<Home />}
-    pages={[species, samples, sequencingRequests, sequencingRuns]}
+    pages={[
+      species,
+      samples, 
+      sequencingRequests,
+      sequencingRuns
+    ]}
     login={false}
   />,
   document.getElementById('root')

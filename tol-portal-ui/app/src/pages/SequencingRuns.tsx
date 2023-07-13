@@ -4,30 +4,35 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CentreContents, AutoTable } from '@tol/tol-ui'
+import { CentreContents, RemoteDateChartTable } from '@tol/tol-ui'
 
 
 function SequencingRuns() {
   return (
     <div className="sequencingRuns">
       <CentreContents>
-        <AutoTable
+        <RemoteDateChartTable
+          stacked
+          title="Run Complete Data"
           endpoint="run_data"
+          buckets="mlwh_platform_type"
+          xKey="mlwh_complete_date"
+          interval="M"
           fields={{
             "id": {
-              rename: "Run/well/tag"
+              rename: "Run/Well/Tag"
             },
             "tolqc_public_name": {
               rename: "ToLID"
             },
             "tolqc_common_name": {
-              rename: "Scientific name"
+              rename: "Scientific Name"
             },
             "tolqc_sample_ref": {
               rename: "Sanger Sample ID"
             },
             "tolqc_start_date": {
-              rename: "Date"
+              rename: "Start Date"
             }
           }}
         />
@@ -35,4 +40,5 @@ function SequencingRuns() {
     </div>
   );
 }
+
 export default SequencingRuns;
