@@ -7,13 +7,13 @@ version: '3.1'
 
 services:
   tol-portal-db:
-    image: elasticsearch:7.17.10
+    image: postgres:12
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
     ports:
-      - 9201:9200
+      - 5441:5432
 
   tol-portal-api:
     build:
@@ -27,6 +27,7 @@ services:
       - ELASTIC_USER
       - ELASTIC_PASSWORD
       - ELASTIC_INDEX_PREFIX
+      - DB_URI
       - TOL_PORTAL_URL
       - API_PATH
       - ELIXIR_CLIENT_ID
@@ -55,6 +56,33 @@ services:
     volumes:
       - './tol-portal-ui/app:/usr/src/app'
       - '/usr/src/app/node_modules'
+
+  tol-portal-dbutils:
+    image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.0.4
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - BACKUP_S3_ACCESS_KEY
+      - BACKUP_S3_SECRET_KEY
+      - BACKUP_S3_URI
+      - BACKUP_S3_BUCKET
+      - BACKUP_S3_SECURE
+      - RESTORE_FILE_PREFIX
+      - FLASK_ENV
+      - BACKUP_SCHEDULE
+  
+  tol-portal-alembic:
+    image: tol-portal-api
+    container_name: tol-portal-alembic
+    restart: always
+    environment:
+      - DB_URI
+    working_dir: /migrations
+    volumes:
+      - ./tol-portal-api/migrations/alembic/versions:/migrations/alembic/versions
 
   tol-portal-python-db:
     image: elasticsearch:7.17.10

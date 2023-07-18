@@ -93,7 +93,7 @@ tolcore:
   deployment:
     environment: "dev"
   db:
-    enabled: false
+    enabled: true
     fullname: "tol-portal-db"
     user: ""
     password: ""
@@ -101,12 +101,12 @@ tolcore:
     host: ""
     port: "" # specify as a string
   dbutils:
-    enabled: false
+    enabled: true
     image:
       repository: ""
       tag: ""
   schemaspy:
-    enabled: false
+    enabled: true
     image:
       repository: ""
       tag: ""
@@ -144,4 +144,4 @@ tolcore:
   restore:
     prefix: ""
   alembic:
-    enabled: false
+    enabled: true
