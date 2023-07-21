@@ -19,6 +19,17 @@ from tol.elastic import ElasticDataSource
 from tol.sql import create_sql_datasource
 
 from .model import SequencingRequestEvent
+from .model.sts import (
+    EPSample,
+    Project,
+    Sample,
+    SampleProject,
+    SampleSpecies,
+    SequencingRequest,
+    SequencingRun,
+    Species,
+    Specimen
+)
 
 
 def application():
@@ -47,5 +58,16 @@ def application():
     blueprint_data_local = data_blueprint(sql_datasource)
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
+
+    # STS endpoints
+    sts = create_sql_datasource(
+        models=[EPSample, Project, Sample, SampleProject, SampleSpecies,
+                Species, Specimen, SequencingRequest, SequencingRun],
+        db_uri=os.getenv('STS_DB_URI')
+    )
+    core_data_object(sts)
+    blueprint_data_sts = data_blueprint(sts)
+    app.register_blueprint(blueprint_data_sts, name='sts',
+                           url_prefix=os.getenv('API_PATH') + '/external/sts')
 
     return app

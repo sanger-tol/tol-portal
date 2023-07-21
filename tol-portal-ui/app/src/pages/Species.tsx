@@ -17,11 +17,17 @@ function Species() {
             "id": {
               rename: "Taxonomy ID"
             },
-            "tolid_name": {
+            "sts_scientific_name": {
               rename: "Scientific Name"
             },
+            "sts_family": {
+              rename: "Family"
+            },
+            "sts_order_group": {
+              rename: "Order"
+            },
             "tolid_prefix": {
-              rename: "ToLID Prefix"
+              rename: "ToLID prefix"
             },
           }}
         />

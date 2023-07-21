@@ -28,6 +28,7 @@ services:
       - ELASTIC_PASSWORD
       - ELASTIC_INDEX_PREFIX
       - DB_URI
+      - STS_DB_URI
       - TOL_PORTAL_URL
       - API_PATH
       - ELIXIR_CLIENT_ID

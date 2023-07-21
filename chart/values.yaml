@@ -115,6 +115,9 @@ tolcore:
     user: ""
     password: ""
     index_prefix: ""
+  sts:
+    db:
+      uri: ""
   api:
     enabled: true
     fullname: "tol-portal-api"
@@ -126,6 +129,7 @@ tolcore:
       ELASTIC_USER: elastic.user
       ELASTIC_PASSWORD: elastic.password
       ELASTIC_INDEX_PREFIX: elastic.index_prefix
+      STS_DB_URI: sts.db.uri
   flask:
     env: ""
   ui:

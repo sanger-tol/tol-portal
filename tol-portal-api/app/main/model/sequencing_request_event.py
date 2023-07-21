@@ -12,7 +12,7 @@ from .base import Base
 class SequencingRequestEvent(Base):
     __tablename__ = 'sequencing_request_event'
 
-    sample_ref: Mapped[str] = mapped_column(primary_key=True)  # noqa A003
+    sample_ref: Mapped[str] = mapped_column(primary_key=True)
     date_sent_to_sciops: Mapped[datetime.datetime] = mapped_column(nullable=False)
 
     @classmethod
