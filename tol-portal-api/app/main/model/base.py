@@ -4,5 +4,6 @@
 
 from tol.sql import model_base
 
-
+StsBase = model_base()
+TolidBase = model_base()
 Base = model_base()

@@ -27,10 +27,12 @@ from .model.sts import (
     SampleSpecies,
     SequencingRequest,
     SequencingRun,
+    Species as StsSpecies,
+    Specimen as StsSpecimen
 )
 from .model.tolid import (
-    Species,
-    Specimen
+    Species as TolidSpecies,
+    Specimen as TolidSpecimen
 )
 
 
@@ -63,22 +65,23 @@ def application():
 
     # TolID endpoints
     tolid = create_sql_datasource(
-        models=[Species, Specimen],
+        models=[TolidSpecies, TolidSpecimen],
         db_uri=os.getenv('TOLID_DB_URI')
     )
-    core_data_object(tolid)
     blueprint_data_tolid = data_blueprint(tolid)
     app.register_blueprint(blueprint_data_tolid, name='tolid',
                            url_prefix=os.getenv('API_PATH') + '/external/tolid')
+
     # STS endpoints
     sts = create_sql_datasource(
         models=[EPSample, Project, Sample, SampleProject, SampleSpecies,
-                Species, Specimen, SequencingRequest, SequencingRun],
+                StsSpecies, StsSpecimen, SequencingRequest, SequencingRun],
         db_uri=os.getenv('STS_DB_URI')
     )
-    core_data_object(sts)
     blueprint_data_sts = data_blueprint(sts)
     app.register_blueprint(blueprint_data_sts, name='sts',
                            url_prefix=os.getenv('API_PATH') + '/external/sts')
+
+    core_data_object(tolid, sts)
 
     return app
