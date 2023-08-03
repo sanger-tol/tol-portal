@@ -24,8 +24,11 @@ class Species(Base):
     taxon_group: Mapped[str] = mapped_column()
     genome_size: Mapped[str] = mapped_column()
 
-    sample_species: Mapped[List['SampleSpecies']] \
-        = relationship(back_populates='species')  # noqa F821
+    sample_species: Mapped[List['SampleSpecies']] = \
+        relationship(back_populates='species')  # noqa F821
+
+    species_lab_work_statuses: Mapped[List['SpeciesLabWorkStatus']] = \
+        relationship(back_populates='species')  # noqa F821
 
     @classmethod
     def get_id_column_name(cls) -> str:

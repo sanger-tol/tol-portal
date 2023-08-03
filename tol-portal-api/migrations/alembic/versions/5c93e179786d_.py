@@ -21,6 +21,8 @@ def upgrade() -> None:
         'sequencing_request_event',
         sa.Column('sample_ref', sa.String(255), primary_key=True),
         sa.Column('date_sent_to_sciops', sa.DateTime, nullable=False),
+        sa.Column('sample_labware_uuid', sa.String),
+        sa.Column('plate_labware_uuid', sa.String),
     )
 
 def downgrade() -> None:

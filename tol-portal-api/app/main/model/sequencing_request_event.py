@@ -14,6 +14,8 @@ class SequencingRequestEvent(Base):
 
     sample_ref: Mapped[str] = mapped_column(primary_key=True)
     date_sent_to_sciops: Mapped[datetime.datetime] = mapped_column(nullable=False)
+    plate_labware_uuid: Mapped[str] = mapped_column()
+    sample_labware_uuid: Mapped[str] = mapped_column()
 
     @classmethod
     def get_id_column_name(cls) -> str:

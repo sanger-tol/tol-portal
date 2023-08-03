@@ -40,15 +40,23 @@ class Sample(Base):
     series: Mapped[str] = mapped_column()
     rackid: Mapped[str] = mapped_column()
     tubeid: Mapped[str] = mapped_column()
-    # gal_id = db.Column(db.Integer, db.ForeignKey('gal.gal_id'))
-    # gal = db.relationship("StsGal", uselist=False, foreign_keys=[gal_id])
+    gal_id: Mapped[str] = mapped_column(
+        ForeignKey('gal.gal_id'),
+        nullable=False
+    )
+    gal: Mapped['Gal'] \
+        = relationship(back_populates='samples') # noqa F821
     # cmethod_id = db.Column(db.Integer, db.ForeignKey('cmethod.method_id'))
     # collection_method = db.relationship("StsCmethod", uselist=False, foreign_keys=[cmethod_id])
     # col_ease_id = db.Column(db.Integer, db.ForeignKey('collection_ease.ease_id'))
     # collection_ease = db.relationship("StsCollectionEase", uselist=False,
     #                                   foreign_keys=[col_ease_id])
-    # loc_id = db.Column(db.Integer, db.ForeignKey('location.location_id'))
-    # location = db.relationship("StsLocation", uselist=False, foreign_keys=[loc_id])
+    loc_id: Mapped[str] = mapped_column(
+        ForeignKey('location.location_id'),
+        nullable=False
+    )
+    location: Mapped['Location'] \
+        = relationship(back_populates='samples') # noqa F821
     # imethod_id = db.Column(db.Integer, db.ForeignKey('imethod.method_id'))
     # identification_method = db.relationship("StsImethod", uselist=False,
     #                                         foreign_keys=[imethod_id])
@@ -180,6 +188,9 @@ class Sample(Base):
     relocation_note: Mapped[str] = mapped_column(nullable=True)
     # returned_id = db.Column(db.Integer, db.ForeignKey('storage_returned.returned_id'),
     #                         nullable=True)
+
+    sequencescape_study_id: Mapped[str] = mapped_column(nullable=True)
+    cost_code: Mapped[str] = mapped_column(nullable=True)
 
     @classmethod
     def get_id_column_name(cls) -> str:

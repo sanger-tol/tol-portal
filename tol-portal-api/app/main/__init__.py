@@ -21,6 +21,8 @@ from tol.sql import create_sql_datasource
 from .model import SequencingRequestEvent
 from .model.sts import (
     EPSample,
+    Gal,
+    Location,
     Project,
     Sample,
     SampleProject,
@@ -28,6 +30,7 @@ from .model.sts import (
     SequencingRequest,
     SequencingRun,
     Species as StsSpecies,
+    SpeciesLabWorkStatus,
     Specimen as StsSpecimen
 )
 from .model.tolid import (
@@ -74,8 +77,9 @@ def application():
 
     # STS endpoints
     sts = create_sql_datasource(
-        models=[EPSample, Project, Sample, SampleProject, SampleSpecies,
-                StsSpecies, StsSpecimen, SequencingRequest, SequencingRun],
+        models=[EPSample, Gal, Location, Project, Sample, SampleProject,
+                SampleSpecies, StsSpecies, SpeciesLabWorkStatus, StsSpecimen,
+                SequencingRequest, SequencingRun],
         db_uri=os.getenv('STS_DB_URI')
     )
     blueprint_data_sts = data_blueprint(sts)
