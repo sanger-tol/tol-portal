@@ -9,7 +9,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 # from .sample import Sample
-from ..base import Base
+from .base import Base
 
 
 class Specimen(Base):

@@ -7,10 +7,10 @@ import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..base import TolidBase
+from .base import Base
 
 
-class Specimen(TolidBase):
+class Specimen(Base):
     __tablename__ = 'specimen'
 
     tolid: Mapped[str] = mapped_column(primary_key=True)
@@ -24,4 +24,4 @@ class Specimen(TolidBase):
 
     @classmethod
     def get_id_column_name(cls) -> str:
-        return 'specimen_id'
+        return 'tolid'

@@ -6,10 +6,10 @@ from typing import List
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..base import TolidBase
+from .base import Base
 
 
-class Species(TolidBase):
+class Species(Base):
     __tablename__ = 'species'
 
     taxonomy_id: Mapped[int] = mapped_column(primary_key=True)
