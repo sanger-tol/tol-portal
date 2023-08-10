@@ -13,7 +13,7 @@ from .base import Base
 class Location(Base):
     __tablename__ = 'location'
     location_id: Mapped[str] = mapped_column(primary_key=True, autoincrement=True)
-    # location: Mapped[str] = mapped_column(nullable=False)
+    location: Mapped[str] = mapped_column(nullable=False)
     lat: Mapped[str] = mapped_column()
     long: Mapped[str] = mapped_column()
     grid_reference: Mapped[str] = mapped_column()

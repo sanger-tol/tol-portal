@@ -24,7 +24,7 @@ class SampleSpecies(Base):
     )
     species: Mapped['Species'] = relationship(back_populates='sample_species')  # noqa F821
 
-    type: Mapped[str] = mapped_column(nullable=False)  # noqa A003
+    target_or_symbiont: Mapped[str] = mapped_column('type', nullable=False)  # noqa A003
     taxon_remark: Mapped[str] = mapped_column()
     copoid: Mapped[str] = mapped_column()
     # strain_id = db.Column(db.Integer, db.ForeignKey('strain.strain_id'))
