@@ -14,6 +14,7 @@ from .base import Base
 class SpeciesLabWorkStatus(Base):
     __tablename__ = 'species_lab_work_status'
 
+    id: Mapped[int] = mapped_column()  # noqa A003
     species_id: Mapped[int] = mapped_column(
         ForeignKey('species.species_id'),
         primary_key=True

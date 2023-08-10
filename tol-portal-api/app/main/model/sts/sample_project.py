@@ -11,6 +11,7 @@ from .base import Base
 class SampleProject(Base):
     __tablename__ = 'sample_project'
 
+    id: Mapped[int] = mapped_column()  # noqa A003
     sample_id: Mapped[int] = mapped_column(
         ForeignKey('sample.sample_id'),
         primary_key=True
