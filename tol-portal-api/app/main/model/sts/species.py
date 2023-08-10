@@ -7,7 +7,7 @@ from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 # from .sample_species import SampleSpecies
-from ..base import Base
+from .base import Base
 
 
 class Species(Base):

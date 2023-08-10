@@ -15,6 +15,7 @@ from tol.api_base2 import (
     system_blueprint
 )
 from tol.core import core_data_object
+from tol.core.relationship import RelationshipConfig
 from tol.elastic import ElasticDataSource
 from tol.sql import create_sql_datasource
 
@@ -43,10 +44,35 @@ def application():
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
+
+    rc_sequencing_request = RelationshipConfig()
+    rc_sequencing_request.to_one = {'sample_linked_by_benchling_sts_id': 'sample',
+                                    'species_linked_by_benchling_taxon_id': 'species'}
+    rc_sequencing_request.foreign_keys = {
+        'sample_linked_by_benchling_sts_id': 'benchling_sts_id',
+        'species_linked_by_benchling_taxon_id': 'benchling_taxon_id'
+    }
+    rc_sample = RelationshipConfig()
+    rc_sample.to_many = {
+        'sequencing_requests_linked_by_benchling_sts_id': 'sequencing_request'
+    }
+    rc_sample.foreign_keys = {
+        'sequencing_requests_linked_by_benchling_sts_id': 'benchling_sts_id'
+    }
+    rc_species = RelationshipConfig()
+    rc_species.to_many = {'samples_linked_by_benchling_taxon_id': 'sample'}
+    rc_species.foreign_keys = {
+        'samples_linked_by_benchling_taxon_id': 'benchling_taxon_id'
+    }
+    relationship_config = {'sequencing_request': rc_sequencing_request,
+                           'sample': rc_sample,
+                           'species': rc_species}
+
     eds = ElasticDataSource({'uri': os.getenv('ELASTIC_URI'),
                              'user': os.getenv('ELASTIC_USER'),
                              'password': os.getenv('ELASTIC_PASSWORD'),
-                             'index_prefix': os.getenv('ELASTIC_INDEX_PREFIX')})
+                             'index_prefix': os.getenv('ELASTIC_INDEX_PREFIX'),
+                             'relationship_cfg': relationship_config})
     # The main endpoints for the elastic data
     core_data_object(eds)
     blueprint_data = data_blueprint(eds)
