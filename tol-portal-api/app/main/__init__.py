@@ -14,6 +14,9 @@ from tol.api_base2 import (
     data_blueprint,
     system_blueprint
 )
+from tol.api_base2.misc import (
+    quick_and_dirty_auth
+)
 from tol.core import core_data_object
 from tol.core.relationship import RelationshipConfig
 from tol.elastic import ElasticDataSource
@@ -92,12 +95,14 @@ def application():
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
 
+    authenticator = quick_and_dirty_auth(omnipotent_token='needToKnow43957')
+
     # TolID endpoints
     tolid = create_sql_datasource(
         models=[TolidSpecies, TolidSpecimen],
         db_uri=os.getenv('TOLID_DB_URI')
     )
-    blueprint_data_tolid = data_blueprint(tolid)
+    blueprint_data_tolid = data_blueprint(tolid, authenticator=authenticator)
     app.register_blueprint(blueprint_data_tolid, name='tolid',
                            url_prefix=os.getenv('API_PATH') + '/external/tolid')
 
@@ -108,7 +113,7 @@ def application():
                 SequencingRequest, SequencingRun],
         db_uri=os.getenv('STS_DB_URI')
     )
-    blueprint_data_sts = data_blueprint(sts)
+    blueprint_data_sts = data_blueprint(sts, authenticator=authenticator)
     app.register_blueprint(blueprint_data_sts, name='sts',
                            url_prefix=os.getenv('API_PATH') + '/external/sts')
 
