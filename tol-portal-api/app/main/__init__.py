@@ -48,27 +48,69 @@ def application():
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    rc_sequencing_request = RelationshipConfig()
-    rc_sequencing_request.to_one = {'sample_linked_by_benchling_sts_id': 'sample',
-                                    'species_linked_by_benchling_taxon_id': 'species'}
-    rc_sequencing_request.foreign_keys = {
-        'sample_linked_by_benchling_sts_id': 'benchling_sts_id',
-        'species_linked_by_benchling_taxon_id': 'benchling_taxon_id'
+    rc_barcoding_run_data = RelationshipConfig()
+    rc_barcoding_run_data.to_one = {
+        'sts_sample': 'sample',
+        'sts_species': 'species'
     }
+
+    rc_run_data = RelationshipConfig()
+    rc_run_data.to_one = {'mlwh_sequencing_request': 'sequencing_request',
+                          'mlwh_specimen': 'specimen',
+                          'mlwh_species': 'species',
+                          'tolqc_sequencing_request': 'sequencing_request',
+                          'tolqc_specimen': 'specimen',
+                          'tolqc_species': 'species'}
+
+    rc_sequencing_request = RelationshipConfig()
+    rc_sequencing_request.to_one = {'benchling_sample': 'sample',
+                                    'benchling_species': 'species'}
+    rc_sequencing_request.to_many = {
+        'mlwh_run_datas': 'run_data',
+        'tolqc_run_datas': 'run_data'
+    }
+    rc_sequencing_request.foreign_keys = {
+        'mlwh_run_datas': 'mlwh_sequencing_request.id',
+        'tolqc_run_datas': 'tolqc_sequencing_request.id'
+    }
+
     rc_sample = RelationshipConfig()
+    rc_sample.to_one = {'sts_specimen': 'specimen',
+                        'benchling_specimen': 'specimen',
+                        'sts_species': 'species',
+                        'benchling_species': 'species'}
     rc_sample.to_many = {
-        'sequencing_requests_linked_by_benchling_sts_id': 'sequencing_request'
+        'bioscan_barcoding_run_datas': 'barcoding_run_data',
+        'benchling_sequencing_requests': 'sequencing_request'
     }
     rc_sample.foreign_keys = {
-        'sequencing_requests_linked_by_benchling_sts_id': 'benchling_sts_id'
+        'bioscan_barcoding_run_datas': 'sts_sample.id',
+        'benchling_sequencing_requests': 'benchling_sample.id'
     }
+
+    rc_specimen = RelationshipConfig()
+    rc_specimen.to_many = {
+        'benchling_samples': 'sample',
+        'sts_samples': 'sample'
+    }
+    rc_specimen.foreign_keys = {
+        'benchling_samples': 'benchling_specimen.id',
+        'sts_samples': 'sts_specimen.id'
+    }
+
     rc_species = RelationshipConfig()
-    rc_species.to_many = {'samples_linked_by_benchling_taxon_id': 'sample'}
+    rc_species.to_many = {'sts_samples': 'sample',
+                          'benchling_samples': 'sample',
+                          'bioscan_barcoding_run_datas': 'barcoding_run_data'}
     rc_species.foreign_keys = {
-        'samples_linked_by_benchling_taxon_id': 'benchling_taxon_id'
+        'sts_samples': 'sts_species.id',
+        'benchling_samples': 'benchling_species.id',
+        'bioscan_barcoding_run_datas': 'sts_species.id'
     }
-    relationship_config = {'sequencing_request': rc_sequencing_request,
+    relationship_config = {'run_data': rc_run_data,
+                           'sequencing_request': rc_sequencing_request,
                            'sample': rc_sample,
+                           'specimen': rc_specimen,
                            'species': rc_species}
 
     eds = ElasticDataSource({'uri': os.getenv('ELASTIC_URI'),
