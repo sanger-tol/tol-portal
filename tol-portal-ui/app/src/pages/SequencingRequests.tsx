@@ -17,11 +17,20 @@ function SequencingRequests() {
             "id": {
               rename: "Sample Ref"
             },
-            "tolqc_public_name": {
-              rename: "ToLID (in ToLQC)"
+            "benchling_sequencing_platform": {
+              rename: "Platform (Benchling)"
             },
-            "mlwh_public_name": {
-              rename: "ToLID (in MLWH)"
+            "benchling_tolid": {
+              rename: "ToLID (Benchling)"
+            },
+            "benchling_source": {
+              rename: "Source (Benchling)"
+            },
+            "benchling_eln_submission_date": {
+              rename: "Submission date (Benchling)"
+            },
+            "portaldb_date_sent_to_sciops": {
+              rename: "Date sent to SciOps"
             }
           }}
         />
