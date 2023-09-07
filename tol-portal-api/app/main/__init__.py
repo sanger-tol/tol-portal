@@ -88,6 +88,9 @@ def application():
         'benchling_sequencing_requests': 'benchling_sample.id'
     }
 
+    rc_tolid = RelationshipConfig()
+    rc_tolid.to_one = {'informatics_specimen': 'specimen'}
+
     rc_specimen = RelationshipConfig()
     rc_specimen.to_many = {
         'benchling_samples': 'sample',
@@ -110,6 +113,7 @@ def application():
     relationship_config = {'run_data': rc_run_data,
                            'sequencing_request': rc_sequencing_request,
                            'sample': rc_sample,
+                           'tolid': rc_tolid,
                            'specimen': rc_specimen,
                            'species': rc_species}
 

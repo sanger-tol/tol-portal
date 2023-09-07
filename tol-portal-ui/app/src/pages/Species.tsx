@@ -4,34 +4,51 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CentreContents, AutoTable } from '@tol/tol-ui'
+import { RemoteTable,
+         RemoteSunburst,
+         Widgets } from '@tol/tol-ui'
 
+
+const sunburst = (
+  <RemoteSunburst
+    title="Species"
+    endpoint="species"
+    sliceBy={["sts_order_group", "sts_family"]}
+    height={600}
+  />
+)
+
+const table = (
+  <RemoteTable
+    endpoint="species"
+    height={600}
+    fields={{
+      "uid": {
+        rename: "Taxonomy ID"
+      },
+      "sts_scientific_name": {
+        rename: "Scientific Name"
+      },
+      "sts_family": {
+        rename: "Family"
+      },
+      "sts_order_group": {
+        rename: "Order"
+      },
+      "sts_prefix": {
+        rename: "ToLID prefix"
+      },
+    }}
+  />
+)
 
 function Species() {
   return (
     <div className="species">
-      <CentreContents>
-        <AutoTable
-          endpoint="species"
-          fields={{
-            "id": {
-              rename: "Taxonomy ID"
-            },
-            "sts_scientific_name": {
-              rename: "Scientific Name"
-            },
-            "sts_family": {
-              rename: "Family"
-            },
-            "sts_order_group": {
-              rename: "Order"
-            },
-            "tolid_prefix": {
-              rename: "ToLID prefix"
-            },
-          }}
-        />
-      </CentreContents>
+      <Widgets
+        title="Species"
+        components={[sunburst, table]}
+      />
     </div>
   );
 }

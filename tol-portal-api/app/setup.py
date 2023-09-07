@@ -28,6 +28,6 @@ setup(
     entry_points={
         'console_scripts': ['app=main.run:main']},
     long_description="""\
-    API for Tree Of Sex
+    API for Tree Portal
     """
 )

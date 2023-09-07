@@ -5,43 +5,44 @@ SPDX-License-Identifier: MIT
 */
 
 import ReactDOM from 'react-dom';
-import { Home, Samples, Species, Specimens, SequencingRequests, SequencingRuns } from './pages';
+import { Home,
+         Species,
+         Specimens,
+         ToLIDs,
+         Samples,
+         SequencingRequests,
+         SequencingRuns } from './pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page } from '@tol/tol-ui'
 import './scss/styling.scss';
 
 const species: Page = {
   name: "Species",
-  authRequired: false,
-  adminOnly: false,
   uiElement: <Species />
 };
 
 const specimens: Page = {
   name: "Specimens",
-  authRequired: false,
-  adminOnly: false,
   uiElement: <Specimens />
+};
+
+const tolids: Page = {
+  name: "ToLIDs",
+  uiElement: <ToLIDs />
 };
 
 const samples: Page = {
   name: "Samples",
-  authRequired: false,
-  adminOnly: false,
   uiElement: <Samples />
 };
 
 const sequencingRequests: Page = {
-  name: "Sequencing",
-  authRequired: false,
-  adminOnly: false,
+  name: "Requests",
   uiElement: <SequencingRequests />
 };
 
 const sequencingRuns: Page = {
   name: "Runs",
-  authRequired: false,
-  adminOnly: false,
   uiElement: <SequencingRuns />
 };
 
@@ -52,7 +53,8 @@ ReactDOM.render(
     pages={[
       species,
       specimens,
-      samples, 
+      tolids,
+      samples,
       sequencingRequests,
       sequencingRuns
     ]}
