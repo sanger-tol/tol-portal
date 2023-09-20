@@ -22,7 +22,10 @@ from tol.core.relationship import RelationshipConfig
 from tol.elastic import ElasticDataSource
 from tol.sql import create_sql_datasource
 
-from .model import SequencingRequestEvent
+from .model import (
+    DataLoadEvent,
+    SequencingRequestEvent
+)
 from .model.sts import (
     EPSample,
     Gal,
@@ -133,7 +136,7 @@ def application():
 
     # Endpoints targeting our local database
     sql_datasource = create_sql_datasource(
-        models=[SequencingRequestEvent],
+        models=[SequencingRequestEvent, DataLoadEvent],
         db_uri=os.getenv('DB_URI')
     )
     core_data_object(sql_datasource)
