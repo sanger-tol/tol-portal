@@ -54,6 +54,8 @@ def application():
     rc_barcoding_run_data = RelationshipConfig()
     rc_barcoding_run_data.to_one = {
         'sts_sample': 'sample',
+        'sts_specimen': 'specimen',
+        'bioscan_specimen': 'specimen',
         'sts_species': 'species'
     }
 
@@ -83,11 +85,11 @@ def application():
                         'sts_species': 'species',
                         'benchling_species': 'species'}
     rc_sample.to_many = {
-        'bioscan_barcoding_run_datas': 'barcoding_run_data',
+        'sts_barcoding_run_datas': 'barcoding_run_data',
         'benchling_sequencing_requests': 'sequencing_request'
     }
     rc_sample.foreign_keys = {
-        'bioscan_barcoding_run_datas': 'sts_sample.id',
+        'sts_barcoding_run_datas': 'sts_sample.id',
         'benchling_sequencing_requests': 'benchling_sample.id'
     }
 
@@ -97,24 +99,29 @@ def application():
     rc_specimen = RelationshipConfig()
     rc_specimen.to_many = {
         'benchling_samples': 'sample',
-        'sts_samples': 'sample'
+        'sts_samples': 'sample',
+        'bioscan_barcoding_run_datas': 'barcoding_run_data',
+        'sts_barcoding_run_datas': 'barcoding_run_data'
     }
     rc_specimen.foreign_keys = {
         'benchling_samples': 'benchling_specimen.id',
-        'sts_samples': 'sts_specimen.id'
+        'sts_samples': 'sts_specimen.id',
+        'bioscan_barcoding_run_data': 'bioscan_specimen.id',
+        'sts_barcoding_run_data': 'sts_specimen.id'
     }
 
     rc_species = RelationshipConfig()
     rc_species.to_many = {'sts_samples': 'sample',
                           'benchling_samples': 'sample',
-                          'bioscan_barcoding_run_datas': 'barcoding_run_data'}
+                          'sts_barcoding_run_datas': 'barcoding_run_data'}
     rc_species.foreign_keys = {
         'sts_samples': 'sts_species.id',
         'benchling_samples': 'benchling_species.id',
-        'bioscan_barcoding_run_datas': 'sts_species.id'
+        'sts_barcoding_run_datas': 'sts_species.id'
     }
     relationship_config = {'run_data': rc_run_data,
                            'sequencing_request': rc_sequencing_request,
+                           'barcoding_run_data': rc_barcoding_run_data,
                            'sample': rc_sample,
                            'tolid': rc_tolid,
                            'specimen': rc_specimen,
