@@ -15,11 +15,13 @@ const sunburst = (
     endpoint="species"
     sliceBy={["sts_order_group", "sts_family"]}
     height={600}
+    legendPosition="left"
   />
 )
 
 const table = (
   <RemoteTable
+    id="species-table-v1"
     endpoint="species"
     height={600}
     fields={{

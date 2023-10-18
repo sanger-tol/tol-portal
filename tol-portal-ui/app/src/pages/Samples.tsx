@@ -32,15 +32,17 @@ function Samples() {
   const map = (
     <RemoteBubbleMap
       endpoint={endpoint}
-      longitudeKey="sts_latitude"
-      latitudeKey="sts_longitude"
+      longitudeKey="sts_longitude"
+      latitudeKey="sts_latitude"
       filter={combinedFilters}
+      attributeKeys="sts_public_name, sts_biosample_accession"
       height={500}
     />
   )
 
   const table = (
     <RemoteTable
+      id={`${endpoint}-table-v1`}
       endpoint={endpoint}
       filter={combinedFilters}
       defaultSort="sts_collection_country"

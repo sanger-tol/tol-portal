@@ -20,6 +20,7 @@ const booleanStatus = (statusName: string) => {
 
 const table = (
   <RemoteTable
+    id="specimen-table-v1"
     endpoint="specimen"
     defaultSort='sts_bio_specimen_id'
     height={600}

@@ -3,14 +3,17 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List
+from typing import Any, List
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from tol.sql import ext
 
 from .base import Base
 
 
+@ext
 class Sample(Base):
     __tablename__ = 'sample'
 
@@ -191,6 +194,8 @@ class Sample(Base):
 
     sequencescape_study_id: Mapped[str] = mapped_column(nullable=True)
     cost_code: Mapped[str] = mapped_column(nullable=True)
+
+    ext: Mapped[dict[str, Any]] = mapped_column(type_=JSON, nullable=True)
 
     @classmethod
     def get_id_column_name(cls) -> str:

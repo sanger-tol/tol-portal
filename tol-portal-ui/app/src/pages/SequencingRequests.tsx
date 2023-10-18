@@ -41,6 +41,7 @@ function SequencingRequests() {
 
   const table = (
     <RemoteTable
+      id="sequencing-request-table-v1"
       endpoint="sequencing_request"
       filter={combinedFilters}
       defaultSort="benchling_source"
@@ -70,7 +71,7 @@ function SequencingRequests() {
   )
 
   return (
-    <div className="sequencing-runs">
+    <div className="sequencing-requests">
       <Widgets
         title="Sequencing Requests"
         components={[filters]}

@@ -68,7 +68,8 @@ def application():
                           'tolqc_species': 'species'}
 
     rc_sequencing_request = RelationshipConfig()
-    rc_sequencing_request.to_one = {'benchling_sample': 'sample',
+    rc_sequencing_request.to_one = {'benchling_extraction': 'extraction',
+                                    'benchling_sample': 'sample',
                                     'benchling_species': 'species'}
     rc_sequencing_request.to_many = {
         'mlwh_run_datas': 'run_data',
@@ -77,6 +78,16 @@ def application():
     rc_sequencing_request.foreign_keys = {
         'mlwh_run_datas': 'mlwh_sequencing_request.id',
         'tolqc_run_datas': 'tolqc_sequencing_request.id'
+    }
+
+    rc_extraction = RelationshipConfig()
+    rc_extraction.to_one = {'benchling_sample': 'sample',
+                            'benchling_species': 'species'}
+    rc_extraction.to_many = {
+        'benchling_sequencing_requests': 'sequencing_request'
+    }
+    rc_extraction.foreign_keys = {
+        'benchling_sequencing_request': 'benchling_extraction.id'
     }
 
     rc_sample = RelationshipConfig()
@@ -121,6 +132,7 @@ def application():
     }
     relationship_config = {'run_data': rc_run_data,
                            'sequencing_request': rc_sequencing_request,
+                           'extraction': rc_extraction,
                            'barcoding_run_data': rc_barcoding_run_data,
                            'sample': rc_sample,
                            'tolid': rc_tolid,

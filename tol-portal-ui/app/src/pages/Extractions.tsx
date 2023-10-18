@@ -7,18 +7,18 @@
 import { RemoteTable,
          RemoteMultipleSelectFilters,
          RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+         Widgets } from '@tol/tol-ui'
 import { useState } from 'react';
 
 
-function SequencingRuns() {
+function Extractions() {
   const [ globalFilters, setGlobalFilters ] = useState<object>({})
   const [ combinedFilters, setCombinedFilters ] = useState<object>({})
 
   const filters = (
     <RemoteMultipleSelectFilters
-      endpoint="run_data"
-      fields={["mlwh_platform_type", "mlwh_study_id"]}
+      endpoint="extraction"
+      fields={["benchling_extraction_type"]}
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
@@ -27,10 +27,10 @@ function SequencingRuns() {
   const chart = (
     <RemoteBarChart
       stacked
-      title="Run Complete Data"
-      endpoint="run_data"
-      breakDownBy="mlwh_instrument_model"
-      xAxis="mlwh_complete_date"
+      title="Extractions"
+      endpoint="extraction"
+      breakDownBy="benchling_extraction_type"
+      xAxis="benchling_completion_date"
       interval="M"
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
@@ -41,45 +41,34 @@ function SequencingRuns() {
 
   const table = (
     <RemoteTable
-      id="run-data-table-v1"
-      endpoint="run_data"
+      id="extraction-table-v1"
+      endpoint="extraction"
       filter={combinedFilters}
-      height={500}
+      defaultSort="benchling_extraction_type"
       fields={{
-        "tolqc_run_id": {
-          rename: "Run ID"
+        "uid": {
+          rename: "Identifier"
         },
-        "tolqc_species.sts_scientific_name": {
+        "benchling_species.sts_scientific_name": {
           rename: "Species",
           relationshipBox: true
         },
-        "tolqc_sequencing_request.id": {
-          rename: "Sequencing Request",
-          relationshipBox: true
+        "benchling_tolid": {
+          rename: "ToLID (Benchling)"
         },
-        "mlwh_complete_date": {
-          rename: "Complete Date"
-        },
-        "mlwh_platform_type": {
-          rename: "Platform"
-        },
-        "mlwh_instrument_model": {
-          rename: "Instrument"
-        },
-        "tolqc_position": {
-          rename: "Position"
-        },
-        "tolqc_tag_index": {
-          rename: "Tag"
+        "benchling_completion_date": {
+          rename: "Date Completed (Benchling)",
+          sort: true
         }
       }}
+      height={500}
     />
   )
 
   return (
-    <div className="sequencing-runs">
+    <div className="extractions">
       <Widgets
-        title="Sequencing Runs"
+        title="Extractions"
         components={[filters]}
       />
       <Widgets
@@ -88,4 +77,5 @@ function SequencingRuns() {
     </div>
   );
 }
-export default SequencingRuns;
+
+export default Extractions;
