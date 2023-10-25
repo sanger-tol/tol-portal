@@ -163,7 +163,7 @@ def application():
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
 
-    authenticator = quick_and_dirty_auth(omnipotent_token='needToKnow43957')
+    authenticator = quick_and_dirty_auth(omnipotent_token=os.getenv('API_TOKEN'))
 
     # TolID endpoints
     tolid = create_sql_datasource(
