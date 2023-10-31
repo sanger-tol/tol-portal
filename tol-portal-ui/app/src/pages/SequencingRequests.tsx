@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 
 function SequencingRequests() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({})
+  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
   const [ combinedFilters, setCombinedFilters ] = useState<object>({})
 
   const filters = (
@@ -41,7 +41,7 @@ function SequencingRequests() {
 
   const table = (
     <RemoteTable
-      id="sequencing-request-table-v1"
+      id="sequencing-request-table-v2"
       endpoint="sequencing_request"
       filter={combinedFilters}
       defaultSort="benchling_source"

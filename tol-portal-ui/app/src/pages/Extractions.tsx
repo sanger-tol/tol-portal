@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 
 function Extractions() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({})
+  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
   const [ combinedFilters, setCombinedFilters ] = useState<object>({})
 
   const filters = (
@@ -41,7 +41,7 @@ function Extractions() {
 
   const table = (
     <RemoteTable
-      id="extraction-table-v1"
+      id="extraction-table-v2"
       endpoint="extraction"
       filter={combinedFilters}
       defaultSort="benchling_extraction_type"

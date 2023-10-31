@@ -12,6 +12,7 @@ import { Button,
 				 Row,
 				 Col } from '@tol/tol-ui'
 
+
 const getGreeting = () => {
 	const hour = new Date().getHours()
 	if (hour < 12) {
@@ -87,7 +88,7 @@ const speciesSunburst = (
 
 const speciesTable = (
   <RemoteTable
-		id="species-home-table-v1"
+		id="species-home-table-v2"
     endpoint="species"
     height={500}
     fields={{
@@ -109,7 +110,6 @@ const speciesTable = (
     }}
   />
 )
-
 
 function Home() {
   return (

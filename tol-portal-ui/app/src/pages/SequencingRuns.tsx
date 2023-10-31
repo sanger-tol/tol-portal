@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 
 function SequencingRuns() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({})
+  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
   const [ combinedFilters, setCombinedFilters ] = useState<object>({})
 
   const filters = (
@@ -41,7 +41,7 @@ function SequencingRuns() {
 
   const table = (
     <RemoteTable
-      id="run-data-table-v1"
+      id="run-data-table-v2"
       endpoint="run_data"
       filter={combinedFilters}
       height={500}

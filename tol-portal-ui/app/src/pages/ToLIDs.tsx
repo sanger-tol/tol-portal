@@ -11,7 +11,7 @@ import { RemoteTable,
 function ToLIDs() {
   const table = (
     <RemoteTable
-      id="tolid-table-v1"
+      id="tolid-table-v2"
       endpoint="tolid"
       height={600}
       defaultSort="uid"

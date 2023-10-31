@@ -42,7 +42,7 @@ function Samples() {
 
   const table = (
     <RemoteTable
-      id={`${endpoint}-table-v1`}
+      id={`${endpoint}-table-v2`}
       endpoint={endpoint}
       filter={combinedFilters}
       defaultSort="sts_collection_country"
