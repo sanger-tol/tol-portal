@@ -54,6 +54,7 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_API_PATH=${API_PATH}
+      - REACT_APP_MATOMO_SITE_ID=${MATOMO_SITE_ID}
     ports:
       - 3010:3000
     volumes:
