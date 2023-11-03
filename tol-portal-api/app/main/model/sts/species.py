@@ -2,8 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
+import datetime
 from typing import List
 
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 # from .sample_species import SampleSpecies
@@ -23,6 +25,16 @@ class Species(Base):
     common_name: Mapped[str] = mapped_column()
     taxon_group: Mapped[str] = mapped_column()
     genome_size: Mapped[str] = mapped_column()
+    sequencing_material_status_updated_at: Mapped[datetime.datetime] = mapped_column()
+    ready: Mapped[bool] = mapped_column(default=False, nullable=False)
+    tissue_depleted: Mapped[str] = mapped_column()
+
+    sequencing_material_status_id: Mapped[str] = mapped_column(
+        ForeignKey('sequencing_material_status.status_id'),
+        nullable=True
+    )
+    sequencing_material_status: Mapped['SequencingMaterialStatus'] \
+        = relationship(back_populates='species') # noqa F821
 
     sample_species: Mapped[List['SampleSpecies']] = \
         relationship(back_populates='species')  # noqa F821
