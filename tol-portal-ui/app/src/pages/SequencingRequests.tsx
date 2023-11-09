@@ -30,7 +30,7 @@ function SequencingRequests() {
       title="Submission from Benchling to SciOps"
       endpoint="sequencing_request"
       breakDownBy="benchling_source"
-      xAxis="benchling_eln_submission_date"
+      xAxis="benchling_completion_date"
       interval="M"
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
@@ -52,14 +52,14 @@ function SequencingRequests() {
         "benchling_sequencing_platform": {
           rename: "Platform (Benchling)"
         },
-        "benchling_tolid": {
+        "benchling_programme_id": {
           rename: "ToLID (Benchling)"
         },
         "benchling_source": {
           rename: "Source (Benchling)"
         },
-        "benchling_eln_submission_date": {
-          rename: "Submission Date (Benchling)"
+        "benchling_completion_date": {
+          rename: "Completion Date (Benchling)"
         },
         "portaldb_date_sent_to_sciops": {
           rename: "Date Sent To SciOps",

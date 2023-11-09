@@ -53,7 +53,7 @@ function Extractions() {
           rename: "Species",
           relationshipBox: true
         },
-        "benchling_tolid": {
+        "benchling_programme_id": {
           rename: "ToLID (Benchling)"
         },
         "benchling_completion_date": {
