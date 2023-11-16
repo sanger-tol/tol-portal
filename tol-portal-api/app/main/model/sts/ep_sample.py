@@ -50,6 +50,7 @@ class EPSample(Base):
     updated_at: Mapped[datetime.datetime] = mapped_column()
     eln_id: Mapped[str] = mapped_column()
     eln_last_modified: Mapped[datetime.datetime] = mapped_column()
+    eln_entity_id: Mapped[str] = mapped_column()
     tissue_remaining: Mapped[int] = mapped_column()
     archived: Mapped[bool] = mapped_column()
     extraction_kit: Mapped[str] = mapped_column()
