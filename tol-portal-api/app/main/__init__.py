@@ -29,6 +29,7 @@ from .model import (
 from .model.sts import (
     EPSample,
     Gal,
+    Lifestage,
     Location,
     Project,
     Sample,
@@ -37,6 +38,7 @@ from .model.sts import (
     SequencingMaterialStatus,
     SequencingRequest,
     SequencingRun,
+    Sex,
     Species as StsSpecies,
     SpeciesLabWorkStatus,
     Specimen as StsSpecimen
@@ -177,9 +179,9 @@ def application():
 
     # STS endpoints
     sts = create_sql_datasource(
-        models=[EPSample, Gal, Location, Project, Sample, SampleProject,
-                SampleSpecies, StsSpecies, SpeciesLabWorkStatus, StsSpecimen,
-                SequencingMaterialStatus, SequencingRequest, SequencingRun],
+        models=[EPSample, Gal, Lifestage, Location, Project, Sample, SampleProject,
+                SampleSpecies, StsSpecies, SpeciesLabWorkStatus, StsSpecimen, 
+                SequencingMaterialStatus, SequencingRequest, SequencingRun, Sex],
         db_uri=os.getenv('STS_DB_URI')
     )
     blueprint_data_sts = data_blueprint(sts, authenticator=authenticator)

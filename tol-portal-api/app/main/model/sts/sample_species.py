@@ -23,6 +23,19 @@ class SampleSpecies(Base):
         primary_key=True
     )
     species: Mapped['Species'] = relationship(back_populates='sample_species')  # noqa F821
+    sex_id: Mapped[str] = mapped_column(
+        ForeignKey('sex.sex_id'),
+        nullable=False
+    )
+    sex: Mapped['Sex'] \
+        = relationship(back_populates='sample_species')
+    
+    lifestage_id: Mapped[str] = mapped_column(
+        ForeignKey('lifestage.lifestage_id'),
+        nullable=False
+    )
+    lifestage: Mapped['Lifestage'] \
+        = relationship(back_populates='sample_species')
 
     target_or_symbiont: Mapped[str] = mapped_column('type', nullable=False)  # noqa A003
     taxon_remark: Mapped[str] = mapped_column()

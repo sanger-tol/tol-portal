@@ -15,3 +15,5 @@ from .sequencing_run import SequencingRun # noqa
 from .species import Species  # noqa
 from .species_lab_work_status import SpeciesLabWorkStatus  # noqa
 from .specimen import Specimen  # noqa
+from .sex import Sex
+from .lifestage import Lifestage
