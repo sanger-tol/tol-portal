@@ -4,6 +4,7 @@
 
 from .ep_sample import EPSample  # noqa
 from .gal import Gal  # noqa
+from .lifestage import Lifestage # noqa
 from .location import Location  # noqa
 from .project import Project  # noqa
 from .sample import Sample  # noqa
@@ -12,8 +13,7 @@ from .sample_species import SampleSpecies  # noqa
 from .sequencing_material_status import SequencingMaterialStatus # noqa
 from .sequencing_request import SequencingRequest # noqa
 from .sequencing_run import SequencingRun # noqa
+from .sex import Sex # noqa
 from .species import Species  # noqa
 from .species_lab_work_status import SpeciesLabWorkStatus  # noqa
 from .specimen import Specimen  # noqa
-from .sex import Sex
-from .lifestage import Lifestage

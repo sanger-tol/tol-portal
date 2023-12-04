@@ -180,8 +180,8 @@ def application():
     # STS endpoints
     sts = create_sql_datasource(
         models=[EPSample, Gal, Lifestage, Location, Project, Sample, SampleProject,
-                SampleSpecies, StsSpecies, SpeciesLabWorkStatus, StsSpecimen, 
-                SequencingMaterialStatus, SequencingRequest, SequencingRun, Sex],
+                SampleSpecies, Sex, StsSpecies, SpeciesLabWorkStatus, StsSpecimen,
+                SequencingMaterialStatus, SequencingRequest, SequencingRun],
         db_uri=os.getenv('STS_DB_URI')
     )
     blueprint_data_sts = data_blueprint(sts, authenticator=authenticator)
