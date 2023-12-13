@@ -43,7 +43,7 @@ const title = (
     <h2>{getGreeting()}</h2>
     <p className='mt-2'>
 			Welcome to ToL Portal, the home of Tree of Life data.
-			This site is still being built, so please don't rely on anything just yet!
+			This site is still being built, so please don&apos;t rely on anything just yet!
     </p>
   </span>
 );

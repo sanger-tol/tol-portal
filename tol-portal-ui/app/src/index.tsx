@@ -54,8 +54,9 @@ const sequencingRuns: Page = {
   uiElement: <SequencingRuns />
 };
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   <TolApp
     brand={
       <img
@@ -75,8 +76,7 @@ ReactDOM.render(
       sequencingRuns
     ]}
     login={false}
-  />,
-  document.getElementById('root')
+  />
 );
 
 // If you want to start measuring performance in your app, pass a function
