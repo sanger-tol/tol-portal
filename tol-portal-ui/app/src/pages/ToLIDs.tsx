@@ -9,11 +9,6 @@ import { RemoteTable,
   Widgets } from '@tol/tol-ui';
 
 
-const color = 'b';
-if (color === "red") {
-  // ...
-}
-
 function ToLIDs() {
   const table = (
     <RemoteTable

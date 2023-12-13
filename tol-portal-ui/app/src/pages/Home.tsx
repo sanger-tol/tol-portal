@@ -13,6 +13,10 @@ import { Button,
   Row,
   Col } from '@tol/tol-ui';
 
+const color = "blue";
+if (color === "red") {
+  // ...
+}
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -20,7 +24,7 @@ const getGreeting = () => {
     return "Good morning - have a great day.";
   } else if (hour >= 17) {
     return "Good evening.";
-  } else if (hour >= 12) {
+  } else {
     return "Good afternoon.";
   }
 };
