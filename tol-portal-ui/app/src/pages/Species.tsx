@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+import React from 'react';
 import { RemoteTable,
-         RemoteSunburst,
-         Widgets } from '@tol/tol-ui'
+  RemoteSunburst,
+  Widgets } from '@tol/tol-ui';
 
 
 const sunburst = (
@@ -17,7 +18,7 @@ const sunburst = (
     height={600}
     legendPosition="left"
   />
-)
+);
 
 const table = (
   <RemoteTable
@@ -42,7 +43,7 @@ const table = (
       },
     }}
   />
-)
+);
 
 function Species() {
   return (

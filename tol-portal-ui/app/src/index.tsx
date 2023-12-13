@@ -4,18 +4,19 @@ SPDX-FileCopyrightText: 2023 Genome Research Ltd.
 SPDX-License-Identifier: MIT
 */
 
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Home,
-         Species,
-         Specimens,
-         ToLIDs,
-         Samples,
-         Extractions,
-         SequencingRequests,
-         SequencingRuns } from './pages';
+  Species,
+  Specimens,
+  ToLIDs,
+  Samples,
+  Extractions,
+  SequencingRequests,
+  SequencingRuns } from './pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page } from '@tol/tol-ui'
-import Logo from './assets/logo.png'
+import { TolApp, Page } from '@tol/tol-ui';
+import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 const species: Page = {

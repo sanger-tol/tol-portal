@@ -4,16 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+import React from 'react';
 import { RemoteTable,
-         RemoteMultipleSelectFilters,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+  RemoteMultipleSelectFilters,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
 function SequencingRuns() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
+  const [combinedFilters, setCombinedFilters] = useState<object>({});
 
   const filters = (
     <RemoteMultipleSelectFilters
@@ -22,7 +23,7 @@ function SequencingRuns() {
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
-  )
+  );
 
   const chart = (
     <RemoteBarChart
@@ -37,7 +38,7 @@ function SequencingRuns() {
       type='date'
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
@@ -74,7 +75,7 @@ function SequencingRuns() {
         }
       }}
     />
-  )
+  );
 
   return (
     <div className="sequencing-runs">

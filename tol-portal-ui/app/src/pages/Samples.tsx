@@ -4,16 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+import React from 'react';
 import { RemoteBubbleMap,
-         RemoteTable,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
-         import { useState } from 'react';
+  RemoteTable,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
+import { useState } from 'react';
 
 
 function Samples() {
-  const endpoint = "sample"
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const endpoint = "sample";
+  const [combinedFilters, setCombinedFilters] = useState<object>({});
 
   const chart = (
     <RemoteBarChart
@@ -27,7 +28,7 @@ function Samples() {
       type='date'
       height={500}
     />
-  )
+  );
 
   const map = (
     <RemoteBubbleMap
@@ -38,7 +39,7 @@ function Samples() {
       attributeKeys="sts_public_name, sts_biosample_accession"
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
@@ -71,7 +72,7 @@ function Samples() {
       }}
       height={500}
     />
-  )
+  );
 
   return (
     <div className="samples">

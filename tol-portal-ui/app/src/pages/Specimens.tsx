@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+import React from 'react';
 import { RemoteTable,
-         Widgets } from '@tol/tol-ui'
-import BooleanStatus from '../components/BooleanStatus'
+  Widgets } from '@tol/tol-ui';
+import BooleanStatus from '../components/BooleanStatus';
 
 
 const booleanStatus = (statusName: string) => {
@@ -15,8 +16,8 @@ const booleanStatus = (statusName: string) => {
     propPointers: {
       status: statusName
     }
-  }
-}
+  };
+};
 
 const table = (
   <RemoteTable
@@ -61,7 +62,7 @@ const table = (
       }
     }}
   />
-)
+);
 
 function Specimens() {
   return (
