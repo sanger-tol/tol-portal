@@ -5,7 +5,7 @@ SPDX-License-Identifier: MIT
 */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Home,
   Species,
   Specimens,
@@ -54,7 +54,7 @@ const sequencingRuns: Page = {
   uiElement: <SequencingRuns />
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 
 root.render(
   <TolApp
