@@ -13,10 +13,6 @@ import { Button,
   Row,
   Col } from '@tol/tol-ui';
 
-const color = "blue";
-if (color === "red") {
-  // ...
-}
 
 const getGreeting = () => {
   const hour = new Date().getHours();
