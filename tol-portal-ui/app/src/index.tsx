@@ -12,7 +12,8 @@ import { Home,
          Samples,
          Extractions,
          SequencingRequests,
-         SequencingRuns } from './pages';
+         SequencingRuns,
+         SpeciesDetail } from './pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page } from '@tol/tol-ui'
 import Logo from './assets/logo.png'
@@ -53,6 +54,11 @@ const sequencingRuns: Page = {
   uiElement: <SequencingRuns />
 };
 
+const speciesDetail: Page = {
+  name: "Species Detail",
+  uiElement: <SpeciesDetail />
+}
+
 ReactDOM.render(
   <TolApp
     brand={
@@ -70,7 +76,8 @@ ReactDOM.render(
       samples,
       extractions,
       sequencingRequests,
-      sequencingRuns
+      sequencingRuns,
+      speciesDetail
     ]}
     login={false}
   />,

@@ -12,3 +12,4 @@ export { default as Extractions } from "./Extractions";
 export { default as SequencingRequests } from "./SequencingRequests";
 export { default as SequencingRuns } from "./SequencingRuns";
 export { default as ToLIDs } from "./ToLIDs";
+export { default as SpeciesDetail } from "./SpeciesDetail"
