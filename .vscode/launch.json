@@ -12,7 +12,7 @@
             "remoteRoot": "/app"
           },
           {
-            "localRoot": "/Users/em29/git/",
+            "localRoot": "${workspaceFolder:..}",
             "remoteRoot": "/packages/"
           }
         ],
