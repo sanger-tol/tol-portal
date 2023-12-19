@@ -1,0 +1,22 @@
+{
+    "configurations": [
+      {
+        "name": "Python: Remote Attach",
+        "type": "python",
+        "request": "attach",
+        "port": 15789,
+        "host": "127.0.0.1",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}/tol-portal-api/app",
+            "remoteRoot": "/app"
+          },
+          {
+            "localRoot": "/Users/em29/git/",
+            "remoteRoot": "/packages/"
+          }
+        ],
+        "justMyCode": false
+      }
+    ]
+  }
