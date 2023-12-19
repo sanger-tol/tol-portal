@@ -24,12 +24,16 @@ RUN wget --no-check-certificate https://github.com/jwilder/dockerize/releases/do
 COPY ./app/setup.py .
 RUN python3 setup.py install
 
-COPY ./app/requirements.txt .
-RUN pip3 --no-cache-dir install -r requirements.txt
+
+COPY ./app/requirements.txt ./requirements-dev.txt ./
+RUN pip3 --no-cache-dir install -r requirements-dev.txt
 
 # We install the tol-sdk here in editable mode
 VOLUME ["/packages"]
 
 COPY ./app /app
 COPY ./migrations /migrations
-CMD if [ -d /packages/tol-sdk/src ] ; then pip3 install --editable /packages/tol-sdk; fi; python run.py
+CMD if [ -d /packages/tol-sdk/src ] ; \
+    then pip3 install --editable /packages/tol-sdk[api_base]; \
+    fi; \
+    python -m debugpy --listen 0.0.0.0:5678 -m run --multiprocess -m flask --app run run -h 0.0.0.0 -p 80

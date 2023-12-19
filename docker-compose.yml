@@ -20,8 +20,6 @@ services:
       context: tol-portal-api/.
       dockerfile: Dockerfile.dev
     image: tol-portal-api
-    # force amd64 on M1 MacOS
-    #platform: linux/amd64
     environment:
       - ELASTIC_URI
       - ELASTIC_USER
@@ -30,7 +28,7 @@ services:
       - DB_URI
       - TOLID_DB_URI
       - STS_DB_URI
-      - TOL_PORTAL_URL
+      - TOL_PORTAL_URLt
       - API_PATH
       - API_TOKEN
       - ELIXIR_CLIENT_ID
@@ -39,6 +37,8 @@ services:
       - ELIXIR_JWK
     ports:
       - 8088:80
+      # debug port
+      - 15789:5678
     volumes:
       - './tol-portal-api/app/main:/app/main'
       - '../tol-sdk:/packages/tol-sdk:rw'

@@ -5,7 +5,8 @@
 import datetime
 from typing import Any, List
 
-from sqlalchemy import ForeignKey, JSON
+from sqlalchemy import Column, ForeignKey, JSON
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from tol.sql import ext
@@ -113,7 +114,7 @@ class Sample(Base):
     #                                      lazy=False, foreign_keys=[cc_updated_by])
 
     # ext_ids = db.relationship("StsExtId", lazy=False)
-    # ext = db.Column(MutableDict.as_mutable(JSONB), nullable=True)
+    ext = Column(JSONB, nullable=True)
     symbiont: Mapped[str] = mapped_column()
     tissue_remaining: Mapped[float] = mapped_column()
     tissue_depleted: Mapped[bool] = mapped_column()
