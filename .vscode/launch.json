@@ -12,7 +12,7 @@
             "remoteRoot": "/app"
           },
           {
-            "localRoot": "${workspaceFolder:..}",
+            "localRoot": "${command:extension.commandvariable.workspace.folder1Up}",
             "remoteRoot": "/packages/"
           }
         ],
