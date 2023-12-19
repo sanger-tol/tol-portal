@@ -28,7 +28,7 @@ services:
       - DB_URI
       - TOLID_DB_URI
       - STS_DB_URI
-      - TOL_PORTAL_URLt
+      - TOL_PORTAL_URL
       - API_PATH
       - API_TOKEN
       - ELIXIR_CLIENT_ID
