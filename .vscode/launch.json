@@ -5,6 +5,7 @@
         "type": "python",
         "request": "attach",
         "port": 15789,
+        "flask": true,
         "host": "127.0.0.1",
         "pathMappings": [
           {
@@ -15,8 +16,7 @@
             "localRoot": "${command:extension.commandvariable.workspace.folder1Up}",
             "remoteRoot": "/packages/"
           }
-        ],
-        "justMyCode": false
+        ]
       }
     ]
   }
