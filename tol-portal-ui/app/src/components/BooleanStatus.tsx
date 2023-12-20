@@ -4,8 +4,6 @@ SPDX-FileCopyrightText: 2023 Genome Research Ltd.
 SPDX-License-Identifier: MIT
 */
 
-import React from 'react';
-
 import { Status } from '@tol/tol-ui';
 
 
