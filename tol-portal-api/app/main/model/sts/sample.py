@@ -113,7 +113,7 @@ class Sample(Base):
     #                                      lazy=False, foreign_keys=[cc_updated_by])
 
     # ext_ids = db.relationship("StsExtId", lazy=False)
-    # ext = Column(JSONB, nullable=True)
+    # ext = db.Column(MutableDict.as_mutable(JSONB), nullable=True)
     symbiont: Mapped[str] = mapped_column()
     tissue_remaining: Mapped[float] = mapped_column()
     tissue_depleted: Mapped[bool] = mapped_column()
