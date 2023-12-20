@@ -5,6 +5,7 @@
         "type": "python",
         "request": "attach",
         "port": 15789,
+        /* workaround for https://github.com/microsoft/debugpy/issues/1306 */
         "flask": true,
         "host": "127.0.0.1",
         "pathMappings": [
