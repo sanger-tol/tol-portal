@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ToL Up",
+            "command": "sh",
+            "args": [
+                "-c",
+                "source venv/bin/activate && tol up && tol restore && tol alembic upgrade"
+            ],
+            "type": "shell",
+            "problemMatcher": []
+        },
+        {
+            "label": "ToL Down",
+            "command": "sh",
+            "args": [
+                "-c",
+                "source venv/bin/activate && tol down"
+            ],
+            "type": "shell",
+            "problemMatcher": []
+        }
+    ]
+}
