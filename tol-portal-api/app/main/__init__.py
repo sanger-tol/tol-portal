@@ -18,7 +18,7 @@ from tol.api_base2.misc import (
     quick_and_dirty_auth
 )
 from tol.core import core_data_object
-from tol.sources import (
+from tol.sources.elastic import (
     elastic
 )
 from tol.sql import create_sql_datasource
