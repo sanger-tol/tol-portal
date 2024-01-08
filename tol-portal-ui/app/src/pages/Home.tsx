@@ -87,6 +87,8 @@ const speciesSunburst = (
   />
 );
 
+const test = 0;
+
 const speciesTable = (
   <RemoteTable
     id="species-home-table-v2"
