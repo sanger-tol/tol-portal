@@ -6,6 +6,6 @@
 
 python_dateutil == 2.8.1
 setuptools == 53.0.0
-tol-sdk[api_base2,elastic,postgresql] == 0.15.12
+tol-sdk[api_base2,elastic,postgresql] == 0.15.15
 flask-cors == 4.0.0
 alembic == 1.13.1
