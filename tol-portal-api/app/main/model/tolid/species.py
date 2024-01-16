@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base
 
 
-class Species(Base):
+class TolidSpecies(Base):
     __tablename__ = 'species'
 
     taxonomy_id: Mapped[int] = mapped_column(primary_key=True)
@@ -23,7 +23,7 @@ class Species(Base):
     phylum: Mapped[str] = mapped_column()
     kingdom: Mapped[str] = mapped_column()
 
-    specimens: Mapped[List['Specimen']] = relationship(back_populates='species')  # noqa F821
+    specimens: Mapped[List['Tolid']] = relationship(back_populates='species')  # noqa F821
 
     @classmethod
     def get_id_column_name(cls) -> str:

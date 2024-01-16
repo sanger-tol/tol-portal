@@ -31,6 +31,13 @@ class Sample(Base):
     specimen: Mapped['Specimen'] \
         = relationship(back_populates='samples') # noqa F821
 
+    sampleset_id: Mapped[str] = mapped_column(
+        ForeignKey('sampleset.sampleset_id'),
+        nullable=False
+    )
+    sampleset: Mapped['Sampleset'] \
+        = relationship(back_populates='samples') # noqa F821
+
     sample_projects: Mapped[List['SampleProject']] \
         = relationship(back_populates='sample')  # noqa F821
 

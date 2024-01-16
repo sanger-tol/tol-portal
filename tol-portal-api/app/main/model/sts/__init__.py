@@ -9,6 +9,7 @@ from .project import Project  # noqa
 from .sample import Sample  # noqa
 from .sample_project import SampleProject  # noqa
 from .sample_species import SampleSpecies  # noqa
+from .sampleset import Sampleset  # noqa
 from .sequencing_material_status import SequencingMaterialStatus # noqa
 from .sequencing_request import SequencingRequest # noqa
 from .sequencing_run import SequencingRun # noqa
