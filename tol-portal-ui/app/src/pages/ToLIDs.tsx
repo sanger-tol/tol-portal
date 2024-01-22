@@ -19,7 +19,7 @@ function ToLIDs() {
         "uid": {
           rename: "ToLID"
         },
-        "informatics_specimen.id": {
+        "informatics_specimen": {
           rename: "Specimen",
           relationshipBox: true
         },

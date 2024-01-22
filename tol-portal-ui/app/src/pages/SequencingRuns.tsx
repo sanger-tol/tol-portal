@@ -30,7 +30,7 @@ function SequencingRuns() {
       title="Run Complete Data"
       endpoint="run_data"
       breakDownBy="mlwh_instrument_model"
-      xAxis="mlwh_complete_date"
+      xAxis="mlwh_run_complete"
       interval="M"
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
@@ -46,18 +46,18 @@ function SequencingRuns() {
       filter={combinedFilters}
       height={500}
       fields={{
-        "tolqc_run_id": {
+        "mlwh_run_id": {
           rename: "Run ID"
         },
-        "tolqc_species.sts_scientific_name": {
+        "mlwh_species.sts_scientific_name": {
           rename: "Species",
           relationshipBox: true
         },
-        "tolqc_sequencing_request.id": {
+        "mlwh_sequencing_request.id": {
           rename: "Sequencing Request",
           relationshipBox: true
         },
-        "mlwh_complete_date": {
+        "mlwh_run_complete": {
           rename: "Complete Date"
         },
         "mlwh_platform_type": {
