@@ -5,15 +5,15 @@
  */
 
 import { RemoteTable,
-         RemoteMultipleSelectFilters,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+  RemoteMultipleSelectFilters,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
 function SequencingRuns() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
+  const [combinedFilters, setCombinedFilters] = useState<object>({});
 
   const filters = (
     <RemoteMultipleSelectFilters
@@ -22,7 +22,7 @@ function SequencingRuns() {
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
-  )
+  );
 
   const chart = (
     <RemoteBarChart
@@ -37,13 +37,15 @@ function SequencingRuns() {
       type='date'
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
       id="run-data-table-v2"
       endpoint="run_data"
+      defaultSort="mlwh_species.sts_scientific_name"
       filter={combinedFilters}
+      setFilter={setCombinedFilters}
       height={500}
       fields={{
         "mlwh_run_id": {
@@ -51,11 +53,13 @@ function SequencingRuns() {
         },
         "mlwh_species.sts_scientific_name": {
           rename: "Species",
-          relationshipBox: true
+          cellRenderer: "relationshipDetail"
+        },
+        "mlwh_tolid.id": {
+          rename: "ToLID"
         },
         "mlwh_sequencing_request.id": {
-          rename: "Sequencing Request",
-          relationshipBox: true
+          rename: "Sequencing Request"
         },
         "mlwh_run_complete": {
           rename: "Complete Date"
@@ -66,15 +70,15 @@ function SequencingRuns() {
         "mlwh_instrument_model": {
           rename: "Instrument"
         },
-        "tolqc_position": {
+        "mlwh_position": {
           rename: "Position"
         },
-        "tolqc_tag_index": {
+        "mlwh_tag_index": {
           rename: "Tag"
         }
       }}
     />
-  )
+  );
 
   return (
     <div className="sequencing-runs">

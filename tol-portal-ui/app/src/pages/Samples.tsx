@@ -8,12 +8,12 @@ import { RemoteBubbleMap,
          RemoteTable,
          RemoteBarChart,
          Widgets } from '@tol/tol-ui';
-         import { useState } from 'react';
+import { useState } from 'react';
 
 
 function Samples() {
-  const endpoint = "sample"
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const endpoint = "sample";
+  const [filter, setFilter] = useState({});
 
   const chart = (
     <RemoteBarChart
@@ -23,38 +23,40 @@ function Samples() {
       breakDownBy="sts_ac_status"
       xAxis="benchling_date_sample_received_at_sanger"
       interval="M"
-      setCombinedFilters={setCombinedFilters}
+      setCombinedFilters={setFilter}
       type='date'
       height={500}
     />
-  )
+  );
 
   const map = (
     <RemoteBubbleMap
       endpoint={endpoint}
       longitudeKey="sts_longitude"
       latitudeKey="sts_latitude"
-      filter={combinedFilters}
+      filter={filter}
       attributeKeys="sts_public_name, sts_biosample_accession"
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
       id={`${endpoint}-table-v2`}
       endpoint={endpoint}
-      filter={combinedFilters}
-      defaultSort="sts_collection_country"
+      filter={filter}
+      setFilter={setFilter}
+      defaultSort="sts_species.sts_scientific_name"
       fields={{
         "uid": {
           rename: "ID"
         },
-        "sts_public_name": {
+        "sts_tolid.id": {
           rename: "ToLID",
         },
-        "sts_biosample_accession": {
-          rename: "BioSample ID"
+        "sts_species.sts_scientific_name": {
+          rename: "Species",
+          cellRenderer: "relationshipDetail"
         },
         "sts_collection_locality": {
           rename: "Locality",
@@ -71,7 +73,7 @@ function Samples() {
       }}
       height={500}
     />
-  )
+  );
 
   return (
     <div className="samples">

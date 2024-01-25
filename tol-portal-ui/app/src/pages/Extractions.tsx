@@ -7,13 +7,13 @@
 import { RemoteTable,
          RemoteMultipleSelectFilters,
          RemoteBarChart,
-         Widgets } from '@tol/tol-ui'
+         Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
 function Extractions() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
+  const [combinedFilters, setCombinedFilters] = useState<object>({});
 
   const filters = (
     <RemoteMultipleSelectFilters
@@ -22,7 +22,7 @@ function Extractions() {
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
-  )
+  );
 
   const chart = (
     <RemoteBarChart
@@ -37,23 +37,24 @@ function Extractions() {
       type='date'
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
       id="extraction-table-v2"
       endpoint="extraction"
       filter={combinedFilters}
-      defaultSort="benchling_extraction_type"
+      setFilter={setCombinedFilters}
+      defaultSort="benchling_species.sts_scientific_name"
       fields={{
         "uid": {
           rename: "Identifier"
         },
         "benchling_species.sts_scientific_name": {
           rename: "Species",
-          relationshipBox: true
+          cellRenderer: "relationshipDetail"
         },
-        "benchling_programme_id": {
+        "benchling_tolid.id": {
           rename: "ToLID (Benchling)"
         },
         "benchling_completion_date": {
@@ -63,7 +64,7 @@ function Extractions() {
       }}
       height={500}
     />
-  )
+  );
 
   return (
     <div className="extractions">

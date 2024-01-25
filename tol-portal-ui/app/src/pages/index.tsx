@@ -6,6 +6,7 @@
 
 export { default as Home } from "./Home";
 export { default as Species } from "./Species";
+export { default as SpeciesDetail } from "./SpeciesDetail"; 
 export { default as Specimens } from "./Specimens";
 export { default as Samples } from "./Samples";
 export { default as Extractions } from "./Extractions";

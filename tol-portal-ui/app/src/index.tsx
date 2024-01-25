@@ -6,21 +6,23 @@ SPDX-License-Identifier: MIT
 
 import ReactDOM from 'react-dom';
 import { Home,
-         Species,
-         Specimens,
-         ToLIDs,
-         Samples,
-         Extractions,
-         SequencingRequests,
-         SequencingRuns } from './pages';
+  Species,
+  SpeciesDetail,
+  Specimens,
+  ToLIDs,
+  Samples,
+  Extractions,
+  SequencingRequests,
+  SequencingRuns } from './pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page } from '@tol/tol-ui'
-import Logo from './assets/logo.png'
+import { TolApp, Page } from '@tol/tol-ui';
+import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 const species: Page = {
   name: "Species",
-  uiElement: <Species />
+  uiElement: <Species />,
+  detailElement: <SpeciesDetail />
 };
 
 const specimens: Page = {

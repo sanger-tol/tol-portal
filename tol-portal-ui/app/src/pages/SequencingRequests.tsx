@@ -5,15 +5,15 @@
  */
 
 import { RemoteTable,
-         RemoteMultipleSelectFilters,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui'
+  RemoteMultipleSelectFilters,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
 function SequencingRequests() {
-  const [ globalFilters, setGlobalFilters ] = useState<object>({in_list: {}})
-  const [ combinedFilters, setCombinedFilters ] = useState<object>({})
+  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
+  const [combinedFilters, setCombinedFilters] = useState<object>({});
 
   const filters = (
     <RemoteMultipleSelectFilters
@@ -22,7 +22,7 @@ function SequencingRequests() {
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
-  )
+  );
 
   const chart = (
     <RemoteBarChart
@@ -37,14 +37,15 @@ function SequencingRequests() {
       type='date'
       height={500}
     />
-  )
+  );
 
   const table = (
     <RemoteTable
       id="sequencing-request-table-v2"
       endpoint="sequencing_request"
       filter={combinedFilters}
-      defaultSort="benchling_source"
+      setFilter={setCombinedFilters}
+      defaultSort="mlwh_species.sts_scientific_name"
       fields={{
         "uid": {
           rename: "Sample Ref"
@@ -52,7 +53,11 @@ function SequencingRequests() {
         "benchling_sequencing_platform": {
           rename: "Platform (Benchling)"
         },
-        "benchling_programme_id": {
+        "mlwh_species.sts_scientific_name": {
+          rename: "Species",
+          cellRenderer: "relationshipDetail"
+        },
+        "benchling_tolid.id": {
           rename: "ToLID (Benchling)"
         },
         "benchling_source": {
@@ -62,13 +67,12 @@ function SequencingRequests() {
           rename: "Completion Date (Benchling)"
         },
         "portaldb_date_sent_to_sciops": {
-          rename: "Date Sent To SciOps",
-          sort: true
+          rename: "Date Sent To SciOps"
         }
       }}
       height={500}
     />
-  )
+  );
 
   return (
     <div className="sequencing-requests">
