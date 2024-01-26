@@ -73,7 +73,10 @@ function Extractions() {
         components={[filters]}
       />
       <Widgets
-        components={[chart, table]}
+        components={[chart]}
+      />
+      <Widgets
+        components={[table]}
       />
     </div>
   );

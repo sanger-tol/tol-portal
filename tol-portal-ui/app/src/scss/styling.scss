@@ -7,3 +7,10 @@
 @import "variables.scss";
 
 @import '~@tol/tol-ui/src/scss/tol-styling.scss';
+
+.enum-box {
+  padding: 5px 10px;
+  border: 1px solid var(--grey-subtle);
+  border-radius: 25px;
+  display: inline-block;
+}

@@ -63,7 +63,10 @@ function Species() {
     <div className="species">
       <Widgets
         title="Species"
-        components={[sunburst, table]}
+        components={[sunburst]}
+      />
+      <Widgets
+        components={[table]}
       />
     </div>
   );

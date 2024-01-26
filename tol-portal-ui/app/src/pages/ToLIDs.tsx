@@ -14,9 +14,9 @@ function ToLIDs() {
 
   const table = (
     <RemoteTable
-      id="tolid-table-v2"
+      id="tolid-table-v3"
       endpoint="tolid"
-      defaultSort="uid"
+      defaultSort="tolid_species.sts_scientific_name"
       filter={filter}
       setFilter={setFilter}
       height={600}
@@ -24,7 +24,7 @@ function ToLIDs() {
         "uid": {
           rename: "ToLID"
         },
-        "tolid_species.scientific_name": {
+        "tolid_species.sts_scientific_name": {
           rename: "Species",
           cellRenderer: "relationshipDetail"
         },

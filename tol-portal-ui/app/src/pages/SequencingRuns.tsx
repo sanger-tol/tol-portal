@@ -9,6 +9,7 @@ import { RemoteTable,
   RemoteBarChart,
   Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
+import Platform from '../components/Platform';
 
 
 function SequencingRuns() {
@@ -65,7 +66,13 @@ function SequencingRuns() {
           rename: "Complete Date"
         },
         "mlwh_platform_type": {
-          rename: "Platform"
+          rename: "Platform",
+          cellRenderer: {
+            element: Platform,
+            propPointers: {
+              platform: "mlwh_platform_type"
+            }
+          }
         },
         "mlwh_instrument_model": {
           rename: "Instrument"
@@ -87,7 +94,10 @@ function SequencingRuns() {
         components={[filters]}
       />
       <Widgets
-        components={[chart, table]}
+        components={[chart]}
+      />
+      <Widgets
+        components={[table]}
       />
     </div>
   );

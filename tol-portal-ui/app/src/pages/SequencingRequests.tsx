@@ -5,10 +5,11 @@
  */
 
 import { RemoteTable,
-  RemoteMultipleSelectFilters,
-  RemoteBarChart,
-  Widgets } from '@tol/tol-ui';
+         RemoteMultipleSelectFilters,
+         RemoteBarChart,
+         Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
+import Platform from '../components/Platform';
 
 
 function SequencingRequests() {
@@ -51,7 +52,13 @@ function SequencingRequests() {
           rename: "Sample Ref"
         },
         "benchling_sequencing_platform": {
-          rename: "Platform (Benchling)"
+          rename: "Platform (Benchling)",
+          cellRenderer: {
+            element: Platform,
+            propPointers: {
+              platform: "benchling_sequencing_platform"
+            }
+          }
         },
         "mlwh_species.sts_scientific_name": {
           rename: "Species",
@@ -81,7 +88,10 @@ function SequencingRequests() {
         components={[filters]}
       />
       <Widgets
-        components={[chart, table]}
+        components={[chart]}
+      />
+      <Widgets
+        components={[table]}
       />
     </div>
   );
