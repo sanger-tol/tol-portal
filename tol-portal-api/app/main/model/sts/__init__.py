@@ -2,17 +2,18 @@
 #
 # SPDX-License-Identifier: MIT
 
-from .ep_sample import EPSample  # noqa
-from .gal import Gal  # noqa
-from .location import Location  # noqa
-from .project import Project  # noqa
-from .sample import Sample  # noqa
-from .sample_project import SampleProject  # noqa
-from .sample_species import SampleSpecies  # noqa
-from .sampleset import Sampleset  # noqa
-from .sequencing_material_status import SequencingMaterialStatus # noqa
-from .sequencing_request import SequencingRequest # noqa
-from .sequencing_run import SequencingRun # noqa
-from .species import Species  # noqa
-from .species_lab_work_status import SpeciesLabWorkStatus  # noqa
-from .specimen import Specimen  # noqa
+from .ep_sample import EPSample  # noqa F401
+from .gal import Gal  # noqa F401
+from .location import Location  # noqa F401
+from .project import Project  # noqa F401
+from .sample import Sample  # noqa F401
+from .sample_project import SampleProject  # noqa F401
+from .sample_species import SampleSpecies  # noqa F401
+from .sampleset import Sampleset  # noqa F401
+from .sequencing_material_status import SequencingMaterialStatus # noqa F401
+from .sequencing_request import SequencingRequest # noqa F401
+from .sequencing_run import SequencingRun # noqa F401
+from .species import Species  # noqa F401
+from .species_lab_work_status import SpeciesLabWorkStatus  # noqa F401
+from .specimen import Specimen  # noqa F401
+from .storage_rack import StorageRack  # noqa F401

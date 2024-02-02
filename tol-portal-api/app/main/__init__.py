@@ -41,7 +41,8 @@ from .model.sts import (
     SequencingRun,
     Species,
     SpeciesLabWorkStatus,
-    Specimen
+    Specimen,
+    StorageRack
 )
 from .model.tolid import (
     Tolid,
@@ -90,7 +91,7 @@ def application():
         models=[EPSample, Gal, Location, Project, Sample, SampleProject,
                 Sampleset, SampleSpecies, Species, SpeciesLabWorkStatus,
                 Specimen, SequencingMaterialStatus, SequencingRequest,
-                SequencingRun],
+                SequencingRun, StorageRack],
         db_uri=os.getenv('STS_DB_URI')
     )
     blueprint_data_sts = data_blueprint(sts, authenticator=authenticator)

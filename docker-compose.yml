@@ -33,6 +33,7 @@ services:
       - TOL_PORTAL_URL
       - API_PATH
       - API_TOKEN
+      - GOOGLE_CLIENT_SECRETS
       - ELIXIR_CLIENT_ID
       - ELIXIR_CLIENT_SECRET
       - ELIXIR_REDIRECT_URI
