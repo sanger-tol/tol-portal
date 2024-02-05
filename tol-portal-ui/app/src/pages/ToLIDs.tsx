@@ -6,19 +6,14 @@
 
 import { RemoteTable,
          Widgets } from '@tol/tol-ui';
-import { useState } from 'react';
 
 
 function ToLIDs() {
-  const [filter, setFilter] = useState({});
-
   const table = (
     <RemoteTable
       id="tolid-table-v3"
       endpoint="tolid"
       defaultSort="tolid_species.sts_scientific_name"
-      filter={filter}
-      setFilter={setFilter}
       height={600}
       fields={{
         "uid": {

@@ -13,8 +13,6 @@ import { Button,
 				 Col } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
-import { useState } from 'react';
-
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -53,8 +51,6 @@ const intro = (
 );
 
 function Home() {
-  const [filter, setFilter] = useState({});
-
   const runChart = (
     <RemoteBarChart
       stacked
@@ -97,8 +93,6 @@ function Home() {
       endpoint="species"
       defaultSort="sts_scientific_name"
       height={500}
-      filter={filter}
-      setFilter={setFilter}
       fields={{
         "sts_scientific_name": {
           rename: "Species Name",

@@ -26,7 +26,7 @@ function generateDetail(attributes: any) {
   );
 }
 
-function generateSampleTable(filter: object, setFilter: any) {
+function generateSampleTable(filter: object) {
   return (
     <div>
       <h5>Sample</h5>
@@ -36,7 +36,6 @@ function generateSampleTable(filter: object, setFilter: any) {
         endpoint="sample"
         defaultSort="sts_public_name"
         filter={filter}
-        setFilter={setFilter}
         height={500}
         fields={{
           "sts_tolid.id": {
@@ -66,7 +65,7 @@ function generateSampleTable(filter: object, setFilter: any) {
   );
 }
 
-function generatePacbioTable(filter: object, setFilter: any) {
+function generatePacbioTable(filter: object) {
   return (
     <div>
       <h5>PacBio Run Data</h5>
@@ -75,7 +74,6 @@ function generatePacbioTable(filter: object, setFilter: any) {
         id="pacbio-detail-v2-table"
         endpoint="run_data"
         filter={filter}
-        setFilter={setFilter}
         height={300}
         fields={{
           "mlwh_pipeline_id_lims": {
@@ -120,7 +118,7 @@ function generatePacbioTable(filter: object, setFilter: any) {
   );
 }
 
-function generateIlluminaTable(filter: object, setFilter: any) {
+function generateIlluminaTable(filter: object) {
   return (
     <div>
         <h5>Illumina Run Data</h5>
@@ -129,13 +127,12 @@ function generateIlluminaTable(filter: object, setFilter: any) {
         id="illumina-run-detail-table"
         endpoint="run_data"
         filter={filter}
-        setFilter={setFilter}
         height={300}
         fields={{
             "mlwh_pipeline_id_lims": {
             rename: "Pipeline"
             },
-            "mlwg_tolid.id": {
+            "mlwh_tolid.id": {
             rename: "ToLID"
             },
             "mlwh_run_complete": {
@@ -171,9 +168,9 @@ function generateIlluminaTable(filter: object, setFilter: any) {
 function SpeciesDetail() {
   const { id } = useParams<({id: string})>();
   const [response, setResponse] = useState();
-  const [sampleFilter, setSampleFilter] = useState<object>({exact: {'sts_species.id': id }});
-  const [pacbioRunFilter, setPacbioRunFilter] = useState<object>({exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'PacBio'}});
-  const [iseqRunFilter, setIseqRunFilter] = useState<object>({exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'Illumina'}});
+  const sampleFilter = {exact: {'sts_species.id': id }};
+  const pacbioRunFilter = {exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'PacBio'}};
+  const iseqRunFilter = {exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'Illumina'}};
 
   if (response === null) {
     return (
@@ -201,13 +198,13 @@ function SpeciesDetail() {
           components={[detail]}
         />
         <Widgets
-          components={[generateSampleTable(sampleFilter, setSampleFilter)]}
+          components={[generateSampleTable(sampleFilter)]}
         />
         <Widgets
-          components={[generatePacbioTable(pacbioRunFilter, setPacbioRunFilter)]}
+          components={[generatePacbioTable(pacbioRunFilter)]}
         />
         <Widgets
-          components={[generateIlluminaTable(iseqRunFilter, setIseqRunFilter)]}
+          components={[generateIlluminaTable(iseqRunFilter)]}
         />
       </div>
     );

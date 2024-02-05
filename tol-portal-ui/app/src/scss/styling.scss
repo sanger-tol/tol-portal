@@ -14,3 +14,9 @@
   border-radius: 25px;
   display: inline-block;
 }
+
+// temp fix - needs adding to ToL UI
+.rs-anim-fade.rs-anim-in.rs-picker-check-menu.rs-picker-menu.placement-bottom-start {
+  z-index: 1003;
+  min-width: 0 !important;
+}

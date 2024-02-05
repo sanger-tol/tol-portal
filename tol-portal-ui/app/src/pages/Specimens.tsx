@@ -6,19 +6,14 @@
 
 import { RemoteTable,
          Widgets } from '@tol/tol-ui';
-import { useState } from 'react';
 
 
 function Specimens() {
-  const [filter, setFilter] = useState({});
-
   const table = (
     <RemoteTable
       id="specimen-table-v2"
       endpoint="specimen"
       defaultSort='sts_bio_specimen_id'
-      filter={filter}
-      setFilter={setFilter}
       height={600}
       fields={{
         "uid": {

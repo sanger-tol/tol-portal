@@ -21,6 +21,7 @@ function Species() {
       sliceBy={["sts_order_group", "sts_family"]}
       height={600}
       legendPosition="left"
+      setCombinedFilters={setFilter}
     />
   );
   
@@ -31,7 +32,6 @@ function Species() {
       defaultSort="sts_scientific_name"
       height={600}
       filter={filter}
-      setFilter={setFilter}
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",

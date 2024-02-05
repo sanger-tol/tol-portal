@@ -19,7 +19,10 @@ function SequencingRuns() {
   const filters = (
     <RemoteMultipleSelectFilters
       endpoint="run_data"
-      fields={["mlwh_platform_type", "mlwh_study_id"]}
+      fields={["mlwh_platform_type"]}
+      renamedFields={{
+        mlwh_platform_type: "Platform Type"
+      }}
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
@@ -46,7 +49,6 @@ function SequencingRuns() {
       endpoint="run_data"
       defaultSort="mlwh_species.sts_scientific_name"
       filter={combinedFilters}
-      setFilter={setCombinedFilters}
       height={500}
       fields={{
         "mlwh_run_id": {

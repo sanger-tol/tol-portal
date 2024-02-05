@@ -45,7 +45,6 @@ function Samples() {
       id={`${endpoint}-table-v2`}
       endpoint={endpoint}
       filter={filter}
-      setFilter={setFilter}
       defaultSort="sts_species.sts_scientific_name"
       fields={{
         "uid": {

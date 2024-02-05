@@ -45,7 +45,6 @@ function SequencingRequests() {
       id="sequencing-request-table-v2"
       endpoint="sequencing_request"
       filter={combinedFilters}
-      setFilter={setCombinedFilters}
       defaultSort="mlwh_species.sts_scientific_name"
       fields={{
         "uid": {

@@ -19,6 +19,9 @@ function Extractions() {
     <RemoteMultipleSelectFilters
       endpoint="extraction"
       fields={["benchling_extraction_type"]}
+      renamedFields={{
+        benchling_extraction_type: "Extraction Type"
+      }}
       globalFilters={globalFilters}
       setGlobalFilters={setGlobalFilters}
     />
@@ -44,7 +47,6 @@ function Extractions() {
       id="extraction-table-v2"
       endpoint="extraction"
       filter={combinedFilters}
-      setFilter={setCombinedFilters}
       defaultSort="benchling_species.sts_scientific_name"
       fields={{
         "uid": {
