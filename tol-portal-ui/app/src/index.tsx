@@ -5,7 +5,8 @@ SPDX-License-Identifier: MIT
 */
 
 import ReactDOM from 'react-dom';
-import { Home,
+import { 
+  Home,
   Species,
   SpeciesDetail,
   Specimens,
@@ -13,7 +14,9 @@ import { Home,
   Samples,
   Extractions,
   SequencingRequests,
-  SequencingRuns } from './pages';
+  SequencingRuns,
+  TUM
+} from './pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
@@ -55,6 +58,11 @@ const sequencingRuns: Page = {
   uiElement: <SequencingRuns />
 };
 
+const tum: Page = {
+  name: "TUM",
+  uiElement: <TUM />
+};
+
 ReactDOM.render(
   <TolApp
     brand={
@@ -72,7 +80,8 @@ ReactDOM.render(
       samples,
       extractions,
       sequencingRequests,
-      sequencingRuns
+      sequencingRuns,
+      tum
     ]}
     login={false}
   />,
