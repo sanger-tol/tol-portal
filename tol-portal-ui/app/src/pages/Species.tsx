@@ -20,7 +20,7 @@ function Species() {
       endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}
       height={600}
-      legendPosition="left"
+      legendPosition="right"
       setCombinedFilters={setFilter}
     />
   );
