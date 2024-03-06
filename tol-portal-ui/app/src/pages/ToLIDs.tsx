@@ -38,7 +38,7 @@ function ToLIDs() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">ToLIDs</h2>
+      <h2>ToLIDs</h2>
     </div>
   );
 

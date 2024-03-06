@@ -60,7 +60,7 @@ function Species() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Species</h2>
+      <h2>Species</h2>
     </div>
   );
 

@@ -89,7 +89,7 @@ function SequencingRuns() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Sequencing Runs</h2>
+      <h2>Sequencing Runs</h2>
     </div>
   );
 

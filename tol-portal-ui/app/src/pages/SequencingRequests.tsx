@@ -80,7 +80,7 @@ function SequencingRequests() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Sequencing Requests</h2>
+      <h2>Sequencing Requests</h2>
     </div>
   );
 

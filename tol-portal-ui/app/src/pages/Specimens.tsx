@@ -51,7 +51,7 @@ function Specimens() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Specimens</h2>
+      <h2>Specimens</h2>
     </div>
   );
 

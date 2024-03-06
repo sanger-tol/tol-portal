@@ -68,7 +68,7 @@ function Extractions() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Extractions</h2>
+      <h2>Extractions</h2>
     </div>
   );
 

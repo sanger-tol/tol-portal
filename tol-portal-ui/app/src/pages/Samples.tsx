@@ -73,7 +73,7 @@ function Samples() {
 
   const title = (
     <div>
-      <h2 className="tol-widget">Samples</h2>
+      <h2>Samples</h2>
     </div>
   );
 

@@ -15,7 +15,8 @@ import {
   Extractions,
   SequencingRequests,
   SequencingRuns,
-  TUM
+  TUM,
+  SpeciesRecollection
 } from './pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page } from '@tol/tol-ui';
@@ -63,6 +64,11 @@ const tum: Page = {
   uiElement: <TUM />
 };
 
+const speciesRecollection: Page = {
+  name: "Recollection",
+  uiElement: <SpeciesRecollection/>
+}
+
 ReactDOM.render(
   <TolApp
     brand={
@@ -81,7 +87,8 @@ ReactDOM.render(
       extractions,
       sequencingRequests,
       sequencingRuns,
-      tum
+      tum,
+      speciesRecollection
     ]}
     login={false}
   />,
