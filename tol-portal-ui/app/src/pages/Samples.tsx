@@ -5,9 +5,9 @@
  */
 
 import { RemoteBubbleMap,
-         RemoteTable,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+  RemoteTable,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
@@ -25,7 +25,6 @@ function Samples() {
       interval="M"
       setCombinedFilters={setFilter}
       type='date'
-      height={500}
     />
   );
 
@@ -36,7 +35,6 @@ function Samples() {
       latitudeKey="sts_latitude"
       filter={filter}
       attributeKeys="sts_public_name, sts_biosample_accession"
-      height={500}
     />
   );
 
@@ -70,17 +68,39 @@ function Samples() {
           rename: "Latitude",
         }
       }}
-      height={500}
     />
   );
+
+  const title = (
+    <div>
+      <h2 className="tol-widget">Samples</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: chart,
+      type: 'md'
+    },
+    {
+      component: map,
+      type: 'md'
+    },
+    {
+      component: table,
+      type: 'lg'
+    }
+  ];
 
   return (
     <div className="samples">
       <Widgets
-        title="Samples"
-        components={[chart, map]} 
+        components={components} 
       />
-      <Widgets components={[table]} />
     </div>
   );
 }

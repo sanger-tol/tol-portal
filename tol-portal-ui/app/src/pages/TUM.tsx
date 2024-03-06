@@ -12,7 +12,7 @@ function TUM() {
     exact: {
       benchling_sequencing_platform: "pacbio"
     }
-  }
+  };
 
   const table = (
     <RemoteTable
@@ -20,7 +20,6 @@ function TUM() {
       endpoint="sequencing_request"
       filter={filter}
       defaultSort='benchling_species.sts_scientific_name'
-      height={600}
       fields={{
         "uid": {
           rename: "Sanger Sample ID"
@@ -79,11 +78,27 @@ function TUM() {
     />
   );
 
+  const title = (
+    <div>
+      <h2 className="tol-widget">ToLIDs</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: table,
+      type: 'xl'
+    }
+  ];
+
   return (
     <div className="tum">
       <Widgets
-        title="TUM"
-        components={[table]}
+        components={components}
       />
     </div>
   );

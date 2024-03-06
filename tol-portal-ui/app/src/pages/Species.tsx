@@ -5,8 +5,8 @@
  */
 
 import { RemoteTable,
-         RemoteSunburst,
-         Widgets } from '@tol/tol-ui';
+  RemoteSunburst,
+  Widgets } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { useState } from 'react';
 
@@ -19,7 +19,7 @@ function Species() {
       title="Species"
       endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}
-      height={600}
+      height={450}
       legendPosition="right"
       setCombinedFilters={setFilter}
     />
@@ -30,7 +30,6 @@ function Species() {
       id="species-table-v2"
       endpoint="species"
       defaultSort="sts_scientific_name"
-      height={600}
       filter={filter}
       fields={{
         "sts_scientific_name": {
@@ -59,14 +58,31 @@ function Species() {
     />
   );
 
+  const title = (
+    <div>
+      <h2 className="tol-widget">Species</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: sunburst,
+      type: 'full'
+    },
+    {
+      component: table,
+      type: 'lg'
+    },
+  ];
+
   return (
     <div className="species">
       <Widgets
-        title="Species"
-        components={[sunburst]}
-      />
-      <Widgets
-        components={[table]}
+        components={components}
       />
     </div>
   );

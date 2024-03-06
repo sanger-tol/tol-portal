@@ -5,7 +5,7 @@
  */
 
 import { RemoteTable,
-         Widgets } from '@tol/tol-ui';
+  Widgets } from '@tol/tol-ui';
 
 
 function Specimens() {
@@ -14,7 +14,6 @@ function Specimens() {
       id="specimen-table-v2"
       endpoint="specimen"
       defaultSort='sts_bio_specimen_id'
-      height={600}
       fields={{
         "uid": {
           rename: "ID"
@@ -50,11 +49,27 @@ function Specimens() {
     />
   );
 
+  const title = (
+    <div>
+      <h2 className="tol-widget">Specimens</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: table,
+      type: 'xl'
+    }
+  ];
+
   return (
     <div className="specimens">
       <Widgets
-        title="Specimens"
-        components={[table]}
+        components={components}
       />
     </div>
   );

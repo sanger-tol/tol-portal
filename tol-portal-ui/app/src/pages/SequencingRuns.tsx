@@ -39,7 +39,6 @@ function SequencingRuns() {
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
       type='date'
-      height={500}
     />
   );
 
@@ -49,7 +48,6 @@ function SequencingRuns() {
       endpoint="run_data"
       defaultSort="mlwh_species.sts_scientific_name"
       filter={combinedFilters}
-      height={500}
       fields={{
         "mlwh_run_id": {
           rename: "Run ID"
@@ -89,17 +87,35 @@ function SequencingRuns() {
     />
   );
 
+  const title = (
+    <div>
+      <h2 className="tol-widget">Sequencing Runs</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: filters,
+      type: 'full'
+    },
+    {
+      component: chart,
+      type: 'lg'
+    },
+    {
+      component: table,
+      type: 'lg'
+    },
+  ];
+
   return (
     <div className="sequencing-runs">
       <Widgets
-        title="Sequencing Runs"
-        components={[filters]}
-      />
-      <Widgets
-        components={[chart]}
-      />
-      <Widgets
-        components={[table]}
+        components={components}
       />
     </div>
   );

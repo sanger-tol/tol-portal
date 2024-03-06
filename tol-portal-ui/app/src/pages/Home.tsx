@@ -6,11 +6,12 @@
 
 import { Button,
 				 RemoteBarChart,
-         RemoteSunburst,
+  RemoteSunburst,
 				 RemoteTable,
-         Widgets,
+  Widgets,
 				 Row,
-				 Col } from '@tol/tol-ui';
+				 Col,
+  RemoteCount } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 
@@ -60,9 +61,8 @@ function Home() {
       xAxis="mlwh_run_complete"
       interval="M"
       type='date'
-      height={500}
     />
-  )
+  );
   
   const sampleChart = (
     <RemoteBarChart
@@ -73,7 +73,6 @@ function Home() {
       xAxis="benchling_date_sample_received_at_sanger"
       interval="M"
       type='date'
-      height={500}
     />
   );
   
@@ -82,7 +81,6 @@ function Home() {
       title="Species"
       endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}
-      height={500}
       legendPosition="left"
     />
   );
@@ -92,7 +90,6 @@ function Home() {
       id="species-home-table-v2"
       endpoint="species"
       defaultSort="sts_scientific_name"
-      height={500}
       fields={{
         "sts_scientific_name": {
           rename: "Species Name",
@@ -120,15 +117,82 @@ function Home() {
     />
   );
 
+  const speciesCount = (
+    <RemoteCount
+      title='Species'
+      endpoint='species'
+      filter={
+        {and_: {"sts_scientific_name": [{op: 'exists'}]}}
+      }
+    />
+  );
+
+  const tolidCount = (
+    <RemoteCount
+      title='ToLIDs Submitted'
+      endpoint='tolid'
+      filter={
+        {and_: {"informatics_status_summary": [{op: 'eq', value: '1 submitted'}]}}
+      }
+    />
+  );
+
+  const extractionsCount = (
+    <RemoteCount
+      title='Extractions'
+      endpoint='extraction'
+    />
+  );
+
+  const runDataCount = (
+    <RemoteCount
+      title='Runs'
+      endpoint='run_data'
+    />
+  );
+
+  const components = [
+    {
+      component: intro,
+      type: 'full'
+    },
+    {
+      component: speciesCount,
+      type: 'sm'
+    },
+    {
+      component: tolidCount,
+      type: 'sm'
+    },
+    {
+      component: extractionsCount,
+      type: 'sm'
+    },
+    {
+      component: runDataCount,
+      type: 'sm'
+    },
+    {
+      component: speciesSunburst,
+      type: 'md'
+    },
+    {
+      component: runChart,
+      type: 'md'
+    },
+    {
+      component: sampleChart,
+      type: 'md'
+    },
+    {
+      component: speciesTable,
+      type: 'md'
+    }
+  ];
+
   return (
     <div className="species">
-      <Widgets components={[intro]}/>
-      <Widgets components={[
-        speciesSunburst,
-        runChart,
-        sampleChart,
-        speciesTable
-      ]}/>
+      <Widgets components={components}/>
     </div>
   );
 }

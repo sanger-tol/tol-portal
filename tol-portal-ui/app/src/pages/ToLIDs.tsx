@@ -5,7 +5,7 @@
  */
 
 import { RemoteTable,
-         Widgets } from '@tol/tol-ui';
+  Widgets } from '@tol/tol-ui';
 
 
 function ToLIDs() {
@@ -14,7 +14,6 @@ function ToLIDs() {
       id="tolid-table-v3"
       endpoint="tolid"
       defaultSort="tolid_species.sts_scientific_name"
-      height={600}
       fields={{
         "uid": {
           rename: "ToLID"
@@ -37,11 +36,27 @@ function ToLIDs() {
     />
   );
 
+  const title = (
+    <div>
+      <h2 className="tol-widget">ToLIDs</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: table,
+      type: 'xl'
+    }
+  ];
+
   return (
     <div className="tolids">
       <Widgets
-        title="ToLIDs"
-        components={[table]}
+        components={components}
       />
     </div>
   );

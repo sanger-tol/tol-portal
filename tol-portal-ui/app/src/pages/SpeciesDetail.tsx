@@ -83,7 +83,7 @@ function generatePacbioTable(filter: object) {
             rename: "ToLID"
           },
           "mlwh_run_complete": {
-              rename: "Run Complete Date"
+            rename: "Run Complete Date"
           },
           "mlwh_lims_run_id": {
             rename: "Run ID" // being formatted as a date?
@@ -92,7 +92,7 @@ function generatePacbioTable(filter: object) {
             rename: "Movie"
           },
           "mlwh_well_label": {
-              rename: "Well"
+            rename: "Well"
           },
           "mlwh_tag1_id": {
             rename: "Tag ID"
@@ -121,46 +121,46 @@ function generatePacbioTable(filter: object) {
 function generateIlluminaTable(filter: object) {
   return (
     <div>
-        <h5>Illumina Run Data</h5>
-        <p className='mb-3'>Information for each Illumina sequencing run collected for this species.</p>
-        <RemoteTable
+      <h5>Illumina Run Data</h5>
+      <p className='mb-3'>Information for each Illumina sequencing run collected for this species.</p>
+      <RemoteTable
         id="illumina-run-detail-table"
         endpoint="run_data"
         filter={filter}
         height={300}
         fields={{
-            "mlwh_pipeline_id_lims": {
+          "mlwh_pipeline_id_lims": {
             rename: "Pipeline"
-            },
-            "mlwh_tolid.id": {
+          },
+          "mlwh_tolid.id": {
             rename: "ToLID"
-            },
-            "mlwh_run_complete": {
-                rename: "Run Complete Date"
-            },
-            "mlwh_run_id": {
+          },
+          "mlwh_run_complete": {
+            rename: "Run Complete Date"
+          },
+          "mlwh_run_id": {
             rename: "Run ID"
-            },
-            // "": {
-            //     rename: "Read Pairs"
-            // },
-            // "": {
-            //     rename: "Yield"
-            // },
-            "mlwh_biosample_accession": {
+          },
+          // "": {
+          //     rename: "Read Pairs"
+          // },
+          // "": {
+          //     rename: "Yield"
+          // },
+          "mlwh_biosample_accession": {
             rename: "Sample Accession"
-            },
-            // "": {
-            //     rename: "Run Accession"
-            // },
-            // "mlwh_run_status": {
-            //     rename: "Run Status"
-            // },
-            // "": {
-            //     rename: "Barcode"
-            // },
+          },
+          // "": {
+          //     rename: "Run Accession"
+          // },
+          // "mlwh_run_status": {
+          //     rename: "Run Status"
+          // },
+          // "": {
+          //     rename: "Barcode"
+          // },
         }}
-        />
+      />
     </div>
   );
 }
@@ -192,19 +192,29 @@ function SpeciesDetail() {
     const attributes = response!['data']['data']['attributes'];
     const detail = generateDetail(attributes);
 
+    const components = [
+      {
+        component: detail,
+        type: 'full'
+      },
+      {
+        component: generateSampleTable(sampleFilter),
+        type: 'full'
+      },
+      {
+        component: generatePacbioTable(pacbioRunFilter),
+        type: 'full'
+      },
+      {
+        component: generateIlluminaTable(iseqRunFilter),
+        type: 'full'
+      },
+    ];
+
     return (
       <div className="species-detail">
         <Widgets
-          components={[detail]}
-        />
-        <Widgets
-          components={[generateSampleTable(sampleFilter)]}
-        />
-        <Widgets
-          components={[generatePacbioTable(pacbioRunFilter)]}
-        />
-        <Widgets
-          components={[generateIlluminaTable(iseqRunFilter)]}
+          components={components}
         />
       </div>
     );

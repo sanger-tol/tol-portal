@@ -5,9 +5,9 @@
  */
 
 import { RemoteTable,
-         RemoteMultipleSelectFilters,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+  RemoteMultipleSelectFilters,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 
 
@@ -38,7 +38,6 @@ function Extractions() {
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
       type='date'
-      height={500}
     />
   );
 
@@ -64,21 +63,38 @@ function Extractions() {
           sort: true
         }
       }}
-      height={500}
     />
   );
+
+  const title = (
+    <div>
+      <h2 className="tol-widget">Extractions</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: filters,
+      type: 'full'
+    },
+    {
+      component: chart,
+      type: 'lg'
+    },
+    {
+      component: table,
+      type: 'lg'
+    },
+  ];
 
   return (
     <div className="extractions">
       <Widgets
-        title="Extractions"
-        components={[filters]}
-      />
-      <Widgets
-        components={[chart]}
-      />
-      <Widgets
-        components={[table]}
+        components={components}
       />
     </div>
   );

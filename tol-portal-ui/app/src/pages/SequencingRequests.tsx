@@ -5,9 +5,9 @@
  */
 
 import { RemoteTable,
-         RemoteMultipleSelectFilters,
-         RemoteBarChart,
-         Widgets } from '@tol/tol-ui';
+  RemoteMultipleSelectFilters,
+  RemoteBarChart,
+  Widgets } from '@tol/tol-ui';
 import { useState } from 'react';
 import Platform from '../components/Platform';
 
@@ -36,7 +36,6 @@ function SequencingRequests() {
       filter={globalFilters}
       setCombinedFilters={setCombinedFilters}
       type='date'
-      height={500}
     />
   );
 
@@ -76,21 +75,38 @@ function SequencingRequests() {
           rename: "Date Sent To SciOps"
         }
       }}
-      height={500}
     />
   );
+
+  const title = (
+    <div>
+      <h2 className="tol-widget">Sequencing Requests</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: filters,
+      type: 'full'
+    },
+    {
+      component: chart,
+      type: 'lg'
+    },
+    {
+      component: table,
+      type: 'lg'
+    },
+  ];
 
   return (
     <div className="sequencing-requests">
       <Widgets
-        title="Sequencing Requests"
-        components={[filters]}
-      />
-      <Widgets
-        components={[chart]}
-      />
-      <Widgets
-        components={[table]}
+        components={components}
       />
     </div>
   );
