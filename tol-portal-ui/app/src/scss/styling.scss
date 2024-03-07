@@ -14,3 +14,15 @@
   border-radius: 25px;
   display: inline-block;
 }
+
+.feedback-btn {
+  float: right !important;
+}
+
+// feedback button on smaller devices
+@media (max-width: 576px) {
+  .feedback-btn {
+    margin-top: 12px;
+    float: left !important;
+  }
+}

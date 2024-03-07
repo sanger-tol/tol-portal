@@ -34,7 +34,7 @@ function Samples() {
       longitudeKey="sts_longitude"
       latitudeKey="sts_latitude"
       filter={filter}
-      attributeKeys="sts_public_name, sts_biosample_accession"
+      attributeKeys="sts_tolid.id, sts_biosample_accession"
     />
   );
 

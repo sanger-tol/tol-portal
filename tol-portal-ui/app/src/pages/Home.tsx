@@ -4,14 +4,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Button,
-				 RemoteBarChart,
+import { 
+  Button,
+  RemoteBarChart,
   RemoteSunburst,
-				 RemoteTable,
+	RemoteTable,
   Widgets,
-				 Row,
-				 Col,
-  RemoteCount } from '@tol/tol-ui';
+	Row,
+	Col,
+  RemoteCount
+} from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 
@@ -29,7 +31,7 @@ const getGreeting = () => {
 const button = (
   <Button
     href="https://docs.google.com/forms/d/e/1FAIpQLSdNpKVAPXCZVkY0cnM94_r3jYQfBVFyEBimE_f-bZIUX-23ng/viewform?usp=sf_link"
-    style={{float: "right"}}
+    className="feedback-btn"
   >
 		Provide Feedback
   </Button>

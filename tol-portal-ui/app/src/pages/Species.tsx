@@ -4,15 +4,20 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable,
+import { 
+  RemoteTable,
   RemoteSunburst,
-  Widgets } from '@tol/tol-ui';
+  Widgets
+} from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { useState } from 'react';
 
 
 function Species() {
-  const [filter, setFilter] = useState({});
+  const defaultFilter = {and_: {"sts_scientific_name": [{op: 'exists'}]}};
+  // @ts-ignore
+  const [filter1, setFilter1] = useState(defaultFilter);
+  const [filter2, setFilter2] = useState(defaultFilter);
 
   const sunburst = (
     <RemoteSunburst
@@ -21,7 +26,8 @@ function Species() {
       sliceBy={["sts_order_group", "sts_family"]}
       height={450}
       legendPosition="right"
-      setCombinedFilters={setFilter}
+      setCombinedFilters={setFilter2}
+      filter={filter1}
     />
   );
   
@@ -30,7 +36,7 @@ function Species() {
       id="species-table-v2"
       endpoint="species"
       defaultSort="sts_scientific_name"
-      filter={filter}
+      filter={filter2}
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",

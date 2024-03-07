@@ -34,7 +34,7 @@ function generateSampleTable(filter: object) {
       <RemoteTable
         id="sample-table-detail"
         endpoint="sample"
-        defaultSort="sts_public_name"
+        defaultSort="sts_tolid.id"
         filter={filter}
         height={500}
         fields={{

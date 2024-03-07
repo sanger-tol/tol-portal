@@ -14,6 +14,7 @@ function SpeciesRecollection() {
       id="species-recollection-table-v1-mvp"
       endpoint="species"
       defaultSort='sts_scientific_name'
+      filter={{and_: {"sts_scientific_name": [{op: 'exists'}]}}}
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",
