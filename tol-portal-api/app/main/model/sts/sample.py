@@ -129,10 +129,6 @@ class Sample(Base):
     identified_by = []
     preserved_by = []
 
-    # sampleset_id = db.Column(db.Integer, db.ForeignKey('sampleset.sampleset_id'))
-    # sampleset = db.relationship("StsSampleset", uselist=False,
-    #                             lazy=False, foreign_keys=[sampleset_id])
-
     biospecimen_accession: Mapped[str] = mapped_column()
     submission_accession: Mapped[str] = mapped_column()
     # assigned_by = db.Column(db.Integer, db.ForeignKey('user.user_id'))
