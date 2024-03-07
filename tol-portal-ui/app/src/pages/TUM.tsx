@@ -80,7 +80,7 @@ function TUM() {
 
   const title = (
     <div>
-      <h2>ToLIDs</h2>
+      <h2>TUM</h2>
     </div>
   );
 
