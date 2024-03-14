@@ -20,6 +20,11 @@ class SequencingRequest(Base):
     ep_sample: Mapped['EPSample'] \
         = relationship(back_populates='sequencing_requests')  # noqa F821
 
+    status_id: Mapped[int] = mapped_column(ForeignKey('sequencing_request_status.status_id'),
+                                           nullable=False)
+    sequencing_request_status: Mapped['SequencingRequestStatus'] \
+        = relationship(back_populates='sequencing_requests')  # noqa F821
+
     # platform_id = db.Column(db.Integer, db.ForeignKey('sequencing_platform.platform_id'),
     #                         nullable=False)
     sample_ref: Mapped[str] = mapped_column(unique=True)

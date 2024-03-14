@@ -17,3 +17,4 @@ from .species import Species  # noqa F401
 from .species_lab_work_status import SpeciesLabWorkStatus  # noqa F401
 from .specimen import Specimen  # noqa F401
 from .storage_rack import StorageRack  # noqa F401
+from .sequencing_request_status import SequencingRequestStatus  # noqa F401

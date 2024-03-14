@@ -35,6 +35,7 @@ from .model.sts import (
     Sampleset,
     SequencingMaterialStatus,
     SequencingRequest,
+    SequencingRequestStatus,
     SequencingRun,
     Species,
     SpeciesLabWorkStatus,
@@ -86,7 +87,7 @@ def application():
         models=[EPSample, Gal, Location, Project, Sample, SampleProject,
                 Sampleset, SampleSpecies, Species, SpeciesLabWorkStatus,
                 Specimen, SequencingMaterialStatus, SequencingRequest,
-                SequencingRun, StorageRack],
+                SequencingRequestStatus, SequencingRun, StorageRack],
         db_uri=os.getenv('STS_DB_URI')
     )
     blueprint_data_sts = data_blueprint(sts)
