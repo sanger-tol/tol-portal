@@ -124,7 +124,7 @@ function Home() {
       title='Species'
       endpoint='species'
       filter={
-        {and_: {"sts_scientific_name": [{op: 'exists'}]}}
+        {and_: {"sts_scientific_name": {exists: {}}}}
       }
     />
   );
@@ -134,7 +134,7 @@ function Home() {
       title='ToLIDs Submitted'
       endpoint='tolid'
       filter={
-        {and_: {"informatics_status_summary": [{op: 'eq', value: '1 submitted'}]}}
+        {and_: {"informatics_status_summary": {eq: {value: '1 submitted'}}}}
       }
     />
   );
