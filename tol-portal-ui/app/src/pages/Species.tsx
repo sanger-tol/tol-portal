@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 
 function Species() {
-  const defaultFilter = {and_: {"sts_scientific_name": [{op: 'exists'}]}};
+  const defaultFilter = {and_: {"sts_scientific_name": {exists: {}}}};
   // @ts-ignore
   const [filter1, setFilter1] = useState(defaultFilter);
   const [filter2, setFilter2] = useState(defaultFilter);
