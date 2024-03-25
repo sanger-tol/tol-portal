@@ -27,6 +27,7 @@ function SequencingRequests() {
 
   const chart = (
     <RemoteBarChart
+      id="sequencing-requests-bar-chart"
       stacked
       title="Submission from Benchling to SciOps"
       endpoint="sequencing_request"

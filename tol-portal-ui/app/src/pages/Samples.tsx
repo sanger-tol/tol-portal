@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteBubbleMap,
+import { RemoteMap,
   RemoteTable,
   RemoteBarChart,
   Widgets } from '@tol/tol-ui';
@@ -17,6 +17,7 @@ function Samples() {
 
   const chart = (
     <RemoteBarChart
+      id="samples-bar-chart"
       stacked
       title="Samples Recieved"
       endpoint={endpoint}
@@ -29,7 +30,8 @@ function Samples() {
   );
 
   const map = (
-    <RemoteBubbleMap
+    <RemoteMap
+      bubble
       endpoint={endpoint}
       longitudeKey="sts_longitude"
       latitudeKey="sts_latitude"

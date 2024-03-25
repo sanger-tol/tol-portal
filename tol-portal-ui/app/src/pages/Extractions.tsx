@@ -29,6 +29,7 @@ function Extractions() {
 
   const chart = (
     <RemoteBarChart
+      id="extractions-bar-chart"
       stacked
       title="Extractions"
       endpoint="extraction"

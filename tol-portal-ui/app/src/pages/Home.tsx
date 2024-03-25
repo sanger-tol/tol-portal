@@ -56,6 +56,7 @@ const intro = (
 function Home() {
   const runChart = (
     <RemoteBarChart
+      id="home-run-bar-chart"
       stacked
       title="Run Complete Data"
       endpoint="run_data"
@@ -68,6 +69,7 @@ function Home() {
   
   const sampleChart = (
     <RemoteBarChart
+      id="home-sample-bar-chart"
       stacked
       title="Samples Recieved"
       endpoint="sample"
@@ -80,6 +82,7 @@ function Home() {
   
   const speciesSunburst = (
     <RemoteSunburst
+      id="home-sunburst"
       title="Species"
       endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}

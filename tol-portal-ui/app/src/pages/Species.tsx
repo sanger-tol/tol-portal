@@ -21,6 +21,7 @@ function Species() {
 
   const sunburst = (
     <RemoteSunburst
+      id="species-sunburst"
       title="Species"
       endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}

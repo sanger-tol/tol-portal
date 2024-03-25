@@ -30,6 +30,7 @@ function SequencingRuns() {
 
   const chart = (
     <RemoteBarChart
+      id="sequencing-runs-bar-chart"
       stacked
       title="Run Complete Data"
       endpoint="run_data"
