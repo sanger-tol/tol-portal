@@ -73,6 +73,12 @@ function TUM() {
         },
         "benchling_species.sts_taxon_group": {
           rename: "Taxon Group"
+        },
+        "benchling_specimen.sts_estimated_genome_size": {
+          rename: "Bench Genome size (post-run)"
+        },
+        "mlwh_specimen.sts_estimated_genome_size": {
+          rename: "MLWH Genome size (post-run)"
         }
       }}
     />
