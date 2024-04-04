@@ -19,54 +19,62 @@ import {
   SpeciesRecollection
 } from './pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 const species: Page = {
   name: "Species",
-  uiElement: <Species />,
-  detailElement: <SpeciesDetail />
+  element: <Species />,
+  detail: <SpeciesDetail />
 };
 
 const specimens: Page = {
   name: "Specimens",
-  uiElement: <Specimens />
+  element: <Specimens />
 };
 
 const tolids: Page = {
   name: "ToLIDs",
-  uiElement: <ToLIDs />
+  element: <ToLIDs />
 };
 
 const samples: Page = {
   name: "Samples",
-  uiElement: <Samples />
+  element: <Samples />
 };
 
 const extractions: Page = {
   name: "Extractions",
-  uiElement: <Extractions />
+  element: <Extractions />
 };
 
 const sequencingRequests: Page = {
   name: "Requests",
-  uiElement: <SequencingRequests />
+  element: <SequencingRequests />
 };
 
 const sequencingRuns: Page = {
   name: "Runs",
-  uiElement: <SequencingRuns />
+  element: <SequencingRuns />
 };
 
 const tum: Page = {
   name: "TUM",
-  uiElement: <TUM />
+  element: <TUM />,
+  hidden: true
 };
 
 const speciesRecollection: Page = {
   name: "Recollection",
-  uiElement: <SpeciesRecollection/>
+  element: <SpeciesRecollection/>,
+  hidden: true
+}
+
+const otherDropdown: Dropdown = {
+  name: "Other",
+  pages: [speciesRecollection, tum],
+  hidden: false
 }
 
 ReactDOM.render(
@@ -88,7 +96,8 @@ ReactDOM.render(
       sequencingRequests,
       sequencingRuns,
       tum,
-      speciesRecollection
+      speciesRecollection,
+      otherDropdown
     ]}
     login={false}
   />,
