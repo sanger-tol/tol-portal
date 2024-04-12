@@ -16,10 +16,10 @@ function generateDetail(attributes: any) {
       <ObjectDetail
         data={{
           "Taxonomy ID": attributes['uid'],
-          "Order": attributes['sts_order_group'],
-          "Family": attributes['sts_family'],
-          "Genome Size": attributes['sts_genome_size'],
-          "ToLID Prefix": attributes['sts_prefix'],
+          "Common name": attributes['sts_common_name'],
+          "Lineage": (attributes['goat_lineage'] ?? []).join(' / '),
+          "Genome Size": attributes['goat_genome_size'],
+          "ToLID Prefix": attributes['tolid_prefix'],
         }}
       />
     </div>
@@ -58,6 +58,37 @@ function generateSampleTable(filter: object) {
           },
           "sts_biospecimen_accession": {
             rename: "Biospecimen"
+          }
+        }}
+      />
+    </div>
+  );
+}
+
+function generateExtractionTable(filter: object) {
+  return (
+    <div>
+      <h5>Extractions</h5>
+      <p className='mb-3'>Extractions for this species.</p>
+      <RemoteTable
+        id="extraction-table-detail"
+        endpoint="extraction"
+        defaultSort="benchling_tolid.id"
+        filter={filter}
+        height={500}
+        fields={{
+          "benchling_extraction_type": {
+            rename: "Type"
+          },
+          "benchling_tolid.id": {
+            rename: "ToLID"
+          },
+          "benchling_species.id": {
+            rename: "Species",
+            cellRenderer: "relationshipDetail"
+          },
+          "benchling_completion_date": {
+            rename: "Completion Date"
           }
         }}
       />
@@ -169,6 +200,7 @@ function SpeciesDetail() {
   const { id } = useParams<({id: string})>();
   const [response, setResponse] = useState();
   const sampleFilter = {exact: {'sts_species.id': id }};
+  const extractionFilter = {exact: {'benchling_species.id': id }};
   const pacbioRunFilter = {exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'PacBio'}};
   const iseqRunFilter = {exact: {'mlwh_species.id': id, 'mlwh_platform_type': 'Illumina'}};
 
@@ -199,6 +231,10 @@ function SpeciesDetail() {
       },
       {
         component: generateSampleTable(sampleFilter),
+        type: 'full'
+      },
+      {
+        component: generateExtractionTable(extractionFilter),
         type: 'full'
       },
       {

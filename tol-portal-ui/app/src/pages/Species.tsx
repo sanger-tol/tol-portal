@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { 
+import {
+  RemoteCount,
   RemoteTable,
   RemoteSunburst,
   Widgets
@@ -49,6 +50,39 @@ function Species() {
             }
           }
         },
+        "calc_done_date": {
+          rename: "Done date"
+        },
+        "sts_sample_count": {
+          rename: "No of samples"
+        },
+        "sts_sample_sts_accept_date_min": {
+          rename: "Accepted"
+        },
+        "sts_sample_benchling_date_assigned_to_lab_min": {
+          rename: "Assigned to lab"
+        },
+        "benchling_sequencing_request_benchling_completion_date_hic_min": {
+          rename: "HiC submitted"
+        },
+        "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
+          rename: "PacBio submitted"
+        },
+        "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
+          rename: "RNASeq submitted"
+        },
+        "mlwh_run_data_mlwh_run_complete_hic_min": {
+          rename: "HiC complete"
+        },
+        "mlwh_run_data_mlwh_run_complete_pacbio_min": {
+          rename: "PacBio complete"
+        },
+        "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
+          rename: "RNASeq complete"
+        },
+        "informatics_tolid_informatics_status_summary_min": {
+          rename: "Informatics status"
+        },
         "sts_taxon_group": {
           rename: "Taxon Group"
         },
@@ -65,6 +99,48 @@ function Species() {
     />
   );
 
+  const speciesReceivedCount = (
+    <RemoteCount
+      title='Species Received'
+      endpoint='species'
+      filter={
+        {and_: {"sts_scientific_name": {exists: {}}}}
+      }
+    />
+  );
+
+  const speciesExtractedCount = (
+    <RemoteCount
+      title='Species Extracted'
+      endpoint='species'
+      filter={
+        {and_: {"benchling_extraction_count": {'gt': {'value': 0}}}}
+      }
+    />
+  );
+
+  const speciesSubmittedCount = (
+    <RemoteCount
+      title='Species Submitted'
+      endpoint='species'
+      filter={
+        {and_: {"informatics_tolid_informatics_status_summary_min":
+          {'eq': {'value': '1 submitted'}}}}
+      }
+    />
+  );
+
+  const speciesDoneCount = (
+    <RemoteCount
+      title='Species Marked as Done'
+      endpoint='species'
+      filter={
+        {and_: {"calc_done_date": {exists: {}}}}
+      }
+    />
+  );
+
+
   const title = (
     <div>
       <h2>Species</h2>
@@ -75,6 +151,22 @@ function Species() {
     {
       component: title,
       type: 'full'
+    },
+    {
+      component: speciesReceivedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesExtractedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesSubmittedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesDoneCount,
+      type: 'sm'
     },
     {
       component: sunburst,

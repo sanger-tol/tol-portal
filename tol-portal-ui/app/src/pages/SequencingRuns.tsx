@@ -66,6 +66,15 @@ function SequencingRuns() {
         "mlwh_run_complete": {
           rename: "Complete Date"
         },
+        "tolqc_reporting_category": {
+          rename: "Category",
+          cellRenderer: {
+            element: Platform,
+            propPointers: {
+              platform: "tolqc_reporting_category"
+            }
+          }
+        },
         "mlwh_platform_type": {
           rename: "Platform",
           cellRenderer: {
