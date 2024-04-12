@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+from .banked_sample import BankedSample  # noqa F401
+from .banked_sample_category import BankedSampleCategory  # noqa F401
 from .ep_sample import EPSample  # noqa F401
 from .gal import Gal  # noqa F401
 from .location import Location  # noqa F401

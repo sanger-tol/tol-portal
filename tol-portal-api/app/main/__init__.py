@@ -25,6 +25,8 @@ from .model import (
     SequencingRequestEvent
 )
 from .model.sts import (
+    BankedSample,
+    BankedSampleCategory,
     EPSample,
     Gal,
     Location,
@@ -84,7 +86,8 @@ def application():
 
     # STS endpoints
     sts = create_sql_datasource(
-        models=[EPSample, Gal, Location, Project, Sample, SampleProject,
+        models=[BankedSample, BankedSampleCategory,
+                EPSample, Gal, Location, Project, Sample, SampleProject,
                 Sampleset, SampleSpecies, Species, SpeciesLabWorkStatus,
                 Specimen, SequencingMaterialStatus, SequencingRequest,
                 SequencingRequestStatus, SequencingRun, StorageRack],

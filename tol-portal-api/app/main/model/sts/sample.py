@@ -47,6 +47,9 @@ class Sample(Base):
     ep_samples: Mapped[List['EPSample']] \
         = relationship(back_populates='sample')  # noqa F821
 
+    banked_samples: Mapped[List['BankedSample']] \
+        = relationship(back_populates='sample')  # noqa F821
+
     series: Mapped[str] = mapped_column()
     rackid: Mapped[str] = mapped_column()
     tubeid: Mapped[str] = mapped_column()
