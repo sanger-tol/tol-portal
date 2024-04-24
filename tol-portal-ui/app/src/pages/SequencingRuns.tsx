@@ -45,7 +45,7 @@ function SequencingRuns() {
 
   const table = (
     <RemoteTable
-      id="run-data-table-v2"
+      id="run-data-table-v3"
       endpoint="run_data"
       defaultSort="mlwh_species.sts_scientific_name"
       filter={combinedFilters}

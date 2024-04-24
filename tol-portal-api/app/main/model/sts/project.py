@@ -15,6 +15,7 @@ class Project(Base):
     project_id: Mapped[str] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(nullable=False)
     project_code: Mapped[str] = mapped_column(unique=True, nullable=False)
+    programme: Mapped[str] = mapped_column(nullable=False)
 
     sample_projects: Mapped[List['SampleProject']] \
         = relationship(back_populates='project')  # noqa F821

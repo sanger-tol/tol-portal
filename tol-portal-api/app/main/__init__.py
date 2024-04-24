@@ -28,6 +28,7 @@ from .model.sts import (
     BankedSample,
     BankedSampleCategory,
     EPSample,
+    FreezerTray,
     Gal,
     Location,
     Project,
@@ -86,8 +87,8 @@ def application():
 
     # STS endpoints
     sts = create_sql_datasource(
-        models=[BankedSample, BankedSampleCategory,
-                EPSample, Gal, Location, Project, Sample, SampleProject,
+        models=[BankedSample, BankedSampleCategory, EPSample,
+                FreezerTray, Gal, Location, Project, Sample, SampleProject,
                 Sampleset, SampleSpecies, Species, SpeciesLabWorkStatus,
                 Specimen, SequencingMaterialStatus, SequencingRequest,
                 SequencingRequestStatus, SequencingRun, StorageRack],
