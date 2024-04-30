@@ -20,6 +20,9 @@ from tol.sources.elastic import (
 )
 from tol.sql import create_sql_datasource
 
+from .auth import (
+    get_auth_inspector
+)
 from .model import (
     DataLoadEvent,
     SequencingRequestEvent
@@ -81,7 +84,10 @@ def application():
         db_uri=os.getenv('TOLID_DB_URI'),
         type_function=lambda m: 'tolid_species' if m.get_table_name() == 'species' else 'tolid'
     )
-    blueprint_data_tolid = data_blueprint(tolid)
+    blueprint_data_tolid = data_blueprint(
+        tolid,
+        auth_inspector=get_auth_inspector(os.getenv('API_TOKEN'))
+    )
     app.register_blueprint(blueprint_data_tolid, name='tolid',
                            url_prefix=os.getenv('API_PATH') + '/external/tolid')
 
@@ -94,7 +100,11 @@ def application():
                 SequencingRequestStatus, SequencingRun, StorageRack],
         db_uri=os.getenv('STS_DB_URI')
     )
-    blueprint_data_sts = data_blueprint(sts)
+
+    blueprint_data_sts = data_blueprint(
+        sts,
+        auth_inspector=get_auth_inspector(os.getenv('API_TOKEN'))
+    )
     app.register_blueprint(blueprint_data_sts, name='sts',
                            url_prefix=os.getenv('API_PATH') + '/external/sts')
 
