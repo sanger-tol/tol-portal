@@ -99,7 +99,7 @@ ReactDOM.render(
       speciesRecollection,
       otherDropdown
     ]}
-    login={false}
+    login={true}
   />,
   document.getElementById('root')
 );

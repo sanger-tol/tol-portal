@@ -155,3 +155,10 @@ tolcore:
     enabled: true
   google:
     client_secrets_json: ""
+  oidc:
+    enabled: true
+    url:
+      auth: https://sanger.okta.com/oauth2/v1/authorize
+      token: https://sanger.okta.com/oauth2/v1/token
+      revoke: https://sanger.okta.com/oauth2/v1/revoke
+      userinfo: https://sanger.okta.com/oauth2/v1/userinfo

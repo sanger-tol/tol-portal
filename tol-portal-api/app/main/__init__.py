@@ -19,11 +19,13 @@ from tol.sources.elastic import (
     elastic
 )
 from tol.sql import create_sql_datasource
+from tol.sql.auth import db_auth_blueprint
 
 from .auth import (
     get_auth_inspector
 )
 from .model import (
+    Base,
     DataLoadEvent,
     SequencingRequestEvent
 )
@@ -58,6 +60,15 @@ def application():
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
+
+    # auth
+    auth_bp = db_auth_blueprint(
+        Base,
+        os.environ['DB_URI'],
+        url_prefix=os.environ['API_PATH'] + '/auth'
+    )
+    app.register_blueprint(auth_bp)
+    auth_bp.register_authenticator(app)
 
     eds = elastic()
     # The main endpoints for the elastic data
