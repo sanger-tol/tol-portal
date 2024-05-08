@@ -59,8 +59,17 @@ function TUM() {
         "benchling_tolid.informatics_status": {
           rename: "ToL Assembly Sequencing Status"
         },
+        "benchling_library_type": {
+          rename: "Library Type"
+        },
         "lrpacbio_library_remaining": {
           rename: "Library Remaining"
+        },
+        "lrpacbio_portion_of_cell": {
+          rename: "Portion of Cell"
+        },
+        "lrpacbio_cell_status": {
+          rename: "Cell Status"
         },
         "lrpacbio_library_remaining_oplc": {
           rename: "Estimated Maximum OPLC 75% Recovery"
