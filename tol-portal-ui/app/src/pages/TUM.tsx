@@ -59,6 +59,9 @@ function TUM() {
         "benchling_tolid.informatics_status": {
           rename: "ToL Assembly Sequencing Status"
         },
+        "benchling_tolid.informatics_gscope_coverage": {
+          rename: "ToL Assembly Gscope Coverage"
+        },
         "benchling_library_type": {
           rename: "Library Type"
         },
@@ -72,7 +75,10 @@ function TUM() {
           rename: "Cell Status"
         },
         "lrpacbio_library_remaining_oplc": {
-          rename: "Estimated Maximum OPLC 75% Recovery"
+          rename: "Library Remaining OPLC 75% Recovery"
+        },
+        "lrpacbio_estimated_max_oplc": {
+          rename: "Estimated Maximum OPLC"
         },
         "benchling_sample.sts_project": {
           rename: "ToL Project"
@@ -83,8 +89,14 @@ function TUM() {
         "benchling_species.sts_taxon_group": {
           rename: "Taxon Group"
         },
+        "benchling_species.calc_coverage": {
+          rename: "Calculated Coverage"
+        },
         "benchling_specimen.sts_estimated_genome_size": {
           rename: "Bench Genome size (post-run)"
+        },
+        "benchling_specimen.calc_coverage_post_run": {
+          rename: "Calculated Coverage Post Run"
         },
         "mlwh_specimen.sts_estimated_genome_size": {
           rename: "MLWH Genome size (post-run)"

@@ -35,7 +35,7 @@ function Species() {
   
   const table = (
     <RemoteTable
-      id="species-table-v2"
+      id="species-table-v3"
       endpoint="species"
       defaultSort="sts_scientific_name"
       filter={filter2}
@@ -82,6 +82,9 @@ function Species() {
         },
         "informatics_tolid_informatics_status_summary_min": {
           rename: "Informatics status"
+        },
+        "tolqclegacy_assembly_stage": {
+          rename: "Assembly Stage"
         },
         "sts_taxon_group": {
           rename: "Taxon Group"

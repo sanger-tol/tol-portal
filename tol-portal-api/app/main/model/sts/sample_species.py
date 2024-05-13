@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+from typing import List
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -23,6 +25,29 @@ class SampleSpecies(Base):
         primary_key=True
     )
     species: Mapped['Species'] = relationship(back_populates='sample_species')  # noqa F821
+
+    sex_id: Mapped[str] = mapped_column(
+        ForeignKey('sex.sex_id'),
+        nullable=False
+    )
+    sex: Mapped['Sex'] \
+        = relationship(back_populates='sample_species')  # noqa F821
+
+    lifestage_id: Mapped[str] = mapped_column(
+        ForeignKey('lifestage.lifestage_id'),
+        nullable=False
+    )
+    lifestage: Mapped['Lifestage'] \
+        = relationship(back_populates='sample_species')  # noqa F821
+
+    sample_species_organism_parts: Mapped[List['SampleSpeciesOrganismPart']] = relationship(  # noqa F821
+        'SampleSpeciesOrganismPart',
+        viewonly=True,
+        primaryjoin='and_(SampleSpecies.sample_id==SampleSpeciesOrganismPart.sample_id, '
+                    'SampleSpecies.species_id==SampleSpeciesOrganismPart.species_id)',
+        back_populates='sample_species',
+        uselist=True
+    )
 
     target_or_symbiont: Mapped[str] = mapped_column('type', nullable=False)  # noqa A003
     taxon_remark: Mapped[str] = mapped_column()
