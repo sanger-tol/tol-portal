@@ -25,7 +25,7 @@ function SpeciesRecollection() {
 
   const table = (
     <RemoteTable
-      id="species-recollection-table-v1"
+      id="species-recollection-table-v2"
       defaultSort='sts_scientific_name'
       fields={{
         "sts_scientific_name": {
@@ -64,6 +64,12 @@ function SpeciesRecollection() {
         },
         "mlwh_run_data_mlwh_run_complete_illumina_min": {
           rename: "Illumina Run Complete"
+        },
+        "sts_sequencing_material_status": {
+          rename: "Material Status"
+        },
+        "sts_sequencing_material_status_updated_at": {
+          rename: "Material Status Updated"
         },
       }}
       {...speciesRecollection}
