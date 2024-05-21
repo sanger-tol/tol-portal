@@ -12,7 +12,8 @@ import {
   Widgets,
 	Row,
 	Col,
-  RemoteCount
+  RemoteCount,
+  useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
@@ -56,44 +57,41 @@ const intro = (
 function Home() {
   const runChart = (
     <RemoteBarChart
-      id="home-run-bar-chart"
+      id="home-run-bar-chart-v1"
+      endpoint="run_data"
       stacked
       title="Run Complete Data"
-      endpoint="run_data"
       breakDownBy="mlwh_instrument_model"
       xAxis="mlwh_run_complete"
-      interval="M"
-      type='date'
+      type='M'
     />
   );
   
   const sampleChart = (
     <RemoteBarChart
-      id="home-sample-bar-chart"
+      id="home-sample-bar-chart-v1"
+      endpoint="sample"
       stacked
       title="Samples Recieved"
-      endpoint="sample"
       breakDownBy="sts_ac_status"
       xAxis="benchling_date_sample_received_at_sanger"
-      interval="M"
-      type='date'
+      type='M'
     />
   );
-  
+
   const speciesSunburst = (
     <RemoteSunburst
-      id="home-sunburst"
-      title="Species"
+      id="home-species-sunburst-v1"
       endpoint="species"
+      title="Species"
       sliceBy={["sts_order_group", "sts_family"]}
       legendPosition="left"
     />
   );
-
+  
   const speciesTable = (
     <RemoteTable
-      id="species-home-table-v2"
-      endpoint="species"
+      id="home-species-table-v1"
       defaultSort="sts_scientific_name"
       fields={{
         "sts_scientific_name": {
@@ -119,40 +117,66 @@ function Home() {
           rename: "ToLID Prefix"
         },
       }}
+      {...useZone({
+        endpoint: 'species',
+        components: [{id: 'home-species-table-v1'}]
+      })}
     />
   );
 
   const speciesCount = (
     <RemoteCount
+      id="home-species-count-v1"
       title='Species'
-      endpoint='species'
-      filter={
-        {and_: {"sts_scientific_name": {exists: {}}}}
-      }
+      {...useZone({
+        endpoint: 'species',
+        components: [{
+          id: 'home-species-count-v1',
+          filter: {
+            and_: {
+              'sts_scientific_name': {
+                exists: {},
+              }
+            }
+          }
+        }]
+      })}
     />
   );
 
   const tolidCount = (
     <RemoteCount
+      id="home-tolid-count-v1"
       title='ToLIDs Submitted'
-      endpoint='tolid'
-      filter={
-        {and_: {"informatics_status_summary": {eq: {value: '1 submitted'}}}}
-      }
+      {...useZone({
+        endpoint: 'tolid',
+        components: [{
+          id: 'home-tolid-count-v1',
+          filter: {
+            and_: {
+              'informatics_status_summary': {
+                eq: {value: '1 submitted'}
+              }
+            }
+          }
+        }]
+      })}
     />
   );
 
   const extractionsCount = (
     <RemoteCount
-      title='Extractions'
+      id="home-extractions-count-v1"
       endpoint='extraction'
+      title='Extractions'
     />
   );
 
   const runDataCount = (
     <RemoteCount
-      title='Runs'
+      id="home-run-data-count-v1"
       endpoint='run_data'
+      title='Runs'
     />
   );
 

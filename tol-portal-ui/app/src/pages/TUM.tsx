@@ -4,21 +4,29 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
 
 
 function TUM() {
-  const filter = {
-    exact: {
-      benchling_sequencing_platform: "pacbio"
-    }
-  };
+  const tum = useZone({
+    endpoint: 'sequencing_request',
+    components: [
+      {
+        id: 'tum-table-v1',
+        filter: {
+          and_: {
+            "benchling_sequencing_platform": {
+              'eq': { 'value': 'pacbio' }
+            }
+          }
+        }
+      }
+    ]
+  });
 
   const table = (
     <RemoteTable
       id="tum-table-v1"
-      endpoint="sequencing_request"
-      filter={filter}
       defaultSort='benchling_species.sts_scientific_name'
       fields={{
         "uid": {
@@ -102,6 +110,7 @@ function TUM() {
           rename: "MLWH Genome size (post-run)"
         }
       }}
+      {...tum}
     />
   );
 

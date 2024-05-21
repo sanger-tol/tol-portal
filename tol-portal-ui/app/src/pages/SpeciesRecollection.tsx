@@ -4,17 +4,29 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 
 function SpeciesRecollection() {
+  const speciesRecollection = useZone({
+    endpoint: 'species',
+    components: [
+      {
+        id: 'species-recollection-table-v1',
+        filter: {
+          and_: {
+            "sts_scientific_name": { exists: {} }
+          }
+        },
+      }
+    ]
+  });
+
   const table = (
     <RemoteTable
-      id="species-recollection-table-v1-mvp"
-      endpoint="species"
+      id="species-recollection-table-v1"
       defaultSort='sts_scientific_name'
-      filter={{and_: {"sts_scientific_name": {exists: {}}}}}
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",
@@ -54,6 +66,7 @@ function SpeciesRecollection() {
           rename: "Illumina Run Complete"
         },
       }}
+      {...speciesRecollection}
     />
   );
 

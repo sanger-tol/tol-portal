@@ -4,47 +4,39 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable,
-  RemoteMultipleSelectFilters,
+import {
+  RemoteTable,
   RemoteBarChart,
-  Widgets } from '@tol/tol-ui';
-import { useState } from 'react';
+  Widgets,
+  useZone
+} from '@tol/tol-ui';
 import Platform from '../components/Platform';
 
 
 function SequencingRequests() {
-  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
-  const [combinedFilters, setCombinedFilters] = useState<object>({});
-
-  const filters = (
-    <RemoteMultipleSelectFilters
-      endpoint="sequencing_request"
-      fields={["benchling_source"]}
-      globalFilters={globalFilters}
-      setGlobalFilters={setGlobalFilters}
-    />
-  );
+  const sequencingRequests = useZone({
+    endpoint: 'sequencing_request',
+    components: [
+      { id: 'sequencing-requests-bar-chart-v1' },
+      { id: 'sequencing-request-table-v2' }
+    ]
+  });
 
   const chart = (
     <RemoteBarChart
-      id="sequencing-requests-bar-chart"
+      id="sequencing-requests-bar-chart-v1"
       stacked
       title="Submission from Benchling to SciOps"
-      endpoint="sequencing_request"
       breakDownBy="benchling_source"
       xAxis="benchling_completion_date"
-      interval="M"
-      filter={globalFilters}
-      setCombinedFilters={setCombinedFilters}
-      type='date'
+      type='M'
+      {...sequencingRequests}
     />
   );
 
   const table = (
     <RemoteTable
       id="sequencing-request-table-v2"
-      endpoint="sequencing_request"
-      filter={combinedFilters}
       defaultSort="mlwh_species.sts_scientific_name"
       fields={{
         "uid": {
@@ -76,6 +68,7 @@ function SequencingRequests() {
           rename: "Date Sent To SciOps"
         }
       }}
+      {...sequencingRequests}
     />
   );
 
@@ -88,10 +81,6 @@ function SequencingRequests() {
   const components = [
     {
       component: title,
-      type: 'full'
-    },
-    {
-      component: filters,
       type: 'full'
     },
     {

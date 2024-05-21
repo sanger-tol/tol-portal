@@ -4,47 +4,39 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteMap,
+import {
+  RemoteMap,
   RemoteTable,
   RemoteBarChart,
-  Widgets } from '@tol/tol-ui';
-import { useState } from 'react';
-
+  Widgets,
+  useZone
+} from '@tol/tol-ui';
 
 function Samples() {
-  const endpoint = "sample";
-  const [filter, setFilter] = useState({});
+  const samples = useZone({
+    endpoint: "sample",
+    components: [
+      { id: "samples-bar-chart-v1" },
+      { id: "samples-table-v2" },
+      { id: "samples-map-v1" }
+    ]
+  });
 
   const chart = (
     <RemoteBarChart
-      id="samples-bar-chart"
+      id="samples-bar-chart-v1"
       stacked
       title="Samples Recieved"
-      endpoint={endpoint}
       breakDownBy="sts_ac_status"
       xAxis="benchling_date_sample_received_at_sanger"
-      interval="M"
-      setCombinedFilters={setFilter}
-      type='date'
-    />
-  );
-
-  const map = (
-    <RemoteMap
-      bubble
-      endpoint={endpoint}
-      longitudeKey="sts_longitude"
-      latitudeKey="sts_latitude"
-      filter={filter}
-      attributeKeys="sts_tolid.id, sts_biosample_accession"
+      type='M'
+      {...samples}
     />
   );
 
   const table = (
     <RemoteTable
-      id={`${endpoint}-table-v2`}
-      endpoint={endpoint}
-      filter={filter}
+      id="samples-table-v2"
       defaultSort="sts_species.sts_scientific_name"
       fields={{
         "uid": {
@@ -70,6 +62,18 @@ function Samples() {
           rename: "Latitude",
         }
       }}
+      {...samples}
+    />
+  );
+
+  const map = (
+    <RemoteMap
+      id="samples-map-v1"
+      bubble
+      longitudeKey="sts_longitude"
+      latitudeKey="sts_latitude"
+      attributeKeys="sts_tolid.id, sts_biosample_accession"
+      {...samples}
     />
   );
 
@@ -101,7 +105,7 @@ function Samples() {
   return (
     <div className="samples">
       <Widgets
-        components={components} 
+        components={components}
       />
     </div>
   );

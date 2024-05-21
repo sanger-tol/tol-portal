@@ -5,14 +5,20 @@
  */
 
 import { RemoteTable,
-  Widgets } from '@tol/tol-ui';
+  Widgets, useZone } from '@tol/tol-ui';
 
 
 function Specimens() {
+  const specimens = useZone({
+    endpoint:'specimen',
+    components: [
+      { id:'specimen-table-v2' }
+    ]
+  });
+
   const table = (
     <RemoteTable
       id="specimen-table-v2"
-      endpoint="specimen"
       defaultSort='sts_bio_specimen_id'
       fields={{
         "uid": {
@@ -46,6 +52,7 @@ function Specimens() {
           rename: "STS Created On"
         }
       }}
+      {...specimens}
     />
   );
 

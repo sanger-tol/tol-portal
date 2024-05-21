@@ -4,15 +4,23 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable,
-  Widgets } from '@tol/tol-ui';
+import {
+  RemoteTable,
+  Widgets, useZone
+} from '@tol/tol-ui';
 
 
 function ToLIDs() {
+  const tolid = useZone({
+    endpoint: 'tolid',
+    components: [
+      { id: 'tolid-table-v3' }
+    ]
+  });
+
   const table = (
     <RemoteTable
       id="tolid-table-v3"
-      endpoint="tolid"
       defaultSort="tolid_species.sts_scientific_name"
       fields={{
         "uid": {
@@ -33,6 +41,7 @@ function ToLIDs() {
           rename: "Status"
         }
       }}
+      {...tolid}
     />
   );
 

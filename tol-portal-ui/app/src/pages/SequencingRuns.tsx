@@ -4,51 +4,41 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable,
-  RemoteMultipleSelectFilters,
+import {
+  RemoteTable,
   RemoteBarChart,
-  Widgets } from '@tol/tol-ui';
-import { useState } from 'react';
+  Widgets,
+  useZone
+} from '@tol/tol-ui';
 import Platform from '../components/Platform';
 
 
 function SequencingRuns() {
-  const [globalFilters, setGlobalFilters] = useState<object>({in_list: {}});
-  const [combinedFilters, setCombinedFilters] = useState<object>({});
-
-  const filters = (
-    <RemoteMultipleSelectFilters
-      endpoint="run_data"
-      fields={["mlwh_platform_type"]}
-      renamedFields={{
-        mlwh_platform_type: "Platform Type"
-      }}
-      globalFilters={globalFilters}
-      setGlobalFilters={setGlobalFilters}
-    />
-  );
+  const runs = useZone({
+    endpoint: 'run_data',
+    components: [
+      { id: 'sequencing-runs-bar-chart-v1' },
+      { id: 'run-data-table-v3' }
+    ]
+  });
 
   const chart = (
     <RemoteBarChart
-      id="sequencing-runs-bar-chart"
+      id="sequencing-runs-bar-chart-v1"
       stacked
       title="Run Complete Data"
-      endpoint="run_data"
       breakDownBy="mlwh_instrument_model"
       xAxis="mlwh_run_complete"
-      interval="M"
-      filter={globalFilters}
-      setCombinedFilters={setCombinedFilters}
-      type='date'
+      type='M'
+      {...runs}
     />
   );
+
 
   const table = (
     <RemoteTable
       id="run-data-table-v3"
-      endpoint="run_data"
       defaultSort="mlwh_species.sts_scientific_name"
-      filter={combinedFilters}
       fields={{
         "mlwh_run_id": {
           rename: "Run ID"
@@ -94,6 +84,7 @@ function SequencingRuns() {
           rename: "Tag"
         }
       }}
+      {...runs}
     />
   );
 
@@ -106,10 +97,6 @@ function SequencingRuns() {
   const components = [
     {
       component: title,
-      type: 'full'
-    },
-    {
-      component: filters,
       type: 'full'
     },
     {

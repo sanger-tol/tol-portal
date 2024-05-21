@@ -8,37 +8,117 @@ import {
   RemoteCount,
   RemoteTable,
   RemoteSunburst,
-  Widgets
+  Widgets,
+  useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
-import { useState } from 'react';
 
 
 function Species() {
-  const defaultFilter = {and_: {"sts_scientific_name": {exists: {}}}};
-  // @ts-ignore
-  const [filter1, setFilter1] = useState(defaultFilter);
-  const [filter2, setFilter2] = useState(defaultFilter);
+  const species = useZone({
+    endpoint: 'species',
+    components: [
+      {
+        id: 'species-received-count',
+        filter: {
+          and_: {
+            "sts_scientific_name": {exists: {}}
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-extracted-count',
+        filter: {
+          and_: {
+            "benchling_extraction_count": {
+              'gt': {'value': 0}
+            }
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-submitted-count',
+        filter: {
+          and_: {
+            "informatics_tolid_informatics_status_summary_min": {
+              'eq': {'value': '1 submitted'}
+            }
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-done-count',
+        filter: {
+          and_: {
+            "calc_done_date": {exists: {}}
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-sunburst',
+        filter: {
+          and_: {
+            'sts_scientific_name': {
+              exists: {}
+            }
+          }
+        }
+      },
+      {id: 'species-table-v4'}
+    ]
+  });
+
+  const speciesReceivedCount = (
+    <RemoteCount
+      id="species-received-count"
+      title='Species Received'
+      {...species}
+    />
+  );
+
+  const speciesExtractedCount = (
+    <RemoteCount
+      id="species-extracted-count"
+      title='Species Extracted'
+      {...species}
+    />
+  );
+
+  const speciesSubmittedCount = (
+    <RemoteCount
+      id="species-submitted-count"
+      title='Species Submitted'
+      {...species}
+    />
+  );
+
+  const speciesDoneCount = (
+    <RemoteCount
+      id="species-done-count"
+      title='Species Marked as Done'
+      {...species}
+    />
+  );
 
   const sunburst = (
     <RemoteSunburst
       id="species-sunburst"
       title="Species"
-      endpoint="species"
       sliceBy={["sts_order_group", "sts_family"]}
       height={450}
       legendPosition="right"
-      setCombinedFilters={setFilter2}
-      filter={filter1}
+      {...species}
     />
   );
   
   const table = (
     <RemoteTable
-      id="species-table-v3"
-      endpoint="species"
+      id="species-table-v4"
       defaultSort="sts_scientific_name"
-      filter={filter2}
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",
@@ -99,50 +179,9 @@ function Species() {
           rename: "ToLID Prefix"
         },
       }}
+      {...species}
     />
   );
-
-  const speciesReceivedCount = (
-    <RemoteCount
-      title='Species Received'
-      endpoint='species'
-      filter={
-        {and_: {"sts_scientific_name": {exists: {}}}}
-      }
-    />
-  );
-
-  const speciesExtractedCount = (
-    <RemoteCount
-      title='Species Extracted'
-      endpoint='species'
-      filter={
-        {and_: {"benchling_extraction_count": {'gt': {'value': 0}}}}
-      }
-    />
-  );
-
-  const speciesSubmittedCount = (
-    <RemoteCount
-      title='Species Submitted'
-      endpoint='species'
-      filter={
-        {and_: {"informatics_tolid_informatics_status_summary_min":
-          {'eq': {'value': '1 submitted'}}}}
-      }
-    />
-  );
-
-  const speciesDoneCount = (
-    <RemoteCount
-      title='Species Marked as Done'
-      endpoint='species'
-      filter={
-        {and_: {"calc_done_date": {exists: {}}}}
-      }
-    />
-  );
-
 
   const title = (
     <div>
@@ -177,7 +216,7 @@ function Species() {
     },
     {
       component: table,
-      type: 'lg'
+      type: 'xl'
     },
   ];
 
