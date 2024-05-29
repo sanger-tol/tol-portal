@@ -107,7 +107,8 @@ function TUM() {
           rename: "Calculated Coverage Post Run"
         },
         "mlwh_specimen.sts_estimated_genome_size": {
-          rename: "MLWH Genome size (post-run)"
+          rename: "MLWH Genome size (post-run)",
+          filterType: 'float'
         }
       }}
       {...tum}

@@ -59,11 +59,14 @@ function SpeciesRecollection() {
         "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
           rename: "RNASeq Request Complete"
         },
+        "mlwh_run_data_mlwh_run_complete_hic_min": {
+          rename: "HiC Run Complete"
+        },
         "mlwh_run_data_mlwh_run_complete_pacbio_min": {
           rename: "PacBio Run Complete"
         },
-        "mlwh_run_data_mlwh_run_complete_illumina_min": {
-          rename: "Illumina Run Complete"
+        "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
+          rename: "RNASeq Run Complete"
         },
         "sts_sequencing_material_status": {
           rename: "Material Status"
