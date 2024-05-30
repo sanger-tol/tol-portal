@@ -13,7 +13,7 @@ function SpeciesRecollection() {
     endpoint: 'species',
     components: [
       {
-        id: 'species-recollection-table-v1',
+        id: 'species-recollection-table-v2',
         filter: {
           and_: {
             "sts_scientific_name": { exists: {} }

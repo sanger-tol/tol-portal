@@ -16,7 +16,8 @@ import {
   SequencingRequests,
   SequencingRuns,
   TUM,
-  SpeciesRecollection
+  SpeciesRecollection,
+  SamplesStuck
 } from './pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page, Dropdown } from '@tol/tol-ui';
@@ -71,9 +72,15 @@ const speciesRecollection: Page = {
   hidden: true
 }
 
+const samplesStuck: Page = {
+  name: "Samples Stuck",
+  element: <SamplesStuck/>,
+  hidden: true
+}
+
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum],
+  pages: [speciesRecollection, tum, samplesStuck],
   hidden: false
 }
 
@@ -97,6 +104,7 @@ ReactDOM.render(
       sequencingRuns,
       tum,
       speciesRecollection,
+      samplesStuck,
       otherDropdown
     ]}
     login={true}
