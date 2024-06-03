@@ -59,7 +59,7 @@ function SamplesStuck() {
 
   const title = (
     <div>
-      <h2>SamplesStuck</h2>
+      <h2>Samples Stuck</h2>
     </div>
   );
 

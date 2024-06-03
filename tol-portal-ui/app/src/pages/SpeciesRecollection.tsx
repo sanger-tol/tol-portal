@@ -16,7 +16,7 @@ function SpeciesRecollection() {
         id: 'species-recollection-table-v2',
         filter: {
           and_: {
-            "sts_scientific_name": { exists: {} }
+            "sts_species_id": { exists: {} }
           }
         },
       }

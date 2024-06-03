@@ -22,7 +22,7 @@ function Species() {
         id: 'species-received-count',
         filter: {
           and_: {
-            "sts_scientific_name": {exists: {}}
+            "sts_species_id": {exists: {}}
           }
         },
         filterPassThrough: true
@@ -62,7 +62,7 @@ function Species() {
         id: 'species-sunburst',
         filter: {
           and_: {
-            'sts_scientific_name': {
+            'sts_species_id': {
               exists: {}
             }
           }
