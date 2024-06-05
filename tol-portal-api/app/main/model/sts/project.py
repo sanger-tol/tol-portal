@@ -20,6 +20,12 @@ class Project(Base):
     sample_projects: Mapped[List['SampleProject']] \
         = relationship(back_populates='project')  # noqa F821
 
+    samplesets: Mapped[List['Sampleset']] \
+        = relationship(back_populates='project')  # noqa F821
+
+    manifests: Mapped[List['Manifest']] \
+        = relationship(back_populates='project')  # noqa F821
+
     @classmethod
     def get_id_column_name(cls) -> str:
         return 'project_code'

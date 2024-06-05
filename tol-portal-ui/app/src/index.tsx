@@ -12,6 +12,8 @@ import {
   Specimens,
   ToLIDs,
   Samples,
+  Samplesets,
+  Manifests,
   Extractions,
   SequencingRequests,
   SequencingRuns,
@@ -38,6 +40,16 @@ const specimens: Page = {
 const tolids: Page = {
   name: "ToLIDs",
   element: <ToLIDs />
+};
+
+const samplesets: Page = {
+  name: "Sample Sets",
+  element: <Samplesets />
+};
+
+const manifests: Page = {
+  name: "Manifests",
+  element: <Manifests />
 };
 
 const samples: Page = {
@@ -98,6 +110,8 @@ ReactDOM.render(
       species,
       specimens,
       tolids,
+      samplesets,
+      manifests,
       samples,
       extractions,
       sequencingRequests,

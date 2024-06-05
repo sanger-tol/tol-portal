@@ -38,6 +38,13 @@ class Sample(Base):
     sampleset: Mapped['Sampleset'] \
         = relationship(back_populates='samples') # noqa F821
 
+    manifest_id: Mapped[str] = mapped_column(
+        ForeignKey('manifest.manifest_id'),
+        nullable=False
+    )
+    manifest: Mapped['Manifest'] \
+        = relationship(back_populates='samples') # noqa F821
+
     sample_projects: Mapped[List['SampleProject']] \
         = relationship(back_populates='sample')  # noqa F821
 

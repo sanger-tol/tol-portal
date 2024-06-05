@@ -32,11 +32,14 @@ from .model import (
 from .model.sts import (
     BankedSample,
     BankedSampleCategory,
+    ComplianceStatus,
     EPSample,
     FreezerTray,
     Gal,
     Lifestage,
     Location,
+    Manifest,
+    ManifestStatus,
     OrganismPart,
     Project,
     Sample,
@@ -44,11 +47,15 @@ from .model.sts import (
     SampleSpecies,
     SampleSpeciesOrganismPart,
     Sampleset,
+    SamplesetLegal,
+    SamplesetResearchGovernance,
+    SamplesetStatus,
     SequencingMaterialStatus,
     SequencingRequest,
     SequencingRequestStatus,
     SequencingRun,
     Sex,
+    ShipmentStatus,
     Species,
     SpeciesLabWorkStatus,
     Specimen,
@@ -108,11 +115,12 @@ def application():
 
     # STS endpoints
     sts = create_sql_datasource(
-        models=[BankedSample, BankedSampleCategory, EPSample,
-                FreezerTray, Gal, Lifestage, Location, Project, OrganismPart,
-                Sample, SampleProject, Sampleset, SampleSpecies,
-                SampleSpeciesOrganismPart, Sex, Species, SpeciesLabWorkStatus,
-                Specimen, SequencingMaterialStatus, SequencingRequest,
+        models=[BankedSample, BankedSampleCategory, ComplianceStatus, EPSample,
+                FreezerTray, Gal, Lifestage, Location, Manifest, ManifestStatus,
+                Project, OrganismPart, Sample, SampleProject, Sampleset, SamplesetLegal,
+                SamplesetResearchGovernance, SamplesetStatus, SampleSpecies,
+                SampleSpeciesOrganismPart, Sex, ShipmentStatus, Species,
+                SpeciesLabWorkStatus, Specimen, SequencingMaterialStatus, SequencingRequest,
                 SequencingRequestStatus, SequencingRun, StorageRack],
         db_uri=os.getenv('STS_DB_URI')
     )

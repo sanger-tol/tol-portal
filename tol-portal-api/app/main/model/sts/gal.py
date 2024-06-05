@@ -20,6 +20,9 @@ class Gal(Base):
     samples: Mapped[List['Sample']] = \
         relationship(back_populates='gal')  # noqa F821
 
+    samplesets: Mapped[List['Sampleset']] = \
+        relationship(back_populates='gal')  # noqa F821
+
     @classmethod
     def get_id_column_name(cls) -> str:
         return 'gal_id'
