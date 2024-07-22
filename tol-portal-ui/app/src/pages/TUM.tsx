@@ -108,7 +108,7 @@ function TUM() {
         },
         "mlwh_specimen.sts_estimated_genome_size": {
           rename: "MLWH Genome size (post-run)",
-          filterType: 'float'
+          type: 'float'
         }
       }}
       {...tum}
