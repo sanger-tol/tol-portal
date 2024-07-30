@@ -17,6 +17,7 @@ import {
   Extractions,
   SequencingRequests,
   SequencingRuns,
+  Curations,
   TUM,
   SpeciesRecollection,
   SamplesStuck
@@ -72,6 +73,11 @@ const sequencingRuns: Page = {
   element: <SequencingRuns />
 };
 
+const curations: Page = {
+  name: "Curations",
+  element: <Curations />
+};
+
 const tum: Page = {
   name: "TUM",
   element: <TUM />,
@@ -116,6 +122,7 @@ ReactDOM.render(
       extractions,
       sequencingRequests,
       sequencingRuns,
+      curations,
       tum,
       speciesRecollection,
       samplesStuck,

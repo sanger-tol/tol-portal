@@ -160,6 +160,9 @@ function Species() {
         "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
           rename: "RNASeq complete"
         },
+        "grit_curation_grit_done_date_min": {
+          rename: "Curation complete"
+        },
         "informatics_tolid_informatics_status_summary_min": {
           rename: "Informatics status"
         },

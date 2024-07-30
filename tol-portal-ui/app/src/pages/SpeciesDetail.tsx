@@ -42,7 +42,7 @@ function SpeciesDetail() {
       <h5>Sample</h5>
       <p className='mb-3'>Sample information collected for this species.</p>
       <RemoteTable
-        id="sample-table-detail-v1"
+        id="sample-table-detail-v2"
         defaultSort="sts_tolid.id"
         height={500}
         fields={{
@@ -55,10 +55,10 @@ function SpeciesDetail() {
           "sts_gal_name": {
             rename: "GAL"
           },
-          "benchling_sex": {
+          "sts_sex": {
             rename: "Sex"
           },
-          "benchling_organism_part": {
+          "sts_organism_part": {
             rename: "Organism Part"
           },
           "sts_biosample_accession": {
@@ -71,7 +71,7 @@ function SpeciesDetail() {
         {...useZone({
           endpoint: 'sample',
           components: [{
-            id: 'sample-table-detail-v1',
+            id: 'sample-table-detail-v2',
             filter: {
               and_: {
                 "sts_species.id": { eq: { value: id } },
@@ -219,6 +219,39 @@ function SpeciesDetail() {
     </div>
   )
 
+  const curationTable = (
+    <div>
+      <h5>Curation Data</h5>
+      <p className='mb-3'>Curations for this species.</p>
+      <RemoteTable
+        id='curation-table-detail-v1'
+        height={300}
+        fields={{
+          "grit_assembly_type": {
+            rename: "Assembly Type"
+          },
+          "grit_created": {
+            rename: "Requested Date"
+          },
+          "grit_done_date": {
+            rename: "Done Date"
+          },
+        }}
+        {...useZone({
+          endpoint: 'curation',
+          components: [{
+            id: 'curation-table-detail-v1',
+            filter: {
+              and_: {
+                "grit_species.id": { eq: { value: id } }
+              }
+            },
+          }],
+        })}
+      />
+    </div>
+  )
+
   if (response === null) {
     return (
       <Header
@@ -259,6 +292,10 @@ function SpeciesDetail() {
       },
       {
         component: illuminaTable,
+        type: 'full'
+      },
+      {
+        component: curationTable,
         type: 'full'
       }
     ];

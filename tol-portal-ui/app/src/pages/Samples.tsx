@@ -16,7 +16,7 @@ function Samples() {
   const samples = useZone({
     endpoint: "sample",
     components: [
-      { id: "samples-bar-chart-v1" },
+      { id: "samples-bar-chart-v2" },
       { id: "samples-table-v2" },
       { id: "samples-map-v1" }
     ]
@@ -24,11 +24,11 @@ function Samples() {
 
   const chart = (
     <RemoteBarChart
-      id="samples-bar-chart-v1"
+      id="samples-bar-chart-v2"
       stacked
       title="Samples Recieved"
       breakDownBy="sts_ac_status"
-      xAxis="benchling_date_sample_received_at_sanger"
+      xAxis="sts_receive_date"
       type='M'
       {...samples}
     />
