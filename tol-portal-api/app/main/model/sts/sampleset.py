@@ -25,7 +25,6 @@ class Sampleset(Base):
     status_updated_at: Mapped[datetime.datetime] = mapped_column()
     num_expected_species: Mapped[int] = mapped_column()
     num_expected_samples: Mapped[int] = mapped_column()
-    released_to_lab: Mapped[bool] = mapped_column()
 
     gal_id: Mapped[str] = mapped_column(
         ForeignKey('gal.gal_id'),
@@ -53,11 +52,11 @@ class Sampleset(Base):
         back_populates='sampleset'
     )
 
-    samples: Mapped[List['Sample']] \
+    manifests: Mapped[List['Manifest']] \
         = relationship(back_populates='sampleset')  # noqa F821
 
-#    manifests: Mapped[List['Manifest']] = \
-#        relationship(back_populates='sampleset')  # noqa F821
+    samples: Mapped[List['Sample']] \
+        = relationship(back_populates='sampleset')  # noqa F821
 
     @classmethod
     def get_id_column_name(cls) -> str:

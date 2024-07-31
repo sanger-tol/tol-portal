@@ -34,13 +34,19 @@ class Manifest(Base):
     wildlife_status_updated_at: Mapped[datetime.datetime] = mapped_column()
     bio_safety_overall_status: Mapped[str] = mapped_column()
     bio_safety_overall_status_updated_at: Mapped[datetime.datetime] = mapped_column()
-#    released_to_lab: Mapped[bool] = mapped_column()
+    released_to_lab: Mapped[bool] = mapped_column()
 
     project_id: Mapped[int] = mapped_column(
         ForeignKey('project.project_id'),
         primary_key=True
     )
     project: Mapped['Project'] = relationship(back_populates='manifests')  # noqa F821
+
+    sampleset_id: Mapped[int] = mapped_column(
+        ForeignKey('sampleset.sampleset_id'),
+        primary_key=True
+    )
+    sampleset: Mapped['Sampleset'] = relationship(back_populates='manifests')  # noqa F821
 
     status_id: Mapped[int] = mapped_column(ForeignKey('manifest_status.status_id'),
                                            nullable=False)
