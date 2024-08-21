@@ -10,11 +10,11 @@ import {
   RemoteGet,
   RemoteTable,
   Widgets,
-  useZone
+  useZone,
+  Timeline
 } from '@tol/tol-ui';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-
 
 function generateDetail(attributes: any) {
   return (
@@ -32,6 +32,32 @@ function generateDetail(attributes: any) {
     </div>
   );
 }
+
+const generateTimeline = (attributes: any) => {
+  return (
+    <div>
+      <Timeline
+        id={attributes['uid']!}
+        title={`Timeline of events for ${attributes['sts_scientific_name']}`}
+        data={{
+          "Comliance in Progress": { date: attributes['sts_sample_sts_submit_date_min'] },
+          "Approved to Ship": { date: attributes['sts_sample_sts_accept_date_min'] },
+          "Arrived at Sanger": { date: attributes['sts_sample_sts_receive_date_min'] },
+          "Released to Lab": { date: attributes['sts_sample_benchling_date_assigned_to_lab_min'] },
+          "Assembly Complete": { date: attributes['grit_curation_grit_open_date_min'] },
+          "Curation": { date: attributes['grit_curation_grit_done_date_min'] },
+          "ToLA / Grit Submission": { date: attributes['grit_curation_grit_in_submission_date_min'] },
+          "PacBio Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_pacbio_min'] },
+          "PacBio Extracted": { date: attributes['mlwh_run_data_mlwh_run_complete_pacbio_min'] },
+          "RNASeq Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_rnaseq_min'] },
+          "RNASeq Extracted": { date: attributes['mlwh_run_data_mlwh_run_complete_rnaseq_min'] },
+          "HiC Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_hic_min'] }
+        }}
+        defaultIcon
+      />
+    </div>
+  )
+};
 
 function SpeciesDetail() {
   const { id } = useParams<({ id: string })>();
@@ -272,10 +298,15 @@ function SpeciesDetail() {
   } else {
     const attributes = response!['data']['data']['attributes'];
     const detail = generateDetail(attributes);
+    const timeline = generateTimeline(attributes);
 
     const components = [
       {
         component: detail,
+        type: 'full'
+      },
+      {
+        component: timeline,
         type: 'full'
       },
       {
