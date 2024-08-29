@@ -172,11 +172,11 @@ function Species() {
         "sts_taxon_group": {
           rename: "Taxon Group"
         },
-        "sts_family": {
-          rename: "Family"
-        },
         "sts_order_group": {
           rename: "Order"
+        },
+        "sts_family": {
+          rename: "Family"
         },
         "sts_prefix": {
           rename: "ToLID Prefix"
