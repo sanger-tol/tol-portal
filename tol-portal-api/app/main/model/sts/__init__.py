@@ -4,6 +4,7 @@
 
 from .banked_sample import BankedSample  # noqa F401
 from .banked_sample_category import BankedSampleCategory  # noqa F401
+from .cmethod import Cmethod  # noqa F401
 from .compliance_status import ComplianceStatus  # noqa F401
 from .ep_sample import EPSample  # noqa F401
 from .freezer_tray import FreezerTray  # noqa F401
@@ -13,8 +14,12 @@ from .location import Location  # noqa F401
 from .manifest import Manifest  # noqa F401
 from .manifest_status import ManifestStatus  # noqa F401
 from .organism_part import OrganismPart  # noqa F401
+from .papproach import Papproach  # noqa F40
+from .person import Person  # noqa F401
 from .project import Project  # noqa F401
+from .psolution import Psolution  # noqa F401
 from .sample import Sample  # noqa F401
+from .sample_person import SamplePerson  # noqa F401
 from .sample_project import SampleProject  # noqa F401
 from .sample_species import SampleSpecies  # noqa F401
 from .sample_species_organism_part import SampleSpeciesOrganismPart  # noqa F401

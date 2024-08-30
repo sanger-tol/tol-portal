@@ -51,6 +51,9 @@ class Sample(Base):
     sample_species: Mapped[List['SampleSpecies']] \
         = relationship(back_populates='sample')  # noqa F821
 
+    sample_persons: Mapped[List['SamplePerson']] \
+        = relationship(back_populates='sample')  # noqa F821
+
     ep_samples: Mapped[List['EPSample']] \
         = relationship(back_populates='sample')  # noqa F821
 
@@ -66,8 +69,24 @@ class Sample(Base):
     )
     gal: Mapped['Gal'] \
         = relationship(back_populates='samples') # noqa F821
-    # cmethod_id = db.Column(db.Integer, db.ForeignKey('cmethod.method_id'))
-    # collection_method = db.relationship("StsCmethod", uselist=False, foreign_keys=[cmethod_id])
+    papproach_id: Mapped[str] = mapped_column(
+        ForeignKey('papproach.approach_id'),
+        nullable=False
+    )
+    preservation_approach: Mapped['Papproach'] \
+        = relationship(back_populates='samples') # noqa F821
+    psolution_id: Mapped[str] = mapped_column(
+        ForeignKey('psolution.solution_id'),
+        nullable=False
+    )
+    preservative_solution: Mapped['Psolution'] \
+        = relationship(back_populates='samples') # noqa F821
+    cmethod_id: Mapped[str] = mapped_column(
+        ForeignKey('cmethod.method_id'),
+        nullable=False
+    )
+    collection_method: Mapped['Cmethod'] \
+        = relationship(back_populates='samples') # noqa F821
     # col_ease_id = db.Column(db.Integer, db.ForeignKey('collection_ease.ease_id'))
     # collection_ease = db.relationship("StsCollectionEase", uselist=False,
     #                                   foreign_keys=[col_ease_id])
@@ -81,12 +100,6 @@ class Sample(Base):
     # identification_method = db.relationship("StsImethod", uselist=False,
     #                                         foreign_keys=[imethod_id])
     specimen_risk: Mapped[str] = mapped_column()
-    # papproach_id = db.Column(db.Integer, db.ForeignKey('papproach.approach_id'))
-    # preservation_approach = db.relationship("StsPapproach", uselist=False,
-    #                                         foreign_keys=[papproach_id])
-    # psolution_id = db.Column(db.Integer, db.ForeignKey('psolution.solution_id'))
-    # preservation_solution = db.relationship("StsPsolution", uselist=False,
-    #                                         foreign_keys=[psolution_id])
     pre_date: Mapped[str] = mapped_column()
     pre_elapsed: Mapped[str] = mapped_column()
     # tsize_id = db.Column(db.Integer, db.ForeignKey('tissue_size.size_id'))
