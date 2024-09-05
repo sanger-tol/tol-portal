@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: MIT
 
 include:
+  - template: "Verify/Accessibility.gitlab-ci.yml"
   - project: 'tol/tol-core'
     ref: v1.5.5
     file: '/gitlab/app.yml'
-  - template: "Verify/Accessibility.gitlab-ci.yml"
 
 variables:
   APP_NAME: tol-portal
