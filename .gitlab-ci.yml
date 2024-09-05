@@ -33,6 +33,11 @@ a11y:
   rules:
     - if: $DISABLE_REVIEW_APPS
       when: never
-    - if: $CI_COMMIT_BRANCH =~ /^TOL.*$/
+    - if: $CI_COMMIT_BRANCH !~ /^TOL.*$/
+      when: never
+    - exists:
+      - "${APP_NAME}-ui/**/*"
+
+
 
 
