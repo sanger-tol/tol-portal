@@ -12,4 +12,4 @@ variables:
   SERVICE_NAME: portal
   DISABLE_UI_LINT: "true"
 
-  a11y_urls: "/ /species /manifests"
+  A11Y_URLS: "/ /species /manifests"
