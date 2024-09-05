@@ -34,9 +34,9 @@ a11y:
     - |
       mkdir -p reports
 
-      pa11y-ci -j --config "/pa11y-configs/.pa11yci" $a11y_urls > reports/gl-accessibility.json
+      pa11y-ci -j --config "/pa11y-configs/.pa11yci" "$a11y_urls" > reports/gl-accessibility.json
 
-      for url in $a11y_urls
+      for url in "$a11y_urls"
       do
         filename="reports/$(echo $url | sed -E 's/^https?:\/\///' | sed -E 's/\//-/g')-accessibility.html"
         pa11y --config "/pa11y-configs/pa11y.json" --ignore-ssl-errors=true $url | tee $filename > /dev/null
