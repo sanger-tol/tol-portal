@@ -12,8 +12,6 @@ variables:
   APP_NAME: tol-portal
   SERVICE_NAME: portal
   DISABLE_UI_LINT: "true"
-  REVIEW_URL: https://${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}.review.tol.sanger.ac.uk
-  a11y_urls: "$REVIEW_URL $REVIEW_URL/species $REVIEW_URL/manifests"  
 
 stages:
   - lint
@@ -27,3 +25,14 @@ stages:
   - dast
   - cleanup
   - deploy
+
+a11y:
+  variables:
+    REVIEW_URL: https://${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}.review.tol.sanger.ac.uk
+    a11y_urls: "$REVIEW_URL $REVIEW_URL/species $REVIEW_URL/manifests"  
+  rules:
+    - if: $DISABLE_REVIEW_APPS
+      when: never
+    - if: $CI_COMMIT_BRANCH =~ /^TOL.*$/
+
+
