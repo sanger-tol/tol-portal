@@ -34,7 +34,7 @@ a11y:
     - |
       mkdir -p reports
 
-      pa11y-ci -j --config "/pa11y-configs/.pa11yci" $@ > reports/gl-accessibility.json
+      pa11y-ci -j --config "/pa11y-configs/.pa11yci" $a11y_urls > reports/gl-accessibility.json
 
       for url in $a11y_urls
       do
