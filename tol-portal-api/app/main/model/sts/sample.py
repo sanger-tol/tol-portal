@@ -102,8 +102,16 @@ class Sample(Base):
     specimen_risk: Mapped[str] = mapped_column()
     pre_date: Mapped[str] = mapped_column()
     pre_elapsed: Mapped[str] = mapped_column()
-    # tsize_id = db.Column(db.Integer, db.ForeignKey('tissue_size.size_id'))
-    # tissue_size = db.relationship("StsTissueSize", uselist=False, foreign_keys=[tsize_id])
+    tsize_id: Mapped[int] = mapped_column(
+        ForeignKey('tissue_size.size_id')
+    )
+    tissue_size: Mapped['TissueSize'] \
+        = relationship(back_populates='samples') # noqa F821
+    export_hook_id: Mapped[int] = mapped_column(
+        ForeignKey('hook.hook_id')
+    )
+    hook: Mapped['Hook'] \
+        = relationship(back_populates='samples') # noqa F821
     tremoved: Mapped[str] = mapped_column()
     bplateid: Mapped[str] = mapped_column()
     btubeid: Mapped[str] = mapped_column()

@@ -9,6 +9,7 @@ from .compliance_status import ComplianceStatus  # noqa F401
 from .ep_sample import EPSample  # noqa F401
 from .freezer_tray import FreezerTray  # noqa F401
 from .gal import Gal  # noqa F401
+from .hook import Hook  # noqa F401
 from .lifestage import Lifestage  # noqa F401
 from .location import Location  # noqa F401
 from .manifest import Manifest  # noqa F401
@@ -37,3 +38,4 @@ from .species_lab_work_status import SpeciesLabWorkStatus  # noqa F401
 from .specimen import Specimen  # noqa F401
 from .storage_rack import StorageRack  # noqa F401
 from .sequencing_request_status import SequencingRequestStatus  # noqa F401
+from .tissue_size import TissueSize  # noqa F401

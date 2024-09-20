@@ -37,6 +37,7 @@ from .model.sts import (
     EPSample,
     FreezerTray,
     Gal,
+    Hook,
     Lifestage,
     Location,
     Manifest,
@@ -64,7 +65,8 @@ from .model.sts import (
     Species,
     SpeciesLabWorkStatus,
     Specimen,
-    StorageRack
+    StorageRack,
+    TissueSize
 )
 from .model.tolid import (
     Tolid,
@@ -121,13 +123,13 @@ def application():
     # STS endpoints
     sts = create_sql_datasource(
         models=[BankedSample, BankedSampleCategory, Cmethod, ComplianceStatus, EPSample,
-                FreezerTray, Gal, Lifestage, Location, Manifest, ManifestStatus,
+                FreezerTray, Gal, Hook, Lifestage, Location, Manifest, ManifestStatus,
                 OrganismPart, Person, Papproach, Project, Psolution, Sample, SampleProject,
                 Sampleset, SamplesetLegal, SamplesetResearchGovernance, SamplePerson,
                 SamplesetStatus, SampleSpecies, SampleSpeciesOrganismPart, Sex,
                 ShipmentStatus, Species, SpeciesLabWorkStatus, Specimen,
                 SequencingMaterialStatus, SequencingRequest, SequencingRequestStatus,
-                SequencingRun, StorageRack],
+                SequencingRun, StorageRack, TissueSize],
         db_uri=os.getenv('STS_DB_URI')
     )
 
