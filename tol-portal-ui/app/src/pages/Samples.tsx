@@ -17,7 +17,7 @@ function Samples() {
     endpoint: "sample",
     components: [
       { id: "samples-bar-chart-v2" },
-      { id: "samples-table-v2" },
+      { id: "samples-table-v3" },
       { id: "samples-map-v1" }
     ]
   });
@@ -36,7 +36,7 @@ function Samples() {
 
   const table = (
     <RemoteTable
-      id="samples-table-v2"
+      id="samples-table-v3"
       defaultSort="sts_species.sts_scientific_name"
       fields={{
         "uid": {
