@@ -128,7 +128,7 @@ ReactDOM.render(
       samplesStuck,
       otherDropdown
     ]}
-    login={false}
+    login={true}
   />,
   document.getElementById('root')
 );
