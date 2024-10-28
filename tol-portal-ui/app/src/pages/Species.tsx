@@ -15,8 +15,16 @@ import SpeciesLink from '../components/SpeciesLink';
 
 
 function Species() {
+
+  const defaultFilter = {
+    and_: {
+      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+    }
+  }
+
   const species = useZone({
     endpoint: 'species',
+    filter: defaultFilter,
     components: [
       {
         id: 'species-received-count',
@@ -68,7 +76,9 @@ function Species() {
           }
         }
       },
-      {id: 'species-table-v4'}
+      {
+        id: 'species-table-v4'
+      }
     ]
   });
 
