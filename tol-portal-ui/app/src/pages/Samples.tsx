@@ -17,8 +17,8 @@ function Samples() {
     endpoint: "sample",
     components: [
       { id: "samples-bar-chart-v2" },
-      { id: "samples-table-v3" },
-      { id: "samples-map-v1" }
+      { id: "samples-map-v1" },
+      { id: "samples-table-v3" }
     ]
   });
 
