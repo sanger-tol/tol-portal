@@ -17,5 +17,6 @@ export { default as SequencingRuns } from "./SequencingRuns";
 export { default as ToLIDs } from "./ToLIDs";
 export { default as Curations } from "./Curations";
 export { default as TUM } from "./TUM";
-export { default as SpeciesRecollection } from "./SpeciesRecollection"
-export { default as SamplesStuck } from "./SamplesStuck"
+export { default as SpeciesRecollection } from "./SpeciesRecollection";
+export { default as SamplesStuck } from "./SamplesStuck";
+export { default as ProjectManagement } from "./ProjectManagement"
