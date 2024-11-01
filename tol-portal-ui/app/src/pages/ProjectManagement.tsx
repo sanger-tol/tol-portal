@@ -14,8 +14,7 @@ import {
 	Col,
   RemoteCount,
   useZone
-// } from '@tol/tol-ui';
-} from '../tol-ui/src';
+  } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 const button = (
