@@ -27,6 +27,7 @@ function SamplesStuck() {
     <RemoteTable
       id="samples-stuck-table-v1"
       defaultSort='sts_tolid.id'
+      displaySource
       fields={{
         "sts_tolid.id": {
           rename: "ToLID"

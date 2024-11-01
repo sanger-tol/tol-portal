@@ -28,6 +28,7 @@ function TUM() {
     <RemoteTable
       id="tum-table-v1"
       defaultSort='benchling_species.sts_scientific_name'
+      displaySource
       fields={{
         "uid": {
           rename: "Sanger Sample ID"

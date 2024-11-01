@@ -37,6 +37,7 @@ function Samples() {
   const table = (
     <RemoteTable
       id="samples-table-v3"
+      displaySource
       defaultSort="sts_species.sts_scientific_name"
       fields={{
         "uid": {

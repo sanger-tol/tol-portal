@@ -39,6 +39,7 @@ import {
         <RemoteTable
           id="curations-table-v1"
           defaultSort="grit_species.id"
+          displaySource
           fields={{
             "uid": {
               rename: "Identifier"

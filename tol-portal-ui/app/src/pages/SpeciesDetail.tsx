@@ -71,6 +71,7 @@ function SpeciesDetail() {
       <RemoteTable
         id="sample-table-detail-v2"
         defaultSort="sts_tolid.id"
+        displaySource
         height={500}
         fields={{
           "sts_tolid.id": {

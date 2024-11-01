@@ -20,6 +20,7 @@ function Specimens() {
     <RemoteTable
       id="specimen-table-v2"
       defaultSort='sts_bio_specimen_id'
+      displaySource
       fields={{
         "uid": {
           rename: "ID"

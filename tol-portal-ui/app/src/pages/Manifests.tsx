@@ -36,6 +36,7 @@ import {
     const table = (
       <RemoteTable
         id="manifest-table-v1"
+        displaySource
         defaultSort="sts_copo_profile_title"
         fields={{
           "sts_copo_profile_title": {
