@@ -15,7 +15,9 @@ import {
   RemoteCount,
   useZone
   } from '@tol/tol-ui';
+//} from '../tol-ui/src';
 import SpeciesLink from '../components/SpeciesLink';
+import { useState } from 'react';
 
 const button = (
   <Button
@@ -33,6 +35,10 @@ const title = (
 );
 
 function ProjectManagement() {
+  
+  const [cumulative, setCumulative] = useState(false);
+  const toggleCumulative = () => setCumulative(prev => !prev);
+
   const statusChart = (
     <RemoteBarChart
       id="pm-status-bar-v1"
@@ -54,6 +60,7 @@ function ProjectManagement() {
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
+      cumulative={cumulative}
     />
   );
   
@@ -98,6 +105,21 @@ function ProjectManagement() {
   const components = [
     {
       component: title,
+      type: 'full'
+    },
+    {
+      component: (
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={cumulative}
+              onChange={toggleCumulative}
+            />
+            Show Cumulative Histogram
+          </label>
+        </div>
+      ),
       type: 'full'
     },
     {
