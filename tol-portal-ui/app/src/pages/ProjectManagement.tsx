@@ -19,13 +19,10 @@ function ProjectManagement() {
     components: [
       { id: 'pm-status-bar-v1' },
       { id: 'pm-submitted-bar-chart-v1'},
-      { id: 'project-management-table-v2' }
+      { id: 'pm-species-table-v1' }
     ]
   });
   
-  const [cumulative, setCumulative] = useState(false);
-  const toggleCumulative = () => setCumulative(prev => !prev);
-
   const statusChart = (
     <RemoteBarChart
       id="pm-status-bar-v1"
@@ -46,7 +43,6 @@ function ProjectManagement() {
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
-      cumulative={cumulative}
       {...projectManagement}
     />
   );
@@ -98,21 +94,6 @@ function ProjectManagement() {
       type: 'full'
     },
     {
-      component: (
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={cumulative}
-              onChange={toggleCumulative}
-            />
-            Show Cumulative Histogram
-          </label>
-        </div>
-      ),
-      type: 'full'
-    },
-    {
       component: submittedChart,
       type: 'lg'
     },
@@ -125,8 +106,6 @@ function ProjectManagement() {
       type: 'lg'
     },
   ];
-
-  console.log(projectManagement);
 
   return (
     <div className="project-management">
