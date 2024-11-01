@@ -91,8 +91,9 @@ function Home() {
   
   const speciesTable = (
     <RemoteTable
-      id="home-species-table-v1"
+      id="home-species-table-v2"
       defaultSort="sts_scientific_name"
+      noConfigModal
       fields={{
         "sts_scientific_name": {
           rename: "Species Name",
@@ -119,7 +120,7 @@ function Home() {
       }}
       {...useZone({
         endpoint: 'species',
-        components: [{id: 'home-species-table-v1'}]
+        components: [{id: 'home-species-table-v2'}]
       })}
     />
   );

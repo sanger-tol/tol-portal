@@ -37,6 +37,7 @@ import {
       <RemoteTable
         id="sampleset-table-v1"
         defaultSort="uid"
+        displaySource
         fields={{
           "uid": {
             rename: "Sample Set ID"

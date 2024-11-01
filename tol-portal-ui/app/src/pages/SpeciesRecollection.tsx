@@ -27,6 +27,7 @@ function SpeciesRecollection() {
     <RemoteTable
       id="species-recollection-table-v2"
       defaultSort='sts_scientific_name'
+      displaySource
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",

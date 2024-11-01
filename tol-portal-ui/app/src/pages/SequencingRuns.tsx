@@ -39,6 +39,7 @@ function SequencingRuns() {
     <RemoteTable
       id="run-data-table-v3"
       defaultSort="mlwh_species.sts_scientific_name"
+      displaySource
       fields={{
         "mlwh_run_id": {
           rename: "Run ID"

@@ -37,6 +37,7 @@ function Extractions() {
     <RemoteTable
       id="extractions-table-v2"
       defaultSort="benchling_species.sts_scientific_name"
+      displaySource
       fields={{
         "uid": {
           rename: "Identifier"

@@ -22,6 +22,7 @@ function ToLIDs() {
     <RemoteTable
       id="tolid-table-v3"
       defaultSort="tolid_species.sts_scientific_name"
+      displaySource
       fields={{
         "uid": {
           rename: "ToLID"

@@ -37,6 +37,7 @@ function SequencingRequests() {
   const table = (
     <RemoteTable
       id="sequencing-request-table-v2"
+      displaySource
       defaultSort="mlwh_species.sts_scientific_name"
       fields={{
         "uid": {

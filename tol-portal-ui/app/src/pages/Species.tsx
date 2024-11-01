@@ -129,6 +129,7 @@ function Species() {
     <RemoteTable
       id="species-table-v4"
       defaultSort="sts_scientific_name"
+      displaySource
       fields={{
         "sts_scientific_name": {
           rename: "Scientific Name",
