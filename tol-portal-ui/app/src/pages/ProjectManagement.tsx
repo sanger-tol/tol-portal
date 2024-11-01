@@ -4,37 +4,24 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useState } from 'react';
 import { 
-  Button,
   RemoteBarChart,
-  RemoteSunburst,
 	RemoteTable,
   Widgets,
-	Row,
-	Col,
-  RemoteCount,
   useZone
-  } from '@tol/tol-ui';
-//} from '../tol-ui/src';
+  //} from '@tol/tol-ui';
+  } from '../tol-ui/src';
 import SpeciesLink from '../components/SpeciesLink';
-import { useState } from 'react';
-
-const button = (
-  <Button
-    href="https://docs.google.com/forms/d/e/1FAIpQLSdNpKVAPXCZVkY0cnM94_r3jYQfBVFyEBimE_f-bZIUX-23ng/viewform?usp=sf_link"
-    className="feedback-btn"
-  >
-		Provide Feedback
-  </Button>
-);
-
-const title = (
-  <div>
-    <h2>Project Management</h2>
-  </div>
-);
 
 function ProjectManagement() {
+  const projectManagement = useZone({
+    endpoint: 'species',
+    components: [
+      { id: 'project-management-bar-chart-v1' },
+      { id: 'project-management-table-v2' }
+    ]
+  });
   
   const [cumulative, setCumulative] = useState(false);
   const toggleCumulative = () => setCumulative(prev => !prev);
@@ -42,29 +29,29 @@ function ProjectManagement() {
   const statusChart = (
     <RemoteBarChart
       id="pm-status-bar-v1"
-      endpoint="species"
       stacked
       title="Breakdown of Project Stages"
       breakDownBy="sts_sample_sts_project_union" 
       xAxis= "calc_pm_status"
       type="categorical"
+      {...projectManagement}
     />
   );
   
   const submittedChart = (
     <RemoteBarChart
       id="pm-submitted-bar-chart-v1"
-      endpoint="species"
       stacked
       title="Species Submitted to ENA"
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
       cumulative={cumulative}
+      {...projectManagement}
     />
   );
   
-  const pmTable = (
+  const table = (
     <RemoteTable
       id="pm-species-table-v1"
       defaultSort="sts_scientific_name"
@@ -95,11 +82,14 @@ function ProjectManagement() {
           rename: "ToLID Prefix"
         },
       }}
-      {...useZone({
-        endpoint: 'species',
-        components: [{id: 'home-species-table-v1'}]
-      })}
+      {...projectManagement}
     />
+  );
+
+  const title = (
+    <div>
+      <h2>Project Management</h2>
+    </div>
   );
 
   const components = [
@@ -131,13 +121,13 @@ function ProjectManagement() {
       type: 'lg'
     },
     {
-      component: pmTable,
+      component: table,
       type: 'lg'
     },
   ];
 
   return (
-    <div className="species">
+    <div className="project-management">
       <Widgets components={components}/>
     </div>
   );
