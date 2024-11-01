@@ -18,7 +18,8 @@ function ProjectManagement() {
   const projectManagement = useZone({
     endpoint: 'species',
     components: [
-      { id: 'project-management-bar-chart-v1' },
+      { id: 'pm-status-bar-v1' },
+      { id: 'pm-submitted-bar-chart-v1'},
       { id: 'project-management-table-v2' }
     ]
   });
@@ -125,6 +126,8 @@ function ProjectManagement() {
       type: 'lg'
     },
   ];
+
+  console.log(projectManagement);
 
   return (
     <div className="project-management">
