@@ -10,7 +10,7 @@ import {
 	RemoteTable,
   Widgets,
   useZone,
-  } from '@/tol-ui';
+  } from '@tol/tol-ui/';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
