@@ -4,45 +4,39 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useState } from 'react';
 import { 
   RemoteBarChart,
 	RemoteTable,
   Widgets,
-  useZone
-  } from '@tol/tol-ui';
+  useZone,
+  } from '@/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
-  const projectManagement = useZone({
-    endpoint: 'species',
-    components: [
-      { id: 'pm-status-bar-v1' },
-      { id: 'pm-submitted-bar-chart-v1'},
-      { id: 'pm-species-table-v1' }
-    ]
-  });
-  
+ 
   const statusChart = (
     <RemoteBarChart
       id="pm-status-bar-v1"
+      endpoint="species"
       stacked
       title="Breakdown of Project Stages"
       breakDownBy="sts_sample_sts_project_union" 
       xAxis= "calc_pm_status"
       type="categorical"
-      {...projectManagement}
+      
     />
   );
   
   const submittedChart = (
     <RemoteBarChart
       id="pm-submitted-bar-chart-v1"
+      endpoint="species"
       stacked
       title="Species Submitted to ENA"
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
-      {...projectManagement}
     />
   );
   
@@ -61,23 +55,20 @@ function ProjectManagement() {
             }
           }
         },
-        "informatics_tolid_informatics_status_summary_max": {
-          rename: "Informatics Status Summary"
+        "sts_sample_sts_project_union": {
+          rename: "Project"
         },
-        "sts_taxon_group": {
-          rename: "Taxon Group"
+        "calc_pm_status": {
+          rename: "Project Status"
         },
-        "sts_family": {
-          rename: "Family"
-        },
-        "sts_order_group": {
-          rename: "Order"
-        },
-        "sts_prefix": {
-          rename: "ToLID Prefix"
+        "grit_curation_grit_done_date_min": {
+          rename: "Curation Completion Date"
         },
       }}
-      {...projectManagement}
+      {...useZone({
+        endpoint: 'species',
+        components: [{id: 'pm-species-table-v1'}]
+      })}
     />
   );
 
