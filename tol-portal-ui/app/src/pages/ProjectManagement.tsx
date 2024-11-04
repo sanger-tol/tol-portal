@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useState } from 'react';
 import { 
   RemoteBarChart,
 	RemoteTable,
