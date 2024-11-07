@@ -23,6 +23,7 @@ import {
   SamplesStuck,
   ProjectManagement
 } from './pages';
+import { CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page, Dropdown } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
@@ -30,71 +31,84 @@ import './scss/styling.scss';
 
 const species: Page = {
   name: "Species",
-  element: <Species />,
-  detail: <SpeciesDetail />
+  element: <CuratedSpecies />,
+  detail: <SpeciesDetail />,
+  authElement: <Species />,
 };
 
 const specimens: Page = {
   name: "Specimens",
-  element: <Specimens />
+  element: <Specimens />,
+  auth: true
 };
 
 const tolids: Page = {
   name: "ToLIDs",
-  element: <ToLIDs />
+  element: <ToLIDs />,
+  auth: true
 };
 
 const samplesets: Page = {
   name: "Sample Sets",
-  element: <Samplesets />
+  element: <Samplesets />,
+  auth: true
 };
 
 const manifests: Page = {
   name: "Manifests",
-  element: <Manifests />
+  element: <Manifests />,
+  auth: true
 };
 
 const samples: Page = {
   name: "Samples",
-  element: <Samples />
+  element: <Samples />,
+  auth: true
 };
 
 const extractions: Page = {
   name: "Extractions",
-  element: <Extractions />
+  element: <Extractions />,
+  auth: true
 };
 
 const sequencingRequests: Page = {
   name: "Requests",
-  element: <SequencingRequests />
+  element: <SequencingRequests />,
+  auth: true
 };
 
 const sequencingRuns: Page = {
   name: "Runs",
-  element: <SequencingRuns />
+  element: <SequencingRuns />,
+  auth: true
 };
 
 const curations: Page = {
   name: "Curations",
-  element: <Curations />
+  element: <Curations />,
+  auth: true
 };
 
 const tum: Page = {
   name: "TUM",
   element: <TUM />,
-  hidden: true
+  hidden: true,
+  auth: true
 };
 
 const speciesRecollection: Page = {
   name: "Recollection",
   element: <SpeciesRecollection/>,
-  hidden: true
+  hidden: true,
+  auth: true
 }
 
 const samplesStuck: Page = {
   name: "Samples Stuck",
   element: <SamplesStuck/>,
-  hidden: true
+  hidden: true,
+  auth: true
 }
 
 const projectManagement: Page = {
@@ -106,7 +120,8 @@ const projectManagement: Page = {
 const otherDropdown: Dropdown = {
   name: "Other",
   pages: [speciesRecollection, tum, samplesStuck, projectManagement],
-  hidden: false
+  hidden: false,
+  auth: true
 }
 
 ReactDOM.render(
@@ -133,10 +148,9 @@ ReactDOM.render(
       tum,
       speciesRecollection,
       samplesStuck,
-      projectManagement,
       otherDropdown
     ]}
-    login={false}
+    login={true}
   />,
   document.getElementById('root')
 );
