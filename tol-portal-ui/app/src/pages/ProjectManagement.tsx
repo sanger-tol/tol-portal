@@ -60,7 +60,7 @@ function ProjectManagement() {
       id="pm-submitted-bar-chart-v1"
       title="Species Submitted to ENA"
       stacked
-      shortDate="true"
+      shortDate={true}
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
