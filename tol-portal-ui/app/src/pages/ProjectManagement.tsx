@@ -8,17 +8,12 @@ import { useState } from 'react';
 import { 
   RemoteTable,
   RemoteBarChart,
-  RemoteMap,
-  RemoteSunburst,
-  Button,
   Filter,
   Widgets,
   Row,
   Col,
-  env,
-  useZone,
-  resetZone
-  } from '../tol-ui/src';
+  useZone
+  } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
