@@ -18,10 +18,16 @@ import {
   env,
   useZone,
   resetZone
-  } from '@tol/tol-ui';
+  } from '../tol-ui/src';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
+
+  const [isCumulative, setIsCumulative] = useState(false); // Add state for cumulative toggle
+
+  const handleToggleChange = () => {
+    setIsCumulative(prevState => !prevState); // Toggle the cumulative state
+  };
 
   const projectManagement = useZone({
     endpoint: 'species',
@@ -40,6 +46,22 @@ function ProjectManagement() {
       { id: 'pm-species-table-v1'}
     ]
   });
+
+  const cumulativeCheckbox = (
+    <div>
+      <label>
+        Cumulative Histogram
+        <input
+          type="checkbox"
+          checked={isCumulative}
+          onChange={(e) => setIsCumulative(e.target.checked)} // Toggle functionality
+        />
+      </label>
+      <div>
+        <span>For displaying cumulative histogram only. Uncheck this box to resume clickable filtration on the graph.</span>
+      </div>
+    </div>
+  );
 
   const filters = (
     <Row className="mobile-filters">
@@ -64,6 +86,7 @@ function ProjectManagement() {
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
+      isCumulative={isCumulative} // Pass the cumulative state to RemoteBarChart
       {...projectManagement}
     />
   );
@@ -79,29 +102,6 @@ function ProjectManagement() {
       {...projectManagement}
     />
   );
-
- // const statusChart = (
-    // <span>
-    //   <h6>
-    //     Current Project Statuses:
-    //   </h6>
-    //   <p className="mb-3">
-    //     Number of species in various stages in the genomic pipeline. 
-    //   </p>
-  //     <RemoteSunburst
-  //     id="pm-status-sunburst-chart-v1"
-  //     title="Current Project Statuses"
-  //     sliceBy={[
-  //       "calc_pm_status",
-  //       "informatics_tolid_informatics_status_min"
-  //     ]}
-  //     legendPosition="right"
-  //     noLabel
-  //     height={450}
-  //     {...projectManagement}
-  //   />
-  //   // </span>
-  // );
   
   const table = (
     <RemoteTable
@@ -158,6 +158,9 @@ function ProjectManagement() {
     {
       component: filters,
       type: 'full'
+    },
+    { component: cumulativeCheckbox, 
+      type: 'full' 
     },
     {
       component: submittedChart,
