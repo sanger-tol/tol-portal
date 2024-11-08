@@ -154,22 +154,22 @@ function Species() {
           rename: "Assigned to lab"
         },
         "benchling_sequencing_request_benchling_completion_date_hic_min": {
-          rename: "HiC submitted"
+          rename: "Latest HiC Request"
         },
         "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
-          rename: "PacBio submitted"
+          rename: "Latest PacBio Request"
         },
         "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
-          rename: "RNASeq submitted"
+          rename: "Latest RNASeq Request"
         },
         "mlwh_run_data_mlwh_run_complete_hic_min": {
-          rename: "HiC complete"
+          rename: "Latest HiC Run"
         },
         "mlwh_run_data_mlwh_run_complete_pacbio_min": {
-          rename: "PacBio complete"
+          rename: "Latest PacBio Run"
         },
         "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
-          rename: "RNASeq complete"
+          rename: "Latest RNASeq Run"
         },
         "grit_curation_grit_done_date_min": {
           rename: "Curation complete"
