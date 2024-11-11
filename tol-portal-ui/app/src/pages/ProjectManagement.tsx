@@ -18,10 +18,10 @@ import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
 
-  const [isCumulative, setIsCumulative] = useState(false); // Add state for cumulative toggle
+  const [cumulative, setCumulative] = useState(false); // Add state for cumulative toggle
 
   const handleToggleChange = () => {
-    setIsCumulative(prevState => !prevState); // Toggle the cumulative state
+    setCumulative(prevState => !prevState); // Toggle the cumulative state
   };
 
   const projectManagement = useZone({
@@ -45,11 +45,14 @@ function ProjectManagement() {
   const cumulativeCheckbox = (
     <div>
       <label>
-        Cumulative Histogram
+        <span className='sub-header-text'>
+          Cumulative Histogram
+        </span>
         <input
           type="checkbox"
-          checked={isCumulative}
-          onChange={(e) => setIsCumulative(e.target.checked)} // Toggle functionality
+          checked={cumulative}
+          onChange={(e) => setCumulative(e.target.checked)} // Toggle functionality
+          style={{marginLeft: 5}}
         />
       </label>
       <div>
@@ -81,7 +84,7 @@ function ProjectManagement() {
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
-      isCumulative={isCumulative} // Pass the cumulative state to RemoteBarChart
+      cumulative={cumulative} // Pass the cumulative state to RemoteBarChart
       {...projectManagement}
     />
   );

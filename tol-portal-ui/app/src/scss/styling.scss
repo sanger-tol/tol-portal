@@ -31,3 +31,11 @@
 .tol-text-filter .rs-input-group.rs-input-group-inside .rs-input {
   padding-right: 12px;
 }
+
+.sub-header-text {
+  font-size: 14px;
+  font-weight: bolder;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--bs-emphasis-color);
+}
