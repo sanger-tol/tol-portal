@@ -8,20 +8,21 @@ import { useState } from 'react';
 import { 
   RemoteTable,
   RemoteBarChart,
-  RemoteMap,
-  RemoteSunburst,
-  Button,
   Filter,
   Widgets,
   Row,
   Col,
-  env,
-  useZone,
-  resetZone
+  useZone
   } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
+
+  const [cumulative, setCumulative] = useState(false); // Add state for cumulative toggle
+
+  const handleToggleChange = () => {
+    setCumulative(prevState => !prevState); // Toggle the cumulative state
+  };
 
   const projectManagement = useZone({
     endpoint: 'species',
@@ -40,6 +41,25 @@ function ProjectManagement() {
       { id: 'pm-species-table-v1'}
     ]
   });
+
+  const cumulativeCheckbox = (
+    <div>
+      <label>
+        <span className='sub-header-text'>
+          Cumulative Histogram
+        </span>
+        <input
+          type="checkbox"
+          checked={cumulative}
+          onChange={(e) => setCumulative(e.target.checked)} // Toggle functionality
+          style={{marginLeft: 5}}
+        />
+      </label>
+      <div>
+        <span>For displaying cumulative histogram only. Uncheck this box to resume clickable filtration on the graph.</span>
+      </div>
+    </div>
+  );
 
   const filters = (
     <Row className="mobile-filters">
@@ -64,13 +84,14 @@ function ProjectManagement() {
       breakDownBy="sts_sample_sts_project_union"
       xAxis="grit_curation_grit_done_date_min"
       type='M'
+      cumulative={cumulative} // Pass the cumulative state to RemoteBarChart
       {...projectManagement}
     />
   );
 
   const statusChart = (
     <RemoteBarChart
-      title="Current Project Statuses"
+      title="Current Species Statuses"
       id="pm-status-bar-chart-v1"
       stacked
       breakDownBy="sts_sample_sts_project_union"
@@ -79,29 +100,6 @@ function ProjectManagement() {
       {...projectManagement}
     />
   );
-
- // const statusChart = (
-    // <span>
-    //   <h6>
-    //     Current Project Statuses:
-    //   </h6>
-    //   <p className="mb-3">
-    //     Number of species in various stages in the genomic pipeline. 
-    //   </p>
-  //     <RemoteSunburst
-  //     id="pm-status-sunburst-chart-v1"
-  //     title="Current Project Statuses"
-  //     sliceBy={[
-  //       "calc_pm_status",
-  //       "informatics_tolid_informatics_status_min"
-  //     ]}
-  //     legendPosition="right"
-  //     noLabel
-  //     height={450}
-  //     {...projectManagement}
-  //   />
-  //   // </span>
-  // );
   
   const table = (
     <RemoteTable
@@ -121,23 +119,20 @@ function ProjectManagement() {
         "sts_sample_sts_project_union": {
           rename: "Project"
         },
-        "calc_pm_status": {
-          rename: "Project Status"
-        },
-        "informatics_tolid_informatics_status_min": {
-          rename: "Informatics Status"
-        },
-        "grit_curation_grit_done_date_min": {
-          rename: "Curation Completion Date"
-        },
-        "grit_curation_grit_in_submission_date_min": {
-          rename: "Curation Submission Date"
-        },
-        "grit_curation_grit_open_date_min": {
-          rename: "Curation Created Date"
-        },
         "sts_sample_sts_tollab_assign_date_min":{
           rename: "Assigned To Lab Date"
+        },
+        "informatics_tolid_informatics_status_summary_min": {
+          rename: "Informatics Status"
+        },
+        "tolqclegacy_assembly_stage": {
+          rename: "Assembly Stage"
+        },
+        "mlwh_run_data_mlwh_run_complete_hic_min": {
+          rename: "Latest HiC Run"
+        },
+        "mlwh_run_data_mlwh_run_complete_pacbio_min": {
+          rename: "Latest PacBio Run"
         }
       }}
       {...projectManagement}
@@ -158,6 +153,9 @@ function ProjectManagement() {
     {
       component: filters,
       type: 'full'
+    },
+    { component: cumulativeCheckbox, 
+      type: 'full' 
     },
     {
       component: submittedChart,
