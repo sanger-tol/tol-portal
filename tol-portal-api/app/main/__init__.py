@@ -20,6 +20,7 @@ from tol.sources.elastic import (
 )
 from tol.sql import create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
+from tol.status import StatusDataSource
 
 from .auth import (
     get_auth_inspector
@@ -139,6 +140,17 @@ def application():
     )
     app.register_blueprint(blueprint_data_sts, name='sts',
                            url_prefix=os.getenv('API_PATH') + '/external/sts')
+
+    # status board
+    status_ds = StatusDataSource({})
+    core_data_object(status_ds)
+
+    blueprint_data_status = data_blueprint(
+        status_ds,
+        auth_inspector=get_auth_inspector(os.getenv('API_TOKEN'))
+    )
+    app.register_blueprint(blueprint_data_status, name='status_ds',
+                           url_prefix=os.getenv('API_PATH') + '/status')
 
     core_data_object(tolid, sts)
 
