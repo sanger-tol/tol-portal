@@ -18,7 +18,7 @@ function SpeciesLink(props: Props) {
   }
 
   return (
-    <Link to={'species/' + id}>
+    <Link to={'/species/' + id}>
       {name}
     </Link>
   );

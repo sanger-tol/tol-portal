@@ -21,7 +21,8 @@ import {
   TUM,
   SpeciesRecollection,
   SamplesStuck,
-  ProjectManagement
+  ProjectManagement,
+  TUMSteps
 } from './pages';
 import { CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
@@ -117,9 +118,16 @@ const projectManagement: Page = {
   hidden: true
 }
 
+const tumSteps: Page = {
+  name: "TUM Steps",
+  element: <TUMSteps />,
+  hidden: true,
+  auth: true
+}
+
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum, samplesStuck, projectManagement],
+  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement],
   hidden: false,
   auth: true
 }
