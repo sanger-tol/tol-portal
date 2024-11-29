@@ -35,12 +35,13 @@ function CuratedSpecies() {
     ]
   });
 
-  const fields = {uid: {
-    rename: "ID",
-    width: 120
-  },
-  goat_family_name: {
-    rename: 'Family',
+  const fields = {
+    sts_scientific_name: {
+      rename: 'Species',
+      width: 180
+    },
+  calc_done_date: {
+    rename: 'Done Date',
     width: 180
   },
   goat_genus_name: {
