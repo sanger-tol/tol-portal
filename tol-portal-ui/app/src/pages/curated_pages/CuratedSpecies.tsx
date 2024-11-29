@@ -36,7 +36,7 @@ function CuratedSpecies() {
   });
 
   const fields = {
-    sts_scientific_name: {
+  sts_scientific_name: {
       rename: 'Species',
       width: 180
     },
@@ -44,43 +44,87 @@ function CuratedSpecies() {
     rename: 'Done Date',
     width: 180
   },
-  goat_genus_name: {
-    rename: 'Genus',
+  sts_sample_count: {
+    rename: 'No of Samples',
     width: 180
   },
-  goat_scientific_name: {
-    rename: 'Species',
+  benchling_sequencing_request_benchling_completion_date_hic_min: {
+    rename: 'HiC Submitted',
+    width: 180
+  },
+  benchling_sequencing_request_benchling_completion_date_pacbio_min: {
+    rename: 'PacBio Submitted',
+    width: 180
+  },
+  informatics_tolid_informatics_status_summary_min: {
+    rename: 'Informatics Status',
+    filter: 'multi',  
+    width: 180
+  },
+  tolqclegacy_assembly_stage: {
+    rename: 'Assembly Stage',
+    filter: 'multi',  
+    width: 180
+  },
+  sts_taxon_group: {
+    rename: 'Taxon Group',
+    width: 180
+  },
+  sts_order_group: {
+    rename: 'Order',
+    width: 180
+  },
+  sts_family: {
+    rename: 'Family',
+    width: 180
+  },
+  sts_prefix: {
+    rename: 'ToLID Prefix',
+    width: 120
+  },
+  goat_chromosome_number: {
+    rename: "GoaT Chromosome Number",
+    width: 120
+  },
+  goat_ploidy: {
+    rename: "GoaT Ploidy",
+    width: 120
+  },
+  sts_sample_sts_col_date_max: {
+    rename: "Latest Collection Date",
+    width: 180
+  },
+  benchling_sample_count: {
+    rename: "Number of Samples in Benchling",
+    width: 120
+  },
+  sts_genome_size: {
+    rename: "Species Genome Size",
+    width: 180
+  },
+  uid: {
+    rename: "ID",
+    width: 120
+  },
+  sts_tissue_depleted: {
+    rename: 'Tissue Depleted',
+    width: 120
+  },
+  sts_sequencing_material_status_updated_at: {
+    rename: 'STS Sequencing Material Status Updated At',
+    width: 180
+  },
+  sts_sequencing_material_status: {
+    rename: 'Sequencing Material Status',
     width: 180
   },
   tolid_prefix: {
     rename: 'ToL ID Prefix',
     width: 180
   },
-  tolid_tolid_count: {
-    rename: 'Specimen Number',
+  goat_long_list: {
+    rename: 'Long list (GoaT)',
     width: 180
-  },
-  informatics_tolid_informatics_status_summary_min: {
-    rename: 'Genome Status',
-    filter: 'multi',  
-    width: 180
-  },
-  sts_sample_sts_gal_name_union: {
-    rename: 'Hub Name',
-    filter: 'multi',
-    width: 180
-  },
-  goat_genome_size: {
-    rename: "Goat Genome Size",
-    hidden: true
-  },
-  goat_chromosome_number: {
-    rename: "Goat Chromosome Number",
-    hidden: true
-  },
-  grit_curation_grit_created_min: {
-    rename: "Grit Curation Grit Created Min",
-    hidden: true
   },
 };
 
