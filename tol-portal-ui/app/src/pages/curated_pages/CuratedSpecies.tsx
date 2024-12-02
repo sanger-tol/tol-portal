@@ -37,94 +37,69 @@ function CuratedSpecies() {
 
   const fields = {
   sts_scientific_name: {
-      rename: 'Species',
-      width: 180
+      rename: 'Species'
     },
   calc_done_date: {
-    rename: 'Done Date',
-    width: 180
+    rename: 'Done Date'
   },
   sts_sample_count: {
-    rename: 'No of Samples',
-    width: 180
+    rename: 'No of Samples'
   },
   benchling_sequencing_request_benchling_completion_date_hic_min: {
-    rename: 'HiC Submitted',
-    width: 180
+    rename: 'HiC Submitted'
   },
   benchling_sequencing_request_benchling_completion_date_pacbio_min: {
-    rename: 'PacBio Submitted',
-    width: 180
+    rename: 'PacBio Submitted'
   },
   informatics_tolid_informatics_status_summary_min: {
     rename: 'Informatics Status',
-    filter: 'multi',  
-    width: 180
+    filter: 'multi'
   },
   tolqclegacy_assembly_stage: {
     rename: 'Assembly Stage',
-    filter: 'multi',  
-    width: 180
+    filter: 'multi'
   },
   sts_taxon_group: {
-    rename: 'Taxon Group',
-    width: 180
+    rename: 'Taxon Group'
   },
   sts_order_group: {
-    rename: 'Order',
-    width: 180
+    rename: 'Order'
   },
   sts_family: {
-    rename: 'Family',
-    width: 180
+    rename: 'Family'
   },
   sts_prefix: {
-    rename: 'ToLID Prefix',
-    width: 120
+    rename: 'ToLID Prefix'
   },
   goat_chromosome_number: {
-    rename: "GoaT Chromosome Number",
-    width: 120
+    rename: "GoaT Chromosome Number"
   },
   goat_ploidy: {
-    rename: "GoaT Ploidy",
-    width: 120
+    rename: "GoaT Ploidy"
   },
   sts_sample_sts_col_date_max: {
-    rename: "Latest Collection Date",
-    width: 180
+    rename: "Latest Collection Date"
   },
   benchling_sample_count: {
-    rename: "Number of Samples in Benchling",
-    width: 120
+    rename: "Number of Samples in Benchling"
   },
   sts_genome_size: {
-    rename: "Species Genome Size",
-    width: 180
+    rename: "Species Genome Size"
   },
   uid: {
-    rename: "ID",
-    width: 120
+    rename: "ID"
   },
   sts_tissue_depleted: {
-    rename: 'Tissue Depleted',
-    width: 120
+    rename: 'Tissue Depleted'
   },
   sts_sequencing_material_status_updated_at: {
-    rename: 'STS Sequencing Material Status Updated At',
-    width: 180
+    rename: 'Sequencing Material Status Updated At'
   },
   sts_sequencing_material_status: {
-    rename: 'Sequencing Material Status',
-    width: 180
-  },
-  tolid_prefix: {
-    rename: 'ToL ID Prefix',
-    width: 180
+    rename: 'Sequencing Material Status'
   },
   goat_long_list: {
-    rename: 'Long list (GoaT)',
-    width: 180
+    rename: 'Long list (GoaT)'
   },
 };
 
