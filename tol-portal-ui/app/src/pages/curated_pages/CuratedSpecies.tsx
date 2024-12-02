@@ -35,51 +35,71 @@ function CuratedSpecies() {
     ]
   });
 
-  const fields = {uid: {
-    rename: "ID",
-    width: 120
+  const fields = {
+  sts_scientific_name: {
+      rename: 'Species'
+    },
+  calc_done_date: {
+    rename: 'Done Date'
   },
-  goat_family_name: {
-    rename: 'Family',
-    width: 180
+  sts_sample_count: {
+    rename: 'No of Samples'
   },
-  goat_genus_name: {
-    rename: 'Genus',
-    width: 180
+  benchling_sequencing_request_benchling_completion_date_hic_min: {
+    rename: 'HiC Submitted'
   },
-  goat_scientific_name: {
-    rename: 'Species',
-    width: 180
-  },
-  tolid_prefix: {
-    rename: 'ToL ID Prefix',
-    width: 180
-  },
-  tolid_tolid_count: {
-    rename: 'Specimen Number',
-    width: 180
+  benchling_sequencing_request_benchling_completion_date_pacbio_min: {
+    rename: 'PacBio Submitted'
   },
   informatics_tolid_informatics_status_summary_min: {
-    rename: 'Genome Status',
-    filter: 'multi',  
-    width: 180
+    rename: 'Informatics Status',
+    filter: 'multi'
   },
-  sts_sample_sts_gal_name_union: {
-    rename: 'Hub Name',
-    filter: 'multi',
-    width: 180
+  tolqclegacy_assembly_stage: {
+    rename: 'Assembly Stage',
+    filter: 'multi'
   },
-  goat_genome_size: {
-    rename: "Goat Genome Size",
-    hidden: true
+  sts_taxon_group: {
+    rename: 'Taxon Group'
+  },
+  sts_order_group: {
+    rename: 'Order'
+  },
+  sts_family: {
+    rename: 'Family'
+  },
+  sts_prefix: {
+    rename: 'ToLID Prefix'
   },
   goat_chromosome_number: {
-    rename: "Goat Chromosome Number",
-    hidden: true
+    rename: "GoaT Chromosome Number"
   },
-  grit_curation_grit_created_min: {
-    rename: "Grit Curation Grit Created Min",
-    hidden: true
+  goat_ploidy: {
+    rename: "GoaT Ploidy"
+  },
+  sts_sample_sts_col_date_max: {
+    rename: "Latest Collection Date"
+  },
+  benchling_sample_count: {
+    rename: "Number of Samples in Benchling"
+  },
+  sts_genome_size: {
+    rename: "Species Genome Size"
+  },
+  uid: {
+    rename: "ID"
+  },
+  sts_tissue_depleted: {
+    rename: 'Tissue Depleted'
+  },
+  sts_sequencing_material_status_updated_at: {
+    rename: 'Sequencing Material Status Updated At'
+  },
+  sts_sequencing_material_status: {
+    rename: 'Sequencing Material Status'
+  },
+  goat_long_list: {
+    rename: 'Long list (GoaT)'
   },
 };
 
