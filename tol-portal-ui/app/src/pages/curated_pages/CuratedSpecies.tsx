@@ -35,72 +35,78 @@ function CuratedSpecies() {
     ]
   });
 
-  const fields = {
-  sts_scientific_name: {
-      rename: 'Species'
-    },
+//Visible fields
+const visibleFields = {
+  uid:{},
+  sts_family: {},
+  sts_genus: {},
+  sts_scientific_name: {},
+  sts_prefix: {},
+  tolid_tolid_count: {},
+  informatics_tolid_informatics_status_summary_min: {
+    filter: "multi"
+  },
+  sts_sample_sts_gal_name_union: {
+    filter: "multi"
+  },
+};
+
+// Hidden fields
+const hiddenFields = {
   calc_done_date: {
-    rename: 'Done Date'
+    hidden: true,
   },
   sts_sample_count: {
-    rename: 'No of Samples'
+    hidden: true,
   },
   benchling_sequencing_request_benchling_completion_date_hic_min: {
-    rename: 'HiC Submitted'
+    hidden: true,
   },
   benchling_sequencing_request_benchling_completion_date_pacbio_min: {
-    rename: 'PacBio Submitted'
-  },
-  informatics_tolid_informatics_status_summary_min: {
-    rename: 'Informatics Status',
-    filter: 'multi'
+    hidden: true,
   },
   tolqclegacy_assembly_stage: {
-    rename: 'Assembly Stage',
-    filter: 'multi'
+    filter: "multi",
+    hidden: true,
   },
   sts_taxon_group: {
-    rename: 'Taxon Group'
+    hidden: true,
   },
   sts_order_group: {
-    rename: 'Order'
-  },
-  sts_family: {
-    rename: 'Family'
-  },
-  sts_prefix: {
-    rename: 'ToLID Prefix'
+    hidden: true,
   },
   goat_chromosome_number: {
-    rename: "GoaT Chromosome Number"
+    hidden: true,
   },
   goat_ploidy: {
-    rename: "GoaT Ploidy"
+    hidden: true,
   },
   sts_sample_sts_col_date_max: {
-    rename: "Latest Collection Date"
+    hidden: true,
   },
   benchling_sample_count: {
-    rename: "Number of Samples in Benchling"
+    hidden: true,
   },
   sts_genome_size: {
-    rename: "Species Genome Size"
-  },
-  uid: {
-    rename: "ID"
+    hidden: true,
   },
   sts_tissue_depleted: {
-    rename: 'Tissue Depleted'
+    hidden: true,
   },
   sts_sequencing_material_status_updated_at: {
-    rename: 'Sequencing Material Status Updated At'
+    hidden: true,
   },
   sts_sequencing_material_status: {
-    rename: 'Sequencing Material Status'
+    hidden: true,
   },
   goat_long_list: {
-    rename: 'Long list (GoaT)'
+    hidden: true,
   },
+};
+
+const fields = {
+  ...visibleFields,
+  ...hiddenFields,
 };
 
   const table = (
