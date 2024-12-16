@@ -18,15 +18,12 @@ from tol.core import core_data_object
 from tol.sources.elastic import (
     elastic
 )
+from tol.sources.prefect import prefect
 from tol.sql import create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
 from tol.status import StatusDataSource
 
-from .action import (
-    _mock_ctx,
-    _mock_prefect_ds,
-    action_blueprint,
-)
+from .action import action_blueprint
 from .auth import (
     get_auth_inspector
 )
@@ -170,10 +167,8 @@ def application():
 
     # actions endpoints
     actions_bp = action_blueprint(
-        # TODO use live instances
         sql_ds,
-        _mock_prefect_ds(),
-        ctx_getter=lambda: _mock_ctx(),
+        prefect(),
     )
     app.register_blueprint(
         actions_bp,

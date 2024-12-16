@@ -2,111 +2,19 @@
 #
 # SPDX-License-Identifier: MIT
 
-import json
-import logging
 from datetime import datetime
-from typing import Any, Iterable
-# TODO remove
-from unittest.mock import create_autospec
+from typing import Any
 
 from flask import Blueprint, request
 
 from tol.api_base2.auth import require_auth
 from tol.api_base2.misc import (
-    AuthContext,
     CtxGetter,
     default_ctx_getter
 )
-from tol.core import DataObject, DataSourceError
+from tol.core import DataSourceError
 from tol.prefect import PrefectDataSource
 from tol.sql import SqlDataSource
-
-
-# TODO remove
-def __mock_action(
-    id_: str,
-    flow_name: str,
-    host: SqlDataSource
-) -> DataObject:
-
-    mock_obj: DataObject = create_autospec(DataObject)
-
-    mock_obj.type = 'action'
-    mock_obj.id = id_
-    mock_obj.flow_name = flow_name
-    mock_obj.deployment_name = flow_name
-    mock_obj.params = {
-        'hello_World': True
-    }
-    mock_obj.attributes = {
-        'flow_name': flow_name,
-        'deployment_name': flow_name,
-        'params': {
-            'hello_World': True
-        }
-    }
-    mock_obj._to_one_objects = {}
-    mock_obj._host = host
-
-    return mock_obj
-
-
-# TODO remove
-def _mock_prefect_ds() -> PrefectDataSource:
-    mock_ds: PrefectDataSource = create_autospec(
-        PrefectDataSource,
-        spec_set=True
-    )
-
-    def __insert(
-        object_type: str,
-        objs: Iterable[DataObject],
-        **kwargs
-    ) -> None:
-
-        logging.error(object_type)
-        for obj in objs:
-            logging.error(json.dumps(obj.attributes, indent=2))
-
-    mock_ds.insert.side_effect = __insert
-
-    def __factory(
-        type_: str,
-        id_: str | None = None,
-        attributes: dict[str, Any] = {},
-        **__kwargs
-    ) -> DataObject:
-
-        obj: DataObject = create_autospec(DataObject)
-
-        obj.type = type_
-        obj.id = id_
-        obj.attributes = attributes
-
-        return obj
-
-    mock_ds.data_object_factory = __factory
-
-    return mock_ds
-
-
-# TODO remove
-def _mock_ctx(
-    authenticated: bool = True,
-    user_id: str = '1',
-    roles: list[str] = ['exporter']
-) -> CtxGetter:
-
-    ctx: AuthContext = create_autospec(
-        AuthContext,
-        spec_set=True
-    )
-
-    ctx.authenticated = authenticated
-    ctx.user_id = user_id
-    ctx.roles = roles
-
-    return ctx
 
 
 def action_blueprint(

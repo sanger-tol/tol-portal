@@ -116,6 +116,10 @@ tolcore:
   sts:
     db:
       uri: ""
+  prefect:
+    api:
+      url: 'https://prefect-staging.tol.sanger.ac.uk'
+      path: '/api'
   api:
     enabled: true
     fullname: "tol-portal-api"
@@ -132,6 +136,8 @@ tolcore:
       TOLID_DB_URI: tolid.db.uri
       STS_DB_URI: sts.db.uri
       GOOGLE_CLIENT_SECRETS: google.client_secrets_json
+      PREFECT_URL: prefect.api.url
+      PREFECT_API_PATH: prefect.api.path
   flask:
     env: ""
   ui:
