@@ -97,11 +97,12 @@ class TestActionsWithDataSources:
         assert args[0] == 'user_action'
 
         attributes = kwargs['attributes']
-        date = attributes.pop('date')
-        assert isinstance(date, datetime)
+        created_at = attributes.pop('created_at')
+        assert isinstance(created_at, datetime)
         assert kwargs['attributes'] == {
             'params': {
-                'additional': 'indeeeeed'
+                'additional': 'indeeeeed',
+                'ids': list('abc')
             }
         }
 

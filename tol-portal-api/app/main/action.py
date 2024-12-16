@@ -52,55 +52,6 @@ def __mock_action(
 
 
 # TODO remove
-def _mock_sql_ds() -> SqlDataSource:
-    mock_ds: SqlDataSource = create_autospec(
-        SqlDataSource,
-        spec_set=True
-    )
-
-    mock_ds.supported_types = ['action', 'user_action']
-    mock_ds.attribute_types = {}
-    mock_ds.attribute_metadata = {}
-    mock_ds.relationship_config = {}
-    mock_ds.get_attribute_types.return_value = {}
-
-    mock_actions = [
-        __mock_action(
-            str(i),
-            f'Flow_{c.upper()}',
-            mock_ds
-        )
-        for i, c in enumerate('abc')
-    ]
-
-    mock_ds.get_one.side_effect = lambda _, id_: mock_actions[int(id_)]
-
-    mock_ds.get_list_page.return_value = (
-        mock_actions,
-        3
-    )
-
-    def __factory(
-        type_: str,
-        id_: str | None = None,
-        attributes: dict[str, Any] = {},
-        **__kwargs
-    ) -> DataObject:
-
-        obj: DataObject = create_autospec(DataObject)
-
-        obj.type = type_
-        obj.id = id_
-        obj.attributes = attributes
-
-        return obj
-
-    mock_ds.data_object_factory = __factory
-
-    return mock_ds
-
-
-# TODO remove
 def _mock_prefect_ds() -> PrefectDataSource:
     mock_ds: PrefectDataSource = create_autospec(
         PrefectDataSource,
@@ -220,11 +171,22 @@ def action_blueprint(
 
         user = sql_ds.get_one('user', user_id)
 
+        user_action_params = {
+            **params,
+            'ids': ids,
+        }
+
+        combined_params = {
+            **user_action_params,
+            **action_params,
+            'user_id': user_id
+        }
+
         user_action = sql_ds.data_object_factory(
             'user_action',
             attributes={
-                'params': params,
-                'date': datetime.now()
+                'params': user_action_params,
+                'created_at': datetime.now()
             },
             to_one={
                 'user': user,
@@ -232,13 +194,6 @@ def action_blueprint(
             }
         )
         sql_ds.upsert('user_action', [user_action])
-
-        combined_params = {
-            **params,
-            **action_params,
-            'user_id': user_id,
-            'ids': ids,
-        }
 
         flow_name = action.flow_name
         flow_run = prefect_ds.data_object_factory(

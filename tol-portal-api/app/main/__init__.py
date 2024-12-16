@@ -25,16 +25,18 @@ from tol.status import StatusDataSource
 from .action import (
     _mock_ctx,
     _mock_prefect_ds,
-    _mock_sql_ds,
     action_blueprint,
 )
 from .auth import (
     get_auth_inspector
 )
 from .model import (
+    Action,
     Base,
     DataLoadEvent,
-    SequencingRequestEvent
+    SequencingRequestEvent,
+    UserAction,
+    UserMixin
 )
 from .model.sts import (
     BankedSample,
@@ -86,36 +88,41 @@ def application():
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    # TODO remove
-    mock_ds = _mock_sql_ds()
-
     # auth
     auth_bp = db_auth_blueprint(
         Base,
         os.environ['DB_URI'],
-        url_prefix=os.environ['API_PATH'] + '/auth'
+        url_prefix=os.environ['API_PATH'] + '/auth',
+        user_mixin_class=UserMixin
     )
     app.register_blueprint(auth_bp)
     auth_bp.register_authenticator(app)
 
+    # Endpoints targeting our local database
+    models = [
+        SequencingRequestEvent,
+        DataLoadEvent,
+        Action,
+        auth_bp.models.user_class,
+        UserAction
+    ]
+    sql_ds = create_sql_datasource(
+        models=models,
+        db_uri=os.getenv('DB_URI')
+    )
+    core_data_object(sql_ds)
+    blueprint_data_local = data_blueprint(sql_ds)
+    app.register_blueprint(blueprint_data_local, name='local',
+                           url_prefix=os.getenv('API_PATH') + '/local')
+
+    # The main endpoints for the elastic and sql data
     eds = elastic()
-    # The main endpoints for the elastic data
-    blueprint_data = data_blueprint(mock_ds, eds)
+    blueprint_data = data_blueprint(sql_ds, eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
 
     # The system endpoints
     blueprint_system = system_blueprint(eds)
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
-
-    # Endpoints targeting our local database
-    sql_datasource = create_sql_datasource(
-        models=[SequencingRequestEvent, DataLoadEvent],
-        db_uri=os.getenv('DB_URI')
-    )
-    core_data_object(sql_datasource)
-    blueprint_data_local = data_blueprint(sql_datasource)
-    app.register_blueprint(blueprint_data_local, name='local',
-                           url_prefix=os.getenv('API_PATH') + '/local')
 
     # TolID endpoints
     tolid = create_sql_datasource(
@@ -164,7 +171,7 @@ def application():
     # actions endpoints
     actions_bp = action_blueprint(
         # TODO use live instances
-        mock_ds,
+        sql_ds,
         _mock_prefect_ds(),
         ctx_getter=lambda: _mock_ctx(),
     )
