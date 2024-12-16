@@ -76,17 +76,21 @@ function TUMSteps(props: Props) {
 
   const tolid = useZone({
     endpoint: 'tolid',
-    filter: {
-      and_: {
-        'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
-        'calc_ongoing_submissions': {'eq': {'value': 0}},
-        'informatics_status_summary': {'in_list': {'value': [
-          '1 submitted', '2 curated', '3 curation', '4 data complete'
-        ], 'negate': true}},
-        'calc_coverage_met': {'in_list': {'value': ['false']}}  // TODO: this should be a boolean 
+    components: [
+      {
+        id: 'top-up-required-v3',
+        filter: {
+          and_: {
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'informatics_status_summary': {'in_list': {'value': [
+              '1 submitted', '2 curated', '3 curation', '4 data complete'
+            ], 'negate': true}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}}  // TODO: this should be a boolean 
+          }
+        }
       }
-    },
-    components: [] // TODO this really doesn't feel right!!!!!!!??
+    ]
   });
 
   const topUpRequiredTable = (
