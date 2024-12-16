@@ -20,3 +20,6 @@ chart/charts/
 .yalc/
 yalc.lock
 inject.js
+.virtualenv
+
+/tol-portal-ui/app/src/tol-ui

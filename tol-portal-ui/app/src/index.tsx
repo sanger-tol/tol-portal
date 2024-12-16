@@ -26,9 +26,11 @@ import {
 } from './pages';
 import { CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page, Dropdown } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
+
+const ds = new TsDataSource();
 
 const species: Page = {
   name: "Species",
@@ -120,7 +122,7 @@ const projectManagement: Page = {
 
 const tumSteps: Page = {
   name: "TUM Steps",
-  element: <TUMSteps />,
+  element: <TUMSteps ds={ds} />,
   hidden: true,
   auth: true
 }

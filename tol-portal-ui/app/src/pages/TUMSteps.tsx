@@ -4,28 +4,89 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, useTranslator } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator, TsDataSource } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
+import { useEffect, useState } from 'react';
+
+
+interface Props {
+  ds: TsDataSource;
+
+  objectType?: string;
+  pageSize?: number;
+};
+
+interface Action {
+  id: string;
+  name: string;
+}
+
+interface ActionObject {
+  id: string;
+  flow_name: string;
+}
+
 // Table 1
-function TUMSteps() {
+function TUMSteps(props: Props) {
+  const { ds } = props;
+
+  const objectType = props.objectType ?? 'action';
+  const pageSize = props.pageSize ?? 50;
+
+  const [actions, setActions] = useState<Action[]>([]);
+
+  //@ts-ignore
+  const runAction = async (action_id: string, ids: string[]) => await ds.customEndpoint(
+    '/run-action',
+    {
+      ids: ids,
+      action_id: action_id
+    }
+  );
+
+  const normaliseName = (flowName: string) => flowName.replace('_', ' ');
+
+  const fetchActions = () => {
+    ds.getListPage({
+      objectType,
+      page: 1,
+      pageSize
+    }).then(
+      //@ts-ignore
+      (res: ActionObject[]) => res.map(
+        dataObject => ({
+          id: dataObject.id,
+          name: normaliseName(dataObject.flow_name)
+        } as Action)
+      )
+    ).then(
+      res => setActions(res)
+    );
+  };
+
+  useEffect(fetchActions, []);
+
+  const dropdownActions = actions.map(
+    action => ({
+      dropdownButtonName: action.name,
+      action: (ids: string[], filter?: any) => runAction(action.id, ids)
+    })
+  );
+
   const tolid = useZone({
     endpoint: 'tolid',
-    components: [
-      {
-        id: 'top-up-required-v3',
-        filter: {
-          and_: {
-            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
-            'calc_ongoing_submissions': {'eq': {'value': 0}},
-            'informatics_status_summary': {'in_list': {'value': [
-              '1 submitted', '2 curated', '3 curation', '4 data complete'
-            ], 'negate': true}},
-            'calc_coverage_met': {'in_list': {'value': ['false']}}  // TODO: this should be a boolean 
-          }
-        }
+    filter: {
+      and_: {
+        'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+        'calc_ongoing_submissions': {'eq': {'value': 0}},
+        'informatics_status_summary': {'in_list': {'value': [
+          '1 submitted', '2 curated', '3 curation', '4 data complete'
+        ], 'negate': true}},
+        'calc_coverage_met': {'in_list': {'value': ['false']}}  // TODO: this should be a boolean 
       }
-    ]
+    },
+    components: [] // TODO this really doesn't feel right!!!!!!!??
   });
 
   const topUpRequiredTable = (
@@ -33,6 +94,7 @@ function TUMSteps() {
       noConfigModal
       id="top-up-required-v3"
       displaySource
+      rowSelection={true}
       fields={{
         "uid": {
           rename: "ToLID"
@@ -63,6 +125,7 @@ function TUMSteps() {
         "calc_coverage_met": {
         },
       }}
+      actions={dropdownActions}
       {...tolid}
     />
   );

@@ -22,6 +22,12 @@ from tol.sql import create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
 from tol.status import StatusDataSource
 
+from .action import (
+    _mock_ctx,
+    _mock_prefect_ds,
+    _mock_sql_ds,
+    action_blueprint,
+)
 from .auth import (
     get_auth_inspector
 )
@@ -80,6 +86,9 @@ def application():
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
+    # TODO remove
+    mock_ds = _mock_sql_ds()
+
     # auth
     auth_bp = db_auth_blueprint(
         Base,
@@ -91,7 +100,7 @@ def application():
 
     eds = elastic()
     # The main endpoints for the elastic data
-    blueprint_data = data_blueprint(eds)
+    blueprint_data = data_blueprint(mock_ds, eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
 
     # The system endpoints
@@ -151,6 +160,19 @@ def application():
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
+
+    # actions endpoints
+    actions_bp = action_blueprint(
+        # TODO use live instances
+        mock_ds,
+        _mock_prefect_ds(),
+        ctx_getter=lambda: _mock_ctx(),
+    )
+    app.register_blueprint(
+        actions_bp,
+        name='actions',
+        url_prefix=os.getenv('API_PATH') + '/run-action'
+    )
 
     core_data_object(tolid, sts)
 

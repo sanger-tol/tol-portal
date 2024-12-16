@@ -13,7 +13,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 RUN apt-get update -y
 RUN apt-get install -y python3-pip python3-setuptools
 
-RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade setuptools pip
 
 # Dockerize is needed to sync containers startup
 ENV DOCKERIZE_VERSION v0.6.0
@@ -32,4 +32,8 @@ VOLUME ["/packages"]
 
 COPY ./app /app
 COPY ./migrations /migrations
-CMD if [ -d /packages/tol-sdk/src ] ; then pip3 install --editable /packages/tol-sdk; fi; python run.py
+
+CMD \
+    if [ -d /packages/tol-sdk/src ] ; then pip3 install --editable /packages/tol-sdk[api_base2,elastic,postgresql,prefect]; fi; \
+        prefect config set PREFECT_API_TLS_INSECURE_SKIP_VERIFY="1"; \
+            flask --app run run --host 0.0.0.0 --port 80
