@@ -19,7 +19,7 @@ function TUMSteps() {
             'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
             'calc_ongoing_submissions': {'eq': {'value': 0}},
             'informatics_status_summary': {'in_list': {'value': [
-              '1 submitted', '2 curated', '3 curation', '4 data complete'
+              '1 submitted', '2 curated', '3 curation', '4 data complete', '7 ignore'
             ], 'negate': true}},
             'calc_coverage_met': {'in_list': {'value': ['false']}}  // TODO: this should be a boolean 
           }
@@ -77,7 +77,7 @@ function TUMSteps() {
           and_: {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
             
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}}, //WAITING TO BE ENRICHED
+            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}}, 
             'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
@@ -93,10 +93,10 @@ function TUMSteps() {
     source: tolid,
     target: sequencingRequest,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count", //WAITING TO BE ENRICHED
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count", 
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
       "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", //WAITING TO BE ENRICHED
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -133,10 +133,10 @@ function TUMSteps() {
         id: 'dna-remaining-v1',
         filter: {
           and_: {
-            'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //CACHED ON BACKEND (SHOULD RESOLVE ITSELF)
+            'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}},
             'benchling_volume_ul': {'gt': {'value': 0}},
 
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}}, //WAITING TO BE ENRICHED
+            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}}, 
             'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
@@ -152,10 +152,10 @@ function TUMSteps() {
     source: tolid,
     target: extraction,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  //WAITING TO BE ENRICHED
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
       "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", //WAITING TO BE ENRICHED
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -180,6 +180,8 @@ function TUMSteps() {
         },
         "benchling_fluidx_id":{
         },
+        "benchling_extraction_type":{
+        },
       }}
       {...extraction}    
     />
@@ -193,11 +195,11 @@ function TUMSteps() {
         id: 'tissue-prep-remaining-v1',
         filter: {
           and_: {
-            //'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            //'benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}}, 
+            'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
+            'benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}}, 
             "benchling_weight_mg": {'gt': {'value': 0}},
 
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  //WAITING TO BE ENRICHED
+            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
             'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
@@ -213,10 +215,10 @@ function TUMSteps() {
     source: tolid,
     target: tissuePrep,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  //WAITING TO BE ENRICHED
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
       "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", //WAITING TO BE ENRICHED
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -254,12 +256,12 @@ function TUMSteps() {
         id: 'sample-remaining-benchling-v1',
         filter: {
           and_: {
-            //'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            //'benchling_extraction_benchling_volume_ul_max': {'eq': {'value': 0}},
-            //'benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
+            'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
+            'benchling_extraction_benchling_volume_ul_max': {'eq': {'value': 0}},
+            'benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
             'benchling_remaining_weight': {'gt': {'value': 0}},
             
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  //WAITING TO BE ENRICHED
+            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
             'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
@@ -275,10 +277,10 @@ function TUMSteps() {
     source: tolid,
     target: sampleBenchling,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  //WAITING TO BE ENRICHED
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
       "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", //WAITING TO BE ENRICHED
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -316,12 +318,12 @@ function TUMSteps() {
         id: 'sample-remaining-STS-v1',
         filter: {
           and_: {
-            //'benchling_sequencing_request_mlwh_volume_remaining_max': {'exists': {'negate': true}}, 
-            //'benchling_extraction_benchling_volume_ul_max': {'eq': {'value': 0}},
-            //'benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
+            'benchling_sequencing_request_mlwh_volume_remaining_max': {'exists': {'negate': true}}, 
+            'benchling_extraction_benchling_volume_ul_max': {'eq': {'value': 0}},
+            'benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
             'benchling_remaining_weight': {'gt': {'value': 0}},
             
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  //WAITING TO BE ENRICHED
+            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
             'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
@@ -337,10 +339,10 @@ function TUMSteps() {
     source: tolid,
     target: sampleSTS,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  //WAITING TO BE ENRICHED
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
       "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", //WAITING TO BE ENRICHED
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
