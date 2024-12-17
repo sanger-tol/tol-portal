@@ -39,8 +39,7 @@ services:
       - OIDC_USER_INFO_URL
       - OIDC_TOKEN_URL
       - OIDC_REVOKE_TOKEN_URL
-      - PREFECT_URL
-      - PREFECT_API_PATH
+      - PREFECT_API_URL
     ports:
       - 8088:80
     volumes:

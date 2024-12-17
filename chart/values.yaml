@@ -118,8 +118,8 @@ tolcore:
       uri: ""
   prefect:
     api:
-      url: 'https://prefect-staging.tol.sanger.ac.uk'
-      path: '/api'
+      # this MUST end in `/api` - it points to the API, not the UI
+      url: 'https://prefect-staging.tol.sanger.ac.uk/api'
   api:
     enabled: true
     fullname: "tol-portal-api"
@@ -136,8 +136,7 @@ tolcore:
       TOLID_DB_URI: tolid.db.uri
       STS_DB_URI: sts.db.uri
       GOOGLE_CLIENT_SECRETS: google.client_secrets_json
-      PREFECT_URL: prefect.api.url
-      PREFECT_API_PATH: prefect.api.path
+      PREFECT_API_URL: prefect.api.url
   flask:
     env: ""
   ui:
