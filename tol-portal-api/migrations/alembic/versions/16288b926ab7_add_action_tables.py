@@ -25,6 +25,7 @@ def upgrade() -> None:
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
         sa.Column('object_type', sa.String, nullable=False),
         sa.Column('flow_name', sa.String, nullable=False),
+        sa.Column('params', JSONB, nullable=False, default={}),
     )
 
     op.create_table(

@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -14,6 +15,11 @@ class Action(Base):
 
     object_type: Mapped[str] = mapped_column(nullable=False)
     flow_name: Mapped[str] = mapped_column(nullable=False)
+    params: Mapped[dict] = mapped_column(
+        JSONB,
+        nullable=False,
+        default={}
+    )
 
     user_actions: Mapped[list['UserAction']] = relationship(  # noqa F821
         back_populates='action'

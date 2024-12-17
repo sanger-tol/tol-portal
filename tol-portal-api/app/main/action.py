@@ -73,7 +73,7 @@ def action_blueprint(
 
         action_params = (
             action.params
-            if action.params is not None
+            if action.params
             else {}
         )
 
@@ -81,13 +81,8 @@ def action_blueprint(
 
         user_action_params = {
             **params,
-            'ids': ids,
-        }
-
-        combined_params = {
-            **user_action_params,
             **action_params,
-            'user_id': user_id
+            'ids': ids,
         }
 
         user_action = sql_ds.data_object_factory(
@@ -103,13 +98,22 @@ def action_blueprint(
         )
         sql_ds.upsert('user_action', [user_action])
 
+        flow_params = {
+            'extra_params': {
+                **params,
+                **action_params,
+            },
+            'user_id': user_id,
+            'ids': ids
+        }
+
         flow_name = action.flow_name
         flow_run = prefect_ds.data_object_factory(
             'flow_run',
             attributes={
                 'flow_name': flow_name,
                 'deployment_name': flow_name,
-                'parameters': combined_params,
+                'parameters': flow_params,
                 'tags': [
                     'app_name:portal',
                     f'user_id:{user_id}'
