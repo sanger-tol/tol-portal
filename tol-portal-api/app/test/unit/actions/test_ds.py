@@ -102,7 +102,9 @@ class TestActionsWithDataSources:
         assert kwargs['attributes'] == {
             'params': {
                 'additional': 'indeeeeed',
-                'ids': list('abc')
+                'ids': list('abc'),
+                'bool': True,
+                'answer': 42
             }
         }
 
@@ -128,9 +130,11 @@ class TestActionsWithDataSources:
         assert kwargs['attributes']['flow_name'] == 'example_flow'
         assert kwargs['attributes']['deployment_name'] == 'example_flow'
         assert kwargs['attributes']['parameters'] == {
-            'additional': 'indeeeeed',
-            'bool': True,
-            'answer': 42,
+            'extra_params': {
+                'additional': 'indeeeeed',
+                'bool': True,
+                'answer': 42,
+            },
             'ids': list('abc'),
             'user_id': '100'
         }
