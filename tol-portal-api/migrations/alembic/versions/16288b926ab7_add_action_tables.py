@@ -23,7 +23,9 @@ def upgrade() -> None:
     op.create_table(
         'action',
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
+        sa.Column('name', sa.String, nullable=False),
         sa.Column('object_type', sa.String, nullable=False),
+        sa.UniqueConstraint('name', 'object_type'),
         sa.Column('flow_name', sa.String, nullable=False),
         sa.Column('params', JSONB, nullable=False, default={}),
     )

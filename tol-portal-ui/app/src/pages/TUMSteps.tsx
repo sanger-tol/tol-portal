@@ -17,16 +17,6 @@ interface Props {
   pageSize?: number;
 };
 
-interface Action {
-  id: string;
-  name: string;
-}
-
-interface ActionObject {
-  id: string;
-  flow_name: string;
-}
-
 // Table 1
 function TUMSteps(props: Props) {
   const { ds } = props;
@@ -34,18 +24,17 @@ function TUMSteps(props: Props) {
   const objectType = props.objectType ?? 'action';
   const pageSize = props.pageSize ?? 50;
 
-  const [actions, setActions] = useState<Action[]>([]);
+  const [actions, setActions] = useState<string[]>([]);
 
   //@ts-ignore
-  const runAction = async (action_id: string, ids: string[]) => await ds.customEndpoint(
+  const runAction = async (action_name: string, ids: string[]) => await ds.customEndpoint(
     '/run-action',
     {
       ids: ids,
-      action_id: action_id
+      action_name: action_name,
+      object_type: 'tolid'
     }
   );
-
-  const normaliseName = (flowName: string) => flowName.replace('_', ' ');
 
   const fetchActions = () => {
     ds.getListPage({
@@ -53,15 +42,12 @@ function TUMSteps(props: Props) {
       page: 1,
       pageSize
     }).then(
-      //@ts-ignore
-      (res: ActionObject[]) => res.map(
-        dataObject => ({
-          id: dataObject.id,
-          name: normaliseName(dataObject.flow_name)
-        } as Action)
-      )
-    ).then(
-      res => setActions(res)
+      (res: any) => {
+        const actions = res.map(
+          (r: any) => r.name
+        );
+        setActions(actions)
+      }
     );
   };
 
@@ -69,8 +55,8 @@ function TUMSteps(props: Props) {
 
   const dropdownActions = actions.map(
     action => ({
-      dropdownButtonName: action.name,
-      action: (ids: string[], filter?: any) => runAction(action.id, ids)
+      dropdownButtonName: action,
+      action: (ids: string[], filter?: any) => runAction(action, ids)
     })
   );
 

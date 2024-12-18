@@ -11,6 +11,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from tol.api_base2 import (
+    action_blueprint,
     data_blueprint,
     system_blueprint
 )
@@ -23,7 +24,6 @@ from tol.sql import create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
 from tol.status import StatusDataSource
 
-from .action import action_blueprint
 from .auth import (
     get_auth_inspector
 )
