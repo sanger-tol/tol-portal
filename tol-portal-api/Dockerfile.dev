@@ -35,5 +35,4 @@ COPY ./migrations /migrations
 
 CMD \
     if [ -d /packages/tol-sdk/src ] ; then pip3 install --editable /packages/tol-sdk[api_base2,elastic,postgresql,prefect]; fi; \
-        prefect config set PREFECT_API_TLS_INSECURE_SKIP_VERIFY="1"; \
-            flask --app run run --host 0.0.0.0 --port 80
+        flask --app run run --host 0.0.0.0 --port 80

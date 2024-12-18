@@ -118,8 +118,8 @@ tolcore:
       uri: ""
   prefect:
     api:
-      # this MUST end in `/api` - it points to the API, not the UI
-      url: 'https://prefect-staging.tol.sanger.ac.uk/api'
+      url: 'https://prefect-staging.tol.sanger.ac.uk'
+      path: '/api'
   api:
     enabled: true
     fullname: "tol-portal-api"

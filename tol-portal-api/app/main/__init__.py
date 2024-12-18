@@ -15,10 +15,10 @@ from tol.api_base2 import (
     system_blueprint
 )
 from tol.core import core_data_object
-from tol.prefect import create_prefect_datasource
 from tol.sources.elastic import (
     elastic
 )
+from tol.sources.prefect import prefect
 from tol.sql import create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
 from tol.status import StatusDataSource
@@ -166,9 +166,7 @@ def application():
                            url_prefix=os.getenv('API_PATH') + '/status')
 
     # actions endpoints
-    prefect_ds = create_prefect_datasource(
-        os.environ['PREFECT_API_URL']
-    )
+    prefect_ds = prefect(insecure=True)
     core_data_object(prefect_ds)
     actions_bp = action_blueprint(
         sql_ds,
