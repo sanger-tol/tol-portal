@@ -88,39 +88,33 @@ function Home() {
       legendPosition="left"
     />
   );
-  
+
+  const defaultFilter = {
+    and_: {
+      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+    }
+  }
   const speciesTable = (
     <RemoteTable
-      id="home-species-table-v2"
+      id="home-species-table-v3"
       defaultSort="sts_scientific_name"
       noConfigModal
       fields={{
         "sts_scientific_name": {
-          rename: "Species Name",
-          cellRenderer: {
-            element: SpeciesLink,
-            propPointers: {
-              id: 'uid',
-              name: 'sts_scientific_name'
-            }
-          }
         },
         "sts_taxon_group": {
-          rename: "Taxon Group"
         },
         "sts_family": {
-          rename: "Family"
         },
         "sts_order_group": {
-          rename: "Order"
         },
-        "sts_prefix": {
-          rename: "ToLID Prefix"
+        "tolid_prefix": {
         },
       }}
       {...useZone({
         endpoint: 'species',
-        components: [{id: 'home-species-table-v2'}]
+        filter: defaultFilter,
+        components: [{id: 'home-species-table-v3'}]
       })}
     />
   );
