@@ -4,62 +4,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, useTranslator, TsDataSource } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
-import { useEffect, useState } from 'react';
-
-
-interface Props {
-  ds: TsDataSource;
-
-  objectType?: string;
-  pageSize?: number;
-};
 
 // Table 1
-function TUMSteps(props: Props) {
-  const { ds } = props;
-
-  const objectType = props.objectType ?? 'action';
-  const pageSize = props.pageSize ?? 50;
-
-  const [actions, setActions] = useState<string[]>([]);
-
-  //@ts-ignore
-  const runAction = async (action_name: string, ids: string[]) => await ds.customEndpoint(
-    '/run-action',
-    {
-      ids: ids,
-      action_name: action_name,
-      object_type: 'tolid'
-    }
-  );
-
-  const fetchActions = () => {
-    ds.getListPage({
-      objectType,
-      page: 1,
-      pageSize
-    }).then(
-      (res: any) => {
-        const actions = res.map(
-          (r: any) => r.name
-        );
-        setActions(actions)
-      }
-    );
-  };
-
-  useEffect(fetchActions, []);
-
-  const dropdownActions = actions.map(
-    action => ({
-      dropdownButtonName: action,
-      action: (ids: string[], filter?: any) => runAction(action, ids)
-    })
-  );
-
+function TUMSteps() {
   const tolid = useZone({
     endpoint: 'tolid',
     components: [
@@ -78,6 +28,8 @@ function TUMSteps(props: Props) {
       }
     ]
   });
+
+  const actions = ['example'];
 
   const topUpRequiredTable = (
     <RemoteTable
@@ -115,7 +67,7 @@ function TUMSteps(props: Props) {
         "calc_coverage_met": {
         },
       }}
-      actions={dropdownActions}
+      actions={actions}
       {...tolid}
     />
   );

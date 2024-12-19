@@ -30,8 +30,6 @@ import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
-const ds = new TsDataSource();
-
 const species: Page = {
   name: "Species",
   element: <CuratedSpecies />,
@@ -122,7 +120,7 @@ const projectManagement: Page = {
 
 const tumSteps: Page = {
   name: "TUM Steps",
-  element: <TUMSteps ds={ds} />,
+  element: <TUMSteps/>,
   hidden: true,
   auth: true
 }
