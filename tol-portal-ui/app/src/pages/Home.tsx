@@ -17,6 +17,11 @@ import {
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
+const defaultFilter = {
+  and_: {
+    "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+  }
+}
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -125,6 +130,7 @@ function Home() {
       title='Species'
       {...useZone({
         endpoint: 'species',
+        filter: defaultFilter,
         components: [{
           id: 'home-species-count-v1',
           filter: {
@@ -145,6 +151,7 @@ function Home() {
       title='ToLIDs Submitted'
       {...useZone({
         endpoint: 'tolid',
+        filter: defaultFilter,
         components: [{
           id: 'home-tolid-count-v1',
           filter: {
