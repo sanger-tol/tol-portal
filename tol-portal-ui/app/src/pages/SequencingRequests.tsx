@@ -27,7 +27,7 @@ function SequencingRequests() {
       id="sequencing-requests-bar-chart-v1"
       stacked
       title="Submission from Benchling to SciOps"
-      breakDownBy="benchling_source"
+      breakDownBy="benchling_sequencing_platform"
       xAxis="benchling_completion_date"
       type='M'
       {...sequencingRequests}
