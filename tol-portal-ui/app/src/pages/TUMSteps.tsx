@@ -422,14 +422,14 @@ function TUMSteps() {
   );
 
   //Table 7
-  const individualExhausted = useZone({
+  const species = useZone({
     endpoint: 'species',
     components: [
       {
         id: 'individual-exhausted-v1',
         filter: {
           and_: {
-            'calc_individual_exhausted': {'eq': {'value': false}},
+            'species.calc_individual_exhausted_max': {'eq': {'value': 1}},
             
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
@@ -446,7 +446,7 @@ function TUMSteps() {
 
   useTranslator({
     source: tolid,
-    target: species,
+    target: 'species',
     translations: {
       "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
@@ -472,19 +472,19 @@ function TUMSteps() {
         "uid": {
           rename: "Sample ID"
         },
-        "benchling_tolid.sts_sample_sts_project_union": {},
-        "benchling_species_count": {
+        //"benchling_tolid.sts_sample_sts_project_union": {},
+        "calc_individual_exhausted_count": {
           rename: "Count Individual Exhausted"
         },
-        "sts_labwhere_parentage": {},
-        "sts_tolid.informatics_gscope_coverage": {},
-        "sts_species.goat_genome_size": {},
-        "sts_tolid.informatics_status_summary": {},
-        "sts_tolid.calc_coverage": {},
-        "benchling_species.goat_ploidy": {},
-        "benchling_species.sts_sample_sts_priority_min": {},
+        //"sts_labwhere_parentage": {},
+        //"sts_tolid.informatics_gscope_coverage": {},
+        "goat_genome_size": {},
+        "informatics_tolid_informatics_status_summary_min": {},
+        "species.calc_coverage": {},
+        "goat_ploidy": {},
+        //"sts_sample_sts_priority_min": {},
       }}
-      {...tolid}
+      {...species}
    />
   );
 
