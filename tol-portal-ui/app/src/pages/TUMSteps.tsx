@@ -361,7 +361,7 @@ function TUMSteps() {
             'sts_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}},
+            'benchling_species.benchling_sample_count': {'lte': {'value': 0}}, //should this be benchling sample count instead?
             
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
@@ -421,15 +421,34 @@ function TUMSteps() {
     />
   );
 
+   //const individualExhaustedTable = (
+  //  <RemoteTable
+  //    noConfigModal
+  //    id="individual-exhausted-v1"
+  //    displaySource
+  //    fields={{
+  // Location - (sts labwhere parentage)
+  // Estimated Genome Coverage (Genome Scope)
+  // Estimated Genome Size (GOAT)
+  // Informatics Status 
+  // Calculated Coverage (ToLID)
+  // Ploidy (Goat)
+  // Project
+  // Priority
+  //    }}
+  //  />
+  //);
+
   //Table 7
-  const species = useZone({
-    endpoint: 'species',
+  const individualExhaustedAvailable = useZone({
+    endpoint: 'sample',
     components: [
       {
-        id: 'individual-exhausted-v1',
+        id: 'individual-exhausted-available-v1',
         filter: {
           and_: {
-            'species.calc_individual_exhausted_max': {'eq': {'value': 1}},
+            'benchling_species.calc_tolid_calc_topup_required_min': {'eq': {'value': 1}},//at least one topup required
+            'benchling_species.calc_tolid_calc_topup_required_count':{'eq': {'value' : 'species.calc_tolid_calc_individual_exhausted_count'}},
             
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
@@ -446,7 +465,7 @@ function TUMSteps() {
 
   useTranslator({
     source: tolid,
-    target: 'species',
+    target: individualExhaustedAvailable,
     translations: {
       "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
@@ -460,10 +479,10 @@ function TUMSteps() {
     }
   })
 
-  const individualExhaustedTable = (
+  const individualExhaustedAvailableTable = (
    <RemoteTable
      //noConfigModal
-     id="individual-exhausted-v1"
+     id="individual-exhausted-available-v1"
      displaySource
      fields={{
         "benchling_tolid.id": {
@@ -472,39 +491,22 @@ function TUMSteps() {
         "uid": {
           rename: "Sample ID"
         },
-        //"benchling_tolid.sts_sample_sts_project_union": {},
-        "calc_individual_exhausted_count": {
+        "benchling_tolid.sts_sample_sts_project_union": {},
+        "calc_tolid_calc_individual_exhausted_count": {
           rename: "Count Individual Exhausted"
         },
-        //"sts_labwhere_parentage": {},
-        //"sts_tolid.informatics_gscope_coverage": {},
+        "benchling_remaining_weight": {},
+        "sts_labwhere_parentage": {},
+        "sts_tolid.informatics_gscope_coverage": {},
         "goat_genome_size": {},
         "informatics_tolid_informatics_status_summary_min": {},
         "species.calc_coverage": {},
         "goat_ploidy": {},
-        //"sts_sample_sts_priority_min": {},
+        "sts_sample_sts_priority_min": {},
       }}
-      {...species}
+      {...individualExhaustedAvailable}
    />
   );
-
-  //const individualExhaustedAvailableTable = (
-  //  <RemoteTable
-  //    noConfigModal
-  //    id="individual-exhausted-available-v1"
-  //    displaySource
-  //    fields={{
-  // Location - (sts labwhere parentage)
-  // Estimated Genome Coverage (Genome Scope)
-  // Estimated Genome Size (GOAT)
-  // Informatics Status 
-  // Calculated Coverage (ToLID)
-  // Ploidy (Goat)
-  // Project
-  // Priority
-  //    }}
-  //  />
-  //);
 
   //const individualExhaustedRecollectionTable = (
   //  <RemoteTable
@@ -596,14 +598,16 @@ function TUMSteps() {
       component: individualExhaustedTable,
       type: 'xl'
     },
+    */
     {
-      component: tableTitle('Individual Exhausted (Available'),
+      component: tableTitle('Individual Exhausted (Other Individuals Available)'),
       type: 'full'
     },
     {
       component: individualExhaustedAvailableTable,
       type: 'xl'
     },
+    /*
     {
       component: tableTitle('Individual Exhausted (Recollection'),
       type: 'full'
