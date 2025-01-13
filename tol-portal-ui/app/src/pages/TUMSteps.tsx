@@ -362,6 +362,7 @@ function TUMSteps() {
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
             'benchling_species.benchling_sample_count': {'lte': {'value': 0}}, //should this be benchling sample count instead?
+            'benchling_remaining_weight': {'gt': {'value': 0}},
             
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
@@ -447,9 +448,11 @@ function TUMSteps() {
         id: 'individual-exhausted-available-v1',
         filter: {
           and_: {
-            'benchling_species.calc_tolid_calc_topup_required_min': {'eq': {'value': 1}},//at least one topup required
+            'benchling_species.calc_tolid_calc_topup_required_max': {'eq': {'value': 1}},//at least one child require topup
             'benchling_species.calc_tolid_calc_topup_required_count':{'eq': {'value' : 'species.calc_tolid_calc_individual_exhausted_count'}},
-            
+            'benchling_tolid.calc_topup_required': {'eq': {'value': false}},//topup not required at tolid level
+            'benchling_remaining_weight': {'gt': {'value': 0}},
+
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
             'sts_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
@@ -492,9 +495,6 @@ function TUMSteps() {
           rename: "Sample ID"
         },
         "benchling_tolid.sts_sample_sts_project_union": {},
-        "calc_tolid_calc_individual_exhausted_count": {
-          rename: "Count Individual Exhausted"
-        },
         "benchling_remaining_weight": {},
         "sts_labwhere_parentage": {},
         "sts_tolid.informatics_gscope_coverage": {},
