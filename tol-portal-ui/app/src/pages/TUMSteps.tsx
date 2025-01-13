@@ -588,7 +588,7 @@ function TUMSteps() {
     {
       component: tissuePrepRemainingSTSTable,
       type: 'xl'
-    }
+    },
     /*
     {
       component: tableTitle('Individual Exhausted'),
