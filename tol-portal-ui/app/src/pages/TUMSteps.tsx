@@ -424,7 +424,7 @@ function TUMSteps() {
 
    //const individualExhaustedTable = (
   //  <RemoteTable
-  //    noConfigModal
+  //    //noConfigModal
   //    id="individual-exhausted-v1"
   //    displaySource
   //    fields={{
@@ -449,7 +449,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'benchling_species.calc_tolid_calc_topup_required_max': {'eq': {'value': 1}},//at least one child require topup
-            'benchling_species.calc_tolid_calc_topup_required_count':{'eq': {'value' : 'species.calc_tolid_calc_individual_exhausted_count'}},
+            'benchling_species.calc_tolid_calc_topup_required_count':{'eq': {'value' : 'benchling_species.calc_tolid_calc_individual_exhausted_count'}},
             'benchling_tolid.calc_topup_required': {'eq': {'value': false}},//topup not required at tolid level
             'benchling_remaining_weight': {'gt': {'value': 0}},
 
@@ -510,7 +510,7 @@ function TUMSteps() {
 
   //const individualExhaustedRecollectionTable = (
   //  <RemoteTable
-  //    noConfigModal
+  //    //noConfigModal
   //    id="individual-exhausted-recollection-v1"
   //    displaySource
   //    fields={{
