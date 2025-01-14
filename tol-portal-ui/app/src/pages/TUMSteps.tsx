@@ -519,7 +519,9 @@ function TUMSteps() {
             'calc_tolid_calc_topup_required_min': {'eq': {'value': 1}},//top-uprequired at species level
             'calc_tolid_calc_individual_exhausted_min': {'eq': {'value': 1}},//all individuals exhausted
             'calc_recollection_needed': {'eq': {'value': true}},//species marked for recollection
-
+            'benchling_species.calc_tolid_calc_topup_required_count':{'gt': {'value' : 0}},
+            'benchling_species.calc_tolid_calc_individual_exhausted_count':{'gt': {'value' : 0}},
+            
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},  
             'sts_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
