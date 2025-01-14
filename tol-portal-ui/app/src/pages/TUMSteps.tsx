@@ -30,7 +30,7 @@ function TUMSteps() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="top-up-required-v3"
       displaySource
       fields={{
@@ -105,7 +105,7 @@ function TUMSteps() {
   
   const libraryRemainingTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="library-remaining-v1"
       displaySource
       fields={{
@@ -176,7 +176,7 @@ function TUMSteps() {
 
   const dnaRemainingTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="dna-remaining-v1"
       displaySource
       fields={{
@@ -253,7 +253,7 @@ function TUMSteps() {
 
   const tissuePrepRemainingTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="tissue-prep-remaining-v1"
       displaySource
       fields={{
@@ -324,7 +324,7 @@ function TUMSteps() {
 
   const sampleRemainingBenchlingTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="sample-remaining-benchling-v1"
       displaySource
       fields={{
@@ -395,7 +395,7 @@ function TUMSteps() {
 
   const tissuePrepRemainingSTSTable = (
     <RemoteTable
-      //noConfigModal
+      noConfigModal
       id="sample-remaining-STS-v1"
       displaySource
       fields={{
@@ -484,7 +484,7 @@ function TUMSteps() {
 
   const individualExhaustedAvailableTable = (
    <RemoteTable
-     //noConfigModal
+     noConfigModal
      id="individual-exhausted-available-v1"
      displaySource
      fields={{
