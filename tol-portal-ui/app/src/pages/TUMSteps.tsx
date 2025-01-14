@@ -484,7 +484,7 @@ function TUMSteps() {
 
   const individualExhaustedAvailableTable = (
    <RemoteTable
-     //noConfigModal
+     noConfigModal
      id="individual-exhausted-available-v1"
      displaySource
      fields={{
@@ -550,7 +550,7 @@ function TUMSteps() {
   })
   const individualExhaustedRecollectionTable = (
    <RemoteTable
-     //noConfigModal
+     noConfigModal
      id="individual-exhausted-recollection-v1"
      displaySource
      fields={{
@@ -563,6 +563,7 @@ function TUMSteps() {
   // Project
   // Priority
      }}
+     {...individualExhaustedRecollection}
    />
   );
 
