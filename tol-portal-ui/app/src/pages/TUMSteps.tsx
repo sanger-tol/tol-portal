@@ -16,7 +16,10 @@ function TUMSteps() {
         id: 'top-up-required-v3',
         filter: {
           and_: {
-            'calc_topup_required': {'eq': {'value': 1}},
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'calc_topup_required': {'eq': {'value': 1}},
             'informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete', '7 ignore'
             ], 'negate': true}}
@@ -71,7 +74,10 @@ function TUMSteps() {
           and_: {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
             
-            'benchling_tolid.calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -141,7 +147,10 @@ function TUMSteps() {
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'benchling_volume_ul': {'gt': {'value': 0}},
             
-            'benchling__tolid.calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}},
@@ -217,7 +226,10 @@ function TUMSteps() {
             'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             "benchling_weight_mg": {'gt': {'value': 0}},
 
-            'benchling_tolid.calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -286,7 +298,10 @@ function TUMSteps() {
             'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
             'benchling_remaining_weight': {'gt': {'value': 0}},
             
-            'benchling_tolid.calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -351,11 +366,14 @@ function TUMSteps() {
             'sts_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_tolid.sts_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //WAITING FOR FLOW- change on attributes, should this be benchling sample count instead?
+            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //WAITING FOR FLOW- change on attributes, should this be benchling sample count instead?
             'sts_tissue_remaining': {'gt': {'value': 0}},
 
             'sts_eln_id': {'exists': {'negate': true }},
-            'sts_calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'sts_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -421,10 +439,13 @@ function TUMSteps() {
             'benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //WAITING FOR FLOW- change on attributes, should this be benchling sample count instead?
+            'benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //WAITING FOR FLOW- change on attributes, should this be benchling sample count instead?
             'benchling_sample_count': {'eq': {'field': 'sts_sample_count'}},
 
-            'calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'benchling_tolid.calc_topup_required': {'eq': {'value': 1}},
             'informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -490,7 +511,10 @@ function TUMSteps() {
             'sts_tissue_remaining': {'gt': {'value': 0}},//samples not in benchling
 
             'sts_eln_id': {'exists': {'negate': true }},
-            'sts_tolid.calc_topup_required': {'eq': {'value': 1}}, 
+            'benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
+            'calc_ongoing_submissions': {'eq': {'value': 0}},
+            'calc_coverage_met': {'in_list': {'value': ['false']}},
+            //'sts_tolid.calc_topup_required': {'eq': {'value': 1}},
             'sts_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -557,7 +581,6 @@ function TUMSteps() {
             'benchling_species.calc_individual_exhausted_tolid_count':{'gt': {'value' : 0}},
             
             'sts_eln_id': {'exists': {'negate': true }},
-            'sts_tolid.calc_topup_required': {'eq': {'value': 1}}, 
             'sts_tolid.informatics_status_summary': {'in_list': {'value': [
               '1 submitted', '2 curated', '3 curation', '4 data complete'
             ], 'negate': true}}
@@ -588,19 +611,16 @@ function TUMSteps() {
      id="individual-exhausted-recollection-v1"
      displaySource
      fields={{
-        "sts_tolid.id": {
-          rename: "ToLID"
-        },
+        "sts_scientific_name": {},
         "uid": {
-          rename: "Sample ID"
+          rename: "Species ID"
         },
-        "benchling_tolid.sts_sample_sts_project_union": {},
-        "benchling_remaining_weight": {},
+        "sts_sample_sts_project_union": {},
+        "benchling_sample_benchling_remaining_weight_sum": {},
         "sts_labwhere_parentage": {},
-        "sts_tolid.informatics_gscope_coverage": {},
         "goat_genome_size": {},
         "informatics_tolid_informatics_status_summary_min": {},
-        "species.calc_coverage": {},
+        "calc_coverage": {},
         "goat_ploidy": {},
         "sts_sample_sts_priority_min": {},
      }}
