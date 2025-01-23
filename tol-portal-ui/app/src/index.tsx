@@ -134,6 +134,7 @@ const otherDropdown: Dropdown = {
 
 ReactDOM.render(
   <TolApp
+    boards
     brand={
       <img
         src={Logo}
