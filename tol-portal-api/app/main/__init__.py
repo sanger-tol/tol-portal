@@ -14,12 +14,14 @@ from tol.api_base2 import (
     data_blueprint,
     system_blueprint
 )
+from tol.board import board_blueprint
 from tol.core import core_data_object
 from tol.sources.elastic import (
     elastic
 )
-from tol.sql import create_sql_datasource
+from tol.sql import Model, create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
+from tol.sql.board import create_board_models
 from tol.status import StatusDataSource
 
 from .auth import (
@@ -28,51 +30,16 @@ from .auth import (
 from .model import (
     Base,
     DataLoadEvent,
-    SequencingRequestEvent
+    SequencingRequestEvent,
 )
-from .model.sts import (
-    BankedSample,
-    BankedSampleCategory,
-    Cmethod,
-    ComplianceStatus,
-    EPSample,
-    FreezerTray,
-    Gal,
-    Hook,
-    Lifestage,
-    Location,
-    Manifest,
-    ManifestStatus,
-    OrganismPart,
-    Papproach,
-    Person,
-    Project,
-    Psolution,
-    Sample,
-    SamplePerson,
-    SampleProject,
-    SampleSpecies,
-    SampleSpeciesOrganismPart,
-    Sampleset,
-    SamplesetLegal,
-    SamplesetResearchGovernance,
-    SamplesetStatus,
-    SequencingMaterialStatus,
-    SequencingRequest,
-    SequencingRequestStatus,
-    SequencingRun,
-    Sex,
-    ShipmentStatus,
-    Species,
-    SpeciesLabWorkStatus,
-    Specimen,
-    StorageRack,
-    TissueSize
-)
-from .model.tolid import (
-    Tolid,
-    TolidSpecies
-)
+
+
+def __get_board_models(
+    base_model: type[Model]
+) -> tuple[list[type[Model], type[Model]]]:
+    board_models = create_board_models(base_model)
+
+    return list(board_models), board_models._user_mixin
 
 
 def application():
@@ -80,19 +47,46 @@ def application():
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
+    board_models, user_mixin = __get_board_models(Base)
+
     # auth
     auth_bp = db_auth_blueprint(
         Base,
         os.environ['DB_URI'],
-        url_prefix=os.environ['API_PATH'] + '/auth'
+        url_prefix=os.environ['API_PATH'] + '/auth',
+        user_mixin_class=user_mixin
     )
     app.register_blueprint(auth_bp)
     auth_bp.register_authenticator(app)
+
+    # dashboards
+    models = [
+        *board_models,
+        auth_bp.models.user_class,
+    ]
+
+    board_ds = create_sql_datasource(
+        models=models,
+        db_uri=os.environ['DB_URI']
+    )
+    core_data_object(board_ds)
+
+    boards_bp = board_blueprint(board_ds)
+    app.register_blueprint(
+        boards_bp,
+        url_prefix=os.getenv('API_PATH') + '/boards'
+    )
 
     eds = elastic()
     # The main endpoints for the elastic data
     blueprint_data = data_blueprint(eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
+
+    blueprint_board_data = data_blueprint(board_ds)
+    app.register_blueprint(
+        blueprint_board_data,
+        name='board-data',
+        url_prefix=os.getenv('API_PATH') + '/board-data')
 
     # The system endpoints
     blueprint_system = system_blueprint(eds)
@@ -108,39 +102,6 @@ def application():
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
 
-    # TolID endpoints
-    tolid = create_sql_datasource(
-        models=[TolidSpecies, Tolid],
-        db_uri=os.getenv('TOLID_DB_URI'),
-        type_function=lambda m: 'tolid_species' if m.get_table_name() == 'species' else 'tolid'
-    )
-    blueprint_data_tolid = data_blueprint(
-        tolid,
-        auth_inspector=get_auth_inspector(os.getenv('API_TOKEN'))
-    )
-    app.register_blueprint(blueprint_data_tolid, name='tolid',
-                           url_prefix=os.getenv('API_PATH') + '/external/tolid')
-
-    # STS endpoints
-    sts = create_sql_datasource(
-        models=[BankedSample, BankedSampleCategory, Cmethod, ComplianceStatus, EPSample,
-                FreezerTray, Gal, Hook, Lifestage, Location, Manifest, ManifestStatus,
-                OrganismPart, Person, Papproach, Project, Psolution, Sample, SampleProject,
-                Sampleset, SamplesetLegal, SamplesetResearchGovernance, SamplePerson,
-                SamplesetStatus, SampleSpecies, SampleSpeciesOrganismPart, Sex,
-                ShipmentStatus, Species, SpeciesLabWorkStatus, Specimen,
-                SequencingMaterialStatus, SequencingRequest, SequencingRequestStatus,
-                SequencingRun, StorageRack, TissueSize],
-        db_uri=os.getenv('STS_DB_URI')
-    )
-
-    blueprint_data_sts = data_blueprint(
-        sts,
-        auth_inspector=get_auth_inspector(os.getenv('API_TOKEN'))
-    )
-    app.register_blueprint(blueprint_data_sts, name='sts',
-                           url_prefix=os.getenv('API_PATH') + '/external/sts')
-
     # status board
     status_ds = StatusDataSource({})
     core_data_object(status_ds)
@@ -151,7 +112,5 @@ def application():
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
-
-    core_data_object(tolid, sts)
 
     return app

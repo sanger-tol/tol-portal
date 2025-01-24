@@ -17,8 +17,8 @@ function Samples() {
     endpoint: "sample",
     components: [
       { id: "samples-bar-chart-v2" },
-      { id: "samples-map-v1" },
-      { id: "samples-table-v3" }
+      { id: "samples-table-v3" },
+      { id: "samples-map-v1" }
     ]
   });
 
@@ -91,14 +91,14 @@ function Samples() {
     },
     {
       component: chart,
-      type: 'md'
-    },
-    {
-      component: map,
-      type: 'md'
+      type: 'lg'
     },
     {
       component: table,
+      type: 'lg'
+    },
+    {
+      component: map,
       type: 'lg'
     }
   ];

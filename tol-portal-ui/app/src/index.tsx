@@ -27,6 +27,7 @@ import {
 import { CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page, Dropdown } from '@tol/tol-ui';
+
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
@@ -134,7 +135,7 @@ const otherDropdown: Dropdown = {
 
 ReactDOM.render(
   <TolApp
-    boards
+    boards={{dataUrl: `/api/v1`}}
     brand={
       <img
         src={Logo}

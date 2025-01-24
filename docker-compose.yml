@@ -53,7 +53,7 @@ services:
       dockerfile: Dockerfile.dev
     image: tol-portal-ui
     # force amd64 on M1 MacOS
-    platform: linux/amd64
+    # platform: linux/amd64
     stdin_open: true
     environment:
       - NODE_ENV=development
