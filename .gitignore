@@ -20,3 +20,4 @@ chart/charts/
 .yalc/
 yalc.lock
 inject.js
+.virtualenv/
