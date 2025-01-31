@@ -17,7 +17,13 @@ depends_on = None
 
 
 def upgrade():
+    op.add_column(
+        'role',
+        sa.Column('system_access', sa.Boolean(), nullable=False, default=False)
+    )
+
     # Create tables for each model
+
     op.create_table(
         'membership',
         sa.Column('id', sa.Integer(), nullable=False),
