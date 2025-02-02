@@ -61,7 +61,7 @@ export default function Org() {
   );
 
   return rootNode === null ? (<h1>Loading....</h1>) : (
-    <Tree label={<div className="org-node org-node-selected" onClick={resetSelected}>Sanger</div>} key={rootNode.id}>
+    <Tree label={<div className="org-node org-node-root" onClick={resetSelected}>Sanger</div>} key={rootNode.id}>
       {
         rootNode.children.map(dumpNode)
       }

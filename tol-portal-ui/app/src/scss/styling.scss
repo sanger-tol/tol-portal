@@ -31,3 +31,22 @@
 .tol-text-filter .rs-input-group.rs-input-group-inside .rs-input {
   padding-right: 12px;
 }
+
+// org nodes
+.org-node {
+  padding: 5px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.org-node-root {
+  border: 1px solid red;
+}
+
+.org-node-selected {
+  border: 1px solid green;
+}
+
+.org-node-under {
+  border: 1px solid greenyellow;
+}
