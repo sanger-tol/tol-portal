@@ -26,6 +26,7 @@ export default function Org() {
   
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
     const isSelected = selected === orgNode.id;
+    console.log(orgNode.id, isSelected)
   
     const nodeClass = getNodeClass(isSelected, underSelected);
 
@@ -33,7 +34,7 @@ export default function Org() {
       <TreeNode key={orgNode.id} label={<div className={nodeClass} onClick={() => updateSelected(orgNode.id)}>{orgNode.name}</div>}>
         {
           orgNode.children.map(
-            childNode => dumpNode(childNode, underSelected || isSelected)
+            childNode => dumpNode(childNode, isSelected || underSelected)
           )
         }
       </TreeNode>
@@ -42,7 +43,7 @@ export default function Org() {
 
   const resetSelected = (): void => setSelected(null);
 
-  const updateSelected = (updated: string): void => {
+  const updateSelected = (updated: number): void => {
     console.log(updated);
     if (updated === selected) return resetSelected();
     setSelected(updated);
