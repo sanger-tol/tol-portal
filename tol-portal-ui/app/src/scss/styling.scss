@@ -37,6 +37,7 @@
   padding: 5px;
   border-radius: 8px;
   display: inline-block;
+  border: 1px solid black;
 }
 
 .org-node-root {
@@ -45,6 +46,7 @@
 
 .org-node-selected {
   border: 1px solid green;
+  border-radius: 15px;
 }
 
 .org-node-under {
