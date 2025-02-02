@@ -17,12 +17,20 @@ export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
   const [selected, setSelected] = useState<Number | null>(null);
+
+  const getNodeClass = (isSelected: boolean, underSelected: boolean): string => {
+    if (isSelected === true) return 'org-node org-node-selected'
+
+    return (underSelected === true) ? 'org-node org-node-under': 'org-node';
+  }
   
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
     const isSelected = selected === orgNode.id;
+  
+    const nodeClass = getNodeClass(isSelected, underSelected);
 
     return (
-      <TreeNode key={orgNode.id} label={<div onClick={() => updateSelected(orgNode.id)}>{orgNode.name}</div>}>
+      <TreeNode key={orgNode.id} label={<div className={nodeClass} onClick={() => updateSelected(orgNode.id)}>{orgNode.name}</div>}>
         {
           orgNode.children.map(
             childNode => dumpNode(childNode, underSelected || isSelected)
@@ -53,7 +61,7 @@ export default function Org() {
   );
 
   return rootNode === null ? (<h1>Loading....</h1>) : (
-    <Tree label={<div onClick={resetSelected}>Sanger</div>} key={rootNode.id}>
+    <Tree label={<div className="org-node org-node-selected" onClick={resetSelected}>Sanger</div>} key={rootNode.id}>
       {
         rootNode.children.map(dumpNode)
       }
