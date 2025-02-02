@@ -17,17 +17,15 @@ export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
   
-  const dumpNode = (orgNode: OrgTreeNode): TreeNode => {
-    return (
-      <TreeNode key={orgNode.id} label={<div>{orgNode.name}</div>}>
-        {
-          orgNode.children.map(
-            childNode => dumpNode(childNode)
-          )
-        }
-      </TreeNode>
-    )
-  }
+  const dumpNode = (orgNode: OrgTreeNode): TreeNode => (
+    <TreeNode key={orgNode.id} label={<div>{orgNode.name}</div>}>
+      {
+        orgNode.children.map(
+          childNode => dumpNode(childNode)
+        )
+      }
+    </TreeNode>
+  );
 
   useEffect(
     () => fetch(
