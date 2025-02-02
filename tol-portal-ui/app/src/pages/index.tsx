@@ -21,3 +21,4 @@ export { default as SpeciesRecollection } from "./SpeciesRecollection";
 export { default as SamplesStuck } from "./SamplesStuck";
 export { default as ProjectManagement } from "./ProjectManagement"
 export { default as TUMSteps } from "./TUMSteps"
+export { default as Org } from "./Org";

@@ -22,7 +22,8 @@ import {
   SpeciesRecollection,
   SamplesStuck,
   ProjectManagement,
-  TUMSteps
+  TUMSteps,
+  Org
 } from './pages';
 import { CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
@@ -126,9 +127,16 @@ const tumSteps: Page = {
   auth: true
 }
 
+const org: Page = {
+  name: "Organisational Chart",
+  element: <Org />,
+  hidden: true,
+  auth: true
+}
+
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement],
+  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, org],
   hidden: false,
   auth: true
 }
@@ -158,7 +166,8 @@ ReactDOM.render(
       tum,
       speciesRecollection,
       samplesStuck,
-      otherDropdown
+      otherDropdown,
+      org
     ]}
     login={true}
   />,
