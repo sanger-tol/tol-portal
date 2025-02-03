@@ -43,7 +43,7 @@ export default function OrgTree(props: Props) {
 
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
     const isSelected = selected.has(orgNode.id);
-    const nodeClass = getNodeClass(isSelected, underSelected || rootIsSelected);
+    const nodeClass = getNodeClass(isSelected, underSelected);
   
     const children = (
       <div className={nodeClass} onClick={() => addSelected(orgNode.id)}>{orgNode.name}</div>
@@ -63,18 +63,19 @@ export default function OrgTree(props: Props) {
   }
 
   const rootClassName = getNodeClass(selected.has(rootNode.id), false);
+  const selectRoot = () => addSelected(rootNode.id);
 
   const rootLabel = hoverNode(
     rootNode.id,
     (
-      <div className={rootClassName} onClick={() => addSelected(rootNode.id)}>{rootNode.name}</div>
+      <div className={rootClassName} onClick={selectRoot}>{rootNode.name}</div>
     )
   );
 
   return (
     <Tree label={rootLabel} key={rootNode.id}>
       {
-        rootNode.children.map(dumpNode)
+        rootNode.children.map(c => dumpNode(c, rootIsSelected))
       }
     </Tree>
   );
