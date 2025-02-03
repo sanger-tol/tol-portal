@@ -51,7 +51,11 @@ export default function OrgTreeActive(props: Props) {
 
         const allStatuses = _getActive(rootNode, selected.has(rootNode.id), 0);
 
-        return allStatuses.filter(a => a.active).sort((a, b) => a.level - b.level || a.id - b.id);
+        return allStatuses.filter(
+            a => a.active
+        ).sort(
+            (a, b) => a.level - b.level || a.id - b.id
+        );
     };
 
     const active = getActiveStatus();
