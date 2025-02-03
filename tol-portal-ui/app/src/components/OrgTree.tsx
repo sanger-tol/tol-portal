@@ -35,6 +35,7 @@ export default function OrgTree(props: Props) {
  
   const hoverNode = (nodeId: number, children: any) => (
     <HoverOverlay
+      //@ts-ignore
       children={children}
       contents={<div>{nodeId}</div>}
     >
