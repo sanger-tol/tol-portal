@@ -15,6 +15,12 @@ interface OrgTreeNode {
   children: OrgTreeNode[]
 }
 
+interface UnderSelected {
+  id: Number
+  name: string
+  under: boolean
+}
+
 export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
@@ -33,6 +39,35 @@ export default function Org() {
     >
     </HoverOverlay>
   );
+
+  const getUnderSelected = (): UnderSelected[] => {
+
+    const _getUnder = (currentNode: OrgTreeNode, isAlreadyUnder: boolean): UnderSelected[] => {
+      const isInSelected = selected.has(currentNode.id);
+      const isNowUnder = isAlreadyUnder || isInSelected
+      const childrenReturns = currentNode.children.map(
+        (childNode: OrgTreeNode) => _getUnder(childNode, isNowUnder)
+      );
+      const mergedReturn = childrenReturns.reduce(
+        (acc, childReturn) => [...acc, ...childReturn],
+        []
+      );
+
+      return [
+        {
+          id: currentNode.id,
+          name: currentNode.name,
+          under: isNowUnder
+        },
+        ...mergedReturn
+      ];
+    }
+
+    return _getUnder(rootNode, selected.size === 0);
+  };
+
+  const underSelected = rootNode === null ? null : getUnderSelected();
+  console.log(selected, underSelected);
 
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
     const isSelected = selected.has(orgNode.id);
