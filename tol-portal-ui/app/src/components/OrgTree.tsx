@@ -74,10 +74,12 @@ export default function OrgTree(props: Props) {
   );
 
   return (
-    <Tree label={rootLabel} key={rootNode.id}>
-      {
-        rootNode.children.map(c => dumpNode(c, rootIsSelected))
-      }
-    </Tree>
+    <div className="org-tree">
+      <Tree label={rootLabel} key={rootNode.id}>
+        {
+          rootNode.children.map(c => dumpNode(c, rootIsSelected))
+        }
+      </Tree>
+    </div>
   );
 }

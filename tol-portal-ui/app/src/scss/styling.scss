@@ -64,3 +64,7 @@
 .org-tree-active-table-header {
   border: 2px solid black;
 }
+
+.org-tree {
+  overflow: auto;
+}

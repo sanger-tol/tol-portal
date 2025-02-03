@@ -6,7 +6,7 @@
 
 import React, {useEffect, useState} from 'react';
 
-import { Button } from '@tol/tol-ui';
+import { Button, Widgets } from '@tol/tol-ui';
 
 import OrgTree from '../components/OrgTree';
 import { OrgTreeNode } from '../models';
@@ -42,29 +42,52 @@ export default function Org() {
 
   if (rootNode === null) return (<h1>Loading....</h1>);
 
+  const resetButton = (
+    <Button
+      text="Reset"
+      onClick={resetSelected}
+      position='right'
+      icon='arrows-spin'
+      size='lg'
+    />
+  );
+
+  const tree = (
+    <OrgTree
+      rootNode={rootNode}
+      selected={selected}
+      addSelected={addSelected}
+    />
+  );
+
+  const activeTable = (
+    <OrgTreeActive
+      rootNode={rootNode}
+      selected={selected}
+    />
+  );
+
+  const components = [
+    {
+      component: resetButton,
+      type: 'full'
+    },
+    {
+      component: tree,
+      type: 'full'
+    },
+    {
+      component: activeTable,
+      type: 'full'
+    }
+  ];
+
+
   return (
-    <div>
-      {/* 
-      // @ts-ignore */}
-      <Button
-        text="Reset"
-        onClick={resetSelected}
-        position='right'
-        icon='arrows-spin'
-        size='lg'
-      />
-
-      <OrgTree
-        rootNode={rootNode}
-        selected={selected}
-        addSelected={addSelected}
-      />
-
-      <OrgTreeActive
-        rootNode={rootNode}
-        selected={selected}
+    <div className="barcharts">
+      <Widgets
+        components={components}
       />
     </div>
-
-  )
+  );
 }
