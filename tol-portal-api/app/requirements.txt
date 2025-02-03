@@ -9,3 +9,4 @@ tol-sdk[api_base2,elastic,postgresql] @ https://gitlab.internal.sanger.ac.uk/tol
 #tol-sdk[api_base2,elastic,postgresql] == 1.3.37
 flask-cors == 4.0.0
 alembic == 1.13.1
+flask_principal
