@@ -62,7 +62,7 @@ export default function OrgTree(props: Props) {
     );
   }
 
-  const rootClassName = getNodeClass(selected.has(rootNode.id), false);
+  const rootClassName = getNodeClass(rootIsSelected, false);
   const selectRoot = () => addSelected(rootNode.id);
 
   const rootLabel = hoverNode(
