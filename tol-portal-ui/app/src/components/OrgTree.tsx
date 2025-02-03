@@ -25,6 +25,8 @@ export default function OrgTree(props: Props) {
         addSelected
     } = props;
 
+  const rootIsSelected = selected.has(rootNode.id);
+
   const getNodeClass = (isSelected: boolean, underSelected: boolean): string => {
     if (isSelected === true) return 'org-node org-node-selected'
 
@@ -41,7 +43,7 @@ export default function OrgTree(props: Props) {
 
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
     const isSelected = selected.has(orgNode.id);
-    const nodeClass = getNodeClass(isSelected, underSelected);
+    const nodeClass = getNodeClass(isSelected, underSelected || rootIsSelected);
   
     const children = (
       <div className={nodeClass} onClick={() => addSelected(orgNode.id)}>{orgNode.name}</div>
