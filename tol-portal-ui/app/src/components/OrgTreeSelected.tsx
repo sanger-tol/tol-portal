@@ -10,14 +10,14 @@ import { OrgTreeNode } from '../models';
 
 
 interface ActiveStatus {
-  id: Number
+  id: number
   name: string
   active: boolean
 }
 
 interface Props {
     rootNode: OrgTreeNode
-    selected: Set<Number>
+    selected: Set<number>
 }
 
 export default function OrgTreeActive(props: Props) {

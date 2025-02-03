@@ -6,7 +6,7 @@
 
 
 interface OrgTreeNode {
-id: Number
+id: number
 name: string
 children: OrgTreeNode[]
 }

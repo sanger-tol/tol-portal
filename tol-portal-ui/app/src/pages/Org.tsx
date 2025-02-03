@@ -16,7 +16,7 @@ import OrgTreeActive from '../components/OrgTreeSelected';
 export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
-  const [selected, setSelected] = useState<Set<Number>>(new Set());
+  const [selected, setSelected] = useState<Set<number>>(new Set());
 
   const resetSelected = (): void => setSelected(new Set());
 

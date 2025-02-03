@@ -14,8 +14,8 @@ import { OrgTreeNode } from '../models';
 
 interface Props {
     rootNode: OrgTreeNode
-    selected: Set<Number>
-    addSelected: (nodeId: Number) => void
+    selected: Set<number>
+    addSelected: (nodeId: number) => void
 }
 
 export default function OrgTree(props: Props) {
@@ -31,7 +31,7 @@ export default function OrgTree(props: Props) {
     return (underSelected === true) ? 'org-node org-node-under': 'org-node';
   }
  
-  const hoverNode = (nodeId: Number, children): HoverOverlay => (
+  const hoverNode = (nodeId: number, children): HoverOverlay => (
     <HoverOverlay
       children={children}
       contents={<div>{nodeId}</div>}
