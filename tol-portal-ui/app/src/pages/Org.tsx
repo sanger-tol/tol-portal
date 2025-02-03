@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react';
 import OrgTree from '../components/OrgTree';
 
 import { OrgTreeNode } from '../models';
+import OrgTreeSelected from '../components/OrgTreeSelected';
 
 
 export default function Org() {
@@ -34,12 +35,21 @@ export default function Org() {
   );
 
   return (
-    <OrgTree
-      rootNode={rootNode}
-      selected={selected}
-      resetSelected={resetSelected}
-      addSelected={addSelected}
-    >
-    </OrgTree>
+    <div>
+      <OrgTree
+        rootNode={rootNode}
+        selected={selected}
+        resetSelected={resetSelected}
+        addSelected={addSelected}
+      >
+      </OrgTree>
+
+      <OrgTreeSelected
+        rootNode={rootNode}
+        selected={selected}
+      >
+      </OrgTreeSelected>
+    </div>
+
   )
 }
