@@ -33,7 +33,7 @@ export default function OrgTree(props: Props) {
     return (underSelected === true) ? 'org-node org-node-under': 'org-node';
   }
  
-  const hoverNode = (nodeId: number, children): HoverOverlay => (
+  const hoverNode = (nodeId: number, children: any): HoverOverlay => (
     <HoverOverlay
       children={children}
       contents={<div>{nodeId}</div>}
