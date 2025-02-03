@@ -114,7 +114,7 @@ def application():
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
 
-    app.config['SECRET_KEY'] = "Your_secret_string"
+    app.config['SECRET_KEY'] = 'Your_secret_string'
     """
     This needs to be inplace for Flask-Principle package to interact with the app layer
     """
