@@ -62,7 +62,7 @@ export default function OrgTreeActive(props: Props) {
 
     return (
         <div className="org-tree-active">
-            <h2>Active memberships</h2>
+            <h2>You can access resources in:</h2>
 
             <table className="org-tree-active-table">
                 <tr className="org-tree-active-table-header">
