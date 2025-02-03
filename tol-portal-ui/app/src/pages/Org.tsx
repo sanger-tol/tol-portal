@@ -7,51 +7,13 @@
 import React, {useEffect, useState} from 'react';
 import OrgTree from '../components/OrgTree';
 
-interface OrgTreeNode {
-  id: Number
-  name: string
-  children: OrgTreeNode[]
-}
+import { OrgTreeNode } from '../models';
 
-interface UnderSelected {
-  id: Number
-  name: string
-  under: boolean
-}
 
 export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
   const [selected, setSelected] = useState<Set<Number>>(new Set());
-
-  const getUnderSelected = (): UnderSelected[] => {
-
-    const _getUnder = (currentNode: OrgTreeNode, isAlreadyUnder: boolean): UnderSelected[] => {
-      const isInSelected = selected.has(currentNode.id);
-      const isNowUnder = isAlreadyUnder || isInSelected
-      const childrenReturns = currentNode.children.map(
-        (childNode: OrgTreeNode) => _getUnder(childNode, isNowUnder)
-      );
-      const mergedReturn = childrenReturns.reduce(
-        (acc, childReturn) => [...acc, ...childReturn],
-        []
-      );
-
-      return [
-        {
-          id: currentNode.id,
-          name: currentNode.name,
-          under: isNowUnder
-        },
-        ...mergedReturn
-      ];
-    }
-
-    return _getUnder(rootNode, selected.size === 0);
-  };
-
-  const underSelected = rootNode === null ? null : getUnderSelected();
-  console.log(selected, underSelected);
 
   const resetSelected = (): void => setSelected(new Set());
 
