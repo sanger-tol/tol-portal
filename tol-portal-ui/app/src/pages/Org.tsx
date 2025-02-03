@@ -45,6 +45,7 @@ export default function Org() {
         onClick={resetSelected}
         position='right'
         icon='arrows-spin'
+        size='lg'
       >
       </Button>
 
@@ -58,7 +59,6 @@ export default function Org() {
       <OrgTreeActive
         rootNode={rootNode}
         selected={selected}
-        size='lg'
       >
       </OrgTreeActive>
     </div>
