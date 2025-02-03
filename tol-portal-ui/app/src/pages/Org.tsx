@@ -44,6 +44,8 @@ export default function Org() {
 
   return (
     <div>
+      {/* 
+      // @ts-ignore */}
       <Button
         text="Reset"
         onClick={resetSelected}
