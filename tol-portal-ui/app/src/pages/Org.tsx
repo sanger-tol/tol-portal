@@ -5,8 +5,10 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import OrgTree from '../components/OrgTree';
 
+import { Button } from '@tol/tol-ui';
+
+import OrgTree from '../components/OrgTree';
 import { OrgTreeNode } from '../models';
 import OrgTreeActive from '../components/OrgTreeSelected';
 
@@ -38,6 +40,14 @@ export default function Org() {
 
   return (
     <div>
+      <Button
+        text="Reset"
+        onClick={resetSelected}
+        position='right'
+        icon='arrows-spin'
+      >
+      </Button>
+
       <OrgTree
         rootNode={rootNode}
         selected={selected}
@@ -48,6 +58,7 @@ export default function Org() {
       <OrgTreeActive
         rootNode={rootNode}
         selected={selected}
+        size='lg'
       >
       </OrgTreeActive>
     </div>
