@@ -13,4 +13,4 @@ variables:
   DISABLE_UI_LINT: "true"
 
   # TODO remove
-  DIND_IMAGE: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dind:24.0.5
+  DIND_IMAGE: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dind:24.0.5-safe
