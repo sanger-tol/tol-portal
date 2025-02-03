@@ -13,6 +13,7 @@ interface ActiveStatus {
   id: number
   name: string
   active: boolean
+  level: number
 }
 
 interface Props {
@@ -25,11 +26,11 @@ export default function OrgTreeActive(props: Props) {
 
     const getActiveStatus = (): ActiveStatus[] => {
 
-        const _getActive = (currentNode: OrgTreeNode, isAlreadyActive: boolean): ActiveStatus[] => {
+        const _getActive = (currentNode: OrgTreeNode, isAlreadyActive: boolean, level: number): ActiveStatus[] => {
             const isInSelected = selected.has(currentNode.id);
             const isNowActive = isAlreadyActive || isInSelected
             const childrenReturns = currentNode.children.map(
-                (childNode: OrgTreeNode) => _getActive(childNode, isNowActive)
+                (childNode: OrgTreeNode) => _getActive(childNode, isNowActive, level + 1)
             );
             const mergedReturn = childrenReturns.reduce(
                 (acc, childReturn) => [...acc, ...childReturn],
@@ -41,15 +42,16 @@ export default function OrgTreeActive(props: Props) {
                 {
                     id: currentNode.id,
                     name: currentNode.name,
-                    active: isNowActive
+                    active: isNowActive,
+                    level: level
                 },
                 ...mergedReturn
             ];
         }
 
-        const allStatuses = _getActive(rootNode, selected.has(rootNode.id));
+        const allStatuses = _getActive(rootNode, selected.has(rootNode.id), 0);
 
-        return allStatuses.filter(a => a.active).sort((a, b) => a.id - b.id);
+        return allStatuses.filter(a => a.active).sort((a, b) => a.level - b.level || a.id - b.id);
     };
 
     const active = getActiveStatus();
@@ -61,6 +63,7 @@ export default function OrgTreeActive(props: Props) {
             <table className="org-tree-active-table">
                 <tr className="org-tree-active-table-header">
                     <th>Name</th>
+                    <th>Level</th>
                     <th>Membership ID</th>
                 </tr>
                 {
@@ -68,6 +71,7 @@ export default function OrgTreeActive(props: Props) {
                         a => (
                             <tr>
                                 <th>{a.name}</th>
+                                <th>{a.level}</th>
                                 <th>{a.id}</th>
                             </tr>
                         )
