@@ -8,10 +8,10 @@ import React from 'react';
 
 import { OrgTreeNode } from '../models';
 
-interface UnderSelected {
+interface ActiveStatus {
   id: Number
   name: string
-  under: boolean
+  active: boolean
 }
 
 interface Props {
@@ -19,16 +19,16 @@ interface Props {
     selected: Set<Number>
 }
 
-export default function OrgTreeSelected(props: Props) {
+export default function OrgTreeActive(props: Props) {
     const {selected, rootNode} = props;
 
-    const getUnderSelected = (): UnderSelected[] => {
+    const getActiveStatus = (): ActiveStatus[] => {
 
-        const _getUnder = (currentNode: OrgTreeNode, isAlreadyUnder: boolean): UnderSelected[] => {
+        const _getActive = (currentNode: OrgTreeNode, isAlreadyActive: boolean): ActiveStatus[] => {
             const isInSelected = selected.has(currentNode.id);
-            const isNowUnder = isAlreadyUnder || isInSelected
+            const isNowActive = isAlreadyActive || isInSelected
             const childrenReturns = currentNode.children.map(
-                (childNode: OrgTreeNode) => _getUnder(childNode, isNowUnder)
+                (childNode: OrgTreeNode) => _getActive(childNode, isNowActive)
             );
             const mergedReturn = childrenReturns.reduce(
                 (acc, childReturn) => [...acc, ...childReturn],
@@ -39,19 +39,40 @@ export default function OrgTreeSelected(props: Props) {
                 {
                     id: currentNode.id,
                     name: currentNode.name,
-                    under: isNowUnder
+                    active: isNowActive
                 },
                 ...mergedReturn
             ];
         }
 
-        return _getUnder(rootNode, selected.size === 0);
+        const allStatuses = _getActive(rootNode, selected.size === 0);
+
+        return allStatuses.filter(a => a.active).sort((a, b) => a.id - b.id);
     };
 
-    const underSelected = rootNode === null ? null : getUnderSelected();
-    console.log(selected, underSelected);
+    const active = rootNode === null ? null : getActiveStatus();
+    console.log(selected, active);
 
-    return (
-        <div></div>
+    return active === null ? (<h2>Loading...</h2>) : (
+        <div>
+            <h2>Active memberships</h2>
+
+            <table className="org-tree-active-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Membership ID</th>
+                </tr>
+                {
+                    active.map(
+                        a => (
+                            <tr>
+                                <th>{a.name}</th>
+                                <th>{a.id}</th>
+                            </tr>
+                        )
+                    )
+                }
+            </table>
+        </div>
     )
 }
