@@ -56,7 +56,6 @@ export default function OrgTreeActive(props: Props) {
     };
 
     const active = rootNode === null ? null : getActiveStatus();
-    console.log(selected, active);
 
     return active === null ? (<h2>Loading...</h2>) : (
         <div className="org-tree-active">
