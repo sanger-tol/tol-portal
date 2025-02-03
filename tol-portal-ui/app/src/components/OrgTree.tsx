@@ -62,10 +62,12 @@ export default function OrgTree(props: Props) {
     );
   }
 
+  const rootClassName = selected.size === 0 ? "org-node org-node-default-root" : "org-node";
+
   const rootLabel = rootNode === null ? null : hoverNode(
     rootNode.id,
     (
-      <div className="org-node org-node-root" onClick={resetSelected}>Sanger</div>
+      <div className={rootClassName} onClick={resetSelected}>Sanger</div>
     )
   );
 

@@ -62,7 +62,7 @@ export default function OrgTreeActive(props: Props) {
             <h2>Active memberships</h2>
 
             <table className="org-tree-active-table">
-                <tr>
+                <tr className="org-tree-active-table-header">
                     <th>Name</th>
                     <th>Membership ID</th>
                 </tr>

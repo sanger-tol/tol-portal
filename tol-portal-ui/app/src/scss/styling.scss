@@ -49,6 +49,10 @@
   border: 1px solid green;
 }
 
+.org-node-default-root {
+  border: 1px solid blue;
+}
+
 .org-tree-active {
   max-width: fit-content;
   margin: 0px auto;
@@ -59,4 +63,8 @@
   border: 2px solid black;
   width: 400px;
   margin: 0px auto;
+}
+
+.org-tree-active-table-header {
+  border: 2px solid black;
 }
