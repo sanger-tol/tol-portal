@@ -31,7 +31,9 @@ export default function Org() {
     ).then(
       res => res.json()
     ).then(
-      data => setRootNode(data)
+      data => {
+        setRootNode(data)
+      }
     ),
     []
   );
