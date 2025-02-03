@@ -50,7 +50,7 @@ export default function OrgTree(props: Props) {
       <div className={nodeClass} onClick={() => addSelected(orgNode.id)}>{orgNode.name}</div>
     )
 
-    const label: HoverOverlay = hoverNode(orgNode.id, children)
+    const label = hoverNode(orgNode.id, children)
 
     return (
       <TreeNode key={orgNode.id} label={label}>
