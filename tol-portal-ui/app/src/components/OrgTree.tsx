@@ -13,9 +13,8 @@ import { OrgTreeNode } from '../models';
 
 
 interface Props {
-    rootNode: OrgTreeNode | null
+    rootNode: OrgTreeNode
     selected: Set<Number>
-    resetSelected: () => void
     addSelected: (nodeId: Number) => void
 }
 
@@ -23,7 +22,6 @@ export default function OrgTree(props: Props) {
     const {
         rootNode,
         selected,
-        resetSelected,
         addSelected
     } = props;
 
@@ -62,16 +60,16 @@ export default function OrgTree(props: Props) {
     );
   }
 
-  const rootClassName = selected.size === 0 ? "org-node org-node-default-root" : "org-node";
+  const rootClassName = getNodeClass(selected.has(rootNode.id), false);
 
-  const rootLabel = rootNode === null ? null : hoverNode(
+  const rootLabel = hoverNode(
     rootNode.id,
     (
-      <div className={rootClassName} onClick={resetSelected}>Sanger</div>
+      <div className={rootClassName} onClick={() => addSelected(rootNode.id)}>{rootNode.name}</div>
     )
   );
 
-  return rootNode === null ? (<h1>Loading....</h1>) : (
+  return (
     <Tree label={rootLabel} key={rootNode.id}>
       {
         rootNode.children.map(dumpNode)

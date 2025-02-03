@@ -34,12 +34,13 @@ export default function Org() {
     []
   );
 
+  if (rootNode === null) return (<h1>Loading....</h1>);
+
   return (
     <div>
       <OrgTree
         rootNode={rootNode}
         selected={selected}
-        resetSelected={resetSelected}
         addSelected={addSelected}
       >
       </OrgTree>

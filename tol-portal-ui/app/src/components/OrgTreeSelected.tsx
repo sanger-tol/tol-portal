@@ -16,11 +16,9 @@ interface ActiveStatus {
 }
 
 interface Props {
-    rootNode: OrgTreeNode | null
+    rootNode: OrgTreeNode
     selected: Set<Number>
 }
-
-const ROOT_NAME = '*';
 
 export default function OrgTreeActive(props: Props) {
     const {selected, rootNode} = props;
@@ -38,26 +36,25 @@ export default function OrgTreeActive(props: Props) {
                 []
             );
 
-            const name = currentNode.name === ROOT_NAME ? 'Sanger' : currentNode.name;
 
             return [
                 {
                     id: currentNode.id,
-                    name: name,
+                    name: currentNode.name,
                     active: isNowActive
                 },
                 ...mergedReturn
             ];
         }
 
-        const allStatuses = _getActive(rootNode, selected.size === 0);
+        const allStatuses = _getActive(rootNode, selected.has(rootNode.id));
 
         return allStatuses.filter(a => a.active).sort((a, b) => a.id - b.id);
     };
 
-    const active = rootNode === null ? null : getActiveStatus();
+    const active = getActiveStatus();
 
-    return active === null ? (<h2>Loading...</h2>) : (
+    return (
         <div className="org-tree-active">
             <h2>Active memberships</h2>
 
