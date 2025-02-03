@@ -41,7 +41,7 @@ export default function OrgTree(props: Props) {
     </HoverOverlay>
   );
 
-  const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
+  const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean): TreeNode => {
     const isSelected = selected.has(orgNode.id);
     const nodeClass = getNodeClass(isSelected, underSelected);
   
