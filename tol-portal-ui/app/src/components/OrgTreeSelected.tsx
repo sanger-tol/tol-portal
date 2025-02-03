@@ -8,6 +8,7 @@ import React from 'react';
 
 import { OrgTreeNode } from '../models';
 
+
 interface ActiveStatus {
   id: Number
   name: string
@@ -18,6 +19,8 @@ interface Props {
     rootNode: OrgTreeNode | null
     selected: Set<Number>
 }
+
+const ROOT_NAME = '*';
 
 export default function OrgTreeActive(props: Props) {
     const {selected, rootNode} = props;
@@ -35,10 +38,12 @@ export default function OrgTreeActive(props: Props) {
                 []
             );
 
+            const name = currentNode.name === ROOT_NAME ? 'Sanger' : currentNode.name;
+
             return [
                 {
                     id: currentNode.id,
-                    name: currentNode.name,
+                    name: name,
                     active: isNowActive
                 },
                 ...mergedReturn
@@ -54,7 +59,7 @@ export default function OrgTreeActive(props: Props) {
     console.log(selected, active);
 
     return active === null ? (<h2>Loading...</h2>) : (
-        <div>
+        <div className="org-tree-active">
             <h2>Active memberships</h2>
 
             <table className="org-tree-active-table">
