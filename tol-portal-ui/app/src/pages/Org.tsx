@@ -18,7 +18,7 @@ interface OrgTreeNode {
 export default function Org() {
 
   const [rootNode, setRootNode] = useState<OrgTreeNode | null>(null);
-  const [selected, setSelected] = useState<Number | null>(null);
+  const [selected, setSelected] = useState<Set<Number>>(new Set());
 
   const getNodeClass = (isSelected: boolean, underSelected: boolean): string => {
     if (isSelected === true) return 'org-node org-node-selected'
@@ -35,11 +35,11 @@ export default function Org() {
   );
 
   const dumpNode = (orgNode: OrgTreeNode, underSelected: boolean = false): TreeNode => {
-    const isSelected = selected === orgNode.id;
+    const isSelected = selected.has(orgNode.id);
     const nodeClass = getNodeClass(isSelected, underSelected);
   
     const children = (
-      <div className={nodeClass} onClick={() => updateSelected(orgNode.id)}>{orgNode.name}</div>
+      <div className={nodeClass} onClick={() => addSelected(orgNode.id)}>{orgNode.name}</div>
     )
 
     const label: HoverOverlay = hoverNode(orgNode.id, children)
@@ -55,13 +55,11 @@ export default function Org() {
     );
   }
 
-  const resetSelected = (): void => setSelected(null);
+  const resetSelected = (): void => setSelected(new Set());
 
-  const updateSelected = (updated: number): void => {
-    console.log(updated);
-    if (updated === selected) return resetSelected();
-    setSelected(updated);
-  };
+  const addSelected = (updated: number): void => setSelected(
+    new Set([...selected, updated])
+  )
 
   useEffect(
     () => fetch(
