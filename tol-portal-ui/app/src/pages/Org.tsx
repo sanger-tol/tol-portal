@@ -52,21 +52,18 @@ export default function Org() {
         position='right'
         icon='arrows-spin'
         size='lg'
-      >
-      </Button>
+      />
 
       <OrgTree
         rootNode={rootNode}
         selected={selected}
         addSelected={addSelected}
-      >
-      </OrgTree>
+      />
 
       <OrgTreeActive
         rootNode={rootNode}
         selected={selected}
-      >
-      </OrgTreeActive>
+      />
     </div>
 
   )
