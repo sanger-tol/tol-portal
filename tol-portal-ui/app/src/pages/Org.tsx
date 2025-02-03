@@ -25,16 +25,18 @@ export default function Org() {
   )
 
   useEffect(
-    () => fetch(
-      // TODO use proper config with API_PATH
-      '/api/v1/auth/org'
-    ).then(
-      res => res.json()
-    ).then(
-      data => {
-        setRootNode(data)
-      }
-    ),
+    () => {
+      fetch(
+        // TODO use proper config with API_PATH
+        '/api/v1/auth/org'
+      ).then(
+        res => res.json()
+      ).then(
+        data => {
+          setRootNode(data)
+        }
+      );
+    },
     []
   );
 
