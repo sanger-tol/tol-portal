@@ -38,7 +38,7 @@ from .model import (
 
 def __get_board_models(
     base_model: type[Model]
-) -> tuple[list[type[Model], type[Model]]]:
+) -> tuple[list[type[Model]], type[Model]]:
     board_models = create_board_models(base_model)
 
     return list(board_models), board_models._user_mixin
