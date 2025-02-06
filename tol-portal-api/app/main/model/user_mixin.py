@@ -12,7 +12,7 @@ from sqlalchemy.orm import (
 class UserMixin:
 
     @declared_attr
-    def _user_actions(self) -> Mapped[list['UserAction']]:  # noqa F821
+    def user_actions(self) -> Mapped[list['UserAction']]:  # noqa F821
         return relationship(
             back_populates='user'
         )
