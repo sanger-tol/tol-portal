@@ -213,7 +213,7 @@ function TUMSteps() {
         //"benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
         //Next steps
       }}
-      actions={['LI Work List', 'ULI Work List']}
+      actions={['tolp_8425_flow']}
       rowSelection={true}
       {...extraction}    
     />

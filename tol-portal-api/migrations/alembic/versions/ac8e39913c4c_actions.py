@@ -49,8 +49,6 @@ def upgrade() -> None:
         ),
     )
 
-    # Add the is_actioned column to extraction table
-    op.add_column('extraction', sa.Column('is_actioned', sa.Boolean, nullable=False, server_default='false'))
 
 def downgrade() -> None:
     pass

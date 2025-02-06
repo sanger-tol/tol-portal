@@ -34,6 +34,15 @@ const getGreeting = () => {
   }
 };
 
+const button = (
+  <Button
+    href="https://docs.google.com/forms/d/e/1FAIpQLSdNpKVAPXCZVkY0cnM94_r3jYQfBVFyEBimE_f-bZIUX-23ng/viewform?usp=sf_link"
+    className="feedback-btn"
+  >
+		Provide Feedback
+  </Button>
+);
+
 const title = (
   <span>
     <h2>{getGreeting()}</h2>
@@ -46,6 +55,7 @@ const title = (
 const intro = (
   <Row>
     <Col xs={12} sm={8}>{title}</Col>
+    <Col xs={12} sm={4}>{button}</Col>
   </Row>
 );
 

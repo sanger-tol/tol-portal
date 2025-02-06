@@ -14,16 +14,11 @@ from tol.api_base import (
     data_blueprint,
     system_blueprint
 )
-from tol.api_base.action import (
-    action_blueprint
-)
 from tol.api_base2.action import (
     action_blueprint
 )
 from tol.board import board_blueprint
 from tol.core import core_data_object
-from tol.sources.elastic import elastic
-from tol.sources.prefect import prefect
 from tol.sources.elastic import elastic
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
@@ -38,10 +33,7 @@ from .model import (
     Base,
     MODELS,
     UserMixin,
-    MODELS,
-    UserMixin,
 )
-
 
 def __get_board_models(
     base_model: type[Model]
@@ -52,18 +44,10 @@ def __get_board_models(
 
 
 def application() -> Flask:
-def application() -> Flask:
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    board_models, _board_user_mixin = __get_board_models(Base)
-
-    user_mixin = type(
-        '',
-        (UserMixin, _board_user_mixin),
-        {}
-    )
     board_models, _board_user_mixin = __get_board_models(Base)
 
     user_mixin = type(
@@ -119,6 +103,7 @@ def application() -> Flask:
     # Endpoints targeting our local database
     sql_datasource = create_sql_datasource(
         models=[*MODELS, auth_bp.models.user_class],
+        models=[*MODELS, auth_bp.models.user_class],
         db_uri=os.getenv('DB_URI')
     )
     core_data_object(sql_datasource)
@@ -136,6 +121,17 @@ def application() -> Flask:
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
+
+    # actions
+    actions_bp = action_blueprint(
+        sql_datasource,
+        prefect(insecure=True),
+        role=None
+    )
+    app.register_blueprint(
+        actions_bp,
+        url_prefix=os.environ['API_PATH'] + '/run-action'
+    )
 
     # actions
     actions_bp = action_blueprint(
