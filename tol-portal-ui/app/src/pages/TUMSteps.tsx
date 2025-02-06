@@ -210,6 +210,8 @@ function TUMSteps() {
         //"benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
         //Next steps
       }}
+      actions={['tolp_8425_flow']}
+      rowSelection={true}
       {...extraction}    
     />
   );

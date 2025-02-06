@@ -14,11 +14,13 @@ from tol.api_base2 import (
     data_blueprint,
     system_blueprint
 )
+from tol.api_base2.action import (
+    action_blueprint
+)
 from tol.board import board_blueprint
 from tol.core import core_data_object
-from tol.sources.elastic import (
-    elastic
-)
+from tol.sources.elastic import elastic
+from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.auth import db_auth_blueprint
 from tol.sql.board import create_board_models
@@ -29,10 +31,9 @@ from .auth import (
 )
 from .model import (
     Base,
-    DataLoadEvent,
-    SequencingRequestEvent,
+    MODELS,
+    UserMixin,
 )
-
 
 def __get_board_models(
     base_model: type[Model]
@@ -42,12 +43,18 @@ def __get_board_models(
     return list(board_models), board_models._user_mixin
 
 
-def application():
+def application() -> Flask:
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    board_models, user_mixin = __get_board_models(Base)
+    board_models, _board_user_mixin = __get_board_models(Base)
+
+    user_mixin = type(
+        '',
+        (UserMixin, _board_user_mixin),
+        {}
+    )
 
     # auth
     auth_bp = db_auth_blueprint(
@@ -94,7 +101,7 @@ def application():
 
     # Endpoints targeting our local database
     sql_datasource = create_sql_datasource(
-        models=[SequencingRequestEvent, DataLoadEvent],
+        models=[*MODELS, auth_bp.models.user_class],
         db_uri=os.getenv('DB_URI')
     )
     core_data_object(sql_datasource)
@@ -112,5 +119,16 @@ def application():
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
+
+    # actions
+    actions_bp = action_blueprint(
+        sql_datasource,
+        prefect(insecure=True),
+        role=None
+    )
+    app.register_blueprint(
+        actions_bp,
+        url_prefix=os.environ['API_PATH'] + '/run-action'
+    )
 
     return app
