@@ -42,6 +42,7 @@ from .model import (
     UserMixin,
 )
 
+
 def __get_board_models(
     base_model: type[Model]
 ) -> tuple[list[type[Model]], type[Model]]:
