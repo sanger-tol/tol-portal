@@ -26,7 +26,7 @@ def upgrade() -> None:
             """
             INSERT INTO action ("name", object_type, flow_name, params)
             VALUES (
-                'LI WorkList',
+                'LI Work List',
                 'extraction',
                 'elastic_tum_benchling',
                 '{"worklist_name": "ROUTINE - DNA ready for LI pacbio prep"}'::JSONB
