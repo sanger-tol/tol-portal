@@ -69,17 +69,18 @@ def application() -> Flask:
 
     # dashboards
     models = [
+        *MODELS,
         *board_models,
         auth_bp.models.user_class,
     ]
 
-    board_ds = create_sql_datasource(
+    sql_ds = create_sql_datasource(
         models=models,
         db_uri=os.environ['DB_URI']
     )
-    core_data_object(board_ds)
+    core_data_object(sql_ds)
 
-    boards_bp = board_blueprint(board_ds)
+    boards_bp = board_blueprint(sql_ds)
     app.register_blueprint(
         boards_bp,
         url_prefix=os.getenv('API_PATH') + '/boards'
@@ -90,7 +91,7 @@ def application() -> Flask:
     blueprint_data = data_blueprint(eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
 
-    blueprint_board_data = data_blueprint(board_ds)
+    blueprint_board_data = data_blueprint(sql_ds)
     app.register_blueprint(
         blueprint_board_data,
         name='board-data',
@@ -101,12 +102,8 @@ def application() -> Flask:
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
 
     # Endpoints targeting our local database
-    sql_datasource = create_sql_datasource(
-        models=[*MODELS, auth_bp.models.user_class],
-        db_uri=os.getenv('DB_URI')
-    )
-    core_data_object(sql_datasource)
-    blueprint_data_local = data_blueprint(sql_datasource)
+    core_data_object(sql_ds)
+    blueprint_data_local = data_blueprint(sql_ds)
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
 
@@ -123,7 +120,7 @@ def application() -> Flask:
 
     # actions
     actions_bp = action_blueprint(
-        sql_datasource,
+        sql_ds,
         prefect(insecure=True),
         role=None
     )
