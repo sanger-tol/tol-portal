@@ -72,6 +72,15 @@ function ProjectManagement() {
           {...projectManagement}
         />
       </Col>
+      <Col>
+        <Filter
+          attribute='sts_order_group'
+          rename="Order"
+          type='multi'
+          componentId="project-filters-v1"
+          {...projectManagement}
+        />
+      </Col>
     </Row>
   );
 
