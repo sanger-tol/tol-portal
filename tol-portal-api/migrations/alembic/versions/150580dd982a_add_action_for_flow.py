@@ -26,24 +26,10 @@ def upgrade() -> None:
             """
             INSERT INTO action ("name", object_type, flow_name, params)
             VALUES (
-                'LI Work List',
+                'DNA Extraction',
                 'extraction',
-                'elastic_tum_benchling',
-                '{"worklist_name": "ROUTINE - DNA ready for LI pacbio prep"}'::JSONB
-            );
-            """
-        )
-    )
-
-    session.execute(
-        sa.text(
-            """
-            INSERT INTO action ("name", object_type, flow_name, params)
-            VALUES (
-                'ULI Work List',
-                'extraction',
-                'elastic_tum_benchling',
-                '{"worklist_name": "DNA ready for ULI pacbio prep"}'::JSONB
+                'action_example',
+                '{}'::JSONB
             );
             """
         )
