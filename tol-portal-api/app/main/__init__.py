@@ -17,13 +17,8 @@ from tol.api_base2 import (
 from tol.api_base2.action import (
     action_blueprint
 )
-from tol.api_base2.action import (
-    action_blueprint
-)
 from tol.board import board_blueprint
 from tol.core import core_data_object
-from tol.sources.elastic import elastic
-from tol.sources.prefect import prefect
 from tol.sources.elastic import elastic
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
@@ -38,8 +33,6 @@ from .model import (
     Base,
     MODELS,
     UserMixin,
-    MODELS,
-    UserMixin,
 )
 
 
@@ -52,18 +45,10 @@ def __get_board_models(
 
 
 def application() -> Flask:
-def application() -> Flask:
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    board_models, _board_user_mixin = __get_board_models(Base)
-
-    user_mixin = type(
-        '',
-        (UserMixin, _board_user_mixin),
-        {}
-    )
     board_models, _board_user_mixin = __get_board_models(Base)
 
     user_mixin = type(
