@@ -102,12 +102,8 @@ def application() -> Flask:
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
 
     # Endpoints targeting our local database
-    sql_datasource = create_sql_datasource(
-        models=[*MODELS, auth_bp.models.user_class],
-        db_uri=os.getenv('DB_URI')
-    )
-    core_data_object(sql_datasource)
-    blueprint_data_local = data_blueprint(sql_datasource)
+    core_data_object(sql_ds)
+    blueprint_data_local = data_blueprint(sql_ds)
     app.register_blueprint(blueprint_data_local, name='local',
                            url_prefix=os.getenv('API_PATH') + '/local')
 
@@ -124,7 +120,7 @@ def application() -> Flask:
 
     # actions
     actions_bp = action_blueprint(
-        sql_datasource,
+        sql_ds,
         prefect(insecure=True),
         role=None
     )
