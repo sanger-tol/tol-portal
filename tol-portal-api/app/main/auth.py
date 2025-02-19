@@ -4,9 +4,9 @@
 
 from flask import request
 
-from tol.api_base2.auth import AuthInspector
-from tol.api_base2.auth.error import ForbiddenError
-from tol.api_base2.misc.auth_context import CtxGetter, default_ctx_getter
+from tol.api_base.auth import AuthInspector
+from tol.api_base.auth.error import ForbiddenError
+from tol.api_base.misc.auth_context import CtxGetter, default_ctx_getter
 from tol.core.operator import OperatorMethod
 
 

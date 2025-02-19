@@ -10,11 +10,11 @@ from flask import Flask
 
 from flask_cors import CORS
 
-from tol.api_base2 import (
+from tol.api_base import (
     data_blueprint,
     system_blueprint
 )
-from tol.api_base2.action import (
+from tol.api_base.action import (
     action_blueprint
 )
 from tol.board import board_blueprint
