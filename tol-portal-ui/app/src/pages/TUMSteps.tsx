@@ -190,9 +190,6 @@ function TUMSteps() {
           rename: "Extraction ID"
         },
         "benchling_tolid.sts_sample_sts_project_union": {},
-        "is_actioned": {
-          rename: "Processed"
-        },
         "benchling_volume_ul": {},
         "benchling_fluidx_id":{},
         "benchling_extraction_type":{},
