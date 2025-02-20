@@ -14,7 +14,7 @@ from tol.api_base import (
     data_blueprint,
     system_blueprint
 )
-from tol.api_base2.action import (
+from tol.api_base.action import (
     action_blueprint
 )
 from tol.board import board_blueprint
@@ -117,17 +117,6 @@ def application() -> Flask:
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
-
-    # actions
-    actions_bp = action_blueprint(
-        sql_ds,
-        prefect(insecure=True),
-        role=None
-    )
-    app.register_blueprint(
-        actions_bp,
-        url_prefix=os.environ['API_PATH'] + '/run-action'
-    )
 
     # actions
     actions_bp = action_blueprint(
