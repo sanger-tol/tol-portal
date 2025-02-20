@@ -40,6 +40,6 @@ class UserAction(Base):
         nullable=False
     )
     user: Mapped['User'] = relationship(  # noqa F821
-        back_populates='user_actions',
+        back_populates='_user_actions',
         foreign_keys=[user_id]
     )

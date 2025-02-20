@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 
 from .action import Action
-from .action import Action
 from .base import Base  # noqa
 from .data_load_event import DataLoadEvent
 from .extraction_event import ExtractionEvent
