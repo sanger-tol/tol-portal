@@ -73,14 +73,9 @@ function TUMSteps() {
         filter: {
           and_: {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
-            
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
-            'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
-            'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
-              '1 submitted', '2 curated', '3 curation', '4 data complete', '7 ignore'
-            ], 'negate': true}},
-            'benchling_tolid.calc_coverage_met': {'eq': {'value': false}},
-            //'benchling_tolid.calc_topup_required': {'eq': {'value': true}}, // WAITING TO BE ENRICHED, once enabled, remove the filters above
+            'sequencing_request_event.date_abandoned': {'exists': false}, // if sequencing request is abandoned, then no library remaining
+            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
+            'benchling_tolid.calc_tolid_action': {'exists': {'negate': true }}, //no action taken
           }
         }
       }
@@ -144,17 +139,14 @@ function TUMSteps() {
         id: 'dna-remaining-v1',
         filter: {
           and_: {
-            'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
+            or_: {
+              'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //either no library remaining, or
+              'benchling_tolid.sequencing_request_event.date_abandoned': {'exists': true} //library abandoned
+            },
             'benchling_volume_ul': {'gt': {'value': 0}},
             'benchling_extraction_type':{'in_list': {'value': ['dna']}},
-            
-            'benchling_tolid.benchling_pacbio_sequencing_request_count': {'gt': {'value': 0}},
-            'benchling_tolid.calc_ongoing_submissions': {'eq': {'value': 0}},
-            'benchling_tolid.informatics_status_summary': {'in_list': {'value': [
-              '1 submitted', '2 curated', '3 curation', '4 data complete', '7 ignore'
-            ], 'negate': true}},
-            'benchling_tolid.calc_coverage_met': {'eq': {'value': false}},
-            //'benchling_tolid.calc_topup_required': {'eq': {'value': true}}, // WAITING TO BE ENRICHED, once enabled, remove the filters above
+            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
+            'benchling_tolid.calc_tolid_action': {'exists': {'negate': true }},
           }
         }
       }
@@ -225,10 +217,14 @@ function TUMSteps() {
         filter: {
           and_: {
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
-            "benchling_weight_mg": {'gt': {'value': 0}},
-
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}}, //WAITING FOR ENRICHMENT
+            or_:{
+              'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
+              'benchling_tolid.extraction_event.date_abandoned': {'exists': true},
+              },
+            'tissue_prep_event.date_abandoned': {'exists': false},
+            'benchling_weight_mg': {'gt': {'value': 0}},
+            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
+            'benchling_tolid.calc_tolid_action': {'exists': {'negate': true }},
           }
         }
       }
@@ -291,10 +287,14 @@ function TUMSteps() {
           and_: {
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
-            'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
+            or_:{
+              'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
+              'benchling_tolid.tissue_prep_event.date_abandoned': {'exists': true},
+              },
+            'benchling_tolid.sample_event.date_abandoned': {'exists': false},
             'benchling_remaining_weight': {'gt': {'value': 0}},
-            
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}}, //WAITING FOR ENRICHMENT
+            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
+            'benchling_tolid.calc_tolid_action': {'exists': {'negate': true }},
           }
         }
       }
@@ -360,7 +360,8 @@ function TUMSteps() {
             'sts_tissue_remaining': {'gt': {'value': 0}},
             'sts_eln_id': {'exists': {'negate': true }},
 
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
+            'sts_tolid.calc_topup_required': {'eq': {'value': true}},
+            'sts_tolid.calc_tolid_action': {'exists': {'negate': true }},
           }
         }
       }
@@ -421,6 +422,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_individual_exhausted': {'eq': {'value': true}},
+            'calc_topup_required': {'eq': {'value': true}},
           }
         }
       }
@@ -478,7 +480,9 @@ function TUMSteps() {
         id: 'individual-exhausted-available-v1',
         filter: {
           and_: {
-            'benchling_tolid.calc_individual_available': {'eq': {'value': true}},
+            'sts_tolid.calc_individual_available': {'eq': {'value': true}},
+            'sts_tolid.calc_topup_required': {'eq': {'value': false}},
+            'sts_tolid.calc_tolid_action': {'exists': {'negate': true }},
             'sts_eln_id': {'exists': {'negate': true }},
           }
         }
