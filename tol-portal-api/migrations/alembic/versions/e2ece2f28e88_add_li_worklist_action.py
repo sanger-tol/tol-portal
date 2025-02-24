@@ -28,7 +28,7 @@ def upgrade() -> None:
                     'LI Work List',
                     'extraction',
                     'elastic_tum_benchling',
-                    '{"worklist_name": "ROUTINE - DNA ready for LI pacbio prep"}'::JSONB
+                    '{"worklist_name": "ROUTINE - DNA ready for LI pacbio prep", "action": "tum"}'::JSONB
                 );
                 """
             )

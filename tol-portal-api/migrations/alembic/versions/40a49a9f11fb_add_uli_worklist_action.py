@@ -29,12 +29,25 @@ def upgrade() -> None:
                     'ULI Work List',
                     'extraction',
                     'elastic_tum_benchling',
-                    '{"worklist_name": "DNA ready for ULI pacbio prep"}'::JSONB
+                    '{"worklist_name": "DNA ready for ULI pacbio prep", "action": "tum"}'::JSONB
                 );
                 """
             )
         )
 
+    session.execute(
+            sa.text(
+                """
+                INSERT INTO action ("name", object_type, flow_name, params)
+                VALUES (
+                    'Not Valid',
+                    'extraction',
+                    'elastic_tum_benchling',
+                    '{"action": "abandon"}'::JSONB
+                );
+                """
+            )
+        )
 
 
 def downgrade() -> None:

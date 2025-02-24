@@ -132,6 +132,8 @@ function TUMSteps() {
         //"benchling_gb_yield_of_ccs_data_required": {}, //CCS
         //"benchling_extraction.benchling_extraction_qc_result": {}, QC pass/fail
       }}
+      actions={['Library Work List', 'Not Valid']}
+      rowSelection={true}
       {...sequencingRequest}
     />
   );
@@ -210,7 +212,7 @@ function TUMSteps() {
         //"benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
         //Next steps
       }}
-      actions={['LI Work List', 'ULI Work List']}
+      actions={['LI Work List', 'ULI Work List', 'Not Valid']}
       rowSelection={true}
       {...extraction}    
     />
@@ -277,6 +279,8 @@ function TUMSteps() {
         "benchling_species.sts_sample_sts_priority_min": {},
         "benchling_sample.sts_preservation_approach": {},
       }}
+      actions={['Tissue Prep Work List', 'Not Valid']}
+      rowSelection={true}
       {...tissuePrep}
     />
   );
@@ -341,6 +345,8 @@ function TUMSteps() {
         "benchling_species.sts_sample_sts_priority_min": {},
         "sts_organism_part":{},
       }}
+      actions={['Benchling Sample Work List', 'Not Valid']}
+      rowSelection={true}
       {...sampleBenchling}
     />
   );
@@ -408,6 +414,8 @@ function TUMSteps() {
         "benchling_species.goat_ploidy": {},
         "benchling_species.sts_sample_sts_priority_min": {},
       }}
+      actions={['STS Sample Work List', 'Not Valid']}
+      rowSelection={true}
       {...sampleSTS}
     />
   );
