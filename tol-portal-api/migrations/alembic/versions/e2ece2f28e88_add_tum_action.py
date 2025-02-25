@@ -1,4 +1,4 @@
-"""add li worklist action
+"""add tum action
 
 Revision ID: e2ece2f28e88
 Revises: 985881c9c950
@@ -25,10 +25,24 @@ def upgrade() -> None:
                 """
                 INSERT INTO action ("name", object_type, flow_name, params)
                 VALUES (
-                    'LI Work List',
+                    'Insert into LI Work List',
                     'extraction',
                     'elastic_tum_benchling',
                     '{"worklist_name": "ROUTINE - DNA ready for LI pacbio prep", "action": "tum"}'::JSONB
+                );
+                """
+            )
+        )
+    
+    session.execute(
+            sa.text(
+                """
+                INSERT INTO action ("name", object_type, flow_name, params)
+                VALUES (
+                    'Insert into ULI Work List',
+                    'extraction',
+                    'elastic_tum_benchling',
+                    '{"worklist_name": "DNA ready for ULI pacbio prep", "action": "tum"}'::JSONB
                 );
                 """
             )
