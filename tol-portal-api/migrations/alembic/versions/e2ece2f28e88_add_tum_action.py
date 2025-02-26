@@ -25,20 +25,6 @@ def upgrade() -> None:
                 """
                 INSERT INTO action ("name", object_type, flow_name, params)
                 VALUES (
-                    'Request Resequencing',
-                    'sequencing_request',
-                    'elastic_tum_benchling',
-                    '{"", "action": "tum"}'::JSONB
-                );
-                """
-            )
-        )
-
-    session.execute(
-            sa.text(
-                """
-                INSERT INTO action ("name", object_type, flow_name, params)
-                VALUES (
                     'Insert into LI Work List',
                     'extraction',
                     'elastic_tum_benchling',
@@ -57,34 +43,6 @@ def upgrade() -> None:
                     'extraction',
                     'elastic_tum_benchling',
                     '{"worklist_name": "DNA ready for ULI pacbio prep", "action": "tum"}'::JSONB
-                );
-                """
-            )
-        )
-    
-    session.execute(
-            sa.text(
-                """
-                INSERT INTO action ("name", object_type, flow_name, params)
-                VALUES (
-                    'Insert into Tissue Prep Work List',
-                    'tissue_prep',
-                    'elastic_tum_benchling',
-                    '{"worklist_name": "TUM tissue preps", "action": "tum"}'::JSONB
-                );
-                """
-            )
-        )
-    
-    session.execute(
-            sa.text(
-                """
-                INSERT INTO action ("name", object_type, flow_name, params)
-                VALUES (
-                    'Insert into Benchling Tissue Work List',
-                    'sample',
-                    'elastic_tum_benchling',
-                    '{"worklist_name": "TUM tissues", "action": "tum"}'::JSONB
                 );
                 """
             )

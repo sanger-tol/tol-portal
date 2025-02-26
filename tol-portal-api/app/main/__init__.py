@@ -22,6 +22,7 @@ from tol.core import core_data_object
 from tol.sources.elastic import elastic
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
+from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
 from tol.sql.board import create_board_models
 from tol.status import StatusDataSource
@@ -32,7 +33,6 @@ from .auth import (
 from .model import (
     Base,
     MODELS,
-    UserMixin,
 )
 
 
@@ -50,10 +50,11 @@ def application() -> Flask:
     app.config['CORS_HEADERS'] = 'Content-Type'
 
     board_models, _board_user_mixin = __get_board_models(Base)
+    action_models = create_action_models(Base)
 
     user_mixin = type(
         '',
-        (UserMixin, _board_user_mixin),
+        (action_models._user_mixin, _board_user_mixin),
         {}
     )
 
@@ -70,6 +71,7 @@ def application() -> Flask:
     # dashboards
     models = [
         *MODELS,
+        *action_models,
         *board_models,
         auth_bp.models.user_class,
     ]
