@@ -28,7 +28,7 @@ def upgrade() -> None:
                     'Request Resequencing',
                     'sequencing_request',
                     'elastic_tum_benchling',
-                    '{"", "action": "tum"}'::JSONB
+                    '{"action": "tum"}'::JSONB
                 );
                 """
             )
