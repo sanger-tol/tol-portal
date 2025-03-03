@@ -29,9 +29,10 @@ function TUMSteps() {
       //noConfigModal
       id="top-up-required-v3"
       displaySource
+      defaultSort="uid"
       fields={{
         "uid": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "tolid_species.goat_scientific_name": {
           cellRenderer: {
@@ -106,26 +107,27 @@ function TUMSteps() {
       //noConfigModal
       id="library-remaining-v1"
       displaySource
+      defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
+        "benchling_species.goat_genome_size": {}, 
+        "benchling_tolid.calc_coverage": {},
+        "benchling_tolid.informatics_gscope_coverage": {},
+        "benchling_species.sts_sample_sts_priority_min": {}, 
+        "benchling_tolid.sts_sample_sts_project_union": {},
+        "mlwh_volume_remaining": {},
+        "benchling_species.goat_ploidy": {}, 
+        //"benchling_gb_yield_of_ccs_data_required": {}, //CCS
+        "benchling_tolid.informatics_status_summary": {},
         "uid": {
           rename: "Sequencing Request ID"
         },
         "mlwh_source_barcode": {},
-        "benchling_tolid.sts_sample_sts_project_union": {},
-        "mlwh_volume_remaining": {},
         "benchling_sample.sts_labwhere_parentage": {}, 
-        "benchling_tolid.informatics_gscope_coverage": {},
-        "benchling_species.goat_genome_size": {}, 
-        "benchling_tolid.informatics_status_summary": {},
-        "benchling_tolid.calc_coverage": {},
         // Cherry Pick ID
-        "benchling_species.goat_ploidy": {}, 
-        "benchling_species.sts_sample_sts_priority_min": {}, 
         "benchling_extraction.benchling_sanger_sample_id": {}, 
-        //"benchling_gb_yield_of_ccs_data_required": {}, //CCS
         //"benchling_extraction.benchling_extraction_qc_result": {}, QC pass/fail
       }}
       actions={['Request Resequencing', 'Mark as Not Valid']}
@@ -178,37 +180,39 @@ function TUMSteps() {
       //noConfigModal
       id="dna-remaining-v1"
       displaySource
+      defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
-        "uid": {
-          rename: "Extraction ID"
-        },
+        "benchling_species.goat_genome_size": {},
+        "benchling_tolid.calc_coverage": {},
+        "benchling_tolid.informatics_gscope_coverage": {},
+        "benchling_species.sts_sample_sts_priority_min": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
+        // "mlwh_volume_remaining": {},
+        "mlwh_nanodrop_concentration_ngul_value": {}, //value
+        "benchling_yield_ng": {}, //value
+        "benchling_extraction_qc_result": {},
+        "benchling_femto_description": {},
+        "benchling_tolid.informatics_status_summary": {},
+        "benchling_extraction_name": {
+          rename: "Extraction Name"
+        },
         "benchling_volume_ul": {},
         "benchling_fluidx_id":{},
         "benchling_extraction_type":{},
         "benchling_sample.sts_labwhere_parentage": {},
-        "benchling_tolid.informatics_gscope_coverage": {},
-        "benchling_species.goat_genome_size": {},
-        "benchling_tolid.informatics_status_summary": {},
-        "benchling_tolid.calc_coverage": {},
-        "mlwh_nanodrop_concentration_ngul_value": {}, //value
         "benchling_species.goat_ploidy": {},
-        "benchling_species.sts_sample_sts_priority_min": {},
-        "benchling_extraction_qc_result": {},
-        //"mlwh_qubit_concentration_ngul_value": {}, //value
-        "benchling_yield_ng": {}, //value
-        "benchling_femto_description": {}, 
-        //"mlwh_sheared_femto_fragment_size_recorded_at": {}, //value
-        //"mlwh_gqn_dnaex_value": {}, //value
-        //"benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
+        "mlwh_qubit_concentration_ngul_value": {}, //value
+        // "mlwh_sheared_femto_fragment_size_recorded_at": {}, //value
+        // "mlwh_gqn_dnaex_value": {}, //value
+        "benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
         //Next steps
       }}
       actions={['Insert into LI Work List', 'Insert into ULI Work List', 'Mark as Not Valid']}
       rowSelection={true}
-      {...extraction}    
+      {...extraction}
     />
   );
 
@@ -256,9 +260,10 @@ function TUMSteps() {
       //noConfigModal
       id="tissue-prep-remaining-v1"
       displaySource
+      defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "uid": {
           rename: "Tissue Prep ID"
@@ -328,9 +333,10 @@ function TUMSteps() {
       //noConfigModal
       id="sample-remaining-benchling-v1"
       displaySource
+      defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "uid": {
           rename: "Sample ID"
@@ -397,9 +403,10 @@ function TUMSteps() {
       //noConfigModal
       id="sample-remaining-STS-v1"
       displaySource
+      defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "uid": {
           rename: "Sample ID"
@@ -459,9 +466,10 @@ function TUMSteps() {
      //noConfigModal
      id="individual-exhausted-v1"
      displaySource
+      defaultSort="uid"
      fields={{
         "uid": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "sts_sample_sts_project_union": {},
         "informatics_status_summary": {},
@@ -520,9 +528,10 @@ function TUMSteps() {
      //noConfigModal
      id="individual-exhausted-available-v1"
      displaySource
+     defaultSort="benchling_tolid.id"
      fields={{
         "benchling_tolid.id": {
-          rename: "ToLID"
+          rename: "ToLID",
         },
         "uid": {
           rename: "Sample ID"
