@@ -196,8 +196,8 @@ function TUMSteps() {
         "benchling_extraction_qc_result": {},
         "benchling_femto_description": {},
         "benchling_tolid.informatics_status_summary": {},
-        "uid": {
-          rename: "Extraction ID"
+        "benchling_extraction_name": {
+          rename: "Extraction Name"
         },
         "benchling_volume_ul": {},
         "benchling_fluidx_id":{},
