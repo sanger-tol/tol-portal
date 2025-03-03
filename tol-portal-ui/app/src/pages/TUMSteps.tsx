@@ -204,7 +204,7 @@ function TUMSteps() {
         "benchling_extraction_type":{},
         "benchling_sample.sts_labwhere_parentage": {},
         "benchling_species.goat_ploidy": {},
-        // "mlwh_qubit_concentration_ngul_value": {}, //value
+        "mlwh_qubit_concentration_ngul_value": {}, //value
         // "mlwh_sheared_femto_fragment_size_recorded_at": {}, //value
         // "mlwh_gqn_dnaex_value": {}, //value
         "benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
