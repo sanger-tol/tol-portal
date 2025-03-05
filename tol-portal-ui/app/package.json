@@ -1,6 +1,6 @@
 {
   "name": "tol-portal-ui",
-  "version": "2.0.0",
+  "version": "2.0.6",
   "private": true,
   "proxy": "http://tol-portal-api:80",
   "dependencies": {
