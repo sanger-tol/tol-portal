@@ -151,7 +151,7 @@ function TUMSteps() {
           and_: {
             'benchling_volume_ul': {'gt': {'value': 0}},
             'benchling_extraction_type':{'in_list': {'value': ['dna']}},
-            'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //will need abandoned child status ignored within filter
+            'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
@@ -229,7 +229,7 @@ function TUMSteps() {
           and_: {
             'benchling_weight_mg': {'gt': {'value': 0}},
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
+            'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
@@ -369,7 +369,7 @@ function TUMSteps() {
             'sts_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
+            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}},
             'sts_tissue_remaining': {'gt': {'value': 0}},
             'sts_eln_id': {'exists': {'negate': true }},
 
