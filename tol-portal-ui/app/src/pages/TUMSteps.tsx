@@ -119,7 +119,7 @@ function TUMSteps() {
         "benchling_tolid.sts_sample_sts_project_union": {},
         "mlwh_volume_remaining": {},
         "benchling_species.goat_ploidy": {}, 
-        //"benchling_gb_yield_of_ccs_data_required": {}, //CCS
+        "mlwh_run_data_mlwh_hifi_read_bases_sum": {},
         "benchling_tolid.informatics_status_summary": {},
         "uid": {
           rename: "Sequencing Request ID"
@@ -190,9 +190,9 @@ function TUMSteps() {
         "benchling_tolid.informatics_gscope_coverage": {},
         "benchling_species.sts_sample_sts_priority_min": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
-        // "mlwh_volume_remaining": {},
-        "mlwh_nanodrop_concentration_ngul_value": {}, //value
-        "benchling_yield_ng": {}, //value
+        "calc_dna_volume_remaining": {},
+        "benchling_nanodrop_concentration_ngul": {},
+        "benchling_yield_ng": {},
         "benchling_extraction_qc_result": {},
         "benchling_femto_description": {},
         "benchling_tolid.informatics_status_summary": {},
@@ -204,11 +204,11 @@ function TUMSteps() {
         "benchling_extraction_type":{},
         "benchling_sample.sts_labwhere_parentage": {},
         "benchling_species.goat_ploidy": {},
-        "mlwh_qubit_concentration_ngul_value": {}, //value
-        // "mlwh_sheared_femto_fragment_size_recorded_at": {}, //value
-        // "mlwh_gqn_dnaex_value": {}, //value
-        "benchling_tissue_prep.benchling_downstream_protocol": {},//Downstream protocol, WAITING TO BE ENRICHED
-        //Next steps
+        "benchling_qubit_concentration_ngul": {},
+        "benchling_femto_date_code": {},
+        "benchling_gqn_index": {},
+        "benchling_tissue_prep.benchling_downstream_protocol": {},
+        "benchling_next_step": {},
       }}
       actions={['Insert into LI Work List', 'Insert into ULI Work List', 'Mark as Not Valid']}
       rowSelection={true}
