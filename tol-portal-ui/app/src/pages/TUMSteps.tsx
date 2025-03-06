@@ -369,7 +369,7 @@ function TUMSteps() {
             'sts_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}},
+            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
             'sts_tissue_remaining': {'gt': {'value': 0}},
             'sts_eln_id': {'exists': {'negate': true }},
 
