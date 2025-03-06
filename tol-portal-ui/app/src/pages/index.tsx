@@ -12,6 +12,7 @@ export { default as Specimens } from "./Specimens";
 export { default as Samples } from "./Samples";
 export { default as Samplesets } from "./Samplesets";
 export { default as Extractions } from "./Extractions";
+export { default as GenomeNotes } from "./GenomeNotes";
 export { default as SequencingRequests } from "./SequencingRequests";
 export { default as SequencingRuns } from "./SequencingRuns";
 export { default as ToLIDs } from "./ToLIDs";

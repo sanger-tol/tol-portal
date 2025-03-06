@@ -47,6 +47,7 @@ const generateTimeline = (attributes: any) => {
           "Assembly Complete": { date: attributes['grit_curation_grit_open_date_min'] },
           "Curation": { date: attributes['grit_curation_grit_done_date_min'] },
           "ToLA / Grit Submission": { date: attributes['grit_curation_grit_in_submission_date_min'] },
+          "Genome Note Published": { date: attributes['gn_genome_note_gn_date_published_min'] },
           "PacBio Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_pacbio_min'] },
           "PacBio Sequenced": { date: attributes['mlwh_run_data_mlwh_run_complete_pacbio_min'] },
           "RNASeq Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_rnaseq_min'] },
@@ -280,6 +281,45 @@ function SpeciesDetail() {
     </div>
   )
 
+  const gnTable = (
+    <div>
+      <h5>Genome Notes</h5>
+      <p className='mb-3'>Genome Notes for this species.</p>
+      <RemoteTable
+        id='gn-table-detail-v1'
+        height={300}
+        fields={{
+          "id": {
+            rename: "DOI",
+          },
+          "gn_tolid.id": {
+            rename: "ToLID"
+          },
+          "gn_assembly.id": {
+            rename: "Assembly Accession"
+          },
+          "gn_date_published": {
+            rename: "Published Date"
+          },
+          "gn_passed_pr": {
+            rename: "Passed Peer Review"
+          },
+        }}
+        {...useZone({
+          endpoint: 'genome_note',
+          components: [{
+            id: 'gn-table-detail-v1',
+            filter: {
+              and_: {
+                "gn_species.id": { eq: { value: id } }
+              }
+            },
+          }],
+        })}
+      />
+    </div>
+  )
+
   if (response === null) {
     return (
       <Header
@@ -329,6 +369,10 @@ function SpeciesDetail() {
       },
       {
         component: curationTable,
+        type: 'full'
+      },
+      {
+        component: gnTable,
         type: 'full'
       }
     ];

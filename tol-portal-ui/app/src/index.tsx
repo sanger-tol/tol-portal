@@ -18,6 +18,7 @@ import {
   SequencingRequests,
   SequencingRuns,
   Curations,
+  GenomeNotes,
   TUM,
   SpeciesRecollection,
   SamplesStuck,
@@ -91,6 +92,12 @@ const curations: Page = {
   auth: true
 };
 
+const genomeNotes: Page = {
+  name: "Genome Notes",
+  element: <GenomeNotes />,
+  auth: true
+};
+
 const tum: Page = {
   name: "TUM",
   element: <TUM />,
@@ -154,6 +161,7 @@ ReactDOM.render(
       sequencingRequests,
       sequencingRuns,
       curations,
+      genomeNotes,
       tum,
       speciesRecollection,
       samplesStuck,
