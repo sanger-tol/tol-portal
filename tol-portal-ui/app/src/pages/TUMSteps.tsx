@@ -18,6 +18,7 @@ function TUMSteps() {
           and_: {
             'calc_topup_required': {'eq': {'value': true}},
             'calc_tolid_actionable': {'exists': {'value': true }},
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //tolid not abandoned
           }
         }
       }
@@ -57,10 +58,13 @@ function TUMSteps() {
           rename: "Maximum Tissue Prep Remaining"
         },
         "benchling_sample_benchling_remaining_weight_max": {
-          rename: "Maximum Benchling Sample Remaining"
+          rename: "Maximum Benchling Tissue Remaining"
         },
-        "benchling_sample_count": {},
-        "sts_sample_count": {},
+        "sts_sample_count": {
+          rename: "Number of STS Samples"
+        },
+        "calc_individual_available": {},
+        "tolid_species.calc_recollection_needed": {},
       }}
       {...tolid}
     />
@@ -75,9 +79,9 @@ function TUMSteps() {
         filter: {
           and_: {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
-            //'portaldb_date_abandoned': {'exists': {'negate': true}}, // sequencing request is not abandoned
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, //no action taken // WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //sequencing request not abandoned
           }
         }
       }
@@ -146,13 +150,10 @@ function TUMSteps() {
           and_: {
             'benchling_volume_ul': {'gt': {'value': 0}},
             'benchling_extraction_type':{'in_list': {'value': ['dna']}},
-            or_: {
-              'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //either no library remaining, or
-            //  'benchling_sequencing_request.portaldb_date_abandoned': {'exists': true} //library abandoned // WAITING FOR ENRICHMENT
-            },
-            //'portaldb_date_abandoned': {'exists': {'negate': true}}, //extraction not abandoned
+            'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //will need abandoned child status ignored within filter
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //extraction not abandoned
           }
         }
       }
@@ -226,13 +227,10 @@ function TUMSteps() {
           and_: {
             'benchling_weight_mg': {'gt': {'value': 0}},
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            or_:{
-              'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
-              //'benchling_extraction.portaldb_date_abandoned': {'exists': true}, // extraction abandoned //WAITING FOR ENRICHMENT
-              },
-            //'portaldb_date_abandoned': {'exists': {'negate': true}}, //tissue prep not abandoned
+            'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, //WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //tissue prep not abandoned
           }
         }
       }
@@ -289,7 +287,7 @@ function TUMSteps() {
   );
 
   // Table 5
-  const sampleBenchling = useZone({
+  const tissueBenchling = useZone({
     endpoint: 'sample',
     components: [
       {
@@ -299,13 +297,10 @@ function TUMSteps() {
             'benchling_remaining_weight': {'gt': {'value': 0}},
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
-            or_:{
-              'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-              //'benchling_tissue_prep.portaldb_date_abandoned': {'exists': true}, //tissue prep abandoned // WAITING FOR ENRICHMENT
-              },
-            //'portaldb_date_abandoned': {'exists': {'negate': true}}, //samples not abandoned
+            'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //benchling tissue not abandoned
           }
         }
       }
@@ -314,7 +309,7 @@ function TUMSteps() {
 
   useTranslator({
     source: tolid,
-    target: sampleBenchling,
+    target: tissueBenchling,
     translations: {
       "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
@@ -328,7 +323,7 @@ function TUMSteps() {
     }
   })
 
-  const sampleRemainingBenchlingTable = (
+  const tissueRemainingBenchlingTable = (
     <RemoteTable
       //noConfigModal
       id="sample-remaining-benchling-v1"
@@ -355,7 +350,7 @@ function TUMSteps() {
       }}
       actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid']}
       rowSelection={true}
-      {...sampleBenchling}
+      {...tissueBenchling}
     />
   );
 
@@ -370,12 +365,13 @@ function TUMSteps() {
             'sts_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
             'sts_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
             'sts_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}},
+            'sts_tolid.benchling_sample_benchling_remaining_weight_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
             'sts_tissue_remaining': {'gt': {'value': 0}},
             'sts_eln_id': {'exists': {'negate': true }},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
             //'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //STS sample not abandoned
           }
         }
       }
@@ -502,6 +498,7 @@ function TUMSteps() {
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
             //'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'portaldb_date_abandoned': {'exists': {'negate': true}}, //sample from new individual not abandoned
           }
         }
       }
@@ -656,15 +653,15 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Sample Remaining (Benchling)'),
+      component: tableTitle('Tissue Remaining in Benchling'),
       type: 'full'
     },
     {
-      component: sampleRemainingBenchlingTable,
+      component: tissueRemainingBenchlingTable,
       type: 'xl'
     },
     {
-      component: tableTitle('Sample Remaining (STS)'),
+      component: tableTitle('Sample Remaining in STS'),
       type: 'full'
     },
     {
@@ -688,7 +685,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Species Marked For Recollection (All Individuals Exhausted)'),
+      component: tableTitle('Species to be Marked for Recollection (All Individuals Exhausted)'),
       type: 'full'
     },
     {
