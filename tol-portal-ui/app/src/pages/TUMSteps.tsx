@@ -17,7 +17,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_topup_required': {'eq': {'value': true}},
-            'calc_tolid_actionable': {'exists': {'value': true }},
+            'calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //tolid not abandoned
           }
         }
@@ -81,7 +81,7 @@ function TUMSteps() {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, //no action taken // WAITING FOR ENRICHMENT
+            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //sequencing request not abandoned
           }
         }
@@ -154,7 +154,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}}, //will need abandoned child status ignored within filter
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //extraction not abandoned
           }
         }
@@ -232,7 +232,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, //WAITING FOR ENRICHMENT
+            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //tissue prep not abandoned
           }
         }
@@ -303,7 +303,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //benchling tissue not abandoned
           }
         }
@@ -374,7 +374,7 @@ function TUMSteps() {
             'sts_eln_id': {'exists': {'negate': true }},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //STS sample not abandoned
           }
         }
@@ -500,11 +500,12 @@ function TUMSteps() {
         id: 'individual-exhausted-available-v1',
         filter: {
           and_: {
-            'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
+            'sts_tissue_remaining': {'gt': {'value': 0}},
+            'sts_eln_id': {'exists': {'negate': true }},
             
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
-            //'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }}, // WAITING FOR ENRICHMENT
+            'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //sample from new individual not abandoned
           }
         }
