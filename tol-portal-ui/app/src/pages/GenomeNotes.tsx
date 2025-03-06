@@ -22,26 +22,13 @@ function GenomeNotes() {
     ]
   });
 
-  const chart = (
-    <RemoteBarChart
-      id="genome-notes-bar-chart-v1"
-      stacked
-      title="Genome Notes"
-      breakDownBy="gn_passed_pr"
-      xAxis="gn_date_published"
-      type='M'
-      {...notes}
-    />
-  );
-
-
   const table = (
     <RemoteTable
       id="genome-notes-table-v3"
       defaultSort="-gn_date_published"
       displaySource
       fields={{
-        "id": {
+        "uid": {
           rename: "DOI"
         },
         "gn_species.goat_scientific_name": {
@@ -53,9 +40,6 @@ function GenomeNotes() {
         },
         "gn_date_published": {
           rename: "Date Published"
-        },
-        "mlwh_run_complete": {
-          rename: "Complete Date"
         }
       }}
       {...notes}
@@ -72,10 +56,6 @@ function GenomeNotes() {
     {
       component: title,
       type: 'full'
-    },
-    {
-      component: chart,
-      type: 'lg'
     },
     {
       component: table,
