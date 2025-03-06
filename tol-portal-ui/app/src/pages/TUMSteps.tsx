@@ -550,6 +550,8 @@ function TUMSteps() {
         "benchling_species.goat_ploidy": {},
         "benchling_species.sts_sample_sts_priority_min": {},
       }}
+      actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid']}
+      rowSelection={true}
       {...individualExhaustedAvailable}
    />
   );
