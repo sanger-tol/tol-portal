@@ -27,7 +27,7 @@ function GenomeNotes() {
       id="genome-notes-bar-chart-v1"
       stacked
       title="Genome Notes"
-      breakDownBy="gn-passed_pr"
+      breakDownBy="gn_passed_pr"
       xAxis="gn_date_published"
       type='M'
       {...notes}
