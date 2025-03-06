@@ -15,7 +15,7 @@ import Platform from '../components/Platform';
 
 function GenomeNotes() {
   const notes = useZone({
-    endpoint: 'genome_notes',
+    endpoint: 'genome_note',
     components: [
       { id: 'genome-notes-bar-chart-v1' },
       { id: 'genome-notes-table-v3' }
