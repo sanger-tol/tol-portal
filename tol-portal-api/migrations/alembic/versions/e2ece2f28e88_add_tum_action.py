@@ -90,5 +90,19 @@ def upgrade() -> None:
             )
         )
 
+    session.execute(
+            sa.text(
+                """
+                INSERT INTO action ("name", object_type, flow_name, params)
+                VALUES (
+                    'Export into Benchling',
+                    'sample',
+                    'elastic_tum_benchling',
+                    '{"action": "tum", "create_entity": true, "folder_name": "Core Lab Entities",}'::JSONB
+                );
+                """
+            )
+        )
+    
 def downgrade() -> None:
     pass
