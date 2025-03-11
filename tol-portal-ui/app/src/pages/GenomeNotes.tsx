@@ -35,7 +35,7 @@ function GenomeNotes() {
     <RemoteSunburst
       id="genome-notes-sunburst"
       title="Species"
-      sliceBy={["gn_species.goat_order_name", "gn_species.goat_family_name"]}
+      sliceBy={["gn_species.sts_family", "gn_species.sts_order_group"]}
       height={450}
       legendPosition="right"
       {...notes}
