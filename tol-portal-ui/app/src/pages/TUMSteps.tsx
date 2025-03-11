@@ -81,7 +81,7 @@ function TUMSteps() {
             'mlwh_volume_remaining': {'gt': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //sequencing request not abandoned
           }
         }
@@ -154,7 +154,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_sequencing_request_mlwh_volume_remaining_max': {'lte': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            //'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
+            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //extraction not abandoned
           }
         }
