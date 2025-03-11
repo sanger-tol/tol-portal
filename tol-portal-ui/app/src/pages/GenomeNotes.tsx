@@ -6,7 +6,7 @@
 
 import {
   RemoteTable,
-  RemoteBarChart,
+  RemoteSunburst,
   Widgets,
   useZone
 } from '@tol/tol-ui';
