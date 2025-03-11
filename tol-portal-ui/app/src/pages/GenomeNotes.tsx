@@ -21,7 +21,7 @@ function GenomeNotes() {
         id: 'genome-notes-sunburst',
         filter: {
           and_: {
-            'gn_species_id': {
+            'gn_species.id': {
               exists: {}
             }
           }
@@ -35,7 +35,7 @@ function GenomeNotes() {
     <RemoteSunburst
       id="genome-notes-sunburst"
       title="Species"
-      sliceBy={["gn_species.sts_family", "gn_species.sts_order_group"]}
+      sliceBy={["gn_species.sts_order_group", "gn_species.sts_family"]}
       height={450}
       legendPosition="right"
       {...notes}
