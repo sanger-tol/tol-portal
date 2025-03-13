@@ -48,6 +48,7 @@ function TUMSteps() {
          "informatics_status_summary": {},
          "calc_coverage_met": {},
          "calc_topup_required": {},
+         'calc_tolid_actionable': {},
         "benchling_sequencing_request_mlwh_volume_remaining_max": {
           rename: "Maximum Library Remaining"
         },
@@ -232,7 +233,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_extraction_benchling_volume_ul_max': {'lte': {'value': 0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
+            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //tissue prep not abandoned
           }
         }
@@ -303,7 +304,7 @@ function TUMSteps() {
             'benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max': {'lte': {'value': 0}}, //will need child abandoned status ignored within filter
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'exists': {'value': true }},
+            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //benchling tissue not abandoned
           }
         }
@@ -374,7 +375,7 @@ function TUMSteps() {
             'sts_eln_id': {'exists': {'negate': true }},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
-            'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }},
+            'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //STS sample not abandoned
           }
         }
@@ -505,7 +506,7 @@ function TUMSteps() {
             'sts_eln_id': {'exists': {'negate': true }},
             
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
-            'sts_tolid.calc_tolid_actionable': {'exists': {'value': true }},
+            'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'portaldb_date_abandoned': {'exists': {'negate': true}}, //sample from new individual not abandoned
           }
         }
