@@ -10,6 +10,7 @@ from .sequencing_request_event import SequencingRequestEvent
 from .species_event import SpeciesEvent
 from .tissue_prep_event import TissuePrepEvent
 from .tolid_event import TolidEvent
+from .species_event import SpeciesEvent
 
 
 MODELS = (
