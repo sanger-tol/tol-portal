@@ -9,6 +9,7 @@ from .sample_event import SampleEvent
 from .sequencing_request_event import SequencingRequestEvent
 from .tissue_prep_event import TissuePrepEvent
 from .tolid_event import TolidEvent
+from .species_event import SpeciesEvent
 
 
 MODELS = (
@@ -18,4 +19,5 @@ MODELS = (
     SequencingRequestEvent,
     TissuePrepEvent,
     TolidEvent,
+    SpeciesEvent
 )
