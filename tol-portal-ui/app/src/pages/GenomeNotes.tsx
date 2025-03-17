@@ -6,7 +6,7 @@
 
 import {
   RemoteTable,
-  RemoteBarChart,
+  RemoteSunburst,
   Widgets,
   useZone
 } from '@tol/tol-ui';
@@ -17,10 +17,30 @@ function GenomeNotes() {
   const notes = useZone({
     endpoint: 'genome_note',
     components: [
-      { id: 'genome-notes-bar-chart-v1' },
+      {
+        id: 'genome-notes-sunburst',
+        filter: {
+          and_: {
+            'gn_species.id': {
+              exists: {}
+            }
+          }
+        }
+      },
       { id: 'genome-notes-table-v3' }
     ]
   });
+
+  const sunburst = (
+    <RemoteSunburst
+      id="genome-notes-sunburst"
+      title="Species"
+      sliceBy={["gn_species.sts_order_group", "gn_species.sts_family"]}
+      height={450}
+      legendPosition="right"
+      {...notes}
+    />
+  );
 
   const table = (
     <RemoteTable
@@ -55,6 +75,10 @@ function GenomeNotes() {
   const components = [
     {
       component: title,
+      type: 'full'
+    },
+    {
+      component: sunburst,
       type: 'full'
     },
     {
