@@ -44,11 +44,11 @@ function TUMSteps() {
             }
           }
         },
-         "sts_sample_sts_project_union": {},
-         "informatics_status_summary": {},
-         "calc_coverage_met": {},
-         "calc_topup_required": {},
-         'calc_tolid_actionable': {},
+        "sts_sample_sts_project_union": {},
+        "informatics_status_summary": {},
+        "calc_coverage_met": {},
+        "calc_topup_required": {},
+        "calc_tolid_actionable": {},
         "benchling_sequencing_request_mlwh_volume_remaining_max": {
           rename: "Maximum Library Remaining"
         },
