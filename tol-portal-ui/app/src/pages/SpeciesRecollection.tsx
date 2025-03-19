@@ -39,13 +39,13 @@ function SpeciesRecollection() {
             }
           }
         },
-        "benchling_sample_benchling_remaining_weight_sum": {
+        "calc_sample_calc_benchling_remaining_weight_sum": {
           rename: "Tissue Remaining"
         },
-        "benchling_extraction_benchling_volume_ul_sum": {
+        "calc_extraction_calc_benchling_volume_ul_sum": {
           rename: "Volume of Extraction"
         },
-        "benchling_tissue_prep_benchling_weight_mg_sum": {
+        "calc_tissue_prep_calc_benchling_weight_mg_sum": {
           rename: "Tissue Prep Remaining"
         },
         "benchling_sequencing_request_lrpacbio_library_remaining_sum": {
