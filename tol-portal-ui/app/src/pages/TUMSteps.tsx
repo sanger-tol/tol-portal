@@ -44,11 +44,11 @@ function TUMSteps() {
             }
           }
         },
-         "sts_sample_sts_project_union": {},
-         "informatics_status_summary": {},
-         "calc_coverage_met": {},
-         "calc_topup_required": {},
-         'calc_tolid_actionable': {},
+        "sts_sample_sts_project_union": {},
+        "informatics_status_summary": {},
+        "calc_coverage_met": {},
+        "calc_topup_required": {},
+        "calc_tolid_actionable": {},
         "benchling_sequencing_request_mlwh_volume_remaining_max": {
           rename: "Maximum Library Remaining"
         },
@@ -570,7 +570,8 @@ function TUMSteps() {
         id: 'individual-exhausted-recollection-v1',
         filter: {
           and_: {
-            'calc_recollection_needed': {'eq': {'value': true}},    
+            'calc_recollection_needed': {'eq': {'value': true}},   
+            'calc_species_recollectable': {'eq': {'value': true}},
           }
         }
       }
@@ -610,6 +611,8 @@ function TUMSteps() {
         "goat_ploidy": {},
         "sts_sample_sts_priority_min": {},
      }}
+    actions={['Mark for recollection']}
+    rowSelection={true}
      {...individualExhaustedRecollection}
    />
   );
