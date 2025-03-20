@@ -142,3 +142,4 @@ def downgrade() -> None:
                "VALUES ('sequencing_request', 'tolid', '{\"benchling_sequencing_platform\": {\"eq\": {\"value\": \"pacbio\"}}}', '[\"benchling_tolid.id\"]', '[]', '[]', 'benchling_pacbio')")
     op.execute("INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) "
                "VALUES ('sequencing_request', 'tolid', '{\"benchling_sequencing_platform\": {\"exists\": {\"negate\": true}}, \"mlwh_run_data_count\": {\"gte\": {\"value\": 1}}}', '[\"benchling_tolid.id\"]', '[]', '[]', 'benchling_pacbio_completed')")
+    
