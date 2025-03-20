@@ -21,33 +21,33 @@ def upgrade() -> None:
     op.execute("UPDATE summary SET object_filters = '{}' WHERE object_filters::text LIKE '%portaldb_date_abandoned%'")
     
     # Fix field prefix discrepancies for species summariser
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND prefix = 'benchling' AND 'benchling_remaining_weight' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND prefix = 'benchling' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND prefix = 'benchling' AND 'benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_remaining_weight%'")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_weight_mg%'")
     
      # Fix field prefix for tolid summariser
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'tolid' AND 'benchling_volume_ul' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'tolid' AND stats_fields::text LIKE '%benchling_volume_ul%'")
 
     # Fix field prefix for sample summariser
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND prefix = 'benchling' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'sample' AND prefix = 'benchling' AND 'benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'sample' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_weight_mg%'")
 
     # Fix field prefix for tissue_prep summariser
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'tissue_prep' AND prefix = 'benchling' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'tissue_prep' AND prefix = 'benchling' AND 'mlwh_volume_remaining' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'extraction' AND destination_object_type = 'tissue_prep' AND prefix = 'benchling' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'tissue_prep' AND prefix = 'benchling' AND stats_fields::text LIKE '%mlwh_volume_remaining%'")
     
     # Fix field prefix for extraction summariser
-    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'extraction' AND prefix = 'benchling' AND 'mlwh_volume_remaining' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'extraction' AND prefix = 'benchling' AND stats_fields::text LIKE '%mlwh_volume_remaining%'")
     
     # Fix group_by to include extraction_type
-    op.execute("UPDATE summary SET group_by = '[\"benchling_species.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET group_by = '[\"benchling_tissue_prep.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'tissue_prep' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET group_by = '[\"benchling_sample.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND 'benchling_volume_ul' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET group_by = '[\"benchling_species.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET group_by = '[\"benchling_tissue_prep.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'tissue_prep' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET group_by = '[\"benchling_sample.id\", \"benchling_extraction_type\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND stats_fields::text LIKE '%benchling_volume_ul%'")
 
     # Fix stats to match implementation
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND 'benchling_remaining_weight' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND 'benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND 'benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND stats_fields::text LIKE '%benchling_remaining_weight%'")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields::text LIKE '%benchling_volume_ul%'")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND stats_fields::text LIKE '%benchling_weight_mg%'")
     
     # Add missing sequencing_request_lrpacbio_library_remaining_stats
     op.execute("INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) "
@@ -58,7 +58,7 @@ def upgrade() -> None:
                "VALUES ('sequencing_request', 'tolid', '{}', '[\"benchling_tolid.id\"]', '[\"calc_mlwh_volume_remaining\"]', '[\"min\", \"max\"]', 'calc')")
     
     # Fix tissue_prep_date_stats and tissue_prep_stats for tolid (separate them)
-    op.execute("UPDATE summary SET stats_fields = '[\"benchling_sampleprep_date\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'tolid' AND 'benchling_sampleprep_date' = ANY(stats_fields) AND 'benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET stats_fields = '[\"benchling_sampleprep_date\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'tolid' AND stats_fields::text LIKE '%benchling_sampleprep_date%' AND stats_fields::text LIKE '%benchling_weight_mg%'")
     op.execute("INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) "
                "VALUES ('tissue_prep', 'tolid', '{}', '[\"benchling_tolid.id\"]', '[\"calc_benchling_weight_mg\"]', '[\"min\", \"max\"]', 'calc')")
     
@@ -81,16 +81,16 @@ def upgrade() -> None:
 def downgrade() -> None:
     # Store original portaldb_date_abandoned filters for specific entries
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'extraction'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'sample' AND stats_fields LIKE '%mlwh_volume_remaining%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'sample' AND stats_fields::text LIKE '%mlwh_volume_remaining%'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'sample'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND stats_fields LIKE '%remaining_weight%'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields LIKE '%volume_ul%'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND stats_fields LIKE '%weight_mg%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND stats_fields::text LIKE '%remaining_weight%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields::text LIKE '%volume_ul%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND stats_fields::text LIKE '%weight_mg%'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tolid' AND destination_object_type = 'species' AND prefix = 'tolid'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'extraction' AND destination_object_type = 'tolid'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'tolid' AND stats_fields LIKE '%volume_remaining%'")
-    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'tolid' AND stats_fields LIKE '%weight_mg%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'tolid' AND stats_fields::text LIKE '%volume_remaining%'")
+    op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'tolid' AND stats_fields::text LIKE '%weight_mg%'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'extraction' AND destination_object_type = 'tissue_prep'")
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}}' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'tissue_prep'")
     
@@ -99,9 +99,9 @@ def downgrade() -> None:
     op.execute("UPDATE summary SET object_filters = '{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": true}}, \"calc_individual_exhausted\": {\"in_list\": {\"value\": [\"true\"]}}}' WHERE source_object_type = 'tolid' AND destination_object_type = 'species' AND prefix = 'calc_individual_exhausted'")
     
     # Revert field prefix changes
-    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND prefix = 'calc' AND 'calc_benchling_remaining_weight' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND prefix = 'calc' AND 'calc_benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND prefix = 'calc' AND 'calc_benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND prefix = 'calc' AND stats_fields::text LIKE '%calc_benchling_remaining_weight%'")
+    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND prefix = 'calc' AND stats_fields::text LIKE '%calc_benchling_volume_ul%'")
+    op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND prefix = 'calc' AND stats_fields::text LIKE '%calc_benchling_weight_mg%'")
     op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'extraction' AND destination_object_type = 'tolid' AND prefix = 'calc'")
     op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND prefix = 'calc'")
     op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'sample' AND prefix = 'calc'")
@@ -110,13 +110,13 @@ def downgrade() -> None:
     op.execute("UPDATE summary SET prefix = 'benchling' WHERE source_object_type = 'sequencing_request' AND destination_object_type = 'extraction' AND prefix = 'calc'")
     
     # Revert group_by changes
-    op.execute("UPDATE summary SET group_by = '[\"benchling_species.id\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND 'calc_benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET group_by = '[\"benchling_sample.id\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND 'calc_benchling_volume_ul' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET group_by = '[\"benchling_species.id\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields::text LIKE '%calc_benchling_volume_ul%'")
+    op.execute("UPDATE summary SET group_by = '[\"benchling_sample.id\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND stats_fields::text LIKE '%calc_benchling_volume_ul%'")
     
     # Revert stats changes
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND 'calc_benchling_remaining_weight' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND 'calc_benchling_volume_ul' = ANY(stats_fields)")
-    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND 'calc_benchling_weight_mg' = ANY(stats_fields)")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND stats_fields::text LIKE '%calc_benchling_remaining_weight%'")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'species' AND stats_fields::text LIKE '%calc_benchling_volume_ul%'")
+    op.execute("UPDATE summary SET stats = '[\"min\", \"max\", \"sum\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'species' AND stats_fields::text LIKE '%calc_benchling_weight_mg%'")
     
     # Revert stats_fields changes
     op.execute("UPDATE summary SET stats_fields = '[\"benchling_volume_ul\"]' WHERE source_object_type = 'extraction' AND destination_object_type = 'sample' AND stats_fields = '[\"calc_benchling_volume_ul\"]'")
@@ -142,4 +142,3 @@ def downgrade() -> None:
                "VALUES ('sequencing_request', 'tolid', '{\"benchling_sequencing_platform\": {\"eq\": {\"value\": \"pacbio\"}}}', '[\"benchling_tolid.id\"]', '[]', '[]', 'benchling_pacbio')")
     op.execute("INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) "
                "VALUES ('sequencing_request', 'tolid', '{\"benchling_sequencing_platform\": {\"exists\": {\"negate\": true}}, \"mlwh_run_data_count\": {\"gte\": {\"value\": 1}}}', '[\"benchling_tolid.id\"]', '[]', '[]', 'benchling_pacbio_completed')")
-    
