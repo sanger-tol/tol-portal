@@ -18,7 +18,7 @@ depends_on = None
 
 def upgrade() -> None:
     # Remove portaldb_date_abandoned filter from all entries
-    op.execute("UPDATE summary SET object_filters = '{}' WHERE object_filters LIKE '%portaldb_date_abandoned%'")
+    op.execute("UPDATE summary SET object_filters = '{}' WHERE object_filters::text LIKE '%portaldb_date_abandoned%'")
     
     # Fix field prefix discrepancies for species summariser
     op.execute("UPDATE summary SET prefix = 'calc' WHERE source_object_type = 'sample' AND destination_object_type = 'species' AND prefix = 'benchling' AND 'benchling_remaining_weight' = ANY(stats_fields)")
