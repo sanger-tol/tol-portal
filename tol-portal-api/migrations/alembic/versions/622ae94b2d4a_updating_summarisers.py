@@ -54,7 +54,7 @@ def upgrade() -> None:
     
     # Add missing elastic_tolid_summariser.load_extraction_volume_stats()
     op.execute("INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) "
-               "VALUES ('extraction', 'tolid', '{}', '[\"benchling_tolid.id\"]', '[\"calc_benchling_volume_ul\"]', '[\"min\", \"max\"]', 'calc')")
+               "VALUES ('extraction', 'tolid', '{}', '[\"benchling_tolid.id\", \"benchling_extraction_type\"]', '[\"calc_benchling_volume_ul\"]', '[\"min\", \"max\"]', 'calc')")
     
     # Fix tissue_prep_date_stats and tissue_prep_stats for tolid (separate them)
     op.execute("UPDATE summary SET stats_fields = '[\"benchling_sampleprep_date\"]' WHERE source_object_type = 'tissue_prep' AND destination_object_type = 'tolid' AND stats_fields::text LIKE '%benchling_sampleprep_date%' AND stats_fields::text LIKE '%benchling_weight_mg%'")
