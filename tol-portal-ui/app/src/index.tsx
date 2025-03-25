@@ -25,7 +25,7 @@ import {
   ProjectManagement,
   TUMSteps
 } from './pages';
-import { CuratedSpecies } from './pages/curated_pages';
+import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
 import { TolApp, Page, Dropdown } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
@@ -132,9 +132,16 @@ const tumSteps: Page = {
   auth: true
 }
 
+const coreLabData: Page = {
+  name: "Core Lab Data",
+  element: <CoreLabData />,
+  hidden: true,
+  auth: false
+}
+
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement],
+  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, coreLabData],
   hidden: false,
   auth: true
 }

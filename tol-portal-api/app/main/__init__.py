@@ -25,6 +25,7 @@ from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
 from tol.sql.board import create_board_models
+from tol.sql.loader import create_loader_models
 from tol.sql.summary import create_summary_models
 from tol.status import StatusDataSource
 
@@ -53,6 +54,7 @@ def application() -> Flask:
     board_models, _board_user_mixin = __get_board_models(Base)
     action_models = create_action_models(Base)
     summary_models = create_summary_models(Base)
+    loader_models = create_loader_models(Base)
 
     user_mixin = type(
         '',
@@ -76,7 +78,8 @@ def application() -> Flask:
         *action_models,
         *board_models,
         auth_bp.models.user_class,
-        *summary_models
+        *summary_models,
+        *loader_models
     ]
 
     sql_ds = create_sql_datasource(
