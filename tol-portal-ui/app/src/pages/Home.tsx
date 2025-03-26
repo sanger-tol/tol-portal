@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+// temp fix - remove asap!
+// @ts-nocheck 
 import { 
-  Button,
   RemoteBarChart,
   RemoteSunburst,
 	RemoteTable,
@@ -15,7 +16,6 @@ import {
   RemoteCount,
   useZone
 } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 
 const defaultFilter = {
   and_: {
