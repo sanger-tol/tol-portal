@@ -1,7 +1,7 @@
 """new updates for summarisers
 
 Revision ID: 135d55f6106f
-Revises: 622ae94b2d4a
+Revises: a42a658b61df
 Create Date: 2025-03-26 11:20:24.956119
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '135d55f6106f'
-down_revision = '622ae94b2d4a'
+down_revision = 'a42a658b61df'
 branch_labels = None
 depends_on = None
 
