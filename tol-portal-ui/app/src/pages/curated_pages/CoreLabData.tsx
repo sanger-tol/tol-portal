@@ -95,6 +95,7 @@ function CoreLabData() {
   return (
     <div>
       <div style={{ padding: "0px 10px" }}>
+        {/* @ts-ignore */}
         <StaticMessage message={CORELAB_WARNING} type={"warning"} />
       </div>
       <Widgets
