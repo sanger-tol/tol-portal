@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useRef } from 'react';
 import {
   RemoteTable,
   StaticMessage,
@@ -95,8 +96,7 @@ function CoreLabData() {
   return (
     <div>
       <div style={{ padding: "0px 10px" }}>
-        {/* @ts-ignore */}
-        <StaticMessage message={CORELAB_WARNING} type={"warning"} />
+        <StaticMessage message={CORELAB_WARNING} type={"warning"}/>
       </div>
       <Widgets
         components={components}
