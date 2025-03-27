@@ -98,7 +98,7 @@ def upgrade() -> None:
                     'Export into Benchling',
                     'sample',
                     'elastic_tum_benchling',
-                    '{"action": "tum", "create_entity": true, "folder_name": "Core Lab Entities",}'::JSONB
+                    '{"action": "tum", "create_entity": true, "folder_name": "Core Lab Entities"}'::JSONB
                 );
                 """
             )
