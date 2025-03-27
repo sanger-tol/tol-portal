@@ -357,8 +357,8 @@ function TUMSteps() {
             'sts_tissue_remaining': {'gt': {'value': 0}},
             'sts_eln_id': {'exists': {'negate': true }},
             'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0}},
-            'calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0}},
+            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0}},
+            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0}},
             'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
