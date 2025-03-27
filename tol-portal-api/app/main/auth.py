@@ -29,3 +29,21 @@ def get_auth_inspector(
         raise ForbiddenError()
 
     return auth_inspector
+
+
+def get_prefect_auth_inspector(
+    ctx_getter: CtxGetter = default_ctx_getter
+) -> AuthInspector:
+    """
+    Returns a `AuthInspector` `Callable` that
+    required authentication on prefect queries
+    """
+
+    def auth_inspector(
+        object_type: str,
+        method: OperatorMethod
+    ) -> None:
+        if not ctx_getter().authenticated:
+            raise ForbiddenError()
+
+    return auth_inspector

@@ -30,7 +30,8 @@ from tol.sql.summary import create_summary_models
 from tol.status import StatusDataSource
 
 from .auth import (
-    get_auth_inspector
+    get_auth_inspector,
+    get_prefect_auth_inspector
 )
 from .model import (
     Base,
@@ -127,14 +128,21 @@ def application() -> Flask:
                            url_prefix=os.getenv('API_PATH') + '/status')
 
     # actions
+    pds = prefect(insecure=True)
     actions_bp = action_blueprint(
         sql_ds,
-        prefect(insecure=True),
+        pds,
         role=None
     )
     app.register_blueprint(
         actions_bp,
         url_prefix=os.environ['API_PATH'] + '/run-action'
     )
+    blueprint_prefect_data = data_blueprint(
+        pds,
+        auth_inspector=get_prefect_auth_inspector()
+    )
+    app.register_blueprint(blueprint_prefect_data, name='pds',
+                           url_prefix=os.getenv('API_PATH') + '/prefect')
 
     return app
