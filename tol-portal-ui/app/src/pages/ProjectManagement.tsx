@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-// temp fix - remove asap!
-// @ts-nocheck 
 import { useState } from 'react';
 import { 
   RemoteTable,
@@ -21,10 +19,6 @@ import SpeciesLink from '../components/SpeciesLink';
 function ProjectManagement() {
 
   const [cumulative, setCumulative] = useState(false); // Add state for cumulative toggle
-
-  const handleToggleChange = () => {
-    setCumulative(prevState => !prevState); // Toggle the cumulative state
-  };
 
   const projectManagement = useZone({
     endpoint: 'species',
