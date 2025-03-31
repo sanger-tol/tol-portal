@@ -141,7 +141,14 @@ const coreLabData: Page = {
 
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, coreLabData],
+  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement],
+  hidden: false,
+  auth: true
+}
+
+const publicDropdown: Dropdown = {
+  name: "Public",
+  pages: [coreLabData],
   hidden: false,
   auth: true
 }
@@ -172,7 +179,8 @@ ReactDOM.render(
       tum,
       speciesRecollection,
       samplesStuck,
-      otherDropdown
+      otherDropdown,
+      publicDropdown
     ]}
     login={true}
   />,
