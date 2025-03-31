@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-// temp fix - remove asap!
-// @ts-nocheck 
 import { 
   RemoteBarChart,
   RemoteSunburst,
