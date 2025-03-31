@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useRef } from 'react';
 import {
   RemoteTable,
   StaticMessage,
