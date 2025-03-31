@@ -150,7 +150,7 @@ const publicDropdown: Dropdown = {
   name: "Public",
   pages: [coreLabData],
   hidden: false,
-  auth: true
+  auth: false
 }
 
 ReactDOM.render(
