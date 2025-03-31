@@ -135,8 +135,7 @@ const tumSteps: Page = {
 const coreLabData: Page = {
   name: "Core Lab Data",
   element: <CoreLabData />,
-  hidden: true,
-  auth: false
+  hidden: false
 }
 
 const otherDropdown: Dropdown = {
@@ -149,8 +148,7 @@ const otherDropdown: Dropdown = {
 const publicDropdown: Dropdown = {
   name: "Public",
   pages: [coreLabData],
-  hidden: false,
-  auth: false
+  hidden: false
 }
 
 ReactDOM.render(
