@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { 
+import {
   RemoteTable,
   RemoteBarChart,
   Filter,
@@ -13,7 +13,7 @@ import {
   Row,
   Col,
   useZone
-  } from '@tol/tol-ui';
+} from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 
 function ProjectManagement() {
@@ -32,9 +32,9 @@ function ProjectManagement() {
           }
         }
       },
-      { id: 'pm-submitted-bar-chart-v1'},
+      { id: 'pm-submitted-bar-chart-v1' },
       { id: 'pm-status-bar-chart-v1' },
-      { id: 'pm-species-table-v1'}
+      { id: 'pm-species-table-v1' }
     ]
   });
 
@@ -48,7 +48,7 @@ function ProjectManagement() {
           type="checkbox"
           checked={cumulative}
           onChange={(e) => setCumulative(e.target.checked)} // Toggle functionality
-          style={{marginLeft: 5}}
+          style={{ marginLeft: 5 }}
         />
       </label>
       <div>
@@ -105,7 +105,7 @@ function ProjectManagement() {
       {...projectManagement}
     />
   );
-  
+
   const table = (
     <RemoteTable
       id="pm-species-table-v1"
@@ -124,7 +124,7 @@ function ProjectManagement() {
         "sts_sample_sts_project_union": {
           rename: "Project"
         },
-        "sts_sample_sts_tollab_assign_date_min":{
+        "sts_sample_sts_tollab_assign_date_min": {
           rename: "Assigned To Lab Date"
         },
         "informatics_tolid_informatics_status_summary_min": {
@@ -159,8 +159,9 @@ function ProjectManagement() {
       component: filters,
       type: 'full'
     },
-    { component: cumulativeCheckbox, 
-      type: 'full' 
+    {
+      component: cumulativeCheckbox,
+      type: 'full'
     },
     {
       component: submittedChart,
@@ -178,7 +179,7 @@ function ProjectManagement() {
 
   return (
     <div className="project-management">
-      <Widgets components={components}/>
+      <Widgets components={components} />
     </div>
   );
 }

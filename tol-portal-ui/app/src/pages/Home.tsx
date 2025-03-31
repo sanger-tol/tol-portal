@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { 
+import {
   RemoteBarChart,
   RemoteSunburst,
-	RemoteTable,
+  RemoteTable,
   Widgets,
-	Row,
-	Col,
+  Row,
+  Col,
   RemoteCount,
   useZone
 } from '@tol/tol-ui';
@@ -36,7 +36,7 @@ const title = (
   <span>
     <h2>{getGreeting()}</h2>
     <p className='mt-2'>
-			Welcome to ToL Portal, the home of Tree of Life data.
+      Welcome to ToL Portal, the home of Tree of Life data.
     </p>
   </span>
 );
@@ -59,7 +59,7 @@ function Home() {
       type='M'
     />
   );
-  
+
   const sampleChart = (
     <RemoteBarChart
       id="home-sample-bar-chart-v1"
@@ -107,7 +107,7 @@ function Home() {
       {...useZone({
         endpoint: 'species',
         filter: defaultFilter,
-        components: [{id: 'home-species-table-v3'}]
+        components: [{ id: 'home-species-table-v3' }]
       })}
     />
   );
@@ -145,7 +145,7 @@ function Home() {
           filter: {
             and_: {
               'informatics_status_summary': {
-                eq: {value: '1 submitted'}
+                eq: { value: '1 submitted' }
               }
             }
           }
@@ -211,7 +211,7 @@ function Home() {
 
   return (
     <div className="species">
-      <Widgets components={components}/>
+      <Widgets components={components} />
     </div>
   );
 }
