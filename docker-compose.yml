@@ -61,6 +61,7 @@ services:
     volumes:
       - './tol-portal-ui/app:/usr/src/app'
       - '/usr/src/app/node_modules'
+      - '../components/components-ui/app/src/tol-ui:/usr/src/app/src/tol-ui'
 
   tol-portal-dbutils:
     image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.0.4
