@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 import fs from "fs";
+import path from 'path';
 
 // Paths to the key and certificate files
 const keyPath = "/localhost.key";
@@ -22,6 +23,24 @@ const httpsConfig =
 
 export default defineConfig({
   plugins: [react(), viteTsconfigPaths()],
+  resolve: {
+    alias: {
+      // js/ts imports
+      '@tol/tol-ui': path.resolve(__dirname, 'src/tol-ui/src'),
+      // scss imports
+      'tol/tol-ui': path.resolve(__dirname, 'src/tol-ui'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: ``,
+        includePaths: [
+          path.resolve(__dirname, 'scss')
+        ]
+      }
+    }
+  },
   build: {
     emptyOutDir: true,
     outDir: "build",

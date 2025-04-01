@@ -19,7 +19,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
-      "react": ["./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"],
+      "@tol/tol-ui": ["src/tol-ui"]
     },
     // extras from tol-ui package
     "declaration": true,
@@ -28,7 +29,8 @@
     "noImplicitReturns": false,
     "noImplicitThis": true,
     "noImplicitAny": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "."
   },
   "include": ["src", "vite-env.d.ts", "vite.config.ts"]
 }
