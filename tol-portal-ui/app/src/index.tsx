@@ -23,7 +23,8 @@ import {
   SpeciesRecollection,
   SamplesStuck,
   ProjectManagement,
-  TUMSteps
+  TUMSteps,
+  Loaders
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
@@ -132,18 +133,30 @@ const tumSteps: Page = {
   auth: true
 }
 
+const loaders: Page = {
+  name: "Loaders",
+  element: <Loaders />,
+  hidden: true,
+  auth: true
+}
+
 const coreLabData: Page = {
   name: "Core Lab Data",
   element: <CoreLabData />,
-  hidden: true,
-  auth: false
+  hidden: false
 }
 
 const otherDropdown: Dropdown = {
   name: "Other",
-  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, coreLabData],
+  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, loaders],
   hidden: false,
   auth: true
+}
+
+const publicDropdown: Dropdown = {
+  name: "Public",
+  pages: [coreLabData],
+  hidden: false
 }
 
 ReactDOM.render(
@@ -172,7 +185,8 @@ ReactDOM.render(
       tum,
       speciesRecollection,
       samplesStuck,
-      otherDropdown
+      otherDropdown,
+      publicDropdown
     ]}
     login={true}
   />,
