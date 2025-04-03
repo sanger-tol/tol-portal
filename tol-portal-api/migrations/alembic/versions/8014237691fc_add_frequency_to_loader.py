@@ -31,6 +31,11 @@ def upgrade() -> None:
             "UPDATE loader SET frequency = 'hourly' WHERE id in (11)"
         )
     )
+    op.execute(
+        sa.text(
+            "DELETE FROM loader WHERE id in (15)"
+        )
+    )
 
 
 def downgrade() -> None:
