@@ -22,64 +22,64 @@ def upgrade() -> None:
     # =====================================================
     # Summarising sequencing_request into extraction
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sequencing_request\', \'extraction\', \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_extraction.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
+            'VALUES (\'sequencing_request\', \'extraction\', \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_extraction.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
 
     # Summarising sequencing_request into sample
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sequencing_request\', \'sample\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_sample.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
+            'VALUES (\'sequencing_request\', \'sample\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_sample.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
 
     # Summarising sequencing_request into tissue_prep
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sequencing_request\', \'tissue_prep\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tissue_prep.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
+            'VALUES (\'sequencing_request\', \'tissue_prep\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tissue_prep.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
 
     # Summarising sequencing_request into tolid
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sequencing_request\', \'tolid\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tolid.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
+            'VALUES (\'sequencing_request\', \'tolid\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tolid.id"]\', \'["mlwh_volume_remaining"]\', \'["min", "max"]\', \'mlwh\')')
 
     # =====================================================
     # Stats field: benchling_volume_ul
     # =====================================================
     # Summarising extraction into sample
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'extraction\', \'sample\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_sample.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'extraction\', \'sample\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_sample.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
 
     # Summarising extraction into species
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'extraction\', \'species\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_species.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max", "sum"]\', \'benchling\')')
+            'VALUES (\'extraction\', \'species\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_species.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max", "sum"]\', \'benchling\')')
 
     # Summarising extraction into tissue_prep
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'extraction\', \'tissue_prep\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tissue_prep.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'extraction\', \'tissue_prep\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tissue_prep.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
 
     # Summarising extraction into tolid
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'extraction\', \'tolid\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tolid.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'extraction\', \'tolid\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tolid.id", "benchling_extraction_type"]\', \'["benchling_volume_ul"]\', \'["min", "max"]\', \'benchling\')')
 
     # =====================================================
     # Stats field: benchling_weight_mg
     # =====================================================
     # Summarising tissue_prep into sample
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'tissue_prep\', \'sample\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_sample.id"]\', \'["benchling_weight_mg"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'tissue_prep\', \'sample\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_sample.id"]\', \'["benchling_weight_mg"]\', \'["min", "max"]\', \'benchling\')')
 
     # Summarising tissue_prep into species
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'tissue_prep\', \'species\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_species.id"]\', \'["benchling_weight_mg"]\', \'["min", "max", "sum"]\', \'benchling\')')
+            'VALUES (\'tissue_prep\', \'species\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_species.id"]\', \'["benchling_weight_mg"]\', \'["min", "max", "sum"]\', \'benchling\')')
 
     # Summarising tissue_prep into tolid
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'tissue_prep\', \'tolid\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tolid.id"]\', \'["benchling_weight_mg"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'tissue_prep\', \'tolid\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tolid.id"]\', \'["benchling_weight_mg"]\', \'["min", "max"]\', \'benchling\')')
 
     # =====================================================
     # Stats field: benchling_remaining_weight
     # =====================================================
     # Summarising sample into species
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sample\', \'species\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_species.id"]\', \'["benchling_remaining_weight"]\', \'["min", "max", "sum"]\', \'benchling\')')
+            'VALUES (\'sample\', \'species\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_species.id"]\', \'["benchling_remaining_weight"]\', \'["min", "max", "sum"]\', \'benchling\')')
 
     # Summarising sample into tolid
     op.execute('INSERT INTO summary (source_object_type, destination_object_type, object_filters, group_by, stats_fields, stats, prefix) '
-            'VALUES (\'sample\', \'tolid\',  \'{\"portaldb_date_abandoned\": {\"exists\": {\"negate\": \"false\"}}}\', \'["benchling_tolid.id"]\', \'["benchling_remaining_weight"]\', \'["min", "max"]\', \'benchling\')')
+            'VALUES (\'sample\', \'tolid\',  \'{"portaldb_date_abandoned": {"exists": {"negate": true}}}\', \'["benchling_tolid.id"]\', \'["benchling_remaining_weight"]\', \'["min", "max"]\', \'benchling\')')
 
 
 def downgrade() -> None:
