@@ -49,7 +49,7 @@ function TUMSteps() {
         "calc_topup_required": {},
         "calc_tolid_actionable": {},
         "benchling_sequencing_request_mlwh_volume_remaining_max": {},
-        "benchling_extraction__benchling_volume_ul_dna_max": {},
+        "benchling_extraction_benchling_volume_ul_dna_max": {},
         "benchling_tissue_prep_benchling_weight_mg_max": {},
         "benchling_sample_benchling_remaining_weight_max": {},
         "benchling_sample_count": {},
