@@ -1,10 +1,10 @@
-# SPDX-FileCopyrightText: 2023 Genome Research Ltd.
+# SPDX-FileCopyrightText: 2025 Genome Research Ltd.
 #
 # SPDX-License-Identifier: MIT
 
 --extra-index-url=https://gitlab.internal.sanger.ac.uk/api/v4/projects/3429/packages/pypi/simple
 
 python_dateutil >= 2.8.1
-tol-sdk[api-base,elastic,postgresql,prefect,sheets] == 1.4.27
+tol-sdk[api-base,elastic,postgresql,prefect,sheets] == 1.4.29
 flask-cors == 4.0.0
 alembic == 1.13.1
