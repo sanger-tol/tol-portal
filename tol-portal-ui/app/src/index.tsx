@@ -146,8 +146,27 @@ const coreLabData: Page = {
   hidden: false
 }
 
-const otherDropdown: Dropdown = {
-  name: "Other",
+const essentialsDropdown: Dropdown = {
+  name: "Essentials",
+  pages: [
+    species,
+    specimens,
+    tolids,
+    samplesets,
+    manifests,
+    samples,
+    extractions,
+    sequencingRequests,
+    sequencingRuns,
+    curations,
+    genomeNotes,
+  ],
+  hidden: false,
+  auth: true
+}
+
+const additionalDropdown: Dropdown = {
+  name: "Additional",
   pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, loaders],
   hidden: false,
   auth: true
@@ -171,21 +190,8 @@ ReactDOM.render(
     }
     homePage={<Home />}
     pages={[
-      species,
-      specimens,
-      tolids,
-      samplesets,
-      manifests,
-      samples,
-      extractions,
-      sequencingRequests,
-      sequencingRuns,
-      curations,
-      genomeNotes,
-      tum,
-      speciesRecollection,
-      samplesStuck,
-      otherDropdown,
+      essentialsDropdown,
+      additionalDropdown,
       publicDropdown
     ]}
     login={true}
