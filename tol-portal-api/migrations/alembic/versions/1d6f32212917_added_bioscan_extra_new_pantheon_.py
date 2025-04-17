@@ -7,6 +7,7 @@ Create Date: 2025-04-16 14:11:11.604845
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.orm import Session
 
 
 # revision identifiers, used by Alembic.
@@ -25,15 +26,19 @@ def upgrade() -> None:
         sa.text("INSERT INTO data_source_instance (name, builtin_name) VALUES ('bioscan_qc', 'bioscan_qc') RETURNING id")
     )
     bioscan_qc_datasource_instance_id = result.scalar()
+    result = session.execute(
+        sa.text("INSERT INTO data_source_instance (name, builtin_name) VALUES ('bioscan_extra', 'bioscan_extra') RETURNING id")
+    )
+    bioscan_extra_datasource_instance_id = result.scalar()
 
     op.execute('INSERT INTO loader (source_data_source_instance_id, source_object_type, destination_data_source_instance_id, destination_object_type, object_filters, convert_class, prefix) '
         f'VALUES ({bioscan_qc_datasource_instance_id}, \'uksi_entry\', 1, \'species\', \'{{}}\', \'BioscanQcUksiEntryToElasticSpeciesUpdateConverter\', \'bioscan_qc\')')
 
     op.execute('INSERT INTO loader (source_data_source_instance_id, source_object_type, destination_data_source_instance_id, destination_object_type, object_filters, convert_class, prefix) '
-        f'VALUES ({bioscan_qc_datasource_instance_id}, \'uksi_entry\', 1, \'species\', \'{{}}\', \'BioscanQcSpecimenToElasticSpeciesUpdateConverter\', \'bioscan_qc\')')
+        f'VALUES ({bioscan_qc_datasource_instance_id}, \'specimen\', 1, \'species\', \'{{}}\', \'BioscanQcSpecimenToElasticSpeciesUpdateConverter\', \'bioscan_qc\')')
     
     op.execute('INSERT INTO loader (source_data_source_instance_id, source_object_type, destination_data_source_instance_id, destination_object_type, object_filters, convert_class, prefix) '
-        f'VALUES (10, \'uksi_entry\', 1, \'species\', \'{{}}\', \'BioscanExtraNewPantheonSpeciesToElasticSpeciesUpdateConverter\', \'bioscan_extra\')')
+        f'VALUES ({bioscan_extra_datasource_instance_id}, \'new_pantheon_species\', 1, \'species\', \'{{}}\', \'BioscanExtraNewPantheonSpeciesToElasticSpeciesUpdateConverter\', \'bioscan_extra\')')
 
 
 def downgrade() -> None:
