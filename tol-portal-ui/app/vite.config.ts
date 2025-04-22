@@ -25,21 +25,8 @@ export default defineConfig({
   plugins: [react(), viteTsconfigPaths()],
   resolve: {
     alias: {
-      // js/ts imports
       '@tol/tol-ui': path.resolve(__dirname, 'src/tol-ui/src'),
-      // scss imports
-      'tol/tol-ui': path.resolve(__dirname, 'src/tol-ui'),
     },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: ``,
-        includePaths: [
-          path.resolve(__dirname, 'scss')
-        ]
-      }
-    }
   },
   build: {
     emptyOutDir: true,
