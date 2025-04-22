@@ -28,6 +28,15 @@ export default defineConfig({
       '@tol/tol-ui': path.resolve(__dirname, 'src/tol-ui/src'),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: [
+          path.resolve(__dirname, 'scss')
+        ]
+      }
+    }
+  },
   build: {
     emptyOutDir: true,
     outDir: "build",
