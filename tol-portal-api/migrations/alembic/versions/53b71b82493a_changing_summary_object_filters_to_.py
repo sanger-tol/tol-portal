@@ -17,32 +17,18 @@ depends_on = None
 
 
 def upgrade() -> None:
-    # Update row 26 to use boolean eq filter instead of string in_list
+    # Update id 26,27 to use boolean eq filter instead of string in_list
     op.execute("""
         UPDATE summary 
-        SET object_filters = '{"calc_topup_required": {"eq": {"value": true}}}'
+        SET object_filters = '{"portaldb_date_abandoned": {"exists": {"negate": true}},"calc_topup_required": {"eq": {"value": true}}}'
         WHERE id = 26
     """)
-    
-    # Update row 27 to use boolean eq filter instead of string in_list
+
     op.execute("""
         UPDATE summary 
-        SET object_filters = '{"calc_individual_exhausted": {"eq": {"value": true}}}'
+        SET object_filters = '{"portaldb_date_abandoned": {"exists": {"negate": true}},"calc_individual_exhausted": {"eq": {"value": true}}}'
         WHERE id = 27
     """)
-
 
 def downgrade() -> None:
-    # Revert row 26 back to using string in_list filter
-    op.execute("""
-        UPDATE summary 
-        SET object_filters = '{"calc_topup_required": {"in_list": {"value": ["true"]}}}'
-        WHERE id = 26
-    """)
-    
-    # Revert row 27 back to using string in_list filter
-    op.execute("""
-        UPDATE summary 
-        SET object_filters = '{"calc_individual_exhausted": {"in_list": {"value": ["true"]}}}'
-        WHERE id = 27
-    """)
+    pass
