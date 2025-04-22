@@ -139,7 +139,7 @@ function TUMSteps() {
           and_: {
             'calc_benchling_volume_ul': {'gte': {'value': 0.5}},
             'benchling_extraction_type':{'in_list': {'value': ['dna']}},
-            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0}},
+            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
@@ -192,7 +192,7 @@ function TUMSteps() {
         "benchling_volume_ul": {},
         "benchling_fluidx_id":{},
         "benchling_extraction_type":{},
-        "benchling_sample.sts_labwhere_parentage": {},
+        "benchling_location": {},
         "benchling_species.goat_ploidy": {},
         "benchling_qubit_concentration_ngul": {},
         "benchling_femto_date_code": {},
@@ -215,8 +215,8 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_benchling_weight_mg': {'gte': {'value': 0.5}},
-            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0}},
+            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
+            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
@@ -252,9 +252,7 @@ function TUMSteps() {
         "benchling_tolid.id": {
           rename: "ToLID",
         },
-        "uid": {
-          rename: "Tissue Prep ID"
-        },
+        "benchling_eln_tissue_prep_name": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "benchling_tissue_prep_fluidx_id":{},
         "benchling_weight_mg":{},
@@ -284,9 +282,9 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_benchling_remaining_weight': {'gte': {'value': 0.5}},
-            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0}},
-            'calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0}},
+            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
+            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
+            'calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
@@ -351,12 +349,12 @@ function TUMSteps() {
         id: 'sample-remaining-STS-v1',
         filter: {
           and_: {
-            'sts_tissue_remaining': {'gt': {'value': 0}},
+            'sts_tissue_remaining': {'gt': {'value': 0.0}},
             'sts_eln_id': {'exists': {'negate': true }},
-            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0}}, 
-            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0}},
-            'calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0}},
-            'calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0}},
+            'calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
+            'calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
+            'calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
+            'calc_benchling_remaining_weight': {'lte': {'value': 0.0}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
@@ -484,7 +482,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
-            'sts_tissue_remaining': {'gt': {'value': 0}},
+            'sts_tissue_remaining': {'gt': {'value': 0.0}},
             'sts_eln_id': {'exists': {'negate': true }},
             
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
