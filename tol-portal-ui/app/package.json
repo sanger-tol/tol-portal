@@ -5,7 +5,6 @@
   "proxy": "http://tol-portal-api:80",
   "dependencies": {
     "@tol/tol-ui": "2.0.13-ed",
-    
     "react": "^17.0.1",
     "react-bootstrap": "2.8.0",
     "react-dom": "^17.0.1",
