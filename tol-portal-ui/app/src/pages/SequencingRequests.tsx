@@ -26,7 +26,11 @@ function SequencingRequests() {
     <RemoteBarChart
       id="sequencing-requests-bar-chart-v1"
       stacked
-      title="Submission from Benchling to SciOps"
+      utilityBarConfig={{
+        title: {
+          title: 'Submission from Benchling to SciOps',
+        }
+      }}
       breakDownBy="benchling_sequencing_platform"
       xAxis="benchling_completion_date"
       type='M'

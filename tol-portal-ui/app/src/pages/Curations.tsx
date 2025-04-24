@@ -27,7 +27,11 @@ import {
         <RemoteBarChart
           id="curations-bar-chart-v1"
           stacked
-          title="Curations"
+          utilityBarConfig={{
+            title: {
+              title: 'Curations',
+            }
+          }}
           breakDownBy="grit_assembly_type"
           xAxis="grit_done_date"
           type='M'

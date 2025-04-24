@@ -34,7 +34,11 @@ function GenomeNotes() {
   const sunburst = (
     <RemoteSunburst
       id="genome-notes-sunburst"
-      title="Species"
+      utilityBarConfig={{
+        title: {
+          title: 'Species',
+        }
+      }}
       sliceBy={["gn_species.sts_order_group", "gn_species.sts_family"]}
       height={450}
       legendPosition="right"

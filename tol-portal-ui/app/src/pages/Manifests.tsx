@@ -25,7 +25,11 @@ import {
       <RemoteBarChart
         id="manifest-bar-chart-v1"
         stacked
-        title="Submitted"
+        utilityBarConfig={{
+          title: {
+            title: 'Submitted',
+          }
+        }}
         breakDownBy="sts_status"
         xAxis="sts_submit_date"
         type='M'

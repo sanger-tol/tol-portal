@@ -83,7 +83,11 @@ function ProjectManagement() {
   const submittedChart = (
     <RemoteBarChart
       id="pm-submitted-bar-chart-v1"
-      title="Species Submitted to ENA"
+      utilityBarConfig={{
+        title: {
+          title: 'Species Submitted to ENA',
+        }
+      }}
       stacked
       shortDate={true}
       breakDownBy="sts_sample_sts_project_union"
@@ -96,7 +100,11 @@ function ProjectManagement() {
 
   const statusChart = (
     <RemoteBarChart
-      title="Current Species Statuses"
+      utilityBarConfig={{
+        title: {
+          title: 'Current Species Statuses',
+        }
+      }}
       id="pm-status-bar-chart-v1"
       stacked
       breakDownBy="sts_sample_sts_project_union"
