@@ -41,9 +41,7 @@ export default defineConfig({
             return null;
           }
         ],
-        includePaths: [
-          path.resolve(__dirname, 'scss')
-        ]
+        includePaths: ['node_modules']
       }
     }
   },
