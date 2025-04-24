@@ -115,6 +115,7 @@ function TUMSteps() {
         "benchling_tolid.sts_sample_sts_project_union": {},
         "mlwh_volume_remaining": {},
         "benchling_species.goat_ploidy": {}, 
+        "benchling_disruption_method": {},
         "mlwh_run_data_mlwh_hifi_read_bases_sum": {},
         "benchling_tolid.informatics_status_summary": {},
         "uid": {
@@ -193,6 +194,8 @@ function TUMSteps() {
         "benchling_fluidx_id":{},
         "benchling_extraction_type":{},
         "benchling_location": {},
+        "benchling_disruption_method": {},
+        "benchling_tube_location": {},
         "benchling_species.goat_ploidy": {},
         "benchling_qubit_concentration_ngul": {},
         "benchling_femto_date_code": {},
@@ -262,7 +265,7 @@ function TUMSteps() {
         "benchling_tolid.informatics_status_summary": {},
         "benchling_tolid.calc_coverage": {},
         "benchling_sampleprep_date": {},
-        // Disruption Method (to be pulled from benchling)
+        "benchling_disruption_method": {},
         "benchling_species.goat_ploidy": {},
         "benchling_species.sts_sample_sts_priority_min": {},
         "benchling_sample.sts_preservation_approach": {},

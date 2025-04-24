@@ -1,7 +1,7 @@
 """changing summary object filters to reflect boolean type
 
 Revision ID: 53b71b82493a
-Revises: 1d6f32212917
+Revises: f890494ce67c
 Create Date: 2025-04-16 06:21:48.352867
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '53b71b82493a'
-down_revision = '1d6f32212917'
+down_revision = 'f890494ce67c'
 branch_labels = None
 depends_on = None
 
