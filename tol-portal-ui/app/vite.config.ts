@@ -21,29 +21,17 @@ const httpsConfig =
       }
     : false;
 
+// Determine if the environment is development
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 export default defineConfig({
   plugins: [react(), viteTsconfigPaths()],
   resolve: {
     alias: {
-      '@tol/tol-ui': path.resolve(__dirname, 'src/tol-ui/src'),
+      '@tol/tol-ui': isDevelopment
+        ? path.resolve(__dirname, 'node_modules/@tol/tol-ui/src')
+        : path.resolve(__dirname, 'node_modules/@tol/tol-ui/dist'),
     },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        importer: [
-          (url: string) => {
-            if (url.startsWith('~@tol/tol-ui')) {
-              console.log('BANANA')
-              console.log({ file: path.resolve(__dirname, 'src/tol-ui/src', url.replace('~@tol/tol-ui/', '')) })
-              return { file: path.resolve(__dirname, 'src/tol-ui/src', url.replace('~@tol/tol-ui/', '')) };
-            }
-            return null;
-          }
-        ],
-        includePaths: ['node_modules']
-      }
-    }
   },
   build: {
     emptyOutDir: true,
@@ -62,4 +50,4 @@ export default defineConfig({
       },
     },
   },
-})
+});
