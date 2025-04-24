@@ -22,17 +22,17 @@ const httpsConfig =
     : false;
 
 // Determine if the environment requires a local version of tol-ui
-const isToluiLocal = process.env.LOCAL_TOLUI === 'true';
+const IS_TOLUI_LOCAL = process.env.LOCAL_TOLUI === 'true';
 
 export default defineConfig({
   plugins: [react(), viteTsconfigPaths()],
   resolve: {
     alias: {
-      '@tol/tol-ui': isToluiLocal
+      '@tol/tol-ui': IS_TOLUI_LOCAL
         ? path.resolve(__dirname, 'src/tol-ui/src')
         : path.resolve(__dirname, 'node_modules/@tol/tol-ui'),
 
-      "@tol/tol-css": isToluiLocal
+      "@tol/tol-css": IS_TOLUI_LOCAL
       ? path.resolve(__dirname, "src/tol-ui/src/scss")
       : path.resolve(__dirname, "node_modules/@tol/tol-ui/src/scss"),
     },
