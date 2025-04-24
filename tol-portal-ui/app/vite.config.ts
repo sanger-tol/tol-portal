@@ -31,6 +31,16 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        importer: [
+          (url: string) => {
+            if (url.startsWith('~@tol/tol-ui')) {
+              console.log('BANANA')
+              console.log({ file: path.resolve(__dirname, 'src/tol-ui/src', url.replace('~@tol/tol-ui/', '')) })
+              return { file: path.resolve(__dirname, 'src/tol-ui/src', url.replace('~@tol/tol-ui/', '')) };
+            }
+            return null;
+          }
+        ],
         includePaths: [
           path.resolve(__dirname, 'scss')
         ]
