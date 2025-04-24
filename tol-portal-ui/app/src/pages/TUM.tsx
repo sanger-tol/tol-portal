@@ -98,7 +98,7 @@ function TUM() {
         "benchling_species.sts_taxon_group": {
           rename: "Taxon Group"
         },
-        "benchling_species.calc_coverage": {
+        "benchling_species.calc_coverage_estimated": {
           rename: "Calculated Coverage"
         },
         "benchling_specimen.sts_estimated_genome_size": {
