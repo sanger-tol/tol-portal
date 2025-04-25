@@ -42,121 +42,144 @@ const species: Page = {
 const specimens: Page = {
   name: "Specimens",
   element: <Specimens />,
-  auth: true
+  auth: true,
 };
 
 const tolids: Page = {
   name: "ToLIDs",
   element: <ToLIDs />,
-  auth: true
+  auth: true,
 };
 
 const samplesets: Page = {
   name: "Sample Sets",
   element: <Samplesets />,
-  auth: true
+  auth: true,
 };
 
 const manifests: Page = {
   name: "Manifests",
   element: <Manifests />,
-  auth: true
+  auth: true,
 };
 
 const samples: Page = {
   name: "Samples",
   element: <Samples />,
-  auth: true
+  auth: true,
 };
 
 const extractions: Page = {
   name: "Extractions",
   element: <Extractions />,
-  auth: true
+  auth: true,
 };
 
 const sequencingRequests: Page = {
   name: "Requests",
   element: <SequencingRequests />,
-  auth: true
+  auth: true,
 };
 
 const sequencingRuns: Page = {
   name: "Runs",
   element: <SequencingRuns />,
-  auth: true
+  auth: true,
 };
 
 const curations: Page = {
   name: "Curations",
   element: <Curations />,
-  auth: true
+  auth: true,
 };
 
 const genomeNotes: Page = {
   name: "Genome Notes",
   element: <GenomeNotes />,
-  auth: true
+  auth: true,
 };
 
 const tum: Page = {
   name: "TUM",
   element: <TUM />,
-  hidden: true,
-  auth: true
+  auth: true,
 };
 
 const speciesRecollection: Page = {
   name: "Recollection",
   element: <SpeciesRecollection/>,
-  hidden: true,
-  auth: true
+  auth: true,
 }
 
 const samplesStuck: Page = {
   name: "Samples Stuck",
   element: <SamplesStuck/>,
-  hidden: true,
-  auth: true
+  auth: true,
 }
 
 const projectManagement: Page = {
   name: "Project Management",
   element: <ProjectManagement/>,
-  hidden: true
 }
 
 const tumSteps: Page = {
   name: "TUM Steps",
   element: <TUMSteps />,
-  hidden: true,
-  auth: true
+  auth: true,
 }
 
 const loaders: Page = {
   name: "Loaders",
   element: <Loaders />,
-  hidden: true,
-  auth: true
+  auth: true,
 }
 
 const coreLabData: Page = {
   name: "Core Lab Data",
   element: <CoreLabData />,
-  hidden: false
 }
 
-const otherDropdown: Dropdown = {
-  name: "Other",
+const taxaDropdown: Dropdown = {
+  name: "Taxa",
+  pages: [
+    species,
+    specimens,
+    tolids,
+  ],
+  auth: true,
+};
+
+const samplesDropdown: Dropdown = {
+  name: "Samples",
+  pages: [
+    samplesets,
+    manifests,
+    samples,
+  ],
+  auth: true,
+};
+
+const pipelineDropdown: Dropdown = {
+  name: "Pipeline",
+  pages: [
+    extractions,
+    sequencingRequests,
+    sequencingRuns,
+    curations,
+    genomeNotes,
+  ],
+  auth: true,
+};
+
+const additionalDropdown: Dropdown = {
+  name: "Additional",
   pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, loaders],
-  hidden: false,
-  auth: true
+  auth: true,
 }
 
 const publicDropdown: Dropdown = {
   name: "Public",
   pages: [coreLabData],
-  hidden: false
 }
 
 ReactDOM.render(
@@ -171,21 +194,10 @@ ReactDOM.render(
     }
     homePage={<Home />}
     pages={[
-      species,
-      specimens,
-      tolids,
-      samplesets,
-      manifests,
-      samples,
-      extractions,
-      sequencingRequests,
-      sequencingRuns,
-      curations,
-      genomeNotes,
-      tum,
-      speciesRecollection,
-      samplesStuck,
-      otherDropdown,
+      taxaDropdown,
+      samplesDropdown,
+      pipelineDropdown,
+      additionalDropdown,
       publicDropdown
     ]}
     login={true}
