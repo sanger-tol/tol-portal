@@ -85,7 +85,11 @@ function Species() {
   const speciesReceivedCount = (
     <RemoteCount
       id="species-received-count"
-      title='Species Received'
+      utilityBarConfig={{
+        title: {
+          title: 'Species Received',
+        }
+      }}
       {...species}
     />
   );
@@ -93,7 +97,11 @@ function Species() {
   const speciesExtractedCount = (
     <RemoteCount
       id="species-extracted-count"
-      title='Species Extracted'
+      utilityBarConfig={{
+        title: {
+          title: 'Species Extracted',
+        }
+      }}
       {...species}
     />
   );
@@ -101,7 +109,11 @@ function Species() {
   const speciesSubmittedCount = (
     <RemoteCount
       id="species-submitted-count"
-      title='Species Submitted'
+      utilityBarConfig={{
+        title: {
+          title: 'Species Submitted',
+        }
+      }}
       {...species}
     />
   );
@@ -109,7 +121,11 @@ function Species() {
   const speciesDoneCount = (
     <RemoteCount
       id="species-done-count"
-      title='Species Marked as Done'
+      utilityBarConfig={{
+        title: {
+          title: 'Species Received',
+        }
+      }}
       {...species}
     />
   );
@@ -117,7 +133,11 @@ function Species() {
   const sunburst = (
     <RemoteSunburst
       id="species-sunburst"
-      title="Species"
+      utilityBarConfig={{
+        title: {
+          title: 'Species',
+        }
+      }}
       sliceBy={["sts_order_group", "sts_family"]}
       height={450}
       legendPosition="right"

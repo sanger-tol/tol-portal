@@ -25,7 +25,11 @@ import {
       <RemoteBarChart
         id="sampleset-bar-chart-v1"
         stacked
-        title="Compliance"
+        utilityBarConfig={{
+          title: {
+            title: 'Compliance',
+          }
+        }}
         breakDownBy="sts_rg_status_non_human"
         xAxis="sts_rg_status_updated_at_non_human"
         type='M'

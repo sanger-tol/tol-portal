@@ -26,7 +26,11 @@ function Samples() {
     <RemoteBarChart
       id="samples-bar-chart-v2"
       stacked
-      title="Samples Recieved"
+      utilityBarConfig={{
+        title: {
+          title: 'Samples Recieved',
+        }
+      }}
       breakDownBy="sts_ac_status"
       xAxis="sts_receive_date"
       type='M'

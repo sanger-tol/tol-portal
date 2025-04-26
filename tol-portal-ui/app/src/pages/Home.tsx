@@ -53,7 +53,11 @@ function Home() {
       id="home-run-bar-chart-v1"
       endpoint="run_data"
       stacked
-      title="Run Complete Data"
+      utilityBarConfig={{
+        title: {
+          title: 'Run Complete Data',
+        }
+      }}
       breakDownBy="mlwh_instrument_model"
       xAxis="mlwh_run_complete"
       type='M'
@@ -65,7 +69,11 @@ function Home() {
       id="home-sample-bar-chart-v1"
       endpoint="sample"
       stacked
-      title="Samples Recieved"
+      utilityBarConfig={{
+        title: {
+          title: 'Species Received',
+        }
+      }}
       breakDownBy="sts_ac_status"
       xAxis="benchling_date_sample_received_at_sanger"
       type='M'
@@ -76,7 +84,11 @@ function Home() {
     <RemoteSunburst
       id="home-species-sunburst-v1"
       endpoint="species"
-      title="Species"
+      utilityBarConfig={{
+        title: {
+          title: 'Species',
+        }
+      }}
       sliceBy={["sts_order_group", "sts_family"]}
       legendPosition="left"
     />
@@ -115,7 +127,11 @@ function Home() {
   const speciesCount = (
     <RemoteCount
       id="home-species-count-v1"
-      title='Species'
+      utilityBarConfig={{
+        title: {
+          title: 'Species',
+        }
+      }}
       {...useZone({
         endpoint: 'species',
         filter: defaultFilter,
@@ -136,7 +152,11 @@ function Home() {
   const tolidCount = (
     <RemoteCount
       id="home-tolid-count-v1"
-      title='ToLIDs Submitted'
+      utilityBarConfig={{
+        title: {
+          title: 'TOLIDs Submitted',
+        }
+      }}
       {...useZone({
         endpoint: 'tolid',
         filter: defaultFilter,
@@ -158,7 +178,11 @@ function Home() {
     <RemoteCount
       id="home-extractions-count-v1"
       endpoint='extraction'
-      title='Extractions'
+      utilityBarConfig={{
+        title: {
+          title: 'Extractions',
+        }
+      }}
     />
   );
 
@@ -166,7 +190,11 @@ function Home() {
     <RemoteCount
       id="home-run-data-count-v1"
       endpoint='run_data'
-      title='Runs'
+      utilityBarConfig={{
+        title: {
+          title: 'Runs',
+        }
+      }}
     />
   );
 

@@ -25,7 +25,11 @@ function Extractions() {
     <RemoteBarChart
       id="extractions-bar-chart-v1"
       stacked
-      title="Extractions"
+      utilityBarConfig={{
+        title: {
+          title: 'Extractions',
+        }
+      }}
       breakDownBy="benchling_extraction_type"
       xAxis="benchling_completion_date"
       type='M'

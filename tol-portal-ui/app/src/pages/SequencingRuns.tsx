@@ -26,7 +26,11 @@ function SequencingRuns() {
     <RemoteBarChart
       id="sequencing-runs-bar-chart-v1"
       stacked
-      title="Run Complete Data"
+      utilityBarConfig={{
+        title: {
+          title: 'Run complete date',
+        }
+      }}
       breakDownBy="mlwh_instrument_model"
       xAxis="mlwh_run_complete"
       type='M'
