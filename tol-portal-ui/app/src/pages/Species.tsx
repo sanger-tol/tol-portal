@@ -123,7 +123,7 @@ function Species() {
       id="species-done-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Received',
+          title: 'Species Marked as Done',
         }
       }}
       {...species}
