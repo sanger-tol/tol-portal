@@ -552,7 +552,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_recollection_needed': {'eq': {'value': true}},   
-            'calc_species_recollectable': {'eq': {'value': true}},
+            'calc_species_out_for_recollection': {'eq': {'value': true}},
           }
         }
       }
