@@ -351,16 +351,15 @@ function TUMSteps() {
         id: 'sample-remaining-STS-v1',
         filter: {
           and_: {
-            'sts_tissue_remaining': {'gt': {'value': 0.0}},
             'sts_eln_id': {'exists': {'negate': true }},
+            'calc_sample_abandoned_in_sts': {'exists': {'negate': true }},
             'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
             'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
             'benchling_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
-            'calc_benchling_remaining_weight': {'lte': {'value': 0.0}},
+            'benchling_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'portaldb_date_abandoned': {'exists': {'negate': true}}, //STS sample not abandoned
           }
         }
       }
@@ -484,9 +483,9 @@ function TUMSteps() {
         filter: {
           and_: {
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
-            'sts_tissue_remaining': {'gt': {'value': 0.0}},
+            'sts_tolid.calc_individual_exhausted': {'eq': {'value': false}},
             'sts_eln_id': {'exists': {'negate': true }},
-            
+
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
           }
