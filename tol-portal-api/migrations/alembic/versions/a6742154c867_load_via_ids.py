@@ -92,6 +92,25 @@ def upgrade() -> None:
 
     op.execute(
         'UPDATE loader '
+        'SET frequency_daily = true '
+        'WHERE frequency = \'daily\''
+    )
+    op.execute(
+        'UPDATE loader '
+        'SET frequency_hourly = true '
+        'WHERE frequency = \'hourly\''
+    )
+    op.execute(
+        'UPDATE loader '
+        'SET frequency_quarter_hourly = true '
+        'WHERE frequency = \'quarter_hourly\''
+    )
+    op.drop_column(
+        'loader',
+        'frequency')
+
+    op.execute(
+        'UPDATE loader '
         'SET object_filters = jsonb_build_object(\'and_\', object_filters) '
         'WHERE object_filters IS NOT NULL'
     )
