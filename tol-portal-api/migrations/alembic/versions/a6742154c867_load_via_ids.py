@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 # revision identifiers, used by Alembic.
 revision = 'a6742154c867'
-down_revision = '7e234da3d49e'
+down_revision = 'b514ce799491'
 branch_labels = None
 depends_on = None
 
@@ -48,10 +48,6 @@ def upgrade() -> None:
         sa.text(
             "UPDATE loader SET frequency_quarter_hourly = true where frequency = 'quarter_hourly'"
         )
-    )
-    op.drop_column(
-        'loader',
-        'frequency'
     )
     op.add_column(
         'loader',
