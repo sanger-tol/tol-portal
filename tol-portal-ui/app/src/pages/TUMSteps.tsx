@@ -4,11 +4,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, useTranslator } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { useState } from 'react';
 
 // Table 1
 function TUMSteps() {
+  const [showModal, setShowModal] = useState(false);
+
   const tolid = useZone({
     endpoint: 'tolid',
     components: [
@@ -18,6 +21,8 @@ function TUMSteps() {
           and_: {
             'calc_topup_required': {'eq': {'value': true}},
             'calc_tolid_actionable': {'eq': {'value': true }},
+            //'calc_extraction_dna_count': {'gt': {'value': 0}},
+            'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -56,6 +61,7 @@ function TUMSteps() {
         "sts_sample_count": {},
         "calc_individual_available": {},
         "tolid_species.calc_recollection_needed": {},
+        "calc_extraction_dna_count": {},
       }}
       {...tolid}
     />
@@ -70,10 +76,10 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_mlwh_volume_remaining': {'gte': {'value': 0.5}},
-
+            'benchling_extraction.benchling_extraction_type':{'in_list': {'value': ['dna']}},
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            
+            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -123,6 +129,7 @@ function TUMSteps() {
         },
         "mlwh_source_barcode": {},
         // Cherry Pick ID
+        "benchling_extraction.benchling_extraction_type": {},
       }}
       actions={['Request Resequencing', 'Mark as Not Valid']}
       rowSelection={true}
@@ -144,6 +151,7 @@ function TUMSteps() {
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -222,6 +230,7 @@ function TUMSteps() {
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -290,6 +299,7 @@ function TUMSteps() {
 
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -351,15 +361,15 @@ function TUMSteps() {
         id: 'sample-remaining-STS-v1',
         filter: {
           and_: {
-            'sts_eln_id': {'exists': {'negate': true }},
-            'calc_sample_abandoned_in_sts': {'exists': {'negate': true }},
-            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
-            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
-            'benchling_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
-            'benchling_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
+            'calc_sample_eligible_for_sts_table': {'eq': {'value': true}},
+            'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
+            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
+            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
+            'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            "sts_tolid.informatics_status_summary":{"in_list":{"value":["7 ignore"],"negate":true}},
           }
         }
       }
@@ -389,13 +399,13 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "benchling_tolid.id": {
+        "sts_tolid.id": {
           rename: "ToLID",
         },
         "uid": {
           rename: "Sample ID"
         },
-        "benchling_tolid.sts_sample_sts_project_union": {},
+        "sts_tolid.sts_sample_sts_project_union": {},
         "benchling_remaining_weight": {},
         "sts_labwhere_parentage": {},
         "sts_tolid.informatics_gscope_coverage": {},
@@ -405,8 +415,8 @@ function TUMSteps() {
         "sts_organism_part":{},
         "sts_tissue_size": {},
         "sts_sex": {},
-        "benchling_species.goat_ploidy": {},
-        "benchling_species.sts_sample_sts_priority_min": {},
+        "sts_species.goat_ploidy": {},
+        "sts_species.sts_sample_sts_priority_min": {},
       }}
       actions={['Export into Benchling', 'Mark as Not Valid']}
       rowSelection={true}
@@ -424,6 +434,7 @@ function TUMSteps() {
           and_: {
             'calc_individual_exhausted': {'eq': {'value': true}},
             'calc_topup_required': {'eq': {'value': true}},
+            'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -484,10 +495,15 @@ function TUMSteps() {
           and_: {
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
             'sts_tolid.calc_individual_exhausted': {'eq': {'value': false}},
-            'sts_eln_id': {'exists': {'negate': true }},
+
+            'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
+            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
+            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
+            'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
+            'sts_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
       }
@@ -517,7 +533,7 @@ function TUMSteps() {
      displaySource
      defaultSort="benchling_tolid.id"
      fields={{
-        "benchling_tolid.id": {
+        "sts_tolid.id": {
           rename: "ToLID",
         },
         "uid": {
@@ -551,7 +567,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_recollection_needed': {'eq': {'value': true}},   
-            'calc_species_out_for_recollection': {'eq': {'value': true}},
+            'calc_species_out_for_recollection': {'eq': {'value': false}},
           }
         }
       }
@@ -597,14 +613,114 @@ function TUMSteps() {
    />
   );
 
+  const ModalContent = (
+    <div className="help-documentation" style={{maxWidth: '95%'}}>
+      <h6>Overview</h6>
+      <p>
+        The Top-Up Management system helps identify and process ToLIDs that need additional
+        sequencing to meet their coverage targets. The tables are organized in order of processing
+        priority, from most processed material (Library) to least processed (Sample in STS).
+      </p>
+  
+      <h6>Key Fields</h6>
+      <ul>
+        <li><strong>Estimated Coverage Met</strong>: Determined based on the basis Cumulative Yield per Estimated Species Genome Size must be less than Target Coverage</li>
+        <li><strong>Top-Up Required</strong>: First level of filtering, ensuring the ToLID has history of completed sequencing, are still in data generation stage, and has not met coverage</li>
+        <li><strong>Max Volume/Weight Remaining</strong>: Amount of maximum material available at each processing stage for a particular ToLID</li>
+        <li><strong>Individual Exhausted</strong>: Indicates all material for this ToLID is used up</li>
+        <li><strong>Other Individual Available</strong>: Indicates alternative samples exist for the same species</li>
+      </ul>
+  
+      <h6>Workflow Process</h6>
+      <ol>
+        <li>Start with the Top-Up Required table to identify ToLIDs needing additional sequencing.</li>
+        <li>
+          Check tables in order (Library → DNA → Tissue Prep → Tissue → Sample) to find the
+          most processed material available.
+        </li>
+        <li>
+          Take the appropriate action based on available material:
+          <ul>
+            <li>Library available → Request resequencing</li>
+            <li>DNA available → Insert into LI/ULI work list</li>
+            <li>Tissue prep available → Insert into Tissue Prep work list</li>
+            <li>Tissue in Benchling available → Insert into Benchling Tissue work list</li>
+            <li>Sample in STS available → Export to Benchling</li>
+          </ul>
+        </li>
+        <li>
+          If all materials for an individual are exhausted, check for samples from other individuals
+          in the "Sample from Other Individual Available" table.
+        </li>
+        <li>
+          If all individuals of a species are exhausted, mark the species for recollection.
+        </li>
+      </ol>
+  
+      <h6>Common Actions</h6>
+      <p style={{marginBottom: '8px'}}><strong><u>Requesting Resequencing</u></strong></p>
+      <p>Use when library material is available and you want to request additional sequencing.</p>
+  
+      <p style={{marginBottom: '8px'}}><strong><u>Inserting into Work Lists</u></strong></p>
+      <ul>
+        <li><strong>LI Work List</strong>: DNA extractions for library prep using LI protocol</li>
+        <li><strong>ULI Work List</strong>: DNA extractions for library prep using ULI protocol</li>
+        <li><strong>Tissue Prep Work List</strong>: Tissues ready for preparation</li>
+        <li><strong>Benchling Tissue Work List</strong>: Tissue samples in Benchling</li>
+      </ul>
+  
+      <p style={{marginBottom: '8px'}}><strong><u>Exporting into Benchling</u></strong></p>
+      <p>Exports samples from STS into Benchling for processing.</p>
+  
+      <p style={{marginBottom: '8px'}}><strong><u>Marking as Not Valid</u></strong></p>
+      <p>Marks a record as 'Not Valid' when it's not suitable for processing. This will cause it to be removed from the current table and repopulate another table for less processed material (if available).</p>
+  
+      <p style={{marginBottom: '8px'}}><strong><u>Marking for Recollection</u></strong></p>
+      <p>Used when all individuals of a species are exhausted and new specimens need to be collected.</p>
+  
+      <h6>Best Practices</h6>
+      <ol>
+        <li>
+          Process materials in table order (Library → DNA → Tissue Prep → Benchling Tissue → STS Sample)
+          to minimize processing steps.
+        </li>
+        <li>
+          Use "Mark as Not Valid" for unsuitable entries to ensure accurate tracking.
+        </li>
+        <li>
+          Actioning multiple items at once is possible, and preferable than actioning items individual.
+        </li>
+        <li>
+          Wait for a few minutes after setting actions to ensure the system updates the tables correctly.
+        </li>
+        <li>
+          If you encounter issues, please contact the TOLP team for assistance.
+        </li>
+      </ol>
+    </div>
+  );
+  
+
+  const HelpModal = (
+    <Modal header={<h6></h6>}
+    open={showModal}
+    setOpen={setShowModal}
+    children={ModalContent}
+    />
+  )
+
   const title = (
-    <div>
+    <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <h2>Top-Up Management</h2>
+      <Button type='primary' text='Help' onClick={() => setShowModal(true)}/>
     </div>
   );
 
-  const tableTitle = (text: string) => (
-    <h6>{text}</h6>
+  const tableTitle = (text: string, tooltipContent: string) => (
+    <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <h6 style={{marginBottom: '0px'}}>{text}</h6>
+      <InfoTooltip contents={tooltipContent}/>
+    </div>
   );
 
   const components = [
@@ -613,7 +729,8 @@ function TUMSteps() {
       type: 'full'
     },
     {
-      component: tableTitle('Top-Up Required'),
+      component: tableTitle('Top-Up Required', 
+        'Starting point showing all ToLIDs that need additional sequencing to meet their target coverage.'),
       type: 'full'
     },
     {
@@ -621,7 +738,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Library Remaining'),
+      component: tableTitle('Library Remaining', 
+        'Sequencing requests with library material remaining (≥ 0 units). This is the preferred option as it requires the least processing.'),
       type: 'full'
     },
     {
@@ -629,7 +747,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('DNA Remaining'),
+      component: tableTitle('DNA Remaining', 
+        'DNA extractions with volume remaining (≥ 0 units) for ToLIDs with no library material. These DNA extractions require library preparation before sequencing.'),
       type: 'full'
     },
     {
@@ -637,7 +756,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Tissue Prep Remaining'),
+      component: tableTitle('Tissue Prep Remaining', 
+        'Tissue preparations with weight remaining (≥ 0 units) for ToLIDs with no library or DNA material. These tissue preps require DNA extraction and library preparation.'),
       type: 'full'
     },
     {
@@ -645,7 +765,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Tissue Remaining in Benchling'),
+      component: tableTitle('Tissue Remaining in Benchling', 
+        'Tissue samples in Benchling with weight remaining (≥ 0 units) for ToLIDs with no other material. These tissues require tissue preparation, DNA extraction, and library preparation.'),
       type: 'full'
     },
     {
@@ -653,7 +774,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Sample Remaining in STS'),
+      component: tableTitle('Sample Remaining in STS', 
+        'Samples in STS that haven\'t been exported to Benchling yet, for ToLIDs with no other material. These samples need to be exported to Benchling before processing.'),
       type: 'full'
     },
     {
@@ -661,7 +783,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Individual Exhausted'),
+      component: tableTitle('Individual Exhausted', 
+        'ToLIDs where all materials are exhausted but additional sequencing is still needed. These individuals require alternative sources of material.'),
       type: 'full'
     },
     {
@@ -669,7 +792,8 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Sample from Other Individual Available'),
+      component: tableTitle('Sample from Other Individual Available', 
+        'Samples from other individuals of the same species, when the primary individual is exhausted. These STS samples provide alternative sources of material.'),
       type: 'full'
     },
     {
@@ -677,17 +801,19 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Species to be Marked for Recollection (All Individuals Exhausted)'),
+      component: tableTitle('Species to be Marked for Recollection', 
+        'Species where all individuals are exhausted and new specimens need to be collected. These species require recollection of new specimens.'),
       type: 'full'
     },
     {
       component: individualExhaustedRecollectionTable,
       type: 'xl'
     }
-  ];
+  ];  
   
   return (
     <div className="tum">
+      {HelpModal}
       <Widgets
         components={components}
       />
