@@ -19,11 +19,26 @@ depends_on = None
 def upgrade() -> None:
     op.execute("""
         UPDATE component
-        SET config = jsonb_set(
-            config - 'type',  -- remove the old 'type'
-            '{grouping}',     -- new key
-            to_jsonb(config->'type')  -- reuse the old value
-        )
+        SET config = CASE
+            -- if already has chartType, just do the rename
+            WHEN config ? 'chartType' THEN
+                jsonb_set(
+                    config - 'type',
+                    '{grouping}',
+                    to_jsonb(config->'type')
+                )
+            -- else do rename AND inject chartType = "bar"
+            ELSE
+                jsonb_set(
+                    jsonb_set(
+                        config - 'type',
+                        '{grouping}',
+                        to_jsonb(config->'type')
+                    ),
+                    '{chartType}',
+                    to_jsonb('bar'::text)
+                )
+        END
         WHERE component_type = 'chart' AND config ? 'type';
     """)
 
