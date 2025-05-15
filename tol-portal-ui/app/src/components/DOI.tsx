@@ -5,14 +5,17 @@ SPDX-License-Identifier: MIT
 */
 
 interface Props {
-  doi: string
+  doi: string;
+  displayName?: string; // Optional display name
 }
 
-function DOI(props: Props) {
-  const { doi, displayName } = props;
-  if (doi === null || doi === "") {
-    return <></>;
+function DOI({ doi, displayName }: Props) {
+  if (!doi) {
+    return null; // Return null if no DOI is provided
   }
+
+  // Fallback to DOI if displayName is not provided
+  const linkText = displayName || doi; 
 
   return (
     <a
@@ -20,8 +23,9 @@ function DOI(props: Props) {
       target="_blank"
       rel="noopener noreferrer"
       className="doi-link"
+      aria-label={`DOI link to ${linkText}`}
     >
-      {displayName}
+      {linkText}
     </a>
   );
 }
