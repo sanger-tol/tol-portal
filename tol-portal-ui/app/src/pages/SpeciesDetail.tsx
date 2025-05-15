@@ -13,6 +13,7 @@ import {
   useZone,
   Timeline
 } from '@tol/tol-ui';
+import DOI from '../components/DOI';
 import Platform from '../components/Platform';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -262,9 +263,6 @@ function SpeciesDetail() {
         id='gn-table-detail-v1'
         height={300}
         fields={{
-          "uid": {
-            rename: "DOI",
-          },
           "gn_tolid.id": {
             rename: "ToLID"
           },
@@ -274,6 +272,18 @@ function SpeciesDetail() {
           "gn_date_published": {
           },
           "gn_passed_pr": {
+          },
+          "uid": {
+            rename: "Note",
+            cellRenderer: {
+              element: DOI,
+              propPointers: {
+                doi: "uid"
+              },
+              props: {
+                displayName: 'View Genome Note'
+              }
+            }
           },
         }}
         {...useZone({
