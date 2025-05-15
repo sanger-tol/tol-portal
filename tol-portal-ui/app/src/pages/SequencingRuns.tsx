@@ -46,10 +46,8 @@ function SequencingRuns() {
       displaySource
       fields={{
         "mlwh_run_id": {
-          rename: "Run ID"
         },
         "mlwh_species.sts_scientific_name": {
-          rename: "Species",
           cellRenderer: "relationshipDetail"
         },
         "mlwh_tolid.id": {
@@ -59,10 +57,8 @@ function SequencingRuns() {
           rename: "Sequencing Request"
         },
         "mlwh_run_complete": {
-          rename: "Complete Date"
         },
         "tolqc_reporting_category": {
-          rename: "Category",
           cellRenderer: {
             element: Platform,
             propPointers: {
@@ -71,7 +67,6 @@ function SequencingRuns() {
           }
         },
         "mlwh_platform_type": {
-          rename: "Platform",
           cellRenderer: {
             element: Platform,
             propPointers: {
@@ -80,13 +75,14 @@ function SequencingRuns() {
           }
         },
         "mlwh_instrument_model": {
-          rename: "Instrument"
         },
-        "mlwh_position": {
-          rename: "Position"
+        "mlwh_element": {
         },
         "mlwh_tag_index": {
-          rename: "Tag"
+        },
+        "tolqc_bases": {
+        },
+        "tolqc_read_length_n50": {
         }
       }}
       {...runs}

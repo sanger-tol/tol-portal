@@ -44,19 +44,14 @@ import {
         defaultSort="sts_copo_profile_title"
         fields={{
           "sts_copo_profile_title": {
-            rename: "Manifest ID"
           },
           "sts_project": {
-            rename: "Project",
           },
           "sts_status": {
-            rename: "Status"
           },
           "sts_shipment_status": {
-            rename: "Shipment Status"
           },
           "sts_compliance_status": {
-            rename: "Compliance"
           }
         }}
         {...manifests}

@@ -13,8 +13,10 @@ import {
   useZone,
   Timeline
 } from '@tol/tol-ui';
+import Platform from '../components/Platform';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { Tabs } from 'rsuite';
 
 function generateDetail(attributes: any) {
   return (
@@ -82,19 +84,14 @@ function SpeciesDetail() {
             rename: "Specimen ID"
           },
           "sts_gal_name": {
-            rename: "GAL"
           },
           "sts_sex": {
-            rename: "Sex"
           },
           "sts_organism_part": {
-            rename: "Organism Part"
           },
           "sts_biosample_accession": {
-            rename: "Biosample"
           },
           "sts_biospecimen_accession": {
-            rename: "Biospecimen"
           }
         }}
         {...useZone({
@@ -122,17 +119,11 @@ function SpeciesDetail() {
         height={500}
         fields={{
           "benchling_extraction_type": {
-            rename: "Type"
           },
           "benchling_tolid.id": {
             rename: "ToLID"
           },
-          "benchling_species.id": {
-            rename: "Species",
-            cellRenderer: "relationshipDetail"
-          },
           "benchling_completion_date": {
-            rename: "Completion Date"
           }
         }}
         {...useZone({
@@ -150,38 +141,41 @@ function SpeciesDetail() {
     </div>
   );
 
-  const pacbioTable = (
+  const runsTable = (
     <div>
-      <h5>PacBio Run Data</h5>
-      <p className='mb-3'>Information for each PacBio sequencing run collected for this species.</p>
+      <h5>Run Data</h5>
+      <p className='mb-3'>Information for each sequencing run collected for this species.</p>
       <RemoteTable
         id='pacbio-table-detail-v1'
         height={300}
         fields={{
+          "tolqc_reporting_category": {
+            cellRenderer: {
+              element: Platform,
+              propPointers: {
+                platform: "tolqc_reporting_category"
+              }
+            }
+          },
           "mlwh_pipeline_id_lims": {
-            rename: "Pipeline"
           },
           "mlwh_tolid.id": {
             rename: "ToLID"
           },
           "mlwh_run_complete": {
-            rename: "Run Complete Date"
           },
           "mlwh_lims_run_id": {
-            rename: "Run ID"
           },
           "mlwh_run_id": {
-            rename: "Movie"
           },
-          "mlwh_well_label": {
-            rename: "Well"
+          "mlwh_element": {
           },
-          "mlwh_tag1_id": {
-            rename: "Tag ID"
+          "mlwh_tag_index": {
           },
           "mlwh_biosample_accession": {
-            rename: "Sample Accession"
           },
+          "tolqc_bases": {
+          }
         }}
         {...useZone({
           endpoint: 'run_data',
@@ -190,56 +184,6 @@ function SpeciesDetail() {
             filter: {
               and_: {
                 "mlwh_species.id": { eq: { value: id } },
-                "mlwh_platform_type": { eq: { value: 'PacBio' } },
-              }
-            },
-          }],
-        })}
-      />
-    </div>
-  )
-
-  const illuminaTable = (
-    <div>
-      <h5>Illumina Run Data</h5>
-      <p className='mb-3'>Information for each PacBio sequencing run collected for this species.</p>
-      <RemoteTable
-        id='illumina-table-detail-v1'
-        height={300}
-        fields={{
-          "mlwh_pipeline_id_lims": {
-            rename: "Pipeline"
-          },
-          "mlwh_tolid.id": {
-            rename: "ToLID"
-          },
-          "mlwh_run_complete": {
-            rename: "Run Complete Date"
-          },
-          "mlwh_lims_run_id": {
-            rename: "Run ID"
-          },
-          "mlwh_run_id": {
-            rename: "Movie"
-          },
-          "mlwh_well_label": {
-            rename: "Well"
-          },
-          "mlwh_tag1_id": {
-            rename: "Tag ID"
-          },
-          "mlwh_biosample_accession": {
-            rename: "Sample Accession"
-          },
-        }}
-        {...useZone({
-          endpoint: 'run_data',
-          components: [{
-            id: 'illumina-table-detail-v1',
-            filter: {
-              and_: {
-                "mlwh_species.id": { eq: { value: id } },
-                "mlwh_platform_type": { eq: { value: 'Illumina' } },
               }
             },
           }],
@@ -257,13 +201,10 @@ function SpeciesDetail() {
         height={300}
         fields={{
           "grit_assembly_type": {
-            rename: "Assembly Type"
           },
           "grit_created": {
-            rename: "Requested Date"
           },
           "grit_done_date": {
-            rename: "Done Date"
           },
         }}
         {...useZone({
@@ -281,6 +222,38 @@ function SpeciesDetail() {
     </div>
   )
 
+  const assemblyAnalysisTable = (
+    <div>
+      <h5>Assembly Analysis</h5>
+      <p className='mb-3'>Analysis performed on the assemblies for this species.</p>
+      <RemoteTable
+        id='assembly-analysis-table-detail-v1'
+        height={300}
+        fields={{
+          "gap_assembly.id": {
+            rename: "Assembly",
+          },
+          "gap_results": {
+            "link": "gap_s3"
+          },
+          "gap_lustre_path_analysis": {
+          },
+        }}
+        {...useZone({
+          endpoint: 'assembly_analysis',
+          components: [{
+            id: 'assembly-analysis-table-detail-v1',
+            filter: {
+              and_: {
+                "gap_species.id": { eq: { value: id } }
+              }
+            },
+          }],
+        })}
+      />
+    </div>
+  )
+
   const gnTable = (
     <div>
       <h5>Genome Notes</h5>
@@ -289,7 +262,7 @@ function SpeciesDetail() {
         id='gn-table-detail-v1'
         height={300}
         fields={{
-          "id": {
+          "uid": {
             rename: "DOI",
           },
           "gn_tolid.id": {
@@ -299,10 +272,8 @@ function SpeciesDetail() {
             rename: "Assembly Accession"
           },
           "gn_date_published": {
-            rename: "Published Date"
           },
           "gn_passed_pr": {
-            rename: "Passed Peer Review"
           },
         }}
         {...useZone({
@@ -342,46 +313,83 @@ function SpeciesDetail() {
     const detail = generateDetail(attributes);
     const timeline = generateTimeline(attributes);
 
-    const components = [
-      {
-        component: detail,
-        type: 'full'
-      },
-      {
-        component: timeline,
-        type: 'full'
-      },
-      {
-        component: sampleTable,
-        type: 'full'
-      },
-      {
-        component: extractionTable,
-        type: 'full'
-      },
-      {
-        component: pacbioTable,
-        type: 'full'
-      },
-      {
-        component: illuminaTable,
-        type: 'full'
-      },
-      {
-        component: curationTable,
-        type: 'full'
-      },
-      {
-        component: gnTable,
-        type: 'full'
-      }
-    ];
-
     return (
       <div className="species-detail">
-        <Widgets
-          components={components}
-        />
+          <Tabs defaultActiveKey="1">
+            <Tabs.Tab eventKey="1" title="Details">
+              <div className="species-detail-details">
+                <Widgets
+                  components={[
+                      {
+                        component: detail,
+                        type: 'full'
+                      },
+                      {
+                        component: timeline,
+                        type: 'full'
+                      }
+                  ]}
+                />
+              </div>
+            </Tabs.Tab>
+            <Tabs.Tab eventKey="2" title="Lab">
+              <div className="species-detail-lab">
+                <Widgets
+                    components={[
+                      {
+                        component: sampleTable,
+                        type: 'full'
+                      },
+                      {
+                        component: extractionTable,
+                        type: 'full'
+                      }
+                  ]}
+                />
+              </div>
+            </Tabs.Tab>
+            <Tabs.Tab eventKey="3" title="Assembly">
+              <div className="species-detail-assembly">
+              <Widgets
+                  components={[
+                    {
+                      component: runsTable,
+                      type: 'full'
+                    }
+                  ]}
+                />
+              </div>
+            </Tabs.Tab>
+            <Tabs.Tab eventKey="4" title="Curation">
+              <div className="species-detail-curation">
+                <Widgets
+                    components={[
+                      {
+                        component: curationTable,
+                        type: 'full'
+                      }
+                    ]}
+                  />
+                </div>
+              </Tabs.Tab>
+              <Tabs.Tab eventKey="5" title="After-Party">
+                <div className="species-detail-after-party">
+                  <Widgets
+                      components={[
+                        {
+                          component: assemblyAnalysisTable,
+                          type: 'full'
+                        },
+                        {
+                          component: gnTable,
+                          type: 'full'
+                        }
+                      ]}
+                    />
+                </div>
+              </Tabs.Tab>
+            </Tabs>
+  
       </div>
     );
   }

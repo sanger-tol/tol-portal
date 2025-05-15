@@ -152,7 +152,6 @@ function Species() {
       displaySource
       fields={{
         "sts_scientific_name": {
-          rename: "Scientific Name",
           cellRenderer: {
             element: SpeciesLink,
             propPointers: {
@@ -162,55 +161,40 @@ function Species() {
           }
         },
         "calc_done_date": {
-          rename: "Done date"
         },
         "sts_sample_count": {
-          rename: "No of samples"
         },
         "sts_sample_sts_accept_date_min": {
-          rename: "Accepted"
         },
         "sts_sample_benchling_date_assigned_to_lab_min": {
-          rename: "Assigned to lab"
         },
         "benchling_sequencing_request_benchling_completion_date_hic_min": {
-          rename: "Latest HiC Request"
         },
         "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
-          rename: "Latest PacBio Request"
         },
         "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
-          rename: "Latest RNASeq Request"
         },
         "mlwh_run_data_mlwh_run_complete_hic_min": {
-          rename: "Latest HiC Run"
         },
         "mlwh_run_data_mlwh_run_complete_pacbio_min": {
-          rename: "Latest PacBio Run"
         },
         "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
-          rename: "Latest RNASeq Run"
         },
         "grit_curation_grit_done_date_min": {
-          rename: "Curation complete"
+        },
+        "gn_genome_note_gn_date_published_min": {
         },
         "informatics_tolid_informatics_status_summary_min": {
-          rename: "Informatics status"
         },
         "tolqclegacy_assembly_stage": {
-          rename: "Assembly Stage"
         },
         "sts_taxon_group": {
-          rename: "Taxon Group"
         },
         "sts_order_group": {
-          rename: "Order"
         },
         "sts_family": {
-          rename: "Family"
         },
         "sts_prefix": {
-          rename: "ToLID Prefix"
         },
       }}
       {...species}

@@ -50,14 +50,11 @@ function Curations() {
           rename: "ToLID"
         },
         "grit_species.sts_scientific_name": {
-          rename: "Species",
           cellRenderer: "relationshipDetail"
         },
         "grit_created": {
-          rename: "Requested"
         },
         "grit_done_date": {
-          rename: "Done"
         }
       }}
       {...curations}
