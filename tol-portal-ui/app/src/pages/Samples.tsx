@@ -51,20 +51,15 @@ function Samples() {
           rename: "ToLID",
         },
         "sts_species.sts_scientific_name": {
-          rename: "Species",
           cellRenderer: "relationshipDetail"
         },
         "sts_collection_locality": {
-          rename: "Locality",
         },
         "sts_collection_country": {
-          rename: "Country",
         },
-        "sts_longitude": {
-          rename: "Longitude",
+        "sts_sex": {
         },
-        "sts_latitude": {
-          rename: "Latitude",
+        "sts_organism_part": {
         }
       }}
       {...samples}

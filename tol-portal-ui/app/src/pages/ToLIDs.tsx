@@ -28,7 +28,6 @@ function ToLIDs() {
           rename: "ToLID"
         },
         "tolid_species.sts_scientific_name": {
-          rename: "Species",
           cellRenderer: "relationshipDetail"
         },
         "tolid_specimen.id": {
@@ -36,10 +35,8 @@ function ToLIDs() {
           cellRenderer: "relationship"
         },
         "informatics_status_summary": {
-          rename: "Status Summary",
         },
         "informatics_status": {
-          rename: "Status"
         }
       }}
       {...tolid}

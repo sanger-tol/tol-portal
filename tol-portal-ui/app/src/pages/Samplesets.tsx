@@ -47,16 +47,12 @@ import {
             rename: "Sample Set ID"
           },
           "sts_project": {
-            rename: "Project",
           },
           "sts_status": {
-            rename: "Status"
           },
           "sts_legal_status": {
-            rename: "Legal Status"
           },
           "sts_rg_status_non_human": {
-            rename: "Compliance (Non-Human)"
           }
         }}
         {...samplesets}

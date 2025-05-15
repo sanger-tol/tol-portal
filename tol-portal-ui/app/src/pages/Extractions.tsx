@@ -47,14 +47,12 @@ function Extractions() {
           rename: "Identifier"
         },
         "benchling_species.sts_scientific_name": {
-          rename: "Species",
           cellRenderer: "relationshipDetail"
         },
         "benchling_tolid.id": {
           rename: "ToLID (Benchling)"
         },
         "benchling_completion_date": {
-          rename: "Date Completed (Benchling)",
           sort: true
         }
       }}
