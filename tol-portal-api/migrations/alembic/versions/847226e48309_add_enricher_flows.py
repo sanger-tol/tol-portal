@@ -22,7 +22,7 @@ def upgrade() -> None:
     session = Session(bind=bind)
 
     result = session.execute(
-        sa.text("INSERT INTO data_source_instance (name, builtin_name) VALUES ('bold', 'bold') RETURNING id")
+        sa.text("INSERT INTO data_source_instance (name, builtin_name) VALUES ('goat', 'goat') RETURNING id")
     )
     goat_data_source_instance_id = result.scalar()
 
