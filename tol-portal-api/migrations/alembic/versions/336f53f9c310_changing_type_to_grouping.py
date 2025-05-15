@@ -1,7 +1,7 @@
 """changing_type_to_grouping
 
 Revision ID: 336f53f9c310
-Revises: a6742154c867
+Revises: 847226e48309
 Create Date: 2025-05-14 11:38:50.641570
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '336f53f9c310'
-down_revision = 'a6742154c867'
+down_revision = '847226e48309'
 branch_labels = None
 depends_on = None
 
