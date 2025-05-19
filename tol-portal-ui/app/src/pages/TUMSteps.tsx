@@ -122,7 +122,7 @@ function TUMSteps() {
         "mlwh_volume_remaining": {},
         "benchling_species.goat_ploidy": {}, 
         "benchling_disruption_method": {},
-        "mlwh_run_data_mlwh_hifi_read_bases_sum": {},
+        "tolqc_run_data_tolqc_bases_sum": {},
         "benchling_tolid.informatics_status_summary": {},
         "uid": {
           rename: "Sequencing Request ID"

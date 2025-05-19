@@ -50,16 +50,16 @@ function TUM() {
         "portaldb_date_sent_to_sciops": {
           rename: "Date Sent To SciOps"
         },
-        "mlwh_run_data_mlwh_hifi_read_bases_sum": {
+        "tolqc_run_data_tolqc_bases_sum": {
           rename: "Cumulative CCS Yield (Run)"
         },
-        "benchling_tolid.mlwh_run_data_mlwh_hifi_read_bases_sum": {
+        "benchling_tolid.tolqc_run_data_tolqc_bases_sum": {
           rename: "Bench Cumulative CCS Yield (ToL ID)"
         },
-        "mlwh_tolid.mlwh_run_data_mlwh_hifi_read_bases_sum": {
+        "mlwh_tolid.tolqc_run_data_tolqc_bases_sum": {
           rename: "MLWH Cumulative CCS Yield (ToL ID)"
         },
-        "mlwh_species.mlwh_run_data_mlwh_hifi_read_bases_sum": {
+        "mlwh_species.tolqc_run_data_tolqc_bases_sum": {
           rename: "MLWH Cumulative CCS Yield (Species)"
         },
         "mlwh_species.sts_genome_size": {
