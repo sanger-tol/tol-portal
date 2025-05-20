@@ -17,7 +17,7 @@ import {
       endpoint: 'sampleset',
       components: [
         { id: 'sampleset-bar-chart-v1' },
-        { id: 'sampleset-table-v1' }
+        { id: 'sampleset-table-v2' }
       ]
     });
   
@@ -39,7 +39,7 @@ import {
   
     const table = (
       <RemoteTable
-        id="sampleset-table-v1"
+        id="sampleset-table-v2"
         defaultSort="uid"
         displaySource
         fields={{
@@ -48,11 +48,39 @@ import {
           },
           "sts_project": {
           },
+          "sts_submit_date": {
+          },
+          "sts_gal_abbreviation": {
+          },
+          "sts_affiliation": {
+          },
+          "sts_shipping_from": {
+          },
+          "sts_other": {
+          },
           "sts_status": {
           },
           "sts_legal_status": {
           },
           "sts_rg_status_non_human": {
+          },
+          "sts_desc": {
+          },
+          "sts_legal_contract": {
+          },
+          "sts_legal_reference": {
+          },
+          "legal_compliance_processors": {
+          },
+          "legal_comment": {
+          },
+          "research_governance_processors": {
+          },
+          "sts_managers": {
+          },
+          "sts_sample_sts_receive_date_max": {
+          },
+          "sts_sample_sts_submit_date_max": {
           }
         }}
         {...samplesets}
