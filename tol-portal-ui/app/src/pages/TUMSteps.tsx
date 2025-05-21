@@ -21,7 +21,7 @@ function TUMSteps() {
           and_: {
             'calc_topup_required': {'eq': {'value': true}},
             'calc_tolid_actionable': {'eq': {'value': true }},
-            //'calc_extraction_dna_count': {'gt': {'value': 0}},
+            'calc_extraction_dna_count': {'gt': {'value': 0}},
             'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
@@ -59,6 +59,7 @@ function TUMSteps() {
         "benchling_sample_benchling_remaining_weight_max": {},
         "benchling_sample_count": {},
         "sts_sample_count": {},
+        "calc_individual_exhausted": {},
         "calc_individual_available": {},
         "tolid_species.calc_recollection_needed": {},
         "calc_extraction_dna_count": {},
@@ -76,7 +77,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_mlwh_volume_remaining': {'gte': {'value': 0.5}},
-            'benchling_extraction.benchling_extraction_type':{'in_list': {'value': ['dna']}},
+            'benchling_extraction.benchling_extraction_type':{'in_list':{'value':['rna', 'lres', 'pooled_dna'],'negate':true}},
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
@@ -128,7 +129,7 @@ function TUMSteps() {
           rename: "Sequencing Request ID"
         },
         "mlwh_source_barcode": {},
-        // Cherry Pick ID
+        "mlwh_run_data_mlwh_pac_bio_library_tube_name_union": {},
         "benchling_extraction.benchling_extraction_type": {},
       }}
       actions={['Request Resequencing', 'Mark as Not Valid']}
@@ -369,7 +370,7 @@ function TUMSteps() {
 
             'sts_tolid.calc_topup_required': {'eq': {'value': true}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            "sts_tolid.informatics_status_summary":{"in_list":{"value":["7 ignore"],"negate":true}},
+            'sts_tolid.informatics_status_summary':{'in_list':{'value':["7 ignore"],"negate":true}},
           }
         }
       }
@@ -495,11 +496,7 @@ function TUMSteps() {
           and_: {
             'sts_tolid.calc_individual_available': {'eq': {'value': true}},
             'sts_tolid.calc_individual_exhausted': {'eq': {'value': false}},
-
-            'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
-            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
-            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
-            'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
+            'calc_sample_abandoned_in_sts': {'eq': {'value': false}},
 
             'sts_tolid.calc_topup_required': {'eq': {'value': false}},
             'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
