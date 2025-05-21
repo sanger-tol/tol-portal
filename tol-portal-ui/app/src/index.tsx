@@ -146,7 +146,6 @@ const taxaDropdown: Dropdown = {
     specimens,
     tolids,
   ],
-  auth: true,
 };
 
 const samplesDropdown: Dropdown = {
