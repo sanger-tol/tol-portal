@@ -34,9 +34,9 @@ import './scss/styling.scss';
 
 const species: Page = {
   name: "Species",
-  element: <Species />,
+  element: <CuratedSpecies />,
   detail: <SpeciesDetail />,
-  auth: true,
+  authElement: <Species />,
 };
 
 const specimens: Page = {
@@ -44,12 +44,6 @@ const specimens: Page = {
   element: <Specimens />,
   auth: true,
 };
-
-const speciesStatus: Page = {
-  name: "Species Status",
-  element: <CuratedSpecies />,
-  detail: <SpeciesDetail />,
-}
 
 const tolids: Page = {
   name: "ToLIDs",
@@ -151,8 +145,7 @@ const taxaDropdown: Dropdown = {
     species,
     specimens,
     tolids,
-  ],
-  auth: true
+  ]
 };
 
 const samplesDropdown: Dropdown = {
@@ -186,7 +179,6 @@ const additionalDropdown: Dropdown = {
 const publicDropdown: Dropdown = {
   name: "Public",
   pages: [
-    speciesStatus,
     coreLabData
   ],
 }
