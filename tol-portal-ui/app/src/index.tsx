@@ -142,10 +142,10 @@ const coreLabData: Page = {
 const taxaDropdown: Dropdown = {
   name: "Taxa",
   pages: [
-    species,
     specimens,
     tolids,
   ],
+  auth: true
 };
 
 const samplesDropdown: Dropdown = {
@@ -178,7 +178,10 @@ const additionalDropdown: Dropdown = {
 
 const publicDropdown: Dropdown = {
   name: "Public",
-  pages: [coreLabData],
+  pages: [
+    species,
+    coreLabData
+  ],
 }
 
 ReactDOM.render(
