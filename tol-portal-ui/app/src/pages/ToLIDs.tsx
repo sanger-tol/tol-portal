@@ -27,6 +27,9 @@ function ToLIDs() {
         "uid": {
           rename: "ToLID"
         },
+        "calc_no_null_individual_exhausted_tolid_count": {
+          rename: "No. of null individual exhausted ToLIDs"
+        },
         "tolid_species.sts_scientific_name": {
           cellRenderer: "relationshipDetail"
         },
