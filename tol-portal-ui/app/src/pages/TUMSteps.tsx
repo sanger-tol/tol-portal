@@ -21,7 +21,7 @@ function TUMSteps() {
           and_: {
             'calc_topup_required': {'eq': {'value': true}},
             'calc_tolid_actionable': {'eq': {'value': true }},
-            'calc_extraction_dna_count': {'gt': {'value': 0}},
+            'calc_extraction_dna_count': {'gt': {'value': 0}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
             'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
           }
         }
@@ -49,7 +49,7 @@ function TUMSteps() {
           }
         },
         "sts_sample_sts_project_union": {},
-        "informatics_status_summary": {},
+        "tolid_species.informatics_tolid_informatics_status_summary_min": {},
         "calc_coverage_met": {},
         "calc_topup_required": {},
         "calc_tolid_actionable": {},
@@ -77,10 +77,12 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_mlwh_volume_remaining': {'gte': {'value': 0.5}},
-            'benchling_extraction.benchling_extraction_type':{'in_list':{'value':['rna', 'lres', 'pooled_dna'],'negate':true}},
             'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
             'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
             'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+
+            'benchling_sequencing_platform':{'in_list':{'value':['pacbio'],'negate':false}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
+            'benchling_extraction.benchling_extraction_type':{'in_list':{'value':['rna', 'lres', 'pooled_dna'],'negate':true}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
           }
         }
       }
