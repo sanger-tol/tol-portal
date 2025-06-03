@@ -37,6 +37,7 @@ const species: Page = {
   element: <CuratedSpecies />,
   detail: <SpeciesDetail />,
   authElement: <Species />,
+  detailAuth: true,
 };
 
 const specimens: Page = {
