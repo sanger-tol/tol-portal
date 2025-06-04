@@ -56,7 +56,7 @@ import {
           },
           "sts_shipping_from": {
           },
-          "sts_other": {
+          "sts_other_info": {
           },
           "sts_status": {
           },
@@ -70,11 +70,11 @@ import {
           },
           "sts_legal_reference": {
           },
-          "legal_compliance_processors": {
+          "sts_legal_compliance_processors": {
           },
-          "legal_comment": {
+          "sts_legal_comment": {
           },
-          "research_governance_processors": {
+          "sts_research_governance_processors": {
           },
           "sts_managers": {
           },
