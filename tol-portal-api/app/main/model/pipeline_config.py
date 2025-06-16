@@ -13,7 +13,7 @@ from .base import Base
 class PipelineConfig(Base):
     __tablename__ = 'pipeline_config'
 
-    id: Mapped[str] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(primary_key=True)  # noqa A003
 
     config: Mapped[dict[str, Any]] = mapped_column(
         type_=JSONB,

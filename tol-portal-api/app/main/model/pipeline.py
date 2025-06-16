@@ -13,7 +13,7 @@ from .base import Base
 class Pipeline(Base):
     __tablename__ = 'pipeline'
 
-    id: Mapped[str] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(primary_key=True)  # noqa A003
 
     validation_results: Mapped[list[dict[str, Any]]] = mapped_column(
         type_=JSONB,
