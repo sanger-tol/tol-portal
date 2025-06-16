@@ -27,7 +27,7 @@ def upgrade():
 	op.create_table(
 		'pipeline_config',
 		sa.Column('id', sa.Integer(), primary_key=True, autoincrement=True),
-		sa.Column('steps', postgresql.JSONB(astext_type=sa.Text()), nullable=False, server_default='{}')
+		sa.Column('config', postgresql.JSONB(astext_type=sa.Text()), nullable=False, server_default='{}')
 	)
 
 

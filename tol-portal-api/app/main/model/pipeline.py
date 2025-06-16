@@ -18,5 +18,5 @@ class Pipeline(Base):
     validation_results: Mapped[list[dict[str, Any]]] = mapped_column(
         type_=JSONB,
         nullable=False,
-        default_factory=lambda: [],
+        default=[],
     )
