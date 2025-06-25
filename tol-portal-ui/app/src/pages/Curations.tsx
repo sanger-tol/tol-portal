@@ -10,11 +10,13 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
 function Curations() {
   const curations = useZone({
-    endpoint: 'curation',
+    objectType: 'curation',
+    dataSource: ELASTIC_DS,
     components: [
       { id: 'curations-bar-chart-v1' },
       { id: 'curations-table-v1' }

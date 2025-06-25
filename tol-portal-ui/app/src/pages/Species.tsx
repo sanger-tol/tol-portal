@@ -12,10 +12,10 @@ import {
   useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
 
 
 function Species() {
-
   const defaultFilter = {
     and_: {
       "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
@@ -23,7 +23,8 @@ function Species() {
   }
 
   const species = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
       {

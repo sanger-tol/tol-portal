@@ -28,9 +28,12 @@ import {
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page, Dropdown } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
+
+
+export const ELASTIC_DS = new TsDataSource();
 
 const species: Page = {
   name: "Species",
@@ -186,7 +189,7 @@ const publicDropdown: Dropdown = {
 
 ReactDOM.render(
   <TolApp
-    boards={{dataUrl: `/api/v1`}}
+    boards={{dataSource: ELASTIC_DS}}
     brand={
       <img
         src={Logo}

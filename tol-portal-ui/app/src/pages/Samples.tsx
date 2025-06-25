@@ -11,10 +11,13 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
+
 
 function Samples() {
   const samples = useZone({
-    endpoint: "sample",
+    objectType: "sample",
+    dataSource: ELASTIC_DS,
     components: [
       { id: "samples-bar-chart-v2" },
       { id: "samples-table-v3" },

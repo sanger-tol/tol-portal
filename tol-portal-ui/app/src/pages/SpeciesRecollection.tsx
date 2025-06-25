@@ -6,11 +6,13 @@
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
 
 
 function SpeciesRecollection() {
   const speciesRecollection = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'species-recollection-table-v2',

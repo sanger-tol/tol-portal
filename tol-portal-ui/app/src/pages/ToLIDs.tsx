@@ -8,11 +8,13 @@ import {
   RemoteTable,
   Widgets, useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function ToLIDs() {
   const tolid = useZone({
-    endpoint: 'tolid',
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
       { id: 'tolid-table-v3' }
     ]

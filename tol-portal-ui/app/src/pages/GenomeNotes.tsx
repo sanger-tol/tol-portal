@@ -10,12 +10,13 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
-import Platform from '../components/Platform';
+import { ELASTIC_DS } from '..';
 
 
 function GenomeNotes() {
   const notes = useZone({
-    endpoint: 'genome_note',
+    objectType: 'genome_note',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'genome-notes-sunburst',

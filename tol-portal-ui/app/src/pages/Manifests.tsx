@@ -10,11 +10,13 @@ import {
     Widgets,
     useZone
   } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
   function Manifests() {
     const manifests = useZone({
-      endpoint: 'manifest',
+      objectType: 'manifest',
+      dataSource: ELASTIC_DS,
       components: [
         { id: 'manifest-bar-chart-v1' },
         { id: 'manifest-table-v1' }

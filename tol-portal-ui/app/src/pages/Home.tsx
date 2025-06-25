@@ -14,6 +14,8 @@ import {
   RemoteCount,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
+
 
 const defaultFilter = {
   and_: {
@@ -51,7 +53,8 @@ function Home() {
   const runChart = (
     <RemoteBarChart
       id="home-run-bar-chart-v1"
-      endpoint="run_data"
+      objectType="run_data"
+      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
@@ -67,7 +70,8 @@ function Home() {
   const sampleChart = (
     <RemoteBarChart
       id="home-sample-bar-chart-v1"
-      endpoint="sample"
+      objectType="sample"
+      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
@@ -83,7 +87,8 @@ function Home() {
   const speciesSunburst = (
     <RemoteSunburst
       id="home-species-sunburst-v1"
-      endpoint="species"
+      objectType="species"
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           title: 'Species',
@@ -117,7 +122,8 @@ function Home() {
         },
       }}
       {...useZone({
-        endpoint: 'species',
+        objectType: 'species',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{ id: 'home-species-table-v3' }]
       })}
@@ -133,7 +139,8 @@ function Home() {
         }
       }}
       {...useZone({
-        endpoint: 'species',
+        objectType: 'species',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
           id: 'home-species-count-v1',
@@ -158,7 +165,8 @@ function Home() {
         }
       }}
       {...useZone({
-        endpoint: 'tolid',
+        objectType: 'tolid',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
           id: 'home-tolid-count-v1',
@@ -177,7 +185,8 @@ function Home() {
   const extractionsCount = (
     <RemoteCount
       id="home-extractions-count-v1"
-      endpoint='extraction'
+      objectType='extraction'
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           title: 'Extractions',
@@ -189,7 +198,8 @@ function Home() {
   const runDataCount = (
     <RemoteCount
       id="home-run-data-count-v1"
-      endpoint='run_data'
+      objectType='run_data'
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           title: 'Runs',

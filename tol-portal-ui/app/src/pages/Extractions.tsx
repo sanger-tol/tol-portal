@@ -10,11 +10,13 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function Extractions() {
   const extractions = useZone({
-    endpoint: 'extraction',
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
     components: [
       { id: 'extractions-bar-chart-v1' },
       { id: 'extractions-table-v2' }

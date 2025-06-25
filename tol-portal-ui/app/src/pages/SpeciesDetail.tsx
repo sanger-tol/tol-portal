@@ -18,6 +18,8 @@ import Platform from '../components/Platform';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Tabs } from 'rsuite';
+import { ELASTIC_DS } from '..';
+
 
 function generateDetail(attributes: any) {
   return (
@@ -96,7 +98,8 @@ function SpeciesDetail() {
           }
         }}
         {...useZone({
-          endpoint: 'sample',
+          objectType: 'sample',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'sample-table-detail-v2',
             filter: {
@@ -128,7 +131,8 @@ function SpeciesDetail() {
           }
         }}
         {...useZone({
-          endpoint: 'extraction',
+          objectType: 'extraction',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'extraction-table-detail-v1',
             filter: {
@@ -179,7 +183,8 @@ function SpeciesDetail() {
           }
         }}
         {...useZone({
-          endpoint: 'run_data',
+          objectType: 'run_data',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'pacbio-table-detail-v1',
             filter: {
@@ -209,7 +214,8 @@ function SpeciesDetail() {
           },
         }}
         {...useZone({
-          endpoint: 'curation',
+          objectType: 'curation',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'curation-table-detail-v1',
             filter: {
@@ -241,7 +247,8 @@ function SpeciesDetail() {
           },
         }}
         {...useZone({
-          endpoint: 'assembly_analysis',
+          objectType: 'assembly_analysis',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'assembly-analysis-table-detail-v1',
             filter: {
@@ -287,7 +294,8 @@ function SpeciesDetail() {
           },
         }}
         {...useZone({
-          endpoint: 'genome_note',
+          objectType: 'genome_note',
+          dataSource: ELASTIC_DS,
           components: [{
             id: 'gn-table-detail-v1',
             filter: {
@@ -313,7 +321,7 @@ function SpeciesDetail() {
   if (response === undefined) {
     return (
       <RemoteGet
-        endpoint={'species/' + id}
+        resource={'species/' + id}
         response={response}
         setResponse={setResponse}
       />

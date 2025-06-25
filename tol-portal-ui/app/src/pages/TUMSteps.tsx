@@ -4,16 +4,18 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useState } from 'react';
 import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
-import { useState } from 'react';
+import { ELASTIC_DS } from '..';
 
 // Table 1
 function TUMSteps() {
   const [showModal, setShowModal] = useState(false);
 
   const tolid = useZone({
-    endpoint: 'tolid',
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'top-up-required-v3',
@@ -70,7 +72,8 @@ function TUMSteps() {
 
   // Table 2
   const sequencingRequest = useZone({
-    endpoint: 'sequencing_request',
+    objectType: 'sequencing_request',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'library-remaining-v1',
@@ -142,7 +145,8 @@ function TUMSteps() {
 
   // Table 3
   const extraction = useZone({
-    endpoint: 'extraction',
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'dna-remaining-v1',
@@ -221,7 +225,8 @@ function TUMSteps() {
 
   // Table 4
   const tissuePrep = useZone({
-    endpoint: 'tissue_prep',
+    objectType: 'tissue_prep',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'tissue-prep-remaining-v1',
@@ -289,7 +294,8 @@ function TUMSteps() {
 
   // Table 5
   const tissueBenchling = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'sample-remaining-benchling-v1',
@@ -358,7 +364,8 @@ function TUMSteps() {
 
   // Table 6
   const sampleSTS = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'sample-remaining-STS-v1',
@@ -429,7 +436,8 @@ function TUMSteps() {
 
   //Table 7
   const individualExhausted = useZone({
-    endpoint: 'tolid', 
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'individual-exhausted-v1',
@@ -490,7 +498,8 @@ function TUMSteps() {
 
   //Table 8
   const individualExhaustedAvailable = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'individual-exhausted-available-v1',
@@ -559,7 +568,8 @@ function TUMSteps() {
 
   //Table 9
   const individualExhaustedRecollection = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'individual-exhausted-recollection-v1',

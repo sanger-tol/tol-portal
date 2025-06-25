@@ -10,6 +10,7 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '../..';
   
   
 function CoreLabData() {
@@ -29,7 +30,8 @@ function CoreLabData() {
   };
 
   const extractions = useZone({
-    endpoint: 'extraction',
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
       {

@@ -89,22 +89,10 @@ def application() -> Flask:
     )
     core_data_object(sql_ds)
 
-    boards_bp = board_blueprint(sql_ds)
-    app.register_blueprint(
-        boards_bp,
-        url_prefix=os.getenv('API_PATH') + '/boards'
-    )
-
     eds = elastic()
     # The main endpoints for the elastic data
     blueprint_data = data_blueprint(eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
-
-    blueprint_board_data = data_blueprint(sql_ds)
-    app.register_blueprint(
-        blueprint_board_data,
-        name='board-data',
-        url_prefix=os.getenv('API_PATH') + '/board-data')
 
     # The system endpoints
     blueprint_system = system_blueprint(eds)
@@ -126,6 +114,18 @@ def application() -> Flask:
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
+    
+    # dashboards
+    boards_bp = board_blueprint(sql_ds)
+    app.register_blueprint(
+        boards_bp,
+        url_prefix=os.environ['API_PATH'] + '/boards'
+    )
+    blueprint_board_data = data_blueprint(sql_ds)
+    app.register_blueprint(
+        blueprint_board_data,
+        url_prefix=os.getenv('API_PATH') + '/boards'
+    )
 
     # actions
     pds = prefect(insecure=True)
@@ -136,7 +136,7 @@ def application() -> Flask:
     )
     app.register_blueprint(
         actions_bp,
-        url_prefix=os.environ['API_PATH'] + '/run-action'
+        url_prefix=os.getenv('API_PATH') + '/local/run-action'
     )
     blueprint_prefect_data = data_blueprint(
         pds,

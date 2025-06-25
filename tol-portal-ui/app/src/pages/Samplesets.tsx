@@ -10,11 +10,13 @@ import {
     Widgets,
     useZone
   } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
   function Samplesets() {
     const samplesets = useZone({
-      endpoint: 'sampleset',
+      objectType: 'sampleset',
+      dataSource: ELASTIC_DS,
       components: [
         { id: 'sampleset-bar-chart-v1' },
         { id: 'sampleset-table-v2' }

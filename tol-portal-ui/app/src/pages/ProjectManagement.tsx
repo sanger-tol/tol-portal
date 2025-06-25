@@ -15,13 +15,15 @@ import {
   useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
+
 
 function ProjectManagement() {
-
-  const [cumulative, setCumulative] = useState(false); // Add state for cumulative toggle
+  const [cumulative, setCumulative] = useState(false);
 
   const projectManagement = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'project-filters-v1',
@@ -47,7 +49,7 @@ function ProjectManagement() {
         <input
           type="checkbox"
           checked={cumulative}
-          onChange={(e) => setCumulative(e.target.checked)} // Toggle functionality
+          onChange={(e) => setCumulative(e.target.checked)}
           style={{ marginLeft: 5 }}
         />
       </label>

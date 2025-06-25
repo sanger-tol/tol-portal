@@ -11,11 +11,13 @@ import {
   useZone
 } from '@tol/tol-ui';
 import Platform from '../components/Platform';
+import { ELASTIC_DS } from '..';
 
 
 function SequencingRequests() {
   const sequencingRequests = useZone({
-    endpoint: 'sequencing_request',
+    objectType: 'sequencing_request',
+    dataSource: ELASTIC_DS,
     components: [
       { id: 'sequencing-requests-bar-chart-v1' },
       { id: 'sequencing-request-table-v2' }

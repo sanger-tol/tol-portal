@@ -5,11 +5,13 @@
  */
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function SamplesStuck() {
   const samplesStuck = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'samples-stuck-table-v1',

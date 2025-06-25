@@ -5,11 +5,13 @@
  */
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function TUM() {
   const tum = useZone({
-    endpoint: 'sequencing_request',
+    objectType: 'sequencing_request',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'tum-table-v1',
