@@ -31,7 +31,7 @@ function Samples() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Samples Recieved',
+          text: 'Samples Recieved',
         }
       }}
       breakDownBy="sts_ac_status"

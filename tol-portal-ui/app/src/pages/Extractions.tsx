@@ -29,7 +29,7 @@ function Extractions() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Extractions',
+          text: 'Extractions',
         }
       }}
       breakDownBy="benchling_extraction_type"

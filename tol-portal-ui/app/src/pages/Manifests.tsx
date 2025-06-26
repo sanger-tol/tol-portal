@@ -29,7 +29,7 @@ import { ELASTIC_DS } from '..';
         stacked
         utilityBarConfig={{
           title: {
-            title: 'Submitted',
+            text: 'Submitted',
           }
         }}
         breakDownBy="sts_status"

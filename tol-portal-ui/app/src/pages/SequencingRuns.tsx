@@ -30,7 +30,7 @@ function SequencingRuns() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Run complete date',
+          text: 'Run complete date',
         }
       }}
       breakDownBy="mlwh_instrument_model"

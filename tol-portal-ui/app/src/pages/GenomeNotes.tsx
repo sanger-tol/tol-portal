@@ -37,7 +37,7 @@ function GenomeNotes() {
       id="genome-notes-sunburst"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["gn_species.sts_order_group", "gn_species.sts_family"]}

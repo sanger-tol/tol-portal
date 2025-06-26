@@ -30,7 +30,7 @@ function SequencingRequests() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Submission from Benchling to SciOps',
+          text: 'Submission from Benchling to SciOps',
         }
       }}
       breakDownBy="benchling_sequencing_platform"

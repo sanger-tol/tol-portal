@@ -58,7 +58,7 @@ function Home() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Run Complete Data',
+          text: 'Run Complete Data',
         }
       }}
       breakDownBy="mlwh_instrument_model"
@@ -75,7 +75,7 @@ function Home() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Species Received',
+          text: 'Species Received',
         }
       }}
       breakDownBy="sts_ac_status"
@@ -91,7 +91,7 @@ function Home() {
       dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["sts_order_group", "sts_family"]}
@@ -135,7 +135,7 @@ function Home() {
       id="home-species-count-v1"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       {...useZone({
@@ -161,7 +161,7 @@ function Home() {
       id="home-tolid-count-v1"
       utilityBarConfig={{
         title: {
-          title: 'TOLIDs Submitted',
+          text: 'TOLIDs Submitted',
         }
       }}
       {...useZone({
@@ -189,7 +189,7 @@ function Home() {
       dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Extractions',
+          text: 'Extractions',
         }
       }}
     />
@@ -202,7 +202,7 @@ function Home() {
       dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Runs',
+          text: 'Runs',
         }
       }}
     />

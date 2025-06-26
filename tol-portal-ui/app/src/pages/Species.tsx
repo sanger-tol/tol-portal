@@ -88,7 +88,7 @@ function Species() {
       id="species-received-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Received',
+          text: 'Species Received',
         }
       }}
       {...species}
@@ -100,7 +100,7 @@ function Species() {
       id="species-extracted-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Extracted',
+          text: 'Species Extracted',
         }
       }}
       {...species}
@@ -112,7 +112,7 @@ function Species() {
       id="species-submitted-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Submitted',
+          text: 'Species Submitted',
         }
       }}
       {...species}
@@ -124,7 +124,7 @@ function Species() {
       id="species-done-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Marked as Done',
+          text: 'Species Marked as Done',
         }
       }}
       {...species}
@@ -136,7 +136,7 @@ function Species() {
       id="species-sunburst"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["sts_order_group", "sts_family"]}

@@ -87,7 +87,7 @@ function ProjectManagement() {
       id="pm-submitted-bar-chart-v1"
       utilityBarConfig={{
         title: {
-          title: 'Species Submitted to ENA',
+          text: 'Species Submitted to ENA',
         }
       }}
       stacked
@@ -104,7 +104,7 @@ function ProjectManagement() {
     <RemoteBarChart
       utilityBarConfig={{
         title: {
-          title: 'Current Species Statuses',
+          text: 'Current Species Statuses',
         }
       }}
       id="pm-status-bar-chart-v1"

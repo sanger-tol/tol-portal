@@ -29,7 +29,7 @@ import { ELASTIC_DS } from '..';
         stacked
         utilityBarConfig={{
           title: {
-            title: 'Compliance',
+            text: 'Compliance',
           }
         }}
         breakDownBy="sts_rg_status_non_human"

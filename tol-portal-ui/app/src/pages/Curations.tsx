@@ -29,7 +29,7 @@ function Curations() {
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Curations',
+          text: 'Curations',
         }
       }}
       breakDownBy="grit_assembly_type"
