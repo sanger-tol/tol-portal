@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Genome Research Ltd.
 SPDX-License-Identifier: MIT
 */
 
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { 
   Home,
   Species,
@@ -187,7 +187,8 @@ const publicDropdown: Dropdown = {
   ],
 }
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root')!);
+root.render(
   <TolApp
     boards={{dataSource: ELASTIC_DS}}
     brand={
@@ -206,8 +207,7 @@ ReactDOM.render(
       publicDropdown
     ]}
     login={true}
-  />,
-  document.getElementById('root')
+  />
 );
 
 // If you want to start measuring performance in your app, pass a function
