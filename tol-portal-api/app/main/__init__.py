@@ -11,9 +11,9 @@ from flask import Flask
 from flask_cors import CORS
 
 from tol.api_base import (
+    action_blueprint,
     data_blueprint,
-    system_blueprint,
-    action_blueprint
+    system_blueprint
 )
 from tol.board import board_blueprint
 from tol.core import core_data_object
@@ -112,7 +112,7 @@ def application() -> Flask:
     )
     app.register_blueprint(blueprint_data_status, name='status_ds',
                            url_prefix=os.getenv('API_PATH') + '/status')
-    
+
     # actions
     pds = prefect(insecure=True)
     actions_bp = action_blueprint(
