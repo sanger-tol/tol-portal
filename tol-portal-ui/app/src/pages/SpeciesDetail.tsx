@@ -75,7 +75,7 @@ function SpeciesDetail() {
       <h5>Sample</h5>
       <p className='mb-3'>Sample information collected for this species.</p>
       <RemoteTable
-        id="sample-table-detail-v2"
+        id="sample-table-detail"
         defaultSort="sts_tolid.id"
         displaySource
         height={500}
@@ -101,7 +101,7 @@ function SpeciesDetail() {
           objectType: 'sample',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'sample-table-detail-v2',
+            id: 'sample-table-detail',
             filter: {
               and_: {
                 "sts_species.id": { eq: { value: id } },
@@ -118,7 +118,7 @@ function SpeciesDetail() {
       <h5>Extractions</h5>
       <p className='mb-3'>Extractions for this species.</p>
       <RemoteTable
-        id="extraction-table-detail-v1"
+        id="extraction-table-detail"
         defaultSort="benchling_tolid.id"
         height={500}
         fields={{
@@ -134,7 +134,7 @@ function SpeciesDetail() {
           objectType: 'extraction',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'extraction-table-detail-v1',
+            id: 'extraction-table-detail',
             filter: {
               and_: {
                 "benchling_species.id": { eq: { value: id } },
@@ -151,7 +151,7 @@ function SpeciesDetail() {
       <h5>Run Data</h5>
       <p className='mb-3'>Information for each sequencing run collected for this species.</p>
       <RemoteTable
-        id='pacbio-table-detail-v1'
+        id='pacbio-table-detail'
         height={300}
         fields={{
           "tolqc_reporting_category": {
@@ -186,7 +186,7 @@ function SpeciesDetail() {
           objectType: 'run_data',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'pacbio-table-detail-v1',
+            id: 'pacbio-table-detail',
             filter: {
               and_: {
                 "mlwh_species.id": { eq: { value: id } },
@@ -203,7 +203,7 @@ function SpeciesDetail() {
       <h5>Curation Data</h5>
       <p className='mb-3'>Curations for this species.</p>
       <RemoteTable
-        id='curation-table-detail-v1'
+        id='curation-table-detail'
         height={300}
         fields={{
           "grit_assembly_type": {
@@ -217,7 +217,7 @@ function SpeciesDetail() {
           objectType: 'curation',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'curation-table-detail-v1',
+            id: 'curation-table-detail',
             filter: {
               and_: {
                 "grit_species.id": { eq: { value: id } }
@@ -234,7 +234,7 @@ function SpeciesDetail() {
       <h5>Assembly Analysis</h5>
       <p className='mb-3'>Analysis performed on the assemblies for this species.</p>
       <RemoteTable
-        id='assembly-analysis-table-detail-v1'
+        id='assembly-analysis-table-detail'
         height={300}
         fields={{
           "gap_assembly.id": {
@@ -250,7 +250,7 @@ function SpeciesDetail() {
           objectType: 'assembly_analysis',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'assembly-analysis-table-detail-v1',
+            id: 'assembly-analysis-table-detail',
             filter: {
               and_: {
                 "gap_species.id": { eq: { value: id } }
@@ -267,7 +267,7 @@ function SpeciesDetail() {
       <h5>Genome Notes</h5>
       <p className='mb-3'>Genome Notes for this species.</p>
       <RemoteTable
-        id='gn-table-detail-v1'
+        id='gn-table-detail'
         height={300}
         fields={{
           "gn_tolid.id": {
@@ -297,7 +297,7 @@ function SpeciesDetail() {
           objectType: 'genome_note',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'gn-table-detail-v1',
+            id: 'gn-table-detail',
             filter: {
               and_: {
                 "gn_species.id": { eq: { value: id } }

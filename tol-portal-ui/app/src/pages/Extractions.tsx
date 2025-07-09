@@ -18,14 +18,14 @@ function Extractions() {
     objectType: 'extraction',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'extractions-bar-chart-v1' },
-      { id: 'extractions-table-v2' }
+      { id: 'extractions-bar-chart' },
+      { id: 'extractions-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="extractions-bar-chart-v1"
+      id="extractions-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
@@ -41,7 +41,7 @@ function Extractions() {
 
   const table = (
     <RemoteTable
-      id="extractions-table-v2"
+      id="extractions-table"
       defaultSort="benchling_species.sts_scientific_name"
       displaySource
       fields={{

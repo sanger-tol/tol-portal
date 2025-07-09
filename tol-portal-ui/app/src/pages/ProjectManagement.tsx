@@ -26,7 +26,7 @@ function ProjectManagement() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'project-filters-v1',
+        id: 'project-filters',
         filter: {
           and_: {
             "sts_sample_sts_programme_union": { eq: { value: "ToL" } },
@@ -34,9 +34,9 @@ function ProjectManagement() {
           }
         }
       },
-      { id: 'pm-submitted-bar-chart-v1' },
-      { id: 'pm-status-bar-chart-v1' },
-      { id: 'pm-species-table-v1' }
+      { id: 'pm-submitted-bar-chart' },
+      { id: 'pm-status-bar-chart' },
+      { id: 'pm-species-table' }
     ]
   });
 
@@ -66,7 +66,7 @@ function ProjectManagement() {
           attribute='sts_sample_sts_project_union'
           rename="Project"
           type='multi'
-          componentId="project-filters-v1"
+          componentId="project-filters"
           {...projectManagement}
         />
       </Col>
@@ -75,7 +75,7 @@ function ProjectManagement() {
           attribute='sts_order_group'
           rename="Order"
           type='multi'
-          componentId="project-filters-v1"
+          componentId="project-filters"
           {...projectManagement}
         />
       </Col>
@@ -84,7 +84,7 @@ function ProjectManagement() {
 
   const submittedChart = (
     <RemoteBarChart
-      id="pm-submitted-bar-chart-v1"
+      id="pm-submitted-bar-chart"
       utilityBarConfig={{
         title: {
           text: 'Species Submitted to ENA',
@@ -107,7 +107,7 @@ function ProjectManagement() {
           text: 'Current Species Statuses',
         }
       }}
-      id="pm-status-bar-chart-v1"
+      id="pm-status-bar-chart"
       stacked
       breakDownBy="sts_sample_sts_project_union"
       xAxis="calc_pm_status"
@@ -118,7 +118,7 @@ function ProjectManagement() {
 
   const table = (
     <RemoteTable
-      id="pm-species-table-v1"
+      id="pm-species-table"
       defaultSort="sts_scientific_name"
       fields={{
         "sts_scientific_name": {

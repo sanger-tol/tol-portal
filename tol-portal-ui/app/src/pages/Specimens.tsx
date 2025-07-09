@@ -17,13 +17,13 @@ function Specimens() {
     objectType:'specimen',
     dataSource: ELASTIC_DS,
     components: [
-      { id:'specimen-table-v2' }
+      { id:'specimen-table' }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="specimen-table-v2"
+      id="specimen-table"
       defaultSort='sts_bio_specimen_id'
       displaySource
       fields={{

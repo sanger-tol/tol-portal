@@ -19,15 +19,15 @@ function Samples() {
     objectType: "sample",
     dataSource: ELASTIC_DS,
     components: [
-      { id: "samples-bar-chart-v2" },
-      { id: "samples-table-v3" },
-      { id: "samples-map-v1" }
+      { id: "samples-bar-chart" },
+      { id: "samples-table" },
+      { id: "samples-map" }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="samples-bar-chart-v2"
+      id="samples-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
@@ -43,7 +43,7 @@ function Samples() {
 
   const table = (
     <RemoteTable
-      id="samples-table-v3"
+      id="samples-table"
       displaySource
       defaultSort="sts_species.sts_scientific_name"
       fields={{
@@ -71,7 +71,7 @@ function Samples() {
 
   const map = (
     <RemoteMap
-      id="samples-map-v1"
+      id="samples-map"
       bubble
       longitudeKey="sts_longitude"
       latitudeKey="sts_latitude"

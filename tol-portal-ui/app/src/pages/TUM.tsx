@@ -14,7 +14,7 @@ function TUM() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'tum-table-v1',
+        id: 'tum-table',
         filter: {
           and_: {
             "benchling_sequencing_platform": {
@@ -28,7 +28,7 @@ function TUM() {
 
   const table = (
     <RemoteTable
-      id="tum-table-v1"
+      id="tum-table"
       defaultSort='benchling_species.sts_scientific_name'
       displaySource
       fields={{

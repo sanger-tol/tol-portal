@@ -18,14 +18,14 @@ function Curations() {
     objectType: 'curation',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'curations-bar-chart-v1' },
-      { id: 'curations-table-v1' }
+      { id: 'curations-bar-chart' },
+      { id: 'curations-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="curations-bar-chart-v1"
+      id="curations-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
@@ -41,7 +41,7 @@ function Curations() {
 
   const table = (
     <RemoteTable
-      id="curations-table-v1"
+      id="curations-table"
       defaultSort="grit_species.id"
       displaySource
       fields={{

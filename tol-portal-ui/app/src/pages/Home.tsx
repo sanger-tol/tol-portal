@@ -52,7 +52,7 @@ const intro = (
 function Home() {
   const runChart = (
     <RemoteBarChart
-      id="home-run-bar-chart-v1"
+      id="home-run-bar-chart"
       objectType="run_data"
       dataSource={ELASTIC_DS}
       stacked
@@ -69,7 +69,7 @@ function Home() {
 
   const sampleChart = (
     <RemoteBarChart
-      id="home-sample-bar-chart-v1"
+      id="home-sample-bar-chart"
       objectType="sample"
       dataSource={ELASTIC_DS}
       stacked
@@ -86,7 +86,7 @@ function Home() {
 
   const speciesSunburst = (
     <RemoteSunburst
-      id="home-species-sunburst-v1"
+      id="home-species-sunburst"
       objectType="species"
       dataSource={ELASTIC_DS}
       utilityBarConfig={{
@@ -106,7 +106,7 @@ function Home() {
   }
   const speciesTable = (
     <RemoteTable
-      id="home-species-table-v3"
+      id="home-species-table"
       defaultSort="sts_scientific_name"
       noConfigModal
       fields={{
@@ -125,14 +125,14 @@ function Home() {
         objectType: 'species',
         dataSource: ELASTIC_DS,
         filter: defaultFilter,
-        components: [{ id: 'home-species-table-v3' }]
+        components: [{ id: 'home-species-table' }]
       })}
     />
   );
 
   const speciesCount = (
     <RemoteCount
-      id="home-species-count-v1"
+      id="home-species-count"
       utilityBarConfig={{
         title: {
           text: 'Species',
@@ -143,7 +143,7 @@ function Home() {
         dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
-          id: 'home-species-count-v1',
+          id: 'home-species-count',
           filter: {
             and_: {
               'sts_scientific_name': {
@@ -158,7 +158,7 @@ function Home() {
 
   const tolidCount = (
     <RemoteCount
-      id="home-tolid-count-v1"
+      id="home-tolid-count"
       utilityBarConfig={{
         title: {
           text: 'TOLIDs Submitted',
@@ -169,7 +169,7 @@ function Home() {
         dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
-          id: 'home-tolid-count-v1',
+          id: 'home-tolid-count',
           filter: {
             and_: {
               'informatics_status_summary': {
@@ -184,7 +184,7 @@ function Home() {
 
   const extractionsCount = (
     <RemoteCount
-      id="home-extractions-count-v1"
+      id="home-extractions-count"
       objectType='extraction'
       dataSource={ELASTIC_DS}
       utilityBarConfig={{
@@ -197,7 +197,7 @@ function Home() {
 
   const runDataCount = (
     <RemoteCount
-      id="home-run-data-count-v1"
+      id="home-run-data-count"
       objectType='run_data'
       dataSource={ELASTIC_DS}
       utilityBarConfig={{

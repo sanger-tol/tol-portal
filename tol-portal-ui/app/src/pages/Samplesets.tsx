@@ -18,14 +18,14 @@ import { ELASTIC_DS } from '..';
       objectType: 'sampleset',
       dataSource: ELASTIC_DS,
       components: [
-        { id: 'sampleset-bar-chart-v1' },
-        { id: 'sampleset-table-v2' }
+        { id: 'sampleset-bar-chart' },
+        { id: 'sampleset-table' }
       ]
     });
   
     const chart = (
       <RemoteBarChart
-        id="sampleset-bar-chart-v1"
+        id="sampleset-bar-chart"
         stacked
         utilityBarConfig={{
           title: {
@@ -41,7 +41,7 @@ import { ELASTIC_DS } from '..';
   
     const table = (
       <RemoteTable
-        id="sampleset-table-v2"
+        id="sampleset-table"
         defaultSort="id"
         displaySource
         fields={{

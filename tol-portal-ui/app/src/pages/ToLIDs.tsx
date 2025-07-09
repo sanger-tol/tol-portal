@@ -16,13 +16,13 @@ function ToLIDs() {
     objectType: 'tolid',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'tolid-table-v3' }
+      { id: 'tolid-table' }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="tolid-table-v3"
+      id="tolid-table"
       defaultSort="tolid_species.sts_scientific_name"
       displaySource
       fields={{

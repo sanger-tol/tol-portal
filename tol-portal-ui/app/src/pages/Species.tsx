@@ -78,7 +78,7 @@ function Species() {
         }
       },
       {
-        id: 'species-table-v4'
+        id: 'species-table'
       }
     ]
   });
@@ -148,7 +148,7 @@ function Species() {
   
   const table = (
     <RemoteTable
-      id="species-table-v4"
+      id="species-table"
       defaultSort="sts_scientific_name"
       displaySource
       fields={{

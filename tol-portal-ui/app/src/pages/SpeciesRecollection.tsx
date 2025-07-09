@@ -15,7 +15,7 @@ function SpeciesRecollection() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'species-recollection-table-v2',
+        id: 'species-recollection-table',
         filter: {
           and_: {
             "sts_species_id": { exists: {} }
@@ -27,7 +27,7 @@ function SpeciesRecollection() {
 
   const table = (
     <RemoteTable
-      id="species-recollection-table-v2"
+      id="species-recollection-table"
       defaultSort='sts_scientific_name'
       displaySource
       fields={{

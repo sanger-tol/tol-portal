@@ -28,7 +28,7 @@ function GenomeNotes() {
           }
         }
       },
-      { id: 'genome-notes-table-v3' }
+      { id: 'genome-notes-table' }
     ]
   });
 
@@ -49,7 +49,7 @@ function GenomeNotes() {
 
   const table = (
     <RemoteTable
-      id="genome-notes-table-v3"
+      id="genome-notes-table"
       defaultSort="-gn_date_published"
       displaySource
       fields={{

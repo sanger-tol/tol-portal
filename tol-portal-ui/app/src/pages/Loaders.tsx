@@ -15,14 +15,14 @@ function Loaders() {
     }),
     components: [
       {
-        id: 'loaders-table-v1',
+        id: 'loaders-table',
       }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="loaders-table-v1"
+      id="loaders-table"
       defaultSort='-date_last_run'
       displaySource
       fields={{

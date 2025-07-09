@@ -19,14 +19,14 @@ function SequencingRequests() {
     objectType: 'sequencing_request',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'sequencing-requests-bar-chart-v1' },
-      { id: 'sequencing-request-table-v2' }
+      { id: 'sequencing-requests-bar-chart' },
+      { id: 'sequencing-request-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="sequencing-requests-bar-chart-v1"
+      id="sequencing-requests-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
@@ -42,7 +42,7 @@ function SequencingRequests() {
 
   const table = (
     <RemoteTable
-      id="sequencing-request-table-v2"
+      id="sequencing-request-table"
       displaySource
       defaultSort="mlwh_species.sts_scientific_name"
       fields={{

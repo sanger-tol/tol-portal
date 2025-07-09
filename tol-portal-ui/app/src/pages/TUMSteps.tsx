@@ -18,7 +18,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'top-up-required-v3',
+        id: 'top-up-required',
         filter: {
           and_: {
             'calc_topup_required': { 'eq': { 'value': true } },
@@ -34,7 +34,7 @@ function TUMSteps() {
   const topUpRequiredTable = (
     <RemoteTable
       //noConfigModal
-      id="top-up-required-v3"
+      id="top-up-required"
       displaySource
       defaultSort="id"
       fields={{
@@ -76,7 +76,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'library-remaining-v1',
+        id: 'library-remaining',
         filter: {
           and_: {
             'calc_mlwh_volume_remaining': { 'gte': { 'value': 0.5 } },
@@ -113,7 +113,7 @@ function TUMSteps() {
   const libraryRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="library-remaining-v1"
+      id="library-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -149,7 +149,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'dna-remaining-v1',
+        id: 'dna-remaining',
         filter: {
           and_: {
             'calc_benchling_volume_ul': { 'gte': { 'value': 0.5 } },
@@ -184,7 +184,7 @@ function TUMSteps() {
   const dnaRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="dna-remaining-v1"
+      id="dna-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -229,7 +229,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'tissue-prep-remaining-v1',
+        id: 'tissue-prep-remaining',
         filter: {
           and_: {
             'calc_benchling_weight_mg': { 'gte': { 'value': 0.5 } },
@@ -264,7 +264,7 @@ function TUMSteps() {
   const tissuePrepRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="tissue-prep-remaining-v1"
+      id="tissue-prep-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -298,7 +298,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-benchling-v1',
+        id: 'sample-remaining-benchling',
         filter: {
           and_: {
             'calc_benchling_remaining_weight': { 'gte': { 'value': 0.5 } },
@@ -334,7 +334,7 @@ function TUMSteps() {
   const tissueRemainingBenchlingTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-benchling-v1"
+      id="sample-remaining-benchling"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -368,7 +368,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-STS-v1',
+        id: 'sample-remaining-STS',
         filter: {
           and_: {
             'calc_sample_eligible_for_sts_table': { 'eq': { 'value': true } },
@@ -405,7 +405,7 @@ function TUMSteps() {
   const sampleRemainingSTSTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-STS-v1"
+      id="sample-remaining-STS"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -440,7 +440,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-v1',
+        id: 'individual-exhausted',
         filter: {
           and_: {
             'calc_individual_exhausted': { 'eq': { 'value': true } },
@@ -471,7 +471,7 @@ function TUMSteps() {
   const individualExhaustedTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted-v1"
+      id="individual-exhausted"
       displaySource
       defaultSort="id"
       fields={{
@@ -502,7 +502,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-available-v1',
+        id: 'individual-exhausted-available',
         filter: {
           and_: {
             'sts_tolid.calc_individual_available': { 'eq': { 'value': true } },
@@ -537,7 +537,7 @@ function TUMSteps() {
   const individualExhaustedAvailableTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted-available-v1"
+      id="individual-exhausted-available"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -572,7 +572,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-recollection-v1',
+        id: 'individual-exhausted-recollection',
         filter: {
           and_: {
             'calc_recollection_needed': { 'eq': { 'value': true } },
@@ -602,7 +602,7 @@ function TUMSteps() {
   const individualExhaustedRecollectionTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted-recollection-v1"
+      id="individual-exhausted-recollection"
       displaySource
       fields={{
         "sts_scientific_name": {},
