@@ -46,7 +46,7 @@ function SequencingRequests() {
       displaySource
       defaultSort="mlwh_species.sts_scientific_name"
       fields={{
-        "uid": {
+        "id": {
           rename: "Sample Ref"
         },
         "benchling_sequencing_platform": {

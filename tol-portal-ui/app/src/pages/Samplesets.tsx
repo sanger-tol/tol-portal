@@ -42,10 +42,10 @@ import { ELASTIC_DS } from '..';
     const table = (
       <RemoteTable
         id="sampleset-table-v2"
-        defaultSort="uid"
+        defaultSort="id"
         displaySource
         fields={{
-          "uid": {
+          "id": {
             rename: "Sample Set ID"
           },
           "sts_project": {

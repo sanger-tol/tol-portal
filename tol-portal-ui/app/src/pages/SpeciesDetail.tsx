@@ -21,13 +21,13 @@ import { Tabs } from 'rsuite';
 import { ELASTIC_DS } from '..';
 
 
-function generateDetail(attributes: any) {
+function generateDetail(id: string, attributes: any) {
   return (
     <div>
       <h1 className='mb-3'>{(attributes as any)['sts_scientific_name']}</h1>
       <ObjectDetail
         data={{
-          "Taxonomy ID": attributes['uid'],
+          "Taxonomy ID": id,
           "Common name": attributes['sts_common_name'],
           "Lineage": (attributes['goat_lineage'] ?? []).join(' / '),
           "Genome Size": attributes['goat_genome_size'],
@@ -38,11 +38,11 @@ function generateDetail(attributes: any) {
   );
 }
 
-const generateTimeline = (attributes: any) => {
+const generateTimeline = (id: string, attributes: any) => {
   return (
     <div>
       <Timeline
-        id={attributes['uid']!}
+        id={id}
         title={`Timeline of events for ${attributes['sts_scientific_name']}`}
         data={{
           "Compliance in Progress": { date: attributes['sts_sample_sts_submit_date_min'] },
@@ -280,12 +280,12 @@ function SpeciesDetail() {
           },
           "gn_passed_pr": {
           },
-          "uid": {
+          "id": {
             rename: "Note",
             cellRenderer: {
               element: DOI,
               propPointers: {
-                doi: "uid"
+                doi: "id"
               },
               props: {
                 displayName: 'View Genome Note'
@@ -327,9 +327,10 @@ function SpeciesDetail() {
       />
     );
   } else {
+    const id = response!['data']['data']['id'];
     const attributes = response!['data']['data']['attributes'];
-    const detail = generateDetail(attributes);
-    const timeline = generateTimeline(attributes);
+    const detail = generateDetail(id, attributes);
+    const timeline = generateTimeline(id, attributes);
 
     return (
       <div className="species-detail">

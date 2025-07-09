@@ -26,7 +26,7 @@ function ToLIDs() {
       defaultSort="tolid_species.sts_scientific_name"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "ToLID"
         },
         "tolid_species.sts_scientific_name": {

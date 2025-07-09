@@ -32,7 +32,7 @@ function TUM() {
       defaultSort='benchling_species.sts_scientific_name'
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Sanger Sample ID"
         },
         "benchling_tolid.id": {

@@ -45,7 +45,7 @@ function Curations() {
       defaultSort="grit_species.id"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Identifier"
         },
         "grit_tolid.id": {

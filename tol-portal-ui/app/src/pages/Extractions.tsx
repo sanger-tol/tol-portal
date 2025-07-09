@@ -45,7 +45,7 @@ function Extractions() {
       defaultSort="benchling_species.sts_scientific_name"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Identifier"
         },
         "benchling_species.sts_scientific_name": {

@@ -53,7 +53,7 @@ function GenomeNotes() {
       defaultSort="-gn_date_published"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "DOI"
         },
         "gn_species.goat_scientific_name": {

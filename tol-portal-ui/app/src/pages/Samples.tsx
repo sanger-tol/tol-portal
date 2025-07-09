@@ -47,7 +47,7 @@ function Samples() {
       displaySource
       defaultSort="sts_species.sts_scientific_name"
       fields={{
-        "uid": {
+        "id": {
           rename: "ID"
         },
         "sts_tolid.id": {

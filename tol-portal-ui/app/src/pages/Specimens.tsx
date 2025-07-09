@@ -27,7 +27,7 @@ function Specimens() {
       defaultSort='sts_bio_specimen_id'
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "ID"
         },
         "sts_bio_specimen_id": {
