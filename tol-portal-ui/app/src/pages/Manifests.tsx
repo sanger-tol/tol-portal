@@ -10,24 +10,26 @@ import {
     Widgets,
     useZone
   } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
   function Manifests() {
     const manifests = useZone({
-      endpoint: 'manifest',
+      objectType: 'manifest',
+      dataSource: ELASTIC_DS,
       components: [
-        { id: 'manifest-bar-chart-v1' },
-        { id: 'manifest-table-v1' }
+        { id: 'manifest-bar-chart' },
+        { id: 'manifest-table' }
       ]
     });
   
     const chart = (
       <RemoteBarChart
-        id="manifest-bar-chart-v1"
+        id="manifest-bar-chart"
         stacked
         utilityBarConfig={{
           title: {
-            title: 'Submitted',
+            text: 'Submitted',
           }
         }}
         breakDownBy="sts_status"
@@ -39,7 +41,7 @@ import {
   
     const table = (
       <RemoteTable
-        id="manifest-table-v1"
+        id="manifest-table"
         displaySource
         defaultSort="sts_copo_profile_title"
         fields={{

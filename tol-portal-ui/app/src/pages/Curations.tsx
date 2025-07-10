@@ -10,24 +10,26 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
 function Curations() {
   const curations = useZone({
-    endpoint: 'curation',
+    objectType: 'curation',
+    dataSource: ELASTIC_DS,
     components: [
-      { id: 'curations-bar-chart-v1' },
-      { id: 'curations-table-v1' }
+      { id: 'curations-bar-chart' },
+      { id: 'curations-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="curations-bar-chart-v1"
+      id="curations-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Curations',
+          text: 'Curations',
         }
       }}
       breakDownBy="grit_assembly_type"
@@ -39,11 +41,11 @@ function Curations() {
 
   const table = (
     <RemoteTable
-      id="curations-table-v1"
+      id="curations-table"
       defaultSort="grit_species.id"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Identifier"
         },
         "grit_tolid.id": {

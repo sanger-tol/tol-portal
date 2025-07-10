@@ -4,25 +4,30 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable,
-  Widgets, useZone } from '@tol/tol-ui';
+import {
+  RemoteTable,
+  Widgets,
+  useZone
+} from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function Specimens() {
   const specimens = useZone({
-    endpoint:'specimen',
+    objectType:'specimen',
+    dataSource: ELASTIC_DS,
     components: [
-      { id:'specimen-table-v2' }
+      { id:'specimen-table' }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="specimen-table-v2"
+      id="specimen-table"
       defaultSort='sts_bio_specimen_id'
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "ID"
         },
         "sts_bio_specimen_id": {

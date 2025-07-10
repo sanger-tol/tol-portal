@@ -11,24 +11,26 @@ import {
   useZone
 } from '@tol/tol-ui';
 import Platform from '../components/Platform';
+import { ELASTIC_DS } from '..';
 
 
 function SequencingRuns() {
   const runs = useZone({
-    endpoint: 'run_data',
+    objectType: 'run_data',
+    dataSource: ELASTIC_DS,
     components: [
-      { id: 'sequencing-runs-bar-chart-v1' },
-      { id: 'run-data-table-v3' }
+      { id: 'sequencing-runs-bar-chart' },
+      { id: 'run-data-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="sequencing-runs-bar-chart-v1"
+      id="sequencing-runs-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Run complete date',
+          text: 'Run complete date',
         }
       }}
       breakDownBy="mlwh_instrument_model"
@@ -41,7 +43,7 @@ function SequencingRuns() {
 
   const table = (
     <RemoteTable
-      id="run-data-table-v3"
+      id="run-data-table"
       defaultSort="mlwh_species.sts_scientific_name"
       displaySource
       fields={{

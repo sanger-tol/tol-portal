@@ -10,24 +10,26 @@ import {
     Widgets,
     useZone
   } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
   
   
   function Samplesets() {
     const samplesets = useZone({
-      endpoint: 'sampleset',
+      objectType: 'sampleset',
+      dataSource: ELASTIC_DS,
       components: [
-        { id: 'sampleset-bar-chart-v1' },
-        { id: 'sampleset-table-v2' }
+        { id: 'sampleset-bar-chart' },
+        { id: 'sampleset-table' }
       ]
     });
   
     const chart = (
       <RemoteBarChart
-        id="sampleset-bar-chart-v1"
+        id="sampleset-bar-chart"
         stacked
         utilityBarConfig={{
           title: {
-            title: 'Compliance',
+            text: 'Compliance',
           }
         }}
         breakDownBy="sts_rg_status_non_human"
@@ -39,11 +41,11 @@ import {
   
     const table = (
       <RemoteTable
-        id="sampleset-table-v2"
-        defaultSort="uid"
+        id="sampleset-table"
+        defaultSort="id"
         displaySource
         fields={{
-          "uid": {
+          "id": {
             rename: "Sample Set ID"
           },
           "sts_project": {

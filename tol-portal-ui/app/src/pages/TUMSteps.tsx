@@ -4,25 +4,27 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useState } from 'react';
 import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
-import { useState } from 'react';
+import { ELASTIC_DS } from '..';
 
 // Table 1
 function TUMSteps() {
   const [showModal, setShowModal] = useState(false);
 
   const tolid = useZone({
-    endpoint: 'tolid',
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'top-up-required-v3',
+        id: 'top-up-required',
         filter: {
           and_: {
-            'calc_topup_required': {'eq': {'value': true}},
-            'calc_tolid_actionable': {'eq': {'value': true }},
-            'calc_extraction_dna_count': {'gt': {'value': 0}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
-            'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'calc_topup_required': { 'eq': { 'value': true } },
+            'calc_tolid_actionable': { 'eq': { 'value': true } },
+            'calc_extraction_dna_count': { 'gt': { 'value': 0 } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
+            'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -32,11 +34,11 @@ function TUMSteps() {
   const topUpRequiredTable = (
     <RemoteTable
       //noConfigModal
-      id="top-up-required-v3"
+      id="top-up-required"
       displaySource
-      defaultSort="uid"
+      defaultSort="id"
       fields={{
-        "uid": {
+        "id": {
           rename: "ToLID",
         },
         "tolid_species.goat_scientific_name": {
@@ -70,19 +72,20 @@ function TUMSteps() {
 
   // Table 2
   const sequencingRequest = useZone({
-    endpoint: 'sequencing_request',
+    objectType: 'sequencing_request',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'library-remaining-v1',
+        id: 'library-remaining',
         filter: {
           and_: {
-            'calc_mlwh_volume_remaining': {'gte': {'value': 0.5}},
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'calc_mlwh_volume_remaining': { 'gte': { 'value': 0.5 } },
+            'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
+            'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'benchling_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
 
-            'benchling_sequencing_platform':{'in_list':{'value':['pacbio'],'negate':false}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
-            'benchling_extraction.benchling_extraction_type':{'in_list':{'value':['rna', 'lres', 'pooled_dna'],'negate':true}}, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
+            'benchling_sequencing_platform': { 'in_list': { 'value': ['pacbio'], 'negate': false } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
+            'benchling_extraction.benchling_extraction_type': { 'in_list': { 'value': ['rna', 'lres', 'pooled_dna'], 'negate': true } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
           }
         }
       }
@@ -93,41 +96,41 @@ function TUMSteps() {
     source: tolid,
     target: sequencingRequest,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count", 
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      
+
     }
   })
 
-  
+
   const libraryRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="library-remaining-v1"
+      id="library-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
           rename: "ToLID",
         },
-        "benchling_species.goat_genome_size": {}, 
+        "benchling_species.goat_genome_size": {},
         "benchling_tolid.calc_coverage": {},
         "benchling_tolid.informatics_gscope_coverage": {},
-        "benchling_species.sts_sample_sts_priority_min": {}, 
+        "benchling_species.sts_sample_sts_priority_min": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "mlwh_volume_remaining": {},
-        "benchling_species.goat_ploidy": {}, 
+        "benchling_species.goat_ploidy": {},
         "benchling_disruption_method": {},
         "tolqc_run_data_tolqc_bases_sum": {},
         "benchling_tolid.informatics_status_summary": {},
-        "uid": {
+        "id": {
           rename: "Sequencing Request ID"
         },
         "mlwh_source_barcode": {},
@@ -142,19 +145,20 @@ function TUMSteps() {
 
   // Table 3
   const extraction = useZone({
-    endpoint: 'extraction',
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'dna-remaining-v1',
+        id: 'dna-remaining',
         filter: {
           and_: {
-            'calc_benchling_volume_ul': {'gte': {'value': 0.5}},
-            'benchling_extraction_type':{'in_list': {'value': ['dna']}},
-            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}},
+            'calc_benchling_volume_ul': { 'gte': { 'value': 0.5 } },
+            'benchling_extraction_type': { 'in_list': { 'value': ['dna'] } },
+            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': { 'lte': { 'value': 0.0 } },
 
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
+            'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'benchling_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -165,10 +169,10 @@ function TUMSteps() {
     source: tolid,
     target: extraction,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -180,7 +184,7 @@ function TUMSteps() {
   const dnaRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="dna-remaining-v1"
+      id="dna-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -202,8 +206,8 @@ function TUMSteps() {
           rename: "Extraction Name"
         },
         "benchling_volume_ul": {},
-        "benchling_fluidx_id":{},
-        "benchling_extraction_type":{},
+        "benchling_fluidx_id": {},
+        "benchling_extraction_type": {},
         "benchling_disruption_method": {},
         "benchling_tube_location": {},
         "benchling_species.goat_ploidy": {},
@@ -221,19 +225,20 @@ function TUMSteps() {
 
   // Table 4
   const tissuePrep = useZone({
-    endpoint: 'tissue_prep',
+    objectType: 'tissue_prep',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'tissue-prep-remaining-v1',
+        id: 'tissue-prep-remaining',
         filter: {
           and_: {
-            'calc_benchling_weight_mg': {'gte': {'value': 0.5}},
-            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
-            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
+            'calc_benchling_weight_mg': { 'gte': { 'value': 0.5 } },
+            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': { 'lte': { 'value': 0.0 } },
+            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
 
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
+            'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'benchling_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -244,10 +249,10 @@ function TUMSteps() {
     source: tolid,
     target: tissuePrep,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -259,7 +264,7 @@ function TUMSteps() {
   const tissuePrepRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="tissue-prep-remaining-v1"
+      id="tissue-prep-remaining"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
@@ -268,8 +273,8 @@ function TUMSteps() {
         },
         "benchling_eln_tissue_prep_name": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
-        "benchling_tissue_prep_fluidx_id":{},
-        "benchling_weight_mg":{},
+        "benchling_tissue_prep_fluidx_id": {},
+        "benchling_weight_mg": {},
         "benchling_tube_location": {},
         "benchling_tolid.informatics_gscope_coverage": {},
         "benchling_species.goat_genome_size": {},
@@ -289,20 +294,21 @@ function TUMSteps() {
 
   // Table 5
   const tissueBenchling = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-benchling-v1',
+        id: 'sample-remaining-benchling',
         filter: {
           and_: {
-            'calc_benchling_remaining_weight': {'gte': {'value': 0.5}},
-            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
-            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
-            'benchling_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
+            'calc_benchling_remaining_weight': { 'gte': { 'value': 0.5 } },
+            'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': { 'lte': { 'value': 0.0 } },
+            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
+            'benchling_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': { 'lte': { 'value': 0.0 } },
 
-            'benchling_tolid.calc_topup_required': {'eq': {'value': true}},
-            'benchling_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'benchling_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
+            'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'benchling_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -313,10 +319,10 @@ function TUMSteps() {
     source: tolid,
     target: tissueBenchling,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -328,14 +334,14 @@ function TUMSteps() {
   const tissueRemainingBenchlingTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-benchling-v1"
+      id="sample-remaining-benchling"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
         "benchling_tolid.id": {
           rename: "ToLID",
         },
-        "uid": {
+        "id": {
           rename: "Sample ID"
         },
         "benchling_tolid.sts_sample_sts_project_union": {},
@@ -348,7 +354,7 @@ function TUMSteps() {
         "benchling_tolid.calc_coverage": {},
         "benchling_species.goat_ploidy": {},
         "benchling_species.sts_sample_sts_priority_min": {},
-        "sts_organism_part":{},
+        "sts_organism_part": {},
       }}
       actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid']}
       rowSelection={true}
@@ -358,21 +364,22 @@ function TUMSteps() {
 
   // Table 6
   const sampleSTS = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-STS-v1',
+        id: 'sample-remaining-STS',
         filter: {
           and_: {
-            'calc_sample_eligible_for_sts_table': {'eq': {'value': true}},
-            'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': {'lte': {'value': 0.0}}, 
-            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': {'lte': {'value': 0.0}},
-            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': {'lte': {'value': 0.0}},
-            'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': {'lte': {'value': 0.0}},
+            'calc_sample_eligible_for_sts_table': { 'eq': { 'value': true } },
+            'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': { 'lte': { 'value': 0.0 } },
+            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
+            'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': { 'lte': { 'value': 0.0 } },
+            'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': { 'lte': { 'value': 0.0 } },
 
-            'sts_tolid.calc_topup_required': {'eq': {'value': true}},
-            'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'sts_tolid.informatics_status_summary':{'in_list':{'value':["7 ignore"],"negate":true}},
+            'sts_tolid.calc_topup_required': { 'eq': { 'value': true } },
+            'sts_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'sts_tolid.informatics_status_summary': { 'in_list': { 'value': ["7 ignore"], "negate": true } },
           }
         }
       }
@@ -383,10 +390,10 @@ function TUMSteps() {
     source: tolid,
     target: sampleSTS,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -398,14 +405,14 @@ function TUMSteps() {
   const sampleRemainingSTSTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-STS-v1"
+      id="sample-remaining-STS"
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
         "sts_tolid.id": {
           rename: "ToLID",
         },
-        "uid": {
+        "id": {
           rename: "Sample ID"
         },
         "sts_tolid.sts_sample_sts_project_union": {},
@@ -415,7 +422,7 @@ function TUMSteps() {
         "sts_species.goat_genome_size": {},
         "sts_tolid.informatics_status_summary": {},
         "sts_tolid.calc_coverage": {},
-        "sts_organism_part":{},
+        "sts_organism_part": {},
         "sts_tissue_size": {},
         "sts_sex": {},
         "sts_species.goat_ploidy": {},
@@ -429,15 +436,16 @@ function TUMSteps() {
 
   //Table 7
   const individualExhausted = useZone({
-    endpoint: 'tolid', 
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-v1',
+        id: 'individual-exhausted',
         filter: {
           and_: {
-            'calc_individual_exhausted': {'eq': {'value': true}},
-            'calc_topup_required': {'eq': {'value': true}},
-            'informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'calc_individual_exhausted': { 'eq': { 'value': true } },
+            'calc_topup_required': { 'eq': { 'value': true } },
+            'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -448,10 +456,10 @@ function TUMSteps() {
     source: tolid,
     target: individualExhausted,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -461,13 +469,13 @@ function TUMSteps() {
   })
 
   const individualExhaustedTable = (
-   <RemoteTable
-     //noConfigModal
-     id="individual-exhausted-v1"
-     displaySource
-      defaultSort="uid"
-     fields={{
-        "uid": {
+    <RemoteTable
+      //noConfigModal
+      id="individual-exhausted"
+      displaySource
+      defaultSort="id"
+      fields={{
+        "id": {
           rename: "ToLID",
         },
         "sts_sample_sts_project_union": {},
@@ -485,24 +493,25 @@ function TUMSteps() {
         "tolid_species.sts_sample_sts_priority_min": {},
       }}
       {...individualExhausted}
-   />
+    />
   );
 
   //Table 8
   const individualExhaustedAvailable = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-available-v1',
+        id: 'individual-exhausted-available',
         filter: {
           and_: {
-            'sts_tolid.calc_individual_available': {'eq': {'value': true}},
-            'sts_tolid.calc_individual_exhausted': {'eq': {'value': false}},
-            'calc_sample_abandoned_in_sts': {'eq': {'value': false}},
+            'sts_tolid.calc_individual_available': { 'eq': { 'value': true } },
+            'sts_tolid.calc_individual_exhausted': { 'eq': { 'value': false } },
+            'calc_sample_abandoned_in_sts': { 'eq': { 'value': false } },
 
-            'sts_tolid.calc_topup_required': {'eq': {'value': false}},
-            'sts_tolid.calc_tolid_actionable': {'eq': {'value': true }},
-            'sts_tolid.informatics_status_summary':{'in_list':{'value':['7 ignore'],'negate':true}},
+            'sts_tolid.calc_topup_required': { 'eq': { 'value': false } },
+            'sts_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
+            'sts_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
           }
         }
       }
@@ -513,10 +522,10 @@ function TUMSteps() {
     source: tolid,
     target: individualExhaustedAvailable,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -526,16 +535,16 @@ function TUMSteps() {
   })
 
   const individualExhaustedAvailableTable = (
-   <RemoteTable
-     //noConfigModal
-     id="individual-exhausted-available-v1"
-     displaySource
-     defaultSort="benchling_tolid.id"
-     fields={{
+    <RemoteTable
+      //noConfigModal
+      id="individual-exhausted-available"
+      displaySource
+      defaultSort="benchling_tolid.id"
+      fields={{
         "sts_tolid.id": {
           rename: "ToLID",
         },
-        "uid": {
+        "id": {
           rename: "Sample ID"
         },
         "benchling_tolid.sts_sample_sts_project_union": {},
@@ -545,7 +554,7 @@ function TUMSteps() {
         "sts_species.goat_genome_size": {},
         "sts_tolid.informatics_status_summary": {},
         "sts_tolid.calc_coverage": {},
-        "sts_organism_part":{},
+        "sts_organism_part": {},
         "sts_tissue_size": {},
         "sts_sex": {},
         "benchling_species.goat_ploidy": {},
@@ -554,19 +563,20 @@ function TUMSteps() {
       actions={['Export into Benchling', 'Mark as Not Valid']}
       rowSelection={true}
       {...individualExhaustedAvailable}
-   />
+    />
   );
 
   //Table 9
   const individualExhaustedRecollection = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-recollection-v1',
+        id: 'individual-exhausted-recollection',
         filter: {
           and_: {
-            'calc_recollection_needed': {'eq': {'value': true}},   
-            'calc_species_out_for_recollection': {'eq': {'value': false}},
+            'calc_recollection_needed': { 'eq': { 'value': true } },
+            'calc_species_out_for_recollection': { 'eq': { 'value': false } },
           }
         }
       }
@@ -577,10 +587,10 @@ function TUMSteps() {
     source: tolid,
     target: individualExhaustedRecollection,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",  
+      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "uid": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union", 
+      "id": "benchling_tolid.id",
+      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
       "calc_coverage": "benchling_tolid.calc_coverage",
       "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
@@ -590,13 +600,13 @@ function TUMSteps() {
   })
 
   const individualExhaustedRecollectionTable = (
-   <RemoteTable
-     //noConfigModal
-     id="individual-exhausted-recollection-v1"
-     displaySource
-     fields={{
+    <RemoteTable
+      //noConfigModal
+      id="individual-exhausted-recollection"
+      displaySource
+      fields={{
         "sts_scientific_name": {},
-        "uid": {
+        "id": {
           rename: "Species ID"
         },
         "sts_sample_sts_project_union": {},
@@ -605,22 +615,22 @@ function TUMSteps() {
         "informatics_tolid_informatics_status_summary_min": {},
         "goat_ploidy": {},
         "sts_sample_sts_priority_min": {},
-     }}
-    actions={['Mark for recollection']}
-    rowSelection={true}
-     {...individualExhaustedRecollection}
-   />
+      }}
+      actions={['Mark for recollection']}
+      rowSelection={true}
+      {...individualExhaustedRecollection}
+    />
   );
 
   const ModalContent = (
-    <div className="help-documentation" style={{maxWidth: '95%'}}>
+    <div className="help-documentation" style={{ maxWidth: '95%' }}>
       <h6>Overview</h6>
       <p>
         The Top-Up Management system helps identify and process ToLIDs that need additional
         sequencing to meet their coverage targets. The tables are organized in order of processing
         priority, from most processed material (Library) to least processed (Sample in STS).
       </p>
-  
+
       <h6>Key Fields</h6>
       <ul>
         <li><strong>Estimated Coverage Met</strong>: Determined based on the basis Cumulative Yield per Estimated Species Genome Size must be less than Target Coverage</li>
@@ -629,7 +639,7 @@ function TUMSteps() {
         <li><strong>Individual Exhausted</strong>: Indicates all material for this ToLID is used up</li>
         <li><strong>Other Individual Available</strong>: Indicates alternative samples exist for the same species</li>
       </ul>
-  
+
       <h6>Workflow Process</h6>
       <ol>
         <li>Start with the Top-Up Required table to identify ToLIDs needing additional sequencing.</li>
@@ -655,28 +665,28 @@ function TUMSteps() {
           If all individuals of a species are exhausted, mark the species for recollection.
         </li>
       </ol>
-  
+
       <h6>Common Actions</h6>
-      <p style={{marginBottom: '8px'}}><strong><u>Requesting Resequencing</u></strong></p>
+      <p style={{ marginBottom: '8px' }}><strong><u>Requesting Resequencing</u></strong></p>
       <p>Use when library material is available and you want to request additional sequencing.</p>
-  
-      <p style={{marginBottom: '8px'}}><strong><u>Inserting into Work Lists</u></strong></p>
+
+      <p style={{ marginBottom: '8px' }}><strong><u>Inserting into Work Lists</u></strong></p>
       <ul>
         <li><strong>LI Work List</strong>: DNA extractions for library prep using LI protocol</li>
         <li><strong>ULI Work List</strong>: DNA extractions for library prep using ULI protocol</li>
         <li><strong>Tissue Prep Work List</strong>: Tissues ready for preparation</li>
         <li><strong>Benchling Tissue Work List</strong>: Tissue samples in Benchling</li>
       </ul>
-  
-      <p style={{marginBottom: '8px'}}><strong><u>Exporting into Benchling</u></strong></p>
+
+      <p style={{ marginBottom: '8px' }}><strong><u>Exporting into Benchling</u></strong></p>
       <p>Exports samples from STS into Benchling for processing.</p>
-  
-      <p style={{marginBottom: '8px'}}><strong><u>Marking as Not Valid</u></strong></p>
+
+      <p style={{ marginBottom: '8px' }}><strong><u>Marking as Not Valid</u></strong></p>
       <p>Marks a record as 'Not Valid' when it's not suitable for processing. This will cause it to be removed from the current table and repopulate another table for less processed material (if available).</p>
-  
-      <p style={{marginBottom: '8px'}}><strong><u>Marking for Recollection</u></strong></p>
+
+      <p style={{ marginBottom: '8px' }}><strong><u>Marking for Recollection</u></strong></p>
       <p>Used when all individuals of a species are exhausted and new specimens need to be collected.</p>
-  
+
       <h6>Best Practices</h6>
       <ol>
         <li>
@@ -698,27 +708,27 @@ function TUMSteps() {
       </ol>
     </div>
   );
-  
+
 
   const HelpModal = (
     <Modal header={<h6></h6>}
-    open={showModal}
-    setOpen={setShowModal}
-    children={ModalContent}
+      open={showModal}
+      setOpen={setShowModal}
+      children={ModalContent}
     />
   )
 
   const title = (
-    <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h2>Top-Up Management</h2>
-      <Button type='primary' text='Help' onClick={() => setShowModal(true)}/>
+      <Button type='primary' text='Help' onClick={() => setShowModal(true)} />
     </div>
   );
 
   const tableTitle = (text: string, tooltipContent: string) => (
-    <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <h6 style={{marginBottom: '0px'}}>{text}</h6>
-      <InfoTooltip contents={tooltipContent}/>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <h6 style={{ marginBottom: '0px' }}>{text}</h6>
+      <InfoTooltip contents={tooltipContent} />
     </div>
   );
 
@@ -728,7 +738,7 @@ function TUMSteps() {
       type: 'full'
     },
     {
-      component: tableTitle('Top-Up Required', 
+      component: tableTitle('Top-Up Required',
         'Starting point showing all ToLIDs that need additional sequencing to meet their target coverage.'),
       type: 'full'
     },
@@ -737,7 +747,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Library Remaining', 
+      component: tableTitle('Library Remaining',
         'Sequencing requests with library material remaining (≥ 0 units). This is the preferred option as it requires the least processing.'),
       type: 'full'
     },
@@ -746,7 +756,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('DNA Remaining', 
+      component: tableTitle('DNA Remaining',
         'DNA extractions with volume remaining (≥ 0 units) for ToLIDs with no library material. These DNA extractions require library preparation before sequencing.'),
       type: 'full'
     },
@@ -755,7 +765,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Tissue Prep Remaining', 
+      component: tableTitle('Tissue Prep Remaining',
         'Tissue preparations with weight remaining (≥ 0 units) for ToLIDs with no library or DNA material. These tissue preps require DNA extraction and library preparation.'),
       type: 'full'
     },
@@ -764,7 +774,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Tissue Remaining in Benchling', 
+      component: tableTitle('Tissue Remaining in Benchling',
         'Tissue samples in Benchling with weight remaining (≥ 0 units) for ToLIDs with no other material. These tissues require tissue preparation, DNA extraction, and library preparation.'),
       type: 'full'
     },
@@ -773,7 +783,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Sample Remaining in STS', 
+      component: tableTitle('Sample Remaining in STS',
         'Samples in STS that haven\'t been exported to Benchling yet, for ToLIDs with no other material. These samples need to be exported to Benchling before processing.'),
       type: 'full'
     },
@@ -782,7 +792,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Individual Exhausted', 
+      component: tableTitle('Individual Exhausted',
         'ToLIDs where all materials are exhausted but additional sequencing is still needed. These individuals require alternative sources of material.'),
       type: 'full'
     },
@@ -791,7 +801,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Sample from Other Individual Available', 
+      component: tableTitle('Sample from Other Individual Available',
         'Samples from other individuals of the same species, when the primary individual is exhausted. These STS samples provide alternative sources of material.'),
       type: 'full'
     },
@@ -800,7 +810,7 @@ function TUMSteps() {
       type: 'xl'
     },
     {
-      component: tableTitle('Species to be Marked for Recollection', 
+      component: tableTitle('Species to be Marked for Recollection',
         'Species where all individuals are exhausted and new specimens need to be collected. These species require recollection of new specimens.'),
       type: 'full'
     },
@@ -808,8 +818,8 @@ function TUMSteps() {
       component: individualExhaustedRecollectionTable,
       type: 'xl'
     }
-  ];  
-  
+  ];
+
   return (
     <div className="tum">
       {HelpModal}

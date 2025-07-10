@@ -11,11 +11,9 @@ from flask import Flask
 from flask_cors import CORS
 
 from tol.api_base import (
+    action_blueprint,
     data_blueprint,
     system_blueprint
-)
-from tol.api_base.action import (
-    action_blueprint
 )
 from tol.board import board_blueprint
 from tol.core import core_data_object
@@ -89,22 +87,10 @@ def application() -> Flask:
     )
     core_data_object(sql_ds)
 
-    boards_bp = board_blueprint(sql_ds)
-    app.register_blueprint(
-        boards_bp,
-        url_prefix=os.getenv('API_PATH') + '/boards'
-    )
-
     eds = elastic()
     # The main endpoints for the elastic data
     blueprint_data = data_blueprint(eds)
     app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
-
-    blueprint_board_data = data_blueprint(sql_ds)
-    app.register_blueprint(
-        blueprint_board_data,
-        name='board-data',
-        url_prefix=os.getenv('API_PATH') + '/board-data')
 
     # The system endpoints
     blueprint_system = system_blueprint(eds)
@@ -136,7 +122,7 @@ def application() -> Flask:
     )
     app.register_blueprint(
         actions_bp,
-        url_prefix=os.environ['API_PATH'] + '/run-action'
+        url_prefix=os.getenv('API_PATH') + '/local/run-action'
     )
     blueprint_prefect_data = data_blueprint(
         pds,
@@ -144,5 +130,19 @@ def application() -> Flask:
     )
     app.register_blueprint(blueprint_prefect_data, name='pds',
                            url_prefix=os.getenv('API_PATH') + '/prefect')
+
+    # dashboards
+    boards_bp = board_blueprint(sql_ds)
+    app.register_blueprint(
+        boards_bp,
+        name='custom_boards',
+        url_prefix=os.environ['API_PATH'] + '/boards'
+    )
+    blueprint_board_data = data_blueprint(sql_ds)
+    app.register_blueprint(
+        blueprint_board_data,
+        name='boards',
+        url_prefix=os.getenv('API_PATH') + '/boards'
+    )
 
     return app

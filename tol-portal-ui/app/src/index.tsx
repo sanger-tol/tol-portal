@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Genome Research Ltd.
 SPDX-License-Identifier: MIT
 */
 
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { 
   Home,
   Species,
@@ -28,9 +28,12 @@ import {
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page, Dropdown } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
+
+
+export const ELASTIC_DS = new TsDataSource();
 
 const species: Page = {
   name: "Species",
@@ -184,9 +187,10 @@ const publicDropdown: Dropdown = {
   ],
 }
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root')!);
+root.render(
   <TolApp
-    boards={{dataUrl: `/api/v1`}}
+    boards={{dataSource: ELASTIC_DS}}
     brand={
       <img
         src={Logo}
@@ -203,8 +207,7 @@ ReactDOM.render(
       publicDropdown
     ]}
     login={true}
-  />,
-  document.getElementById('root')
+  />
 );
 
 // If you want to start measuring performance in your app, pass a function

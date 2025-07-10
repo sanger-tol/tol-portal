@@ -9,6 +9,7 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '../..';
 
 
 function CuratedSpecies() {
@@ -26,7 +27,8 @@ function CuratedSpecies() {
   }
 
   const species = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
       {

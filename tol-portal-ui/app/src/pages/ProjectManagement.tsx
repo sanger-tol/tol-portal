@@ -15,16 +15,18 @@ import {
   useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
+
 
 function ProjectManagement() {
-
-  const [cumulative, setCumulative] = useState(false); // Add state for cumulative toggle
+  const [cumulative, setCumulative] = useState(false);
 
   const projectManagement = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'project-filters-v1',
+        id: 'project-filters',
         filter: {
           and_: {
             "sts_sample_sts_programme_union": { eq: { value: "ToL" } },
@@ -32,9 +34,9 @@ function ProjectManagement() {
           }
         }
       },
-      { id: 'pm-submitted-bar-chart-v1' },
-      { id: 'pm-status-bar-chart-v1' },
-      { id: 'pm-species-table-v1' }
+      { id: 'pm-submitted-bar-chart' },
+      { id: 'pm-status-bar-chart' },
+      { id: 'pm-species-table' }
     ]
   });
 
@@ -47,7 +49,7 @@ function ProjectManagement() {
         <input
           type="checkbox"
           checked={cumulative}
-          onChange={(e) => setCumulative(e.target.checked)} // Toggle functionality
+          onChange={(e) => setCumulative(e.target.checked)}
           style={{ marginLeft: 5 }}
         />
       </label>
@@ -64,7 +66,7 @@ function ProjectManagement() {
           attribute='sts_sample_sts_project_union'
           rename="Project"
           type='multi'
-          componentId="project-filters-v1"
+          componentId="project-filters"
           {...projectManagement}
         />
       </Col>
@@ -73,7 +75,7 @@ function ProjectManagement() {
           attribute='sts_order_group'
           rename="Order"
           type='multi'
-          componentId="project-filters-v1"
+          componentId="project-filters"
           {...projectManagement}
         />
       </Col>
@@ -82,10 +84,10 @@ function ProjectManagement() {
 
   const submittedChart = (
     <RemoteBarChart
-      id="pm-submitted-bar-chart-v1"
+      id="pm-submitted-bar-chart"
       utilityBarConfig={{
         title: {
-          title: 'Species Submitted to ENA',
+          text: 'Species Submitted to ENA',
         }
       }}
       stacked
@@ -102,10 +104,10 @@ function ProjectManagement() {
     <RemoteBarChart
       utilityBarConfig={{
         title: {
-          title: 'Current Species Statuses',
+          text: 'Current Species Statuses',
         }
       }}
-      id="pm-status-bar-chart-v1"
+      id="pm-status-bar-chart"
       stacked
       breakDownBy="sts_sample_sts_project_union"
       xAxis="calc_pm_status"
@@ -116,7 +118,7 @@ function ProjectManagement() {
 
   const table = (
     <RemoteTable
-      id="pm-species-table-v1"
+      id="pm-species-table"
       defaultSort="sts_scientific_name"
       fields={{
         "sts_scientific_name": {

@@ -8,23 +8,25 @@ import {
   RemoteTable,
   Widgets, useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function ToLIDs() {
   const tolid = useZone({
-    endpoint: 'tolid',
+    objectType: 'tolid',
+    dataSource: ELASTIC_DS,
     components: [
-      { id: 'tolid-table-v3' }
+      { id: 'tolid-table' }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="tolid-table-v3"
+      id="tolid-table"
       defaultSort="tolid_species.sts_scientific_name"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "ToLID"
         },
         "tolid_species.sts_scientific_name": {

@@ -5,14 +5,16 @@
  */
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function TUM() {
   const tum = useZone({
-    endpoint: 'sequencing_request',
+    objectType: 'sequencing_request',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'tum-table-v1',
+        id: 'tum-table',
         filter: {
           and_: {
             "benchling_sequencing_platform": {
@@ -26,11 +28,11 @@ function TUM() {
 
   const table = (
     <RemoteTable
-      id="tum-table-v1"
+      id="tum-table"
       defaultSort='benchling_species.sts_scientific_name'
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Sanger Sample ID"
         },
         "benchling_tolid.id": {

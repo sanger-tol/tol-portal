@@ -4,27 +4,25 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, TsDataSource } from '@tol/tol-ui';
 
 
 function Loaders() {
   const loaders = useZone({
-    endpoint: 'loader',
-    baseUrl: '/api/v1/local',
+    objectType: 'loader',
+    dataSource: new TsDataSource({
+      apiPrefix: 'local',
+    }),
     components: [
       {
-        id: 'loaders-table-v1',
-        filter: {
-          and_: {
-          }
-        }
+        id: 'loaders-table',
       }
     ]
   });
 
   const table = (
     <RemoteTable
-      id="loaders-table-v1"
+      id="loaders-table"
       defaultSort='-date_last_run'
       displaySource
       fields={{

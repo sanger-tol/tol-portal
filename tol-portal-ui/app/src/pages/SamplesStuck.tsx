@@ -5,14 +5,16 @@
  */
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function SamplesStuck() {
   const samplesStuck = useZone({
-    endpoint: 'sample',
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'samples-stuck-table-v1',
+        id: 'samples-stuck-table',
         filter: {
           and_: {
             "benchling_tissue_prep_count": { "gt": { "value": 0 }},
@@ -25,7 +27,7 @@ function SamplesStuck() {
 
   const table = (
     <RemoteTable
-      id="samples-stuck-table-v1"
+      id="samples-stuck-table"
       defaultSort='sts_tolid.id'
       displaySource
       fields={{

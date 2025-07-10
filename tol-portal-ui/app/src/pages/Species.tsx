@@ -12,10 +12,10 @@ import {
   useZone
 } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
 
 
 function Species() {
-
   const defaultFilter = {
     and_: {
       "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
@@ -23,7 +23,8 @@ function Species() {
   }
 
   const species = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
       {
@@ -77,7 +78,7 @@ function Species() {
         }
       },
       {
-        id: 'species-table-v4'
+        id: 'species-table'
       }
     ]
   });
@@ -87,7 +88,7 @@ function Species() {
       id="species-received-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Received',
+          text: 'Species Received',
         }
       }}
       {...species}
@@ -99,7 +100,7 @@ function Species() {
       id="species-extracted-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Extracted',
+          text: 'Species Extracted',
         }
       }}
       {...species}
@@ -111,7 +112,7 @@ function Species() {
       id="species-submitted-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Submitted',
+          text: 'Species Submitted',
         }
       }}
       {...species}
@@ -123,7 +124,7 @@ function Species() {
       id="species-done-count"
       utilityBarConfig={{
         title: {
-          title: 'Species Marked as Done',
+          text: 'Species Marked as Done',
         }
       }}
       {...species}
@@ -135,7 +136,7 @@ function Species() {
       id="species-sunburst"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["sts_order_group", "sts_family"]}
@@ -147,7 +148,7 @@ function Species() {
   
   const table = (
     <RemoteTable
-      id="species-table-v4"
+      id="species-table"
       defaultSort="sts_scientific_name"
       displaySource
       fields={{

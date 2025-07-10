@@ -11,24 +11,27 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
+
 
 function Samples() {
   const samples = useZone({
-    endpoint: "sample",
+    objectType: "sample",
+    dataSource: ELASTIC_DS,
     components: [
-      { id: "samples-bar-chart-v2" },
-      { id: "samples-table-v3" },
-      { id: "samples-map-v1" }
+      { id: "samples-bar-chart" },
+      { id: "samples-table" },
+      { id: "samples-map" }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="samples-bar-chart-v2"
+      id="samples-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Samples Recieved',
+          text: 'Samples Recieved',
         }
       }}
       breakDownBy="sts_ac_status"
@@ -40,11 +43,11 @@ function Samples() {
 
   const table = (
     <RemoteTable
-      id="samples-table-v3"
+      id="samples-table"
       displaySource
       defaultSort="sts_species.sts_scientific_name"
       fields={{
-        "uid": {
+        "id": {
           rename: "ID"
         },
         "sts_tolid.id": {
@@ -68,7 +71,7 @@ function Samples() {
 
   const map = (
     <RemoteMap
-      id="samples-map-v1"
+      id="samples-map"
       bubble
       longitudeKey="sts_longitude"
       latitudeKey="sts_latitude"

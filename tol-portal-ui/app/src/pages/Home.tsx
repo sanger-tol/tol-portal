@@ -14,6 +14,8 @@ import {
   RemoteCount,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
+
 
 const defaultFilter = {
   and_: {
@@ -50,12 +52,13 @@ const intro = (
 function Home() {
   const runChart = (
     <RemoteBarChart
-      id="home-run-bar-chart-v1"
-      endpoint="run_data"
+      id="home-run-bar-chart"
+      objectType="run_data"
+      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Run Complete Data',
+          text: 'Run Complete Data',
         }
       }}
       breakDownBy="mlwh_instrument_model"
@@ -66,12 +69,13 @@ function Home() {
 
   const sampleChart = (
     <RemoteBarChart
-      id="home-sample-bar-chart-v1"
-      endpoint="sample"
+      id="home-sample-bar-chart"
+      objectType="sample"
+      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Species Received',
+          text: 'Species Received',
         }
       }}
       breakDownBy="sts_ac_status"
@@ -82,11 +86,12 @@ function Home() {
 
   const speciesSunburst = (
     <RemoteSunburst
-      id="home-species-sunburst-v1"
-      endpoint="species"
+      id="home-species-sunburst"
+      objectType="species"
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["sts_order_group", "sts_family"]}
@@ -101,7 +106,7 @@ function Home() {
   }
   const speciesTable = (
     <RemoteTable
-      id="home-species-table-v3"
+      id="home-species-table"
       defaultSort="sts_scientific_name"
       noConfigModal
       fields={{
@@ -117,26 +122,28 @@ function Home() {
         },
       }}
       {...useZone({
-        endpoint: 'species',
+        objectType: 'species',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
-        components: [{ id: 'home-species-table-v3' }]
+        components: [{ id: 'home-species-table' }]
       })}
     />
   );
 
   const speciesCount = (
     <RemoteCount
-      id="home-species-count-v1"
+      id="home-species-count"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       {...useZone({
-        endpoint: 'species',
+        objectType: 'species',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
-          id: 'home-species-count-v1',
+          id: 'home-species-count',
           filter: {
             and_: {
               'sts_scientific_name': {
@@ -151,17 +158,18 @@ function Home() {
 
   const tolidCount = (
     <RemoteCount
-      id="home-tolid-count-v1"
+      id="home-tolid-count"
       utilityBarConfig={{
         title: {
-          title: 'TOLIDs Submitted',
+          text: 'TOLIDs Submitted',
         }
       }}
       {...useZone({
-        endpoint: 'tolid',
+        objectType: 'tolid',
+        dataSource: ELASTIC_DS,
         filter: defaultFilter,
         components: [{
-          id: 'home-tolid-count-v1',
+          id: 'home-tolid-count',
           filter: {
             and_: {
               'informatics_status_summary': {
@@ -176,11 +184,12 @@ function Home() {
 
   const extractionsCount = (
     <RemoteCount
-      id="home-extractions-count-v1"
-      endpoint='extraction'
+      id="home-extractions-count"
+      objectType='extraction'
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Extractions',
+          text: 'Extractions',
         }
       }}
     />
@@ -188,11 +197,12 @@ function Home() {
 
   const runDataCount = (
     <RemoteCount
-      id="home-run-data-count-v1"
-      endpoint='run_data'
+      id="home-run-data-count"
+      objectType='run_data'
+      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
-          title: 'Runs',
+          text: 'Runs',
         }
       }}
     />

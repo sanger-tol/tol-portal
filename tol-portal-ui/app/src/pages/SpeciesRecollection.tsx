@@ -6,14 +6,16 @@
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
+import { ELASTIC_DS } from '..';
 
 
 function SpeciesRecollection() {
   const speciesRecollection = useZone({
-    endpoint: 'species',
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'species-recollection-table-v2',
+        id: 'species-recollection-table',
         filter: {
           and_: {
             "sts_species_id": { exists: {} }
@@ -25,7 +27,7 @@ function SpeciesRecollection() {
 
   const table = (
     <RemoteTable
-      id="species-recollection-table-v2"
+      id="species-recollection-table"
       defaultSort='sts_scientific_name'
       displaySource
       fields={{

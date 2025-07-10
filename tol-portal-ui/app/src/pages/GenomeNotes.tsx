@@ -10,12 +10,13 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
-import Platform from '../components/Platform';
+import { ELASTIC_DS } from '..';
 
 
 function GenomeNotes() {
   const notes = useZone({
-    endpoint: 'genome_note',
+    objectType: 'genome_note',
+    dataSource: ELASTIC_DS,
     components: [
       {
         id: 'genome-notes-sunburst',
@@ -27,7 +28,7 @@ function GenomeNotes() {
           }
         }
       },
-      { id: 'genome-notes-table-v3' }
+      { id: 'genome-notes-table' }
     ]
   });
 
@@ -36,7 +37,7 @@ function GenomeNotes() {
       id="genome-notes-sunburst"
       utilityBarConfig={{
         title: {
-          title: 'Species',
+          text: 'Species',
         }
       }}
       sliceBy={["gn_species.sts_order_group", "gn_species.sts_family"]}
@@ -48,11 +49,11 @@ function GenomeNotes() {
 
   const table = (
     <RemoteTable
-      id="genome-notes-table-v3"
+      id="genome-notes-table"
       defaultSort="-gn_date_published"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "DOI"
         },
         "gn_species.goat_scientific_name": {

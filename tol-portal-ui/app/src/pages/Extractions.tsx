@@ -10,24 +10,26 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
 
 
 function Extractions() {
   const extractions = useZone({
-    endpoint: 'extraction',
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
     components: [
-      { id: 'extractions-bar-chart-v1' },
-      { id: 'extractions-table-v2' }
+      { id: 'extractions-bar-chart' },
+      { id: 'extractions-table' }
     ]
   });
 
   const chart = (
     <RemoteBarChart
-      id="extractions-bar-chart-v1"
+      id="extractions-bar-chart"
       stacked
       utilityBarConfig={{
         title: {
-          title: 'Extractions',
+          text: 'Extractions',
         }
       }}
       breakDownBy="benchling_extraction_type"
@@ -39,11 +41,11 @@ function Extractions() {
 
   const table = (
     <RemoteTable
-      id="extractions-table-v2"
+      id="extractions-table"
       defaultSort="benchling_species.sts_scientific_name"
       displaySource
       fields={{
-        "uid": {
+        "id": {
           rename: "Identifier"
         },
         "benchling_species.sts_scientific_name": {

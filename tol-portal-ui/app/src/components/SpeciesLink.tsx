@@ -13,9 +13,8 @@ interface Props {
 
 function SpeciesLink(props: Props) {
   const { id, name } = props;
-  if (id === null) {
-    return <></>;
-  }
+
+  if (id === null) return <></>;
 
   return (
     <Link to={'/species/' + id}>
