@@ -156,7 +156,7 @@ function Species() {
           cellRenderer: {
             element: SpeciesLink,
             propPointers: {
-              id: 'uid',
+              id: 'id',
               name: 'sts_scientific_name'
             }
           }
