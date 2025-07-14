@@ -321,6 +321,7 @@ function SpeciesDetail() {
   if (response === undefined) {
     return (
       <RemoteGet
+        dataSource={ELASTIC_DS}
         resource={'species/' + id}
         response={response}
         setResponse={setResponse}
