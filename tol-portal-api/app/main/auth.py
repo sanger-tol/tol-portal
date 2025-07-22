@@ -53,7 +53,7 @@ def get_local_auth_inspector(
     ctx_getter: CtxGetter = default_ctx_getter
 ) -> AuthInspector:
 
-    WRITE_METHODS = (
+    WRITE_METHODS = (  # noqa N806
         OperatorMethod.DELETE,
         OperatorMethod.EXPORT,
         OperatorMethod.INSERT,
