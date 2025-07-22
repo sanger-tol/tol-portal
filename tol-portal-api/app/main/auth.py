@@ -55,7 +55,6 @@ def get_local_auth_inspector(
 
     WRITE_METHODS = (  # noqa N806
         OperatorMethod.DELETE,
-        OperatorMethod.EXPORT,
         OperatorMethod.INSERT,
         OperatorMethod.UPDATE,
         OperatorMethod.UPSERT,
