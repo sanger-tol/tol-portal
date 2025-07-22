@@ -47,3 +47,29 @@ def get_prefect_auth_inspector(
             raise ForbiddenError()
 
     return auth_inspector
+
+
+def get_local_auth_inspector(
+    ctx_getter: CtxGetter = default_ctx_getter
+) -> AuthInspector:
+
+    WRITE_METHODS = (
+        OperatorMethod.DELETE,
+        OperatorMethod.EXPORT,
+        OperatorMethod.INSERT,
+        OperatorMethod.UPDATE,
+        OperatorMethod.UPSERT,
+    )
+
+    def auth_inspector(
+        object_type: str,
+        method: OperatorMethod,
+    ) -> None:
+
+        if method not in WRITE_METHODS:
+            return
+
+        if not ctx_getter().authenticated:
+            raise ForbiddenError()
+
+    return auth_inspector
