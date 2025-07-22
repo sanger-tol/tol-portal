@@ -29,7 +29,8 @@ from tol.status import StatusDataSource
 
 from .auth import (
     get_auth_inspector,
-    get_prefect_auth_inspector
+    get_local_auth_inspector,
+    get_prefect_auth_inspector,
 )
 from .model import (
     Base,
@@ -98,9 +99,15 @@ def application() -> Flask:
 
     # Endpoints targeting our local database
     core_data_object(sql_ds)
-    blueprint_data_local = data_blueprint(sql_ds)
-    app.register_blueprint(blueprint_data_local, name='local',
-                           url_prefix=os.getenv('API_PATH') + '/local')
+    blueprint_data_local = data_blueprint(
+        sql_ds,
+        auth_inspector=get_local_auth_inspector(),
+    )
+    app.register_blueprint(
+        blueprint_data_local,
+        name='local',
+        url_prefix=os.getenv('API_PATH') + '/local',
+    )
 
     # status board
     status_ds = StatusDataSource({})
