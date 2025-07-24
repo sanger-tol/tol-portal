@@ -415,6 +415,7 @@ function TUMSteps() {
         "id": {
           rename: "Sample ID"
         },
+        "calc_sts_export_eligible": {},
         "sts_tolid.sts_sample_sts_project_union": {},
         "benchling_remaining_weight": {},
         "sts_labwhere_parentage": {},
@@ -547,6 +548,7 @@ function TUMSteps() {
         "id": {
           rename: "Sample ID"
         },
+        "calc_sts_export_eligible": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "benchling_remaining_weight": {},
         "sts_labwhere_parentage": {},
