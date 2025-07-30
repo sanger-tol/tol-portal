@@ -19,7 +19,7 @@ depends_on = None
 def upgrade() -> None:
     op.add_column(
         'tolid_event',
-        sa.Column('in_review', bool, nullable=True),
+        sa.Column('in_review', sa.Boolean, nullable=True),
     )
     op.add_column(
         'tolid_event',
