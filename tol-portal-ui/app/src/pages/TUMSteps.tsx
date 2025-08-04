@@ -66,8 +66,6 @@ function TUMSteps() {
         "tolid_species.calc_recollection_needed": {},
         "calc_extraction_dna_count": {},
       }}
-      actions={['Send for ARA Review']}
-      rowSelection={true}
       {...tolid}
     />
   );
