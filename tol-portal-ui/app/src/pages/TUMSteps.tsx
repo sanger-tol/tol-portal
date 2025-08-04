@@ -5,13 +5,31 @@
  */
 
 import { useState } from 'react';
-import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip, TsDataSource } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 // Table 1
 function TUMSteps() {
   const [showModal, setShowModal] = useState(false);
+
+  const tolidEvent = useZone({
+    objectType: 'tolid_event',
+    dataSource: new TsDataSource({
+      apiPrefix: 'local',
+    }),
+    filter: {
+      and_: {
+        'in_review': { 'eq': { 'value': true } },
+        'id': { exists: {} },
+      }
+    },
+    components: [
+      {
+        id: 'tolid-event',
+      }
+    ]
+  })
 
   const tolid = useZone({
     objectType: 'tolid',
@@ -30,6 +48,21 @@ function TUMSteps() {
       }
     ]
   });
+
+  useTranslator({
+    source: tolidEvent,
+    target: tolid,
+    translations: {
+      "id": "id",
+    }
+  })
+
+  const testTable = (
+    <RemoteTable
+      id="tolid-event"
+      {...tolidEvent}
+    />
+  )
 
   const topUpRequiredTable = (
     <RemoteTable
@@ -66,6 +99,8 @@ function TUMSteps() {
         "tolid_species.calc_recollection_needed": {},
         "calc_extraction_dna_count": {},
       }}
+      actions={['Send for ARA Review']}
+      rowSelection={true}
       {...tolid}
     />
   );
@@ -740,6 +775,10 @@ function TUMSteps() {
     {
       component: title,
       type: 'full'
+    },
+    {
+      component: testTable,
+      type: 'xl'
     },
     {
       component: tableTitle('Top-Up Required',
