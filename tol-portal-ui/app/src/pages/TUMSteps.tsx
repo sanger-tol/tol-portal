@@ -5,31 +5,13 @@
  */
 
 import { useState } from 'react';
-import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip, TsDataSource } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 // Table 1
 function TUMSteps() {
   const [showModal, setShowModal] = useState(false);
-
-  const tolidEvent = useZone({
-    objectType: 'tolid_event',
-    dataSource: new TsDataSource({
-      apiPrefix: 'local',
-    }),
-    filter: {
-      and_: {
-        'in_review': { 'eq': { 'value': true } },
-        'id': { exists: {} },
-      }
-    },
-    components: [
-      {
-        id: 'tolid-event',
-      }
-    ]
-  })
 
   const tolid = useZone({
     objectType: 'tolid',
@@ -43,26 +25,12 @@ function TUMSteps() {
             'calc_tolid_actionable': { 'eq': { 'value': true } },
             'calc_extraction_dna_count': { 'gt': { 'value': 0 } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
             'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
+            'portaldb_in_review': { 'eq': { 'value': true, 'negate': true } },
           }
         }
       }
     ]
   });
-
-  useTranslator({
-    source: tolidEvent,
-    target: tolid,
-    translations: {
-      "id": "id",
-    }
-  })
-
-  const testTable = (
-    <RemoteTable
-      id="tolid-event"
-      {...tolidEvent}
-    />
-  )
 
   const topUpRequiredTable = (
     <RemoteTable
@@ -775,10 +743,6 @@ function TUMSteps() {
     {
       component: title,
       type: 'full'
-    },
-    {
-      component: testTable,
-      type: 'xl'
     },
     {
       component: tableTitle('Top-Up Required',
