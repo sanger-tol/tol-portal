@@ -64,6 +64,8 @@ function ARAReview() {
         "tolid_species.calc_recollection_needed": {},
         "calc_extraction_dna_count": {},
       }}
+      actions={['Remove from ARA Review']}
+      rowSelection
       {...tolid}
     />
   );
