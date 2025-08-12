@@ -371,6 +371,8 @@ function TUMSteps() {
         id: 'sample-remaining-STS',
         filter: {
           and_: {
+            'portaldb_date_abandoned': { 'exists': { 'negate': true } },
+            'sts_eln_id': { 'exists': { 'negate': true } },
             'calc_sample_eligible_for_sts_table': { 'eq': { 'value': true } },
             'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_max': { 'lte': { 'value': 0.0 } },
             'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
