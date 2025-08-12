@@ -459,15 +459,15 @@ function TUMSteps() {
     source: tolid,
     target: individualExhausted,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
-      "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "id": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
-      "calc_coverage": "benchling_tolid.calc_coverage",
-      "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
-      "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
-      "informatics_status_summary": "benchling_tolid.informatics_status_summary",
-      "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "benchling_pacbio_sequencing_request_count": "benchling_pacbio_sequencing_request_count",
+      "tolid_species.goat_scientific_name": "tolid_species.goat_scientific_name",
+      "id": "id",
+      "sts_sample_sts_project_union": "sts_sample_sts_project_union",
+      "calc_coverage": "calc_coverage",
+      "sts_sample_sts_target_coverage_max": "sts_sample_sts_target_coverage_max",
+      "calc_ongoing_submissions": "calc_ongoing_submissions",
+      "informatics_status_summary": "informatics_status_summary",
+      "calc_coverage_met": "calc_coverage_met",
     }
   })
 
@@ -525,15 +525,15 @@ function TUMSteps() {
     source: tolid,
     target: individualExhaustedAvailable,
     translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
-      "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "id": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
-      "calc_coverage": "benchling_tolid.calc_coverage",
-      "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
-      "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
-      "informatics_status_summary": "benchling_tolid.informatics_status_summary",
-      "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "benchling_pacbio_sequencing_request_count": "sts_tolid.benchling_pacbio_sequencing_request_count",
+      "tolid_species.goat_scientific_name": "sts_species.goat_scientific_name",
+      "id": "sts_tolid.id",
+      "sts_sample_sts_project_union": "sts_project_union",
+      "calc_coverage": "sts_tolid.calc_coverage",
+      "sts_sample_sts_target_coverage_max": "sts_tolid.sts_sample_sts_target_coverage_max",
+      "calc_ongoing_submissions": "sts_tolid.calc_ongoing_submissions",
+      "informatics_status_summary": "sts_tolid.informatics_status_summary",
+      "calc_coverage_met": "sts_tolid.calc_coverage_met",
     }
   })
 
@@ -587,21 +587,21 @@ function TUMSteps() {
     ]
   });
 
-  useTranslator({
-    source: tolid,
-    target: individualExhaustedRecollection,
-    translations: {
-      "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
-      "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
-      "id": "benchling_tolid.id",
-      "sts_sample_sts_project_union": "benchling_tolid.sts_sample_sts_project_union",
-      "calc_coverage": "benchling_tolid.calc_coverage",
-      "sts_sample_sts_target_coverage_max": "benchling_tolid.sts_sample_sts_target_coverage_max",
-      "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
-      "informatics_status_summary": "benchling_tolid.informatics_status_summary",
-      "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-    }
-  })
+  // useTranslator({
+  //   source: tolid,
+  //   target: individualExhaustedRecollection,
+  //   translations: {
+  //     "benchling_pacbio_sequencing_request_count": "benchling_pacbio_sequencing_request_count",
+  //     "tolid_species.goat_scientific_name": "tolid_species.goat_scientific_name",
+  //     "id": "id",
+  //     "sts_sample_sts_project_union": "sts_sample_sts_project_union",
+  //     "calc_coverage": "calc_coverage",
+  //     "sts_sample_sts_target_coverage_max": "sts_sample_sts_target_coverage_max",
+  //     "calc_ongoing_submissions": "calc_ongoing_submissions",
+  //     "informatics_status_summary": "informatics_status_summary",
+  //     "calc_coverage_met": "calc_coverage_met",
+  //   }
+  // })
 
   const individualExhaustedRecollectionTable = (
     <RemoteTable
