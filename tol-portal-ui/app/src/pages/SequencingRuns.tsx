@@ -47,18 +47,18 @@ function SequencingRuns() {
       defaultSort="mlwh_species.sts_scientific_name"
       displaySource
       fields={{
-        "mlwh_run_id": {
+        "tolqc_run": {
         },
-        "mlwh_species.sts_scientific_name": {
+        "tolqc_species.sts_scientific_name": {
           cellRenderer: "relationshipDetail"
         },
-        "mlwh_tolid.id": {
+        "tolqc_tolid.id": {
           rename: "ToLID"
         },
-        "mlwh_sequencing_request.id": {
+        "tolqc_sequencing_request.id": {
           rename: "Sequencing Request"
         },
-        "mlwh_run_complete": {
+        "tolqc_run_complete": {
         },
         "tolqc_reporting_category": {
           cellRenderer: {
@@ -76,9 +76,9 @@ function SequencingRuns() {
             }
           }
         },
-        "mlwh_instrument_model": {
+        "tolqc_instrument_model": {
         },
-        "mlwh_element": {
+        "tolqc_position": {
         },
         "mlwh_tag_index": {
         },
