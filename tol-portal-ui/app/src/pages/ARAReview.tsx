@@ -18,7 +18,6 @@ function ARAReview() {
         id: 'top-up-required',
         filter: {
           and_: {
-            'calc_topup_required': { 'eq': { 'value': true } },
             'calc_tolid_actionable': { 'eq': { 'value': true } },
             'calc_extraction_dna_count': { 'gt': { 'value': 0 } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
             'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
