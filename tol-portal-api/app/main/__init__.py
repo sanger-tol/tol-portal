@@ -16,8 +16,11 @@ from tol.api_base import (
     system_blueprint
 )
 from tol.board import board_blueprint
-from tol.core import core_data_object
-from tol.sources.elastic import elastic
+from tol.core import (
+    DataSourceFilter,
+    DataSourceUtils,
+    core_data_object
+)
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
@@ -88,13 +91,29 @@ def application() -> Flask:
     )
     core_data_object(sql_ds)
 
-    eds = elastic()
-    # The main endpoints for the elastic data
-    blueprint_data = data_blueprint(eds)
-    app.register_blueprint(blueprint_data, url_prefix=os.getenv('API_PATH'))
+    # Endpoints for all the data sets we are serving up
+    f = DataSourceFilter()
+    f.and_ = {
+        'publish': {'eq': {'value': True}}
+    }
+    datasource_instances = sql_ds.get_list('data_source_instance', object_filters=f)
+    for datasource_instance in datasource_instances:
+        ds = DataSourceUtils.get_datasource_by_name(
+            name=datasource_instance.builtin_name,
+            **datasource_instance.kwargs if datasource_instance.kwargs else {}
+        )
+        blueprint_data = data_blueprint(ds)
+        api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + '/' + datasource_instance.name
+        print(f'Registering data blueprint for {datasource_instance.name} at {api_path}')
+
+        app.register_blueprint(
+            blueprint_data,
+            url_prefix=api_path,
+            name=datasource_instance.name
+        )
 
     # The system endpoints
-    blueprint_system = system_blueprint(eds)
+    blueprint_system = system_blueprint()
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
 
     # Endpoints targeting our local database

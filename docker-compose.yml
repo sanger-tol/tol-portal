@@ -25,11 +25,10 @@ services:
       - ELASTIC_USER
       - ELASTIC_PASSWORD
       - ELASTIC_INDEX_PREFIX
-      - ELASTIC_ENVIRONMENT
       - DB_URI
       - TOL_PORTAL_URL
       - API_PATH
-      - API_TOKEN
+      - API_DATA_PATH
       - GOOGLE_CLIENT_SECRETS
       - OIDC_CLIENT_ID
       - OIDC_CLIENT_SECRET
@@ -56,6 +55,7 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_API_PATH=${API_PATH}
+      - REACT_APP_API_DATA_PATH=${API_DATA_PATH}
       - REACT_APP_MATOMO_SITE_ID=${MATOMO_SITE_ID}
       - LOCAL_TOLUI=${LOCAL_TOLUI}
     ports:
