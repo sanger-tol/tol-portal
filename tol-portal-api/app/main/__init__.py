@@ -103,7 +103,8 @@ def application() -> Flask:
             **datasource_instance.kwargs if datasource_instance.kwargs else {}
         )
         blueprint_data = data_blueprint(ds)
-        api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + '/' + datasource_instance.name
+        api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \
+            '/' + datasource_instance.name
         print(f'Registering data blueprint for {datasource_instance.name} at {api_path}')
 
         app.register_blueprint(
