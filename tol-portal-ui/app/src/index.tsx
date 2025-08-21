@@ -24,6 +24,7 @@ import {
   SamplesStuck,
   ProjectManagement,
   TUMSteps,
+  ARAReview,
   Loaders
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
@@ -132,6 +133,12 @@ const tumSteps: Page = {
   auth: true,
 }
 
+const araReview: Page = {
+  name: "ARA Review",
+  element: <ARAReview />,
+  auth: true,
+}
+
 const loaders: Page = {
   name: "Loaders",
   element: <Loaders />,
@@ -176,7 +183,7 @@ const pipelineDropdown: Dropdown = {
 
 const additionalDropdown: Dropdown = {
   name: "Additional",
-  pages: [speciesRecollection, tum, tumSteps, samplesStuck, projectManagement, loaders],
+  pages: [speciesRecollection, tum, tumSteps, araReview, samplesStuck, projectManagement, loaders],
   auth: true,
 }
 
