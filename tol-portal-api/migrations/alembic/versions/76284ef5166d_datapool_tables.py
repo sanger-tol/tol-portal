@@ -43,6 +43,7 @@ def upgrade() -> None:
         sa.Column('frequency_daily', sa.Boolean(), nullable=True),
         sa.Column('frequency_hourly', sa.Boolean(), nullable=True),
         sa.Column('frequency_quarter_hourly', sa.Boolean(), nullable=True),
+        sa.Column('date_last_run', sa.DateTime(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.ForeignKeyConstraint(
             ['source_data_source_instance_id'],
@@ -208,7 +209,10 @@ def upgrade() -> None:
         'loader',
         'frequency_weekly'
     )
-
+    op.drop_column(
+        'loader',
+        'date_last_run'
+    )
 
     rels = [
         ('run_data', 'benchling_extraction', 'extraction', 'benchling_run_datas'),
@@ -296,7 +300,11 @@ def upgrade() -> None:
                 foreign_name=rel[3]
             )
         )
-
+    op.execute(
+        sa.text(
+            "UPDATE component SET datasource = '{\"api_prefix\": \"data/tol_production\"}'::jsonb;"
+        )
+    )
 
 def downgrade() -> None:
     op.drop_table('data_source_config_relationship')

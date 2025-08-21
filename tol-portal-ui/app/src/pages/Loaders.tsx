@@ -23,25 +23,25 @@ function Loaders() {
   const table = (
     <RemoteTable
       id="loaders-table"
-      defaultSort='-loader.date_last_run'
+      defaultSort='-date_last_run'
       displaySource
       fields={{
-        "source_data_source_instance.builtin_name": {
+        "source_data_source_instance.name": {
           rename: "Source"
         },
         "loader.source_object_type": {
           rename: "Source Object Type"
         },
-        "destination_data_source_instance.builtin_name": {
+        "destination_data_source_instance.name": {
           rename: "Destination"
         },
         "loader.destination_object_type": {
           rename: "Destination Object Type"
         },
-        "loader.date_last_run": {
+        "date_last_run": {
           rename: "Date Last Run"
         },
-        "loader.ids_data_source_instance.builtin_name": {
+        "loader.ids_data_source_instance.name": {
           rename: "IDs Source"
         },
         "loader.ids_object_type": {
