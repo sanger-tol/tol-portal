@@ -13,6 +13,7 @@ from flask_cors import CORS
 from tol.api_base import (
     action_blueprint,
     data_blueprint,
+    pipeline_steps_blueprint,
     system_blueprint
 )
 from tol.board import board_blueprint
@@ -24,6 +25,7 @@ from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
 from tol.sql.board import create_board_models
 from tol.sql.loader import create_loader_models
+from tol.sql.pipeline_step import create_pipeline_step_models
 from tol.sql.summary import create_summary_models
 from tol.status import StatusDataSource
 
@@ -36,6 +38,14 @@ from .model import (
     Base,
     MODELS,
 )
+
+
+def __get_pipeline_step_models(
+    base_model: type[Model]
+) -> tuple[list[type[Model]], type[Model]]:
+
+    pipeline_models = create_pipeline_step_models(base_model)
+    return list(pipeline_models), pipeline_models._user_mixin
 
 
 def __get_board_models(
@@ -52,6 +62,8 @@ def application() -> Flask:
     app.config['CORS_HEADERS'] = 'Content-Type'
 
     board_models, _board_user_mixin = __get_board_models(Base)
+    pipeline_models, _pipeline_user_mixin = __get_pipeline_step_models(Base)
+
     action_models = create_action_models(Base)
     summary_models = create_summary_models(Base)
     loader_models = create_loader_models(Base)
@@ -151,5 +163,14 @@ def application() -> Flask:
         name='boards',
         url_prefix=os.getenv('API_PATH') + '/boards'
     )
+
+    # pipelines
+    pipeline_steps_bp = pipeline_steps_blueprint(
+        sql_ds,
+        prefect_ds=pds,
+        url_prefix=os.getenv('API_PATH') + '/run-pipeline',
+        role=None,
+    )
+    app.register_blueprint(pipeline_steps_bp)
 
     return app
