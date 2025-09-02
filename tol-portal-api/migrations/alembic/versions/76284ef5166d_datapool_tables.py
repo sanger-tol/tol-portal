@@ -39,6 +39,7 @@ def upgrade() -> None:
         sa.Column('loader_id', sa.Integer(), nullable=False),
         sa.Column('source_data_source_instance_id', sa.Integer(), nullable=False),
         sa.Column('destination_data_source_instance_id', sa.Integer(), nullable=False),
+        sa.Column('ids_data_source_instance_id', sa.Integer(), nullable=True),
         sa.Column('frequency_weekly', sa.Boolean(), nullable=True),
         sa.Column('frequency_daily', sa.Boolean(), nullable=True),
         sa.Column('frequency_hourly', sa.Boolean(), nullable=True),
@@ -52,6 +53,11 @@ def upgrade() -> None:
         ),
         sa.ForeignKeyConstraint(
             ['destination_data_source_instance_id'],
+            ['data_source_instance.id'],
+            ondelete='CASCADE'
+        ),
+        sa.ForeignKeyConstraint(
+            ['ids_data_source_instance_id'],
             ['data_source_instance.id'],
             ondelete='CASCADE'
         ),
@@ -166,8 +172,8 @@ def upgrade() -> None:
     op.execute(
         sa.text(
             "INSERT INTO loader_instance (loader_id, source_data_source_instance_id, "
-            "destination_data_source_instance_id, frequency_quarter_hourly, frequency_hourly, frequency_daily) "
-            "SELECT id, source_data_source_instance_id, destination_data_source_instance_id, frequency_quarter_hourly, frequency_hourly, frequency_daily "
+            "destination_data_source_instance_id, frequency_quarter_hourly, frequency_hourly, frequency_daily, ids_data_source_instance_id) "
+            "SELECT id, source_data_source_instance_id, destination_data_source_instance_id, frequency_quarter_hourly, frequency_hourly, frequency_daily, ids_data_source_instance_id "
             "FROM loader "
             "WHERE frequency_weekly IS NOT NULL OR frequency_hourly IS NOT NULL OR frequency_daily IS NOT NULL;"
         )
@@ -177,11 +183,21 @@ def upgrade() -> None:
     op.execute(
         sa.text(
             "INSERT INTO loader_instance (loader_id, source_data_source_instance_id, "
-            "destination_data_source_instance_id, frequency_weekly) "
-            "SELECT loader.id, source_data_source_instance_id, data_source_instance.id, frequency_weekly "
+            "destination_data_source_instance_id, frequency_weekly, ids_data_source_instance_id) "
+            "SELECT loader.id, source_data_source_instance_id, data_source_instance.id, frequency_weekly, ids_data_source_instance_id "
             "FROM loader, data_source_instance "
             "WHERE frequency_weekly IS NOT NULL " \
             "AND data_source_instance.name = 'tol_building';"
+        )
+    )
+
+    # Use tol_building for ids where the destination is tol_building
+    op.execute(
+        sa.text(
+            "UPDATE loader_instance "
+            "SET ids_data_source_instance_id = (SELECT id FROM data_source_instance WHERE name = 'tol_building') "
+            "WHERE ids_data_source_instance_id = (SELECT id FROM data_source_instance WHERE name = 'tol_production') " \
+            "AND destination_data_source_instance_id = (SELECT id FROM data_source_instance WHERE name = 'tol_building');"
         )
     )
 
@@ -192,6 +208,10 @@ def upgrade() -> None:
     op.drop_column(
         'loader',
         'destination_data_source_instance_id'
+    )
+    op.drop_column(
+        'loader',
+        'ids_data_source_instance_id'
     )
     op.drop_column(
         'loader',

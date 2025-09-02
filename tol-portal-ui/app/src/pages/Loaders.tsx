@@ -41,7 +41,7 @@ function Loaders() {
         "date_last_run": {
           rename: "Date Last Run"
         },
-        "loader.ids_data_source_instance.name": {
+        "ids_data_source_instance.name": {
           rename: "IDs Source"
         },
         "loader.ids_object_type": {
