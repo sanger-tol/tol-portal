@@ -110,21 +110,19 @@ tolcore:
     user: ""
     password: ""
     index_prefix: ""
-    environment: ""
   api:
     enabled: true
     fullname: "tol-portal-api"
     probe_url: '/api/v1/system/healthz'
     path: '/api/v1'
-    token: ""
+    data_path: '/data'
     extra_env:
       API_PATH: api.path
-      API_TOKEN: api.token
+      API_DATA_PATH: api.data_path
       ELASTIC_URI: elastic.uri
       ELASTIC_USER: elastic.user
       ELASTIC_PASSWORD: elastic.password
       ELASTIC_INDEX_PREFIX: elastic.index_prefix
-      ELASTIC_ENVIRONMENT: elastic.environment
       GOOGLE_CLIENT_SECRETS: google.client_secrets_json
       PREFECT_URL: prefect.url
       PREFECT_API_PATH: prefect.api_path
@@ -136,6 +134,7 @@ tolcore:
     matomo_site_id: ''
     extra_env:
       REACT_APP_API_PATH: api.path
+      REACT_APP_API_DATA_PATH: api.data_path
       REACT_APP_MATOMO_SITE_ID: ui.matomo_site_id
   s3:
     uri: ""

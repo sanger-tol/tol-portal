@@ -9,7 +9,7 @@ import { RemoteTable, Widgets, useZone, TsDataSource } from '@tol/tol-ui';
 
 function Loaders() {
   const loaders = useZone({
-    objectType: 'loader',
+    objectType: 'loader_instance',
     dataSource: new TsDataSource({
       apiPrefix: 'local',
     }),
@@ -26,28 +26,28 @@ function Loaders() {
       defaultSort='-date_last_run'
       displaySource
       fields={{
-        "source_data_source_instance.builtin_name": {
+        "source_data_source_instance.name": {
           rename: "Source"
         },
-        "source_object_type": {
+        "loader.source_object_type": {
           rename: "Source Object Type"
         },
-        "destination_data_source_instance.builtin_name": {
+        "destination_data_source_instance.name": {
           rename: "Destination"
         },
-        "destination_object_type": {
+        "loader.destination_object_type": {
           rename: "Destination Object Type"
         },
         "date_last_run": {
           rename: "Date Last Run"
         },
-        "ids_data_source_instance.builtin_name": {
+        "ids_data_source_instance.name": {
           rename: "IDs Source"
         },
-        "ids_object_type": {
+        "loader.ids_object_type": {
           rename: "IDs type"
         },
-        "ids_attribute": {
+        "loader.ids_attribute": {
           rename: "IDs attribute"
         },
       }}
