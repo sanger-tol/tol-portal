@@ -119,36 +119,52 @@ function ProjectManagement() {
   const table = (
     <RemoteTable
       id="pm-species-table"
-      defaultSort="sts_scientific_name"
+      defaultSortByAttribute="sts_scientific_name"
+      cellRenderer={{
+        "speciesLink": SpeciesLink,
+      }}
       fields={{
-        "sts_scientific_name": {
-          rename: "Species Name",
-          cellRenderer: {
-            element: SpeciesLink,
-            propPointers: {
-              id: 'uid',
-              name: 'sts_scientific_name'
+        data: {
+          "sts_scientific_name": {
+            rename: "Species Name",
+            cellRenderer: {
+              element: "speciesLink",
+              props: {
+                id: "${uid}",
+                name: "${sts_scientific_name}"
+              }
             }
+          },
+          "sts_sample_sts_project_union": {
+            rename: "Project"
+          },
+          "sts_sample_sts_tollab_assign_date_min": {
+            rename: "Assigned To Lab Date"
+          },
+          "informatics_tolid_informatics_status_summary_min": {
+            rename: "Informatics Status"
+          },
+          "tolqclegacy_assembly_stage": {
+            rename: "Assembly Stage"
+          },
+          "mlwh_run_data_mlwh_run_complete_hic_min": {
+            rename: "Latest HiC Run"
+          },
+          "mlwh_run_data_mlwh_run_complete_pacbio_min": {
+            rename: "Latest PacBio Run"
           }
         },
-        "sts_sample_sts_project_union": {
-          rename: "Project"
+        order: {
+          active: [
+            "sts_scientific_name",
+            "sts_sample_sts_project_union",
+            "sts_sample_sts_tollab_assign_date_min",
+            "informatics_tolid_informatics_status_summary_min",
+            "tolqclegacy_assembly_stage",
+            "mlwh_run_data_mlwh_run_complete_hic_min",
+            "mlwh_run_data_mlwh_run_complete_pacbio_min",
+          ],
         },
-        "sts_sample_sts_tollab_assign_date_min": {
-          rename: "Assigned To Lab Date"
-        },
-        "informatics_tolid_informatics_status_summary_min": {
-          rename: "Informatics Status"
-        },
-        "tolqclegacy_assembly_stage": {
-          rename: "Assembly Stage"
-        },
-        "mlwh_run_data_mlwh_run_complete_hic_min": {
-          rename: "Latest HiC Run"
-        },
-        "mlwh_run_data_mlwh_run_complete_pacbio_min": {
-          rename: "Latest PacBio Run"
-        }
       }}
       {...projectManagement}
     />
