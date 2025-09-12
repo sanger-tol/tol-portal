@@ -39,85 +39,108 @@ function CuratedSpecies() {
 
 //Visible fields
 const visibleFields = {
-  uid:{},
-  sts_family: {},
-  sts_genus: {},
-  sts_scientific_name: {},
-  sts_prefix: {},
-  tolid_tolid_count: {},
-  informatics_tolid_informatics_status_summary_min: {
-    filter: "multi"
+  data: {
+    informatics_tolid_informatics_status_summary_min: {
+      filter: "multi"
+    },
+    sts_sample_sts_gal_name_union: {
+      filter: "multi"
+    },
   },
-  sts_sample_sts_gal_name_union: {
-    filter: "multi"
+  order: {
+    active: [
+      "uid",
+      "sts_family",
+      "sts_genus",
+      "sts_scientific_name",
+      "sts_prefix",
+      "tolid_tolid_count",
+      "informatics_tolid_informatics_status_summary_min",
+      "sts_sample_sts_gal_name_union",
+    ],
   },
 };
 
 // Hidden fields
 const hiddenFields = {
-  calc_done_date: {
-    hidden: true,
+  data: {
+    calc_done_date: {
+      hidden: true,
+    },
+    sts_sample_count: {
+      hidden: true,
+    },
+    benchling_sequencing_request_benchling_completion_date_hic_min: {
+      hidden: true,
+    },
+    benchling_sequencing_request_benchling_completion_date_pacbio_min: {
+      hidden: true,
+    },
+    tolqclegacy_assembly_stage: {
+      filter: "multi",
+      hidden: true,
+    },
+    sts_taxon_group: {
+      hidden: true,
+    },
+    sts_order_group: {
+      hidden: true,
+    },
+    goat_chromosome_number: {
+      hidden: true,
+    },
+    goat_ploidy: {
+      hidden: true,
+    },
+    sts_sample_sts_col_date_max: {
+      hidden: true,
+    },
+    benchling_sample_count: {
+      hidden: true,
+    },
+    sts_genome_size: {
+      hidden: true,
+    },
+    sts_tissue_depleted: {
+      hidden: true,
+    },
+    sts_sequencing_material_status_updated_at: {
+      hidden: true,
+    },
+    sts_sequencing_material_status: {
+      hidden: true,
+    },
+    goat_long_list: {
+      hidden: true,
+    },
   },
-  sts_sample_count: {
-    hidden: true,
-  },
-  benchling_sequencing_request_benchling_completion_date_hic_min: {
-    hidden: true,
-  },
-  benchling_sequencing_request_benchling_completion_date_pacbio_min: {
-    hidden: true,
-  },
-  tolqclegacy_assembly_stage: {
-    filter: "multi",
-    hidden: true,
-  },
-  sts_taxon_group: {
-    hidden: true,
-  },
-  sts_order_group: {
-    hidden: true,
-  },
-  goat_chromosome_number: {
-    hidden: true,
-  },
-  goat_ploidy: {
-    hidden: true,
-  },
-  sts_sample_sts_col_date_max: {
-    hidden: true,
-  },
-  benchling_sample_count: {
-    hidden: true,
-  },
-  sts_genome_size: {
-    hidden: true,
-  },
-  sts_tissue_depleted: {
-    hidden: true,
-  },
-  sts_sequencing_material_status_updated_at: {
-    hidden: true,
-  },
-  sts_sequencing_material_status: {
-    hidden: true,
-  },
-  goat_long_list: {
-    hidden: true,
+  order: {
+    active: [
+
+    ],
   },
 };
 
 const fields = {
-  ...visibleFields,
-  ...hiddenFields,
+  data: {
+    ...visibleFields.data,
+    ...hiddenFields.data,
+  },
+  order: {
+    active: [
+      ...visibleFields.order.active,
+      ...hiddenFields.order.active,
+    ],
+  },
 };
 
   const table = (
     <RemoteTable
-    id="species-table"
-    fields={fields}
-    height={500}
-    {...species}
-/>
+      id="species-table"
+      fields={fields}
+      height={500}
+      {...species}
+    />
   );
 
   const components = [
