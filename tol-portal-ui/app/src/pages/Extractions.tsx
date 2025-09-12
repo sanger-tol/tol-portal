@@ -42,21 +42,31 @@ function Extractions() {
   const table = (
     <RemoteTable
       id="extractions-table"
-      defaultSort="benchling_species.sts_scientific_name"
+      defaultSortByAttribute="benchling_species.sts_scientific_name"
       displaySource
       fields={{
-        "id": {
-          rename: "Identifier"
+        data: {
+          "id": {
+            rename: "Identifier"
+          },
+          "benchling_species.sts_scientific_name": {
+            cellRenderer: "relationshipDetail"
+          },
+          "benchling_tolid.id": {
+            rename: "ToLID (Benchling)"
+          },
+          "benchling_completion_date": {
+            sort: true
+          }
         },
-        "benchling_species.sts_scientific_name": {
-          cellRenderer: "relationshipDetail"
+        order: {
+          active: [
+            "id",
+            "benchling_species.sts_scientific_name",
+            "benchling_tolid.id",
+            "benchling_completion_date",
+          ],
         },
-        "benchling_tolid.id": {
-          rename: "ToLID (Benchling)"
-        },
-        "benchling_completion_date": {
-          sort: true
-        }
       }}
       {...extractions}
     />
