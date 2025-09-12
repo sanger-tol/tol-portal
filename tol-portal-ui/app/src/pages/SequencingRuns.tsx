@@ -44,48 +44,55 @@ function SequencingRuns() {
   const table = (
     <RemoteTable
       id="run-data-table"
-      defaultSort="mlwh_species.sts_scientific_name"
+      defaultSortByAttribute="mlwh_species.sts_scientific_name"
       displaySource
+      cellRenderer={{
+        "platform": Platform,
+      }}
       fields={{
-        "tolqc_run": {
-        },
-        "tolqc_species.sts_scientific_name": {
-          cellRenderer: "relationshipDetail"
-        },
-        "tolqc_tolid.id": {
-          rename: "ToLID"
-        },
-        "tolqc_sequencing_request.id": {
-          rename: "Sequencing Request"
-        },
-        "tolqc_run_complete": {
-        },
-        "tolqc_reporting_category": {
-          cellRenderer: {
-            element: Platform,
-            propPointers: {
-              platform: "tolqc_reporting_category"
+        data: {
+          "tolqc_species.sts_scientific_name": {
+            cellRenderer: "relationshipDetail"
+          },
+          "tolqc_tolid.id": {
+            rename: "ToLID"
+          },
+          "tolqc_sequencing_request.id": {
+            rename: "Sequencing Request"
+          },
+          "tolqc_reporting_category": {
+            cellRenderer: {
+              element: "platform",
+              props: {
+                platform: "${tolqc_reporting_category}"
+              }
             }
-          }
-        },
-        "mlwh_platform_type": {
-          cellRenderer: {
-            element: Platform,
-            propPointers: {
-              platform: "mlwh_platform_type"
+          },
+          "mlwh_platform_type": {
+            cellRenderer: {
+              element: "platform",
+              props: {
+                platform: "${mlwh_platform_type}"
+              }
             }
-          }
+          },
         },
-        "tolqc_instrument_model": {
+        order: {
+          active: [
+            "tolqc_run",
+            "tolqc_species.sts_scientific_name",
+            "tolqc_tolid.id",
+            "tolqc_sequencing_request.id",
+            "tolqc_run_complete",
+            "tolqc_reporting_category",
+            "mlwh_platform_type",
+            "tolqc_instrument_model",
+            "tolqc_position",
+            "mlwh_tag_index",
+            "tolqc_bases",
+            "tolqc_read_length_n50",
+          ],
         },
-        "tolqc_position": {
-        },
-        "mlwh_tag_index": {
-        },
-        "tolqc_bases": {
-        },
-        "tolqc_read_length_n50": {
-        }
       }}
       {...runs}
     />
