@@ -50,22 +50,33 @@ function GenomeNotes() {
   const table = (
     <RemoteTable
       id="genome-notes-table"
-      defaultSort="-gn_date_published"
+      defaultSortByAttribute="gn_date_published"
+      defaultSortByType="desc"
       displaySource
       fields={{
-        "id": {
-          rename: "DOI"
+        data: {
+          "id": {
+            rename: "DOI"
+          },
+          "gn_species.goat_scientific_name": {
+            rename: "Species",
+            cellRenderer: "relationshipDetail"
+          },
+          "gn_tolid.id": {
+            rename: "ToLID"
+          },
+          "gn_date_published": {
+            rename: "Date Published"
+          }
         },
-        "gn_species.goat_scientific_name": {
-          rename: "Species",
-          cellRenderer: "relationshipDetail"
+        order: {
+          active: [
+            "id",
+            "gn_species.goat_scientific_name",
+            "gn_tolid.id",
+            "gn_date_published",
+          ],
         },
-        "gn_tolid.id": {
-          rename: "ToLID"
-        },
-        "gn_date_published": {
-          rename: "Date Published"
-        }
       }}
       {...notes}
     />
