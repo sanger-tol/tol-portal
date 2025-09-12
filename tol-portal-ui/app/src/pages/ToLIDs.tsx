@@ -23,23 +23,30 @@ function ToLIDs() {
   const table = (
     <RemoteTable
       id="tolid-table"
-      defaultSort="tolid_species.sts_scientific_name"
+      defaultSortByAttribute="tolid_species.sts_scientific_name"
       displaySource
       fields={{
-        "id": {
-          rename: "ToLID"
+        data: {
+          "id": {
+            rename: "ToLID"
+          },
+          "tolid_species.sts_scientific_name": {
+            cellRenderer: "relationshipDetail"
+          },
+          "tolid_specimen.id": {
+            rename: "Specimen",
+            cellRenderer: "relationship"
+          },  
         },
-        "tolid_species.sts_scientific_name": {
-          cellRenderer: "relationshipDetail"
+        order: {
+          active: [
+            "id",
+            "tolid_species.sts_scientific_name",
+            "tolid_specimen.id",
+            "informatics_status_summary",
+            "informatics_status",
+          ],
         },
-        "tolid_specimen.id": {
-          rename: "Specimen",
-          cellRenderer: "relationship"
-        },
-        "informatics_status_summary": {
-        },
-        "informatics_status": {
-        }
       }}
       {...tolid}
     />
