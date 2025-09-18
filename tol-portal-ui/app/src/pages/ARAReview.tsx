@@ -39,9 +39,6 @@ function ARAReview() {
       }}
       fields={{
         data: {
-          "id": {
-            rename: "ToLID",
-          },
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
               element: "speciesLink",
