@@ -51,7 +51,7 @@ function CuratedSpecies() {
     },
     order: {
       active: [
-        "uid",
+        "id",
         "sts_family",
         "sts_genus",
         "sts_scientific_name",
