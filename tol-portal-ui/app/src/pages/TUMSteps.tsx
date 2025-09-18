@@ -463,7 +463,7 @@ function TUMSteps() {
             "calc_sts_export_eligible",
             "sts_tolid.sts_sample_sts_project_union",
             "benchling_remaining_weight",
-            "sts_labwhere_parentage":,
+            "sts_labwhere_parentage",
             "sts_tolid.informatics_gscope_coverage",
             "sts_species.goat_genome_size",
             "sts_tolid.informatics_status_summary",
