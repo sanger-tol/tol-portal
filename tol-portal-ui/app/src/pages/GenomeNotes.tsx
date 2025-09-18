@@ -60,7 +60,10 @@ function GenomeNotes() {
           },
           "gn_species.goat_scientific_name": {
             rename: "Species",
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "gn_species.id"
+            }
           },
           "gn_tolid.id": {
             rename: "ToLID"

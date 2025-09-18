@@ -52,7 +52,10 @@ function Samples() {
             rename: "ToLID",
           },
           "sts_species.sts_scientific_name": {
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "sts_species.id"
+            }
           },
         },
         order: {

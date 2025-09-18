@@ -53,7 +53,10 @@ function Curations() {
             rename: "ToLID"
           },
           "grit_species.sts_scientific_name": {
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "grit_species.id"
+            }
           },
         },
         order: {

@@ -64,7 +64,10 @@ function SequencingRequests() {
           },
           "mlwh_species.sts_scientific_name": {
             rename: "Species",
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "mlwh_species.id"
+            }
           },
           "benchling_tolid.id": {
             rename: "ToLID (Benchling)"

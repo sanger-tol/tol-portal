@@ -52,7 +52,10 @@ function SequencingRuns() {
       fields={{
         data: {
           "tolqc_species.sts_scientific_name": {
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "tolqc_species.id"
+            }
           },
           "tolqc_tolid.id": {
             rename: "ToLID"

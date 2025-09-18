@@ -41,11 +41,17 @@ function TUM() {
           },
           "benchling_species.sts_scientific_name": {
             rename: "Benchling Species",
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "benchling_species.id"
+            }
           },
           "mlwh_species.sts_scientific_name": {
             rename: "MLWH Species",
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "mlwh_species.id"
+            }
           },
           "benchling_completion_date": {
             rename: "ToL Core Submission Date"

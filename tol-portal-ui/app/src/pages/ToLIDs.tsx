@@ -31,7 +31,10 @@ function ToLIDs() {
             rename: "ToLID"
           },
           "tolid_species.sts_scientific_name": {
-            cellRenderer: "relationshipDetail"
+            cellRenderer: "relationship",
+            props: {
+              detailPageIdAttribute: "tolid_species.id"
+            }
           },
           "tolid_specimen.id": {
             rename: "Specimen",
