@@ -48,9 +48,6 @@ function Samples() {
       defaultSortByAttribute="sts_species.sts_scientific_name"
       fields={{
         data: {
-          "id": {
-            rename: "ID"
-          },
           "sts_tolid.id": {
             rename: "ToLID",
           },
