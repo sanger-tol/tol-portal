@@ -12,7 +12,9 @@ import {
   Row,
   Col,
   RemoteCount,
-  useZone
+  useZone,
+  User,
+  useAuth
 } from '@tol/tol-ui';
 import { ELASTIC_DS } from '..';
 
@@ -23,33 +25,51 @@ const defaultFilter = {
   }
 }
 
-const getGreeting = () => {
-  const hour = new Date().getHours();
+function getGreeting(user: User): string {
+  // Initialise greeting. Each stage will add to this message
+  let greeting = "";
+
+  // Get information required to construct greeting
+  const currentDate = new Date();
+
+  // Time of day
+  const hour = currentDate.getHours();
   if (hour < 12) {
-    return "Good morning - have a great day.";
+    greeting += "Good morning";
   } else if (hour >= 17) {
-    return "Good evening.";
+    greeting += "Good evening";
   } else if (hour >= 12) {
-    return "Good afternoon.";
+    greeting += "Good afternoon";
   }
-};
 
-const title = (
-  <span>
-    <h2>{getGreeting()}</h2>
-    <p className='mt-2'>
-      Welcome to ToL Portal, the home of Tree of Life data.
-    </p>
-  </span>
-);
+  // If the user is logged in, display their name
+  if (user.name) {
+    greeting += `, ${user.name}`
+  }
 
-const intro = (
-  <Row>
-    <Col xs={12} sm={8}>{title}</Col>
-  </Row>
-);
+  greeting += ".";
+
+  return greeting;
+}
 
 function Home() {
+  const { user } = useAuth();
+
+  const title = (
+    <span>
+      <h2>{getGreeting(user)}</h2>
+      <p className='mt-2'>
+        Welcome to ToL Portal, the home of Tree of Life data.
+      </p>
+    </span>
+  );
+
+  const intro = (
+    <Row>
+      <Col xs={12} sm={8}>{title}</Col>
+    </Row>
+  );
+
   const runChart = (
     <RemoteBarChart
       id="home-run-bar-chart"
