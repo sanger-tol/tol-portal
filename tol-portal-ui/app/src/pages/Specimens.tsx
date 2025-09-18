@@ -27,11 +27,6 @@ function Specimens() {
       defaultSortByAttribute="sts_bio_specimen_id"
       displaySource
       fields={{
-        data: {
-          "id": {
-            rename: "ID",
-          },
-        },
         order: {
           active: [
             "id",
