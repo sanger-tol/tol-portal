@@ -37,58 +37,49 @@ function CuratedSpecies() {
     ]
   });
 
-//Visible fields
-const visibleFields = {
-  uid: {},
-  sts_family: {},
-  sts_genus: {},
-  sts_scientific_name: {},
-  sts_prefix: {},
-  tolid_tolid_count: {},
-  informatics_tolid_informatics_status_summary_min: {
-    filter: "multi",
-  },
-  sts_sample_sts_gal_name_union: {
-    filter: "multi",
-  },
-};
-
-// Hidden fields
-const hiddenFields = {
-  calc_done_date: {},
-  sts_sample_count: {},
-  benchling_sequencing_request_benchling_completion_date_hic_min: {},
-  benchling_sequencing_request_benchling_completion_date_pacbio_min: {},
-  tolqclegacy_assembly_stage: {
-    filter: "multi",
-  },
-  sts_taxon_group: {},
-  sts_order_group: {},
-  goat_chromosome_number: {},
-  goat_ploidy: {},
-  sts_sample_sts_col_date_max: {},
-  benchling_sample_count: {},
-  sts_genome_size: {},
-  sts_tissue_depleted: {},
-  sts_sequencing_material_status_updated_at: {},
-  sts_sequencing_material_status: {},
-  goat_long_list: {},
-};
-
-const fields = {
-  data: {
-    ...visibleFields,
-    ...hiddenFields,
-  },
-  order: {
-    active: [
-      Object.keys(visibleFields),
-    ],
-    inactive: [
-      Object.keys(hiddenFields),
-    ],
-  },
-};
+  const fields = {
+    data: {
+      informatics_tolid_informatics_status_summary_min: {
+        filter: "multi",
+      },
+      sts_sample_sts_gal_name_union: {
+        filter: "multi",
+      },
+      tolqclegacy_assembly_stage: {
+        filter: "multi",
+      },
+    },
+    order: {
+      active: [
+        "uid",
+        "sts_family",
+        "sts_genus",
+        "sts_scientific_name",
+        "sts_prefix",
+        "tolid_tolid_count",
+        "informatics_tolid_informatics_status_summary_min",
+        "sts_sample_sts_gal_name_union",
+      ],
+      inactive: [
+        "calc_done_date",
+        "sts_sample_count",
+        "benchling_sequencing_request_benchling_completion_date_hic_min",
+        "benchling_sequencing_request_benchling_completion_date_pacbio_min",
+        "tolqclegacy_assembly_stage",
+        "sts_taxon_group",
+        "sts_order_group",
+        "goat_chromosome_number",
+        "goat_ploidy",
+        "sts_sample_sts_col_date_max",
+        "benchling_sample_count",
+        "sts_genome_size",
+        "sts_tissue_depleted",
+        "sts_sequencing_material_status_updated_at",
+        "sts_sequencing_material_status",
+        "goat_long_list",
+      ],
+    },
+  };
 
   const table = (
     <RemoteTable

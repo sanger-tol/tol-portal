@@ -40,45 +40,35 @@ function CoreLabData() {
     ]
   });
 
-
-  // Visible fields
-  const visibleFields = {
-    "benchling_completion_date": {},
-    "benchling_species.sts_scientific_name": {},
-    "benchling_tolid.id": {},
-    "benchling_sample.sts_organism_part": {},
-    "benchling_sample.sts_lifestage": {},
-    "benchling_sample.sts_sex": {},
-    "benchling_sample.sts_preservation_approach": {},
-    "benchling_species.sts_genome_size": {},
-    "benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max": {},
-    "benchling_eln_file_registry_id": {},
-    "mlwh_nanodrop_concentration_ngul_value": {},
-    "mlwh_gqn_dnaex_value": {},
-    "benchling_yield_ng": {},
-    "benchling_femto_description": {},
-    "benchling_species.sts_taxon_group": {},
-    "benchling_species.sts_order_group": {},
-    "benchling_species.sts_family": {},
-    "benchling_species.sts_genus": {},
-    "benchling_extraction_type": {},
-    "benchling_extraction_qc_result": {},
-  };
-  
-  // Hidden fields
-  const hiddenFields: Object = {};
-
   const fields = {
     data: {
-      ...visibleFields,
-      ...hiddenFields,
+
     },
     order: {
       active: [
-        Object.keys(visibleFields)
+        "benchling_completion_date",
+        "benchling_species.sts_scientific_name",
+        "benchling_tolid.id",
+        "benchling_sample.sts_organism_part",
+        "benchling_sample.sts_lifestage",
+        "benchling_sample.sts_sex",
+        "benchling_sample.sts_preservation_approach",
+        "benchling_species.sts_genome_size",
+        "benchling_tolid.benchling_tissue_prep_benchling_weight_mg_max",
+        "benchling_eln_file_registry_id",
+        "mlwh_nanodrop_concentration_ngul_value",
+        "mlwh_gqn_dnaex_value",
+        "benchling_yield_ng",
+        "benchling_femto_description",
+        "benchling_species.sts_taxon_group",
+        "benchling_species.sts_order_group",
+        "benchling_species.sts_family",
+        "benchling_species.sts_genus",
+        "benchling_extraction_type",
+        "benchling_extraction_qc_result",
       ],
       inactive: [
-        Object.keys(hiddenFields)
+        
       ]
     },
   };
