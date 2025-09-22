@@ -21,7 +21,8 @@ def get_auth_inspector(
 
     def auth_inspector(
         object_type: str,
-        method: OperatorMethod
+        method: OperatorMethod,
+        **kwargs
     ) -> None:
         given_api_token = request.headers.get('token')
         if expected_api_token is not None and expected_api_token == given_api_token:
@@ -41,7 +42,8 @@ def get_prefect_auth_inspector(
 
     def auth_inspector(
         object_type: str,
-        method: OperatorMethod
+        method: OperatorMethod,
+        **kwargs
     ) -> None:
         if not ctx_getter().authenticated:
             raise ForbiddenError()
@@ -63,6 +65,7 @@ def get_local_auth_inspector(
     def auth_inspector(
         object_type: str,
         method: OperatorMethod,
+        **kwargs
     ) -> None:
 
         if method not in WRITE_METHODS:
