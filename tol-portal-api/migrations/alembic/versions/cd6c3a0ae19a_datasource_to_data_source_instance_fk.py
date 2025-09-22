@@ -8,6 +8,7 @@ Create Date: 2025-09-22 13:07:57.229405
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.sql import text
 
 
 # revision identifiers, used by Alembic.
@@ -18,6 +19,8 @@ depends_on = None
 
 
 def upgrade() -> None:
+    conn = op.get_bind()
+
     # Remove `datasource` fields
     op.drop_column('component', 'datasource')
     op.drop_column('zone', 'datasource')
@@ -35,6 +38,20 @@ def upgrade() -> None:
         'fk_zone_data_source_instance',
         'zone', 'data_source_instance',
         ['data_source_instance_id'], ['id']
+    )
+
+    # Pre-populate `datasource_instance_id` fields with `1` ('tol-production')
+    conn.execute(
+        text("""
+        UPDATE component
+        SET data_source_instance_id=1
+        """)
+    )
+    conn.execute(
+        text("""
+        UPDATE zone
+        SET data_source_instance_id=1
+        """)
     )
 
 
