@@ -46,5 +46,5 @@ def downgrade() -> None:
     op.drop_column('zone', 'data_source_instance_id')
 
     # Replace back old `datasource` field into these tables
-    op.add_column('component', sa.Column('datasource', JSONB, nullable=False, server_default='{}'))
-    op.add_column('zone', sa.Column('datasource', JSONB, nullable=False, server_default='{}'))
+    op.add_column('component', sa.Column('datasource', JSONB, nullable=False, server_default='{"api_prefix": "data/tol_production"}'))
+    op.add_column('zone', sa.Column('datasource', JSONB, nullable=False, server_default='{"api_prefix": "data/tol_production"}'))
