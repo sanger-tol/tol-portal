@@ -39,4 +39,12 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    pass
+    # Remove `data_source_instance_id` fields from `component` and `zone` tables
+    op.drop_constraint('fk_component_data_source_instance', 'component')
+    op.drop_column('component', 'data_source_instance_id')
+    op.drop_constraint('fk_zone_data_source_instance', 'zone')
+    op.drop_column('zone', 'data_source_instance_id')
+
+    # Replace back old `datasource` field into these tables
+    op.add_column('component', sa.Column('datasource', JSONB, nullable=False, server_default='{}'))
+    op.add_column('zone', sa.Column('datasource', JSONB, nullable=False, server_default='{}'))
