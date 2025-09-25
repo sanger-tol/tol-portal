@@ -39,7 +39,7 @@ function CuratedSpecies() {
 
 //Visible fields
 const visibleFields = {
-  uid:{},
+  id:{},
   sts_family: {},
   sts_genus: {},
   sts_scientific_name: {},

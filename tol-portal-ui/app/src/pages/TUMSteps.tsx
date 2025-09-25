@@ -36,9 +36,7 @@ function TUMSteps() {
       displaySource
       defaultSort="id"
       fields={{
-        "id": {
-          rename: "ToLID",
-        },
+        "id": {},
         "tolid_species.goat_scientific_name": {
           cellRenderer: {
             element: SpeciesLink,
@@ -114,9 +112,7 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "benchling_tolid.id": {
-          rename: "ToLID",
-        },
+        "benchling_tolid.id": {},
         "benchling_species.goat_genome_size": {},
         "benchling_tolid.calc_coverage": {},
         "benchling_tolid.informatics_gscope_coverage": {},
@@ -181,9 +177,7 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "benchling_tolid.id": {
-          rename: "ToLID",
-        },
+        "benchling_tolid.id": {},
         "benchling_species.goat_genome_size": {},
         "benchling_tolid.calc_coverage": {},
         "benchling_tolid.informatics_gscope_coverage": {},
@@ -195,9 +189,7 @@ function TUMSteps() {
         "benchling_extraction_qc_result": {},
         "benchling_femto_description": {},
         "benchling_tolid.informatics_status_summary": {},
-        "benchling_extraction_name": {
-          rename: "Extraction Name"
-        },
+        "benchling_extraction_name": {},
         "benchling_volume_ul": {},
         "benchling_fluidx_id": {},
         "benchling_extraction_type": {},
@@ -259,9 +251,7 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "benchling_tolid.id": {
-          rename: "ToLID",
-        },
+        "benchling_tolid.id": {},
         "benchling_eln_tissue_prep_name": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "benchling_tissue_prep_fluidx_id": {},
@@ -328,12 +318,8 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "benchling_tolid.id": {
-          rename: "ToLID",
-        },
-        "id": {
-          rename: "Sample ID"
-        },
+        "benchling_tolid.id": {},
+        "id": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "sts_eln_id": {},
         "benchling_remaining_weight": {},
@@ -399,12 +385,8 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "sts_tolid.id": {
-          rename: "ToLID",
-        },
-        "id": {
-          rename: "Sample ID"
-        },
+        "sts_tolid.id": {},
+        "id": {},
         "calc_sts_export_eligible": {},
         "sts_tolid.sts_sample_sts_project_union": {},
         "benchling_remaining_weight": {},
@@ -466,9 +448,7 @@ function TUMSteps() {
       displaySource
       defaultSort="id"
       fields={{
-        "id": {
-          rename: "ToLID",
-        },
+        "id": {},
         "sts_sample_sts_project_union": {},
         "informatics_status_summary": {},
         "tolid_species.calc_tolid_calc_individual_exhausted_min": {},
@@ -531,12 +511,8 @@ function TUMSteps() {
       displaySource
       defaultSort="benchling_tolid.id"
       fields={{
-        "sts_tolid.id": {
-          rename: "ToLID",
-        },
-        "id": {
-          rename: "Sample ID"
-        },
+        "sts_tolid.id": {},
+        "id": {},
         "calc_sts_export_eligible": {},
         "benchling_tolid.sts_sample_sts_project_union": {},
         "benchling_remaining_weight": {},
@@ -597,9 +573,7 @@ function TUMSteps() {
       displaySource
       fields={{
         "sts_scientific_name": {},
-        "id": {
-          rename: "Species ID"
-        },
+        "id": {},
         "sts_sample_sts_project_union": {},
         "calc_sample_calc_benchling_remaining_weight_sum": {},
         "goat_genome_size": {},
