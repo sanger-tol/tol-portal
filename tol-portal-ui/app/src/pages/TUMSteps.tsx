@@ -121,7 +121,7 @@ function TUMSteps() {
         "mlwh_volume_remaining": {},
         "benchling_species.goat_ploidy": {},
         "benchling_disruption_method": {},
-        "tolqc_run_data_tolqc_bases_sum": {},
+        "tolqc_run_data_tolqc_bases_pacbio_sum": {},
         "benchling_tolid.informatics_status_summary": {},
         "id": {},
         "mlwh_source_barcode": {},
