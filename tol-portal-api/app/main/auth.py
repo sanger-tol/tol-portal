@@ -22,6 +22,7 @@ def get_auth_inspector(
     def auth_inspector(
         object_type: str,
         method: OperatorMethod,
+        *args,
         **kwargs
     ) -> None:
         given_api_token = request.headers.get('token')
@@ -43,6 +44,7 @@ def get_prefect_auth_inspector(
     def auth_inspector(
         object_type: str,
         method: OperatorMethod,
+        *args,
         **kwargs
     ) -> None:
         if not ctx_getter().authenticated:
@@ -65,6 +67,7 @@ def get_local_auth_inspector(
     def auth_inspector(
         object_type: str,
         method: OperatorMethod,
+        *args,
         **kwargs
     ) -> None:
 
