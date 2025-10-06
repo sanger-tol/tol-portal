@@ -25,7 +25,8 @@ import {
   ProjectManagement,
   TUMSteps,
   ARAReview,
-  Loaders
+  Loaders,
+  Attributes
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
@@ -140,11 +141,16 @@ const araReview: Page = {
 }
 
 const loaders: Page = {
-  name: "Loaders",
-  element: <Loaders />,
+    name: "Loaders",
+    element: <Loaders />,
   auth: true,
 }
 
+const attributes: Page = {
+    name: "Attributes",
+    element: <Attributes />,
+  auth: true,
+}
 const coreLabData: Page = {
   name: "Core Lab Data",
   element: <CoreLabData />,
@@ -183,7 +189,8 @@ const pipelineDropdown: Dropdown = {
 
 const additionalDropdown: Dropdown = {
   name: "Additional",
-  pages: [speciesRecollection, tum, tumSteps, araReview, samplesStuck, projectManagement, loaders],
+  pages: [speciesRecollection, tum, tumSteps, araReview, samplesStuck,
+    projectManagement, loaders, attributes],
   auth: true,
 }
 
