@@ -135,20 +135,18 @@ function Home() {
       id="home-species-count"
       utilityBarConfig={{
         title: {
-          text: 'Species',
+          text: 'Species submitted',
         }
       }}
       {...useZone({
         objectType: 'species',
         dataSource: ELASTIC_DS,
-        filter: defaultFilter,
         components: [{
           id: 'home-species-count',
           filter: {
             and_: {
-              'sts_scientific_name': {
-                exists: {},
-              }
+              grit_curation_grit_done_date_min: {exists: {}},
+              tolqc_run_data_count: {gt: {value: 0}}
             }
           }
         }]
@@ -156,25 +154,23 @@ function Home() {
     />
   );
 
-  const tolidCount = (
+  const speciesCollectedCount = (
     <RemoteCount
-      id="home-tolid-count"
+      id="home-species-collected-count"
       utilityBarConfig={{
         title: {
-          text: 'TOLIDs Submitted',
+          text: 'Species Collected',
         }
       }}
       {...useZone({
-        objectType: 'tolid',
+        objectType: 'species',
         dataSource: ELASTIC_DS,
-        filter: defaultFilter,
         components: [{
-          id: 'home-tolid-count',
+          id: 'home-species-collected-count',
           filter: {
             and_: {
-              'informatics_status_summary': {
-                eq: { value: '1 submitted' }
-              }
+              sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+              sts_sample_sts_col_date_min: {exists: {}}
             }
           }
         }]
@@ -218,7 +214,7 @@ function Home() {
       type: 'sm'
     },
     {
-      component: tolidCount,
+      component: speciesCollectedCount,
       type: 'sm'
     },
     {
