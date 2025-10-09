@@ -10,6 +10,7 @@ test.use({headless: headless});
 
 test('headline counts', async ({ page }) => {
   await page.goto('/headlineCounts.html');
+  console.log('Visited URL:', page.url());
   await page.waitForFunction(() => {
     const el = document.getElementById('speciesSubmittedTotal');
     return el && Number.isInteger(Number(el.textContent));
