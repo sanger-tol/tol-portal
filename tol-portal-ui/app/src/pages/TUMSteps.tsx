@@ -40,9 +40,6 @@ function TUMSteps() {
       }}
       fields={{
         data: {
-          "id": {
-            rename: "ToLID",
-          },
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
               element: "speciesLink",
@@ -125,14 +122,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "benchling_tolid.id": {
-            rename: "ToLID",
-          },
-          "id": {
-            rename: "Sequencing Request ID"
-          },
-        },
         order: {
           active: [
             "benchling_tolid.id",
@@ -202,14 +191,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "benchling_tolid.id": {
-            rename: "ToLID",
-          },
-          "benchling_extraction_name": {
-            rename: "Extraction Name"
-          },
-        },
         order: {
           active: [
             "benchling_tolid.id",
@@ -288,11 +269,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "benchling_tolid.id": {
-            rename: "ToLID",
-          },
-        },
         order: {
           active: [
             "benchling_tolid.id",
@@ -364,14 +340,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "benchling_tolid.id": {
-            rename: "ToLID",
-          },
-          "id": {
-            rename: "Sample ID"
-          },
-        },
         order: {
           active: [
             "benchling_tolid.id",
@@ -443,14 +411,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "sts_tolid.id": {
-            rename: "ToLID",
-          },
-          "id": {
-            rename: "Sample ID"
-          },
-        },
         order: {
           active: [
             "sts_tolid.id",
@@ -518,11 +478,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="id"
       fields={{
-        data: {
-          "id": {
-            rename: "ToLID",
-          },
-        },
         order: {
           active: [
             "id",
@@ -590,14 +545,6 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
-        data: {
-          "sts_tolid.id": {
-            rename: "ToLID",
-          },
-          "id": {
-            rename: "Sample ID"
-          },
-        },
         order: {
           active: [
             "sts_tolid.id",
@@ -663,11 +610,6 @@ function TUMSteps() {
       id="individual-exhausted-recollection"
       displaySource
       fields={{
-        data: {
-          "id": {
-            rename: "Species ID"
-          },
-        },
         order: {
           active: [
             "sts_scientific_name",
