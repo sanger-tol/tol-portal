@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, InfoTooltip } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, IconTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
@@ -735,7 +735,7 @@ function TUMSteps() {
   const tableTitle = (text: string, tooltipContent: string) => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h6 style={{ marginBottom: '0px' }}>{text}</h6>
-      <InfoTooltip contents={tooltipContent} />
+      <IconTooltip contents={tooltipContent} />
     </div>
   );
 

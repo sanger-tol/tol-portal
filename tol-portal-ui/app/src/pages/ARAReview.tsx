@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, InfoTooltip } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, IconTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
@@ -82,7 +82,7 @@ function ARAReview() {
   const tableTitle = (text: string, tooltipContent: string) => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h6 style={{ marginBottom: '0px' }}>{text}</h6>
-      <InfoTooltip contents={tooltipContent} />
+      <IconTooltip contents={tooltipContent} />
     </div>
   );
 
