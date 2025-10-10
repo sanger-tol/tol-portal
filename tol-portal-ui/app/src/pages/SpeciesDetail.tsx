@@ -168,7 +168,7 @@ function SpeciesDetail() {
           data: {
             "tolqc_reporting_category": {
               cellRenderer: {
-                element: "platform",
+                type: "platform",
                 props: {
                   platform: "${tolqc_reporting_category}"
                 }
@@ -302,7 +302,7 @@ function SpeciesDetail() {
             "id": {
               rename: "Note",
               cellRenderer: {
-                element: "doi",
+                type: "doi",
                 props: {
                   doi: "${id}",
                   displayName: "View Genome Note",

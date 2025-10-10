@@ -50,9 +50,11 @@ function Extractions() {
             rename: "Identifier"
           },
           "benchling_species.sts_scientific_name": {
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "benchling_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "benchling_species.id"
+              }
             }
           },
           "benchling_tolid.id": {

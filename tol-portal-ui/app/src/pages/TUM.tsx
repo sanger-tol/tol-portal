@@ -41,16 +41,20 @@ function TUM() {
           },
           "benchling_species.sts_scientific_name": {
             rename: "Benchling Species",
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "benchling_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "benchling_species.id"
+              }
             }
           },
           "mlwh_species.sts_scientific_name": {
             rename: "MLWH Species",
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "mlwh_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "mlwh_species.id"
+              }
             }
           },
           "benchling_completion_date": {

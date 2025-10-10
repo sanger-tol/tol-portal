@@ -42,7 +42,7 @@ function TUMSteps() {
         data: {
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
-              element: "speciesLink",
+              type: "speciesLink",
               props: {
                 id: "${tolid_species.id}",
                 name: "${tolid_species.goat_scientific_name}"

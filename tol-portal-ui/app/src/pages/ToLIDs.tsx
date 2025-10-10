@@ -31,14 +31,18 @@ function ToLIDs() {
             rename: "ToLID"
           },
           "tolid_species.sts_scientific_name": {
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "tolid_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "tolid_species.id"
+              }
             }
           },
           "tolid_specimen.id": {
             rename: "Specimen",
-            cellRenderer: "relationship"
+            cellRenderer: {
+              type: "relationship"
+            }
           },  
         },
         order: {

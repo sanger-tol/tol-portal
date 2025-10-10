@@ -56,7 +56,7 @@ function SequencingRequests() {
           "benchling_sequencing_platform": {
             rename: "Platform (Benchling)",
             cellRenderer: {
-              element: "platform",
+              type: "platform",
               props: {
                 platform: "${benchling_sequencing_platform}"
               }
@@ -64,9 +64,11 @@ function SequencingRequests() {
           },
           "mlwh_species.sts_scientific_name": {
             rename: "Species",
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "mlwh_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "mlwh_species.id"
+              }
             }
           },
           "benchling_tolid.id": {

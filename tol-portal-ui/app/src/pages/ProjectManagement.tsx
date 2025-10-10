@@ -128,7 +128,7 @@ function ProjectManagement() {
           "sts_scientific_name": {
             rename: "Species Name",
             cellRenderer: {
-              element: "speciesLink",
+              type: "speciesLink",
               props: {
                 id: "${uid}",
                 name: "${sts_scientific_name}"

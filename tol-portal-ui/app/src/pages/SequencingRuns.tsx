@@ -52,9 +52,11 @@ function SequencingRuns() {
       fields={{
         data: {
           "tolqc_species.sts_scientific_name": {
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "tolqc_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "tolqc_species.id"
+              }
             }
           },
           "tolqc_tolid.id": {
@@ -65,7 +67,7 @@ function SequencingRuns() {
           },
           "tolqc_reporting_category": {
             cellRenderer: {
-              element: "platform",
+              type: "platform",
               props: {
                 platform: "${tolqc_reporting_category}"
               }
@@ -73,7 +75,7 @@ function SequencingRuns() {
           },
           "mlwh_platform_type": {
             cellRenderer: {
-              element: "platform",
+              type: "platform",
               props: {
                 platform: "${mlwh_platform_type}"
               }

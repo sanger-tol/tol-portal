@@ -38,7 +38,7 @@ function SpeciesRecollection() {
           "sts_scientific_name": {
             rename: "Scientific Name",
             cellRenderer: {
-              element: "speciesLink",
+              type: "speciesLink",
               props: {
                 id: "${uid}",
                 name: "${sts_scientific_name}"

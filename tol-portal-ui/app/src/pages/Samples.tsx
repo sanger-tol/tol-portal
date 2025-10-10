@@ -52,9 +52,11 @@ function Samples() {
             rename: "ToLID",
           },
           "sts_species.sts_scientific_name": {
-            cellRenderer: "relationship",
-            props: {
-              detailPageIdAttribute: "sts_species.id"
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "sts_species.id"
+              }
             }
           },
         },

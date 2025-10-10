@@ -158,7 +158,7 @@ function Species() {
         data: {
           "sts_scientific_name": {
             cellRenderer: {
-              element: "speciesLink",
+              type: "speciesLink",
               props: {
                 id: "${id}",
                 name: "${sts_scientific_name}"
