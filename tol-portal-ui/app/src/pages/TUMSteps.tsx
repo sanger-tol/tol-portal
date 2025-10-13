@@ -206,6 +206,7 @@ function TUMSteps() {
             "benchling_femto_description",
             "benchling_tolid.informatics_status_summary",
             "benchling_extraction_name",
+            "benchling_tube_type",
             "benchling_volume_ul",
             "benchling_fluidx_id",
             "benchling_extraction_type",
