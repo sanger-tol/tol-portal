@@ -34,7 +34,8 @@ import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 
-export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tolqc"});
+export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tol_production"});
+export const TOLQC_DS = new TsDataSource({apiPrefix: "data/tolqc"});
 
 const species: Page = {
   name: "Species",
@@ -197,7 +198,7 @@ const publicDropdown: Dropdown = {
 const root = createRoot(document.getElementById('root')!);
 root.render(
   <TolApp
-    boards={{dataSource: ELASTIC_DS}}
+    boards={{dataSource: TOLQC_DS}}
     brand={
       <img
         src={Logo}
