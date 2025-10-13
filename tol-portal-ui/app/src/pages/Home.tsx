@@ -107,18 +107,17 @@ function Home() {
   const speciesTable = (
     <RemoteTable
       id="home-species-table"
-      defaultSort="sts_scientific_name"
+      defaultSortByAttribute="sts_scientific_name"
       noConfigModal
       fields={{
-        "sts_scientific_name": {
-        },
-        "sts_taxon_group": {
-        },
-        "sts_family": {
-        },
-        "sts_order_group": {
-        },
-        "tolid_prefix": {
+        order: {
+          active: [
+            "sts_scientific_name",
+            "sts_taxon_group",
+            "sts_family",
+            "sts_order_group",
+            "tolid_prefix",
+          ],
         },
       }}
       {...useZone({

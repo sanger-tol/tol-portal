@@ -45,25 +45,32 @@ function Samples() {
     <RemoteTable
       id="samples-table"
       displaySource
-      defaultSort="sts_species.sts_scientific_name"
+      defaultSortByAttribute="sts_species.sts_scientific_name"
       fields={{
-        "id": {
-          rename: "ID"
+        data: {
+          "sts_tolid.id": {
+            rename: "ToLID",
+          },
+          "sts_species.sts_scientific_name": {
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "sts_species.id"
+              }
+            }
+          },
         },
-        "sts_tolid.id": {
-          rename: "ToLID",
+        order: {
+          active: [
+            "id",
+            "sts_tolid.id",
+            "sts_species.sts_scientific_name",
+            "sts_collection_locality",
+            "sts_collection_country",
+            "sts_sex",
+            "sts_organism_part",
+          ],
         },
-        "sts_species.sts_scientific_name": {
-          cellRenderer: "relationshipDetail"
-        },
-        "sts_collection_locality": {
-        },
-        "sts_collection_country": {
-        },
-        "sts_sex": {
-        },
-        "sts_organism_part": {
-        }
       }}
       {...samples}
     />

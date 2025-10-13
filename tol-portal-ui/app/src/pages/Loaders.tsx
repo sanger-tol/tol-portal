@@ -23,32 +23,47 @@ function Loaders() {
   const table = (
     <RemoteTable
       id="loaders-table"
-      defaultSort='-date_last_run'
+      defaultSortByAttribute="date_last_run"
+      defaultSortByType="desc"
       displaySource
       fields={{
-        "source_data_source_instance.name": {
-          rename: "Source"
+        data: {
+          "source_data_source_instance.name": {
+            rename: "Source"
+          },
+          "loader.source_object_type": {
+            rename: "Source Object Type"
+          },
+          "destination_data_source_instance.name": {
+            rename: "Destination"
+          },
+          "loader.destination_object_type": {
+            rename: "Destination Object Type"
+          },
+          "date_last_run": {
+            rename: "Date Last Run"
+          },
+          "ids_data_source_instance.name": {
+            rename: "IDs Source"
+          },
+          "loader.ids_object_type": {
+            rename: "IDs type"
+          },
+          "loader.ids_attribute": {
+            rename: "IDs attribute"
+          },
         },
-        "loader.source_object_type": {
-          rename: "Source Object Type"
-        },
-        "destination_data_source_instance.name": {
-          rename: "Destination"
-        },
-        "loader.destination_object_type": {
-          rename: "Destination Object Type"
-        },
-        "date_last_run": {
-          rename: "Date Last Run"
-        },
-        "ids_data_source_instance.name": {
-          rename: "IDs Source"
-        },
-        "loader.ids_object_type": {
-          rename: "IDs type"
-        },
-        "loader.ids_attribute": {
-          rename: "IDs attribute"
+        order: {
+          active: [
+            "source_data_source_instance.name",
+            "loader.source_object_type",
+            "destination_data_source_instance.name",
+            "loader.destination_object_type",
+            "date_last_run",
+            "ids_data_source_instance.name",
+            "loader.ids_object_type",
+            "loader.ids_attribute",
+          ],
         },
       }}
       {...loaders}
