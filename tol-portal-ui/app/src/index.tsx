@@ -34,7 +34,7 @@ import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 
-export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tol_production"});
+export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tolqc"});
 
 const species: Page = {
   name: "Species",

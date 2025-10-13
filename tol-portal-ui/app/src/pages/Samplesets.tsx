@@ -42,48 +42,37 @@ import { ELASTIC_DS } from '..';
     const table = (
       <RemoteTable
         id="sampleset-table"
-        defaultSort="id"
+        defaultSortByAttribute="id"
         displaySource
         fields={{
-          "id": {
-            rename: "Sample Set ID"
+          data: {
+            "id": {
+              rename: "Sample Set ID",
+            },
           },
-          "sts_project": {
+          order: {
+            active: [
+              "id",
+              "sts_project",
+              "sts_submit_date",
+              "sts_gal_abbreviation",
+              "sts_affiliation",
+              "sts_shipping_from",
+              "sts_other_info",
+              "sts_status",
+              "sts_legal_status",
+              "sts_rg_status_non_human",
+              "sts_desc",
+              "sts_legal_contract",
+              "sts_legal_reference",
+              "sts_legal_compliance_processors",
+              "sts_legal_comment",
+              "sts_research_governance_processors",
+              "sts_managers",
+              "sts_sample_sts_receive_date_max",
+              "sts_sample_sts_submit_date_max",
+            ],
           },
-          "sts_submit_date": {
-          },
-          "sts_gal_abbreviation": {
-          },
-          "sts_affiliation": {
-          },
-          "sts_shipping_from": {
-          },
-          "sts_other_info": {
-          },
-          "sts_status": {
-          },
-          "sts_legal_status": {
-          },
-          "sts_rg_status_non_human": {
-          },
-          "sts_desc": {
-          },
-          "sts_legal_contract": {
-          },
-          "sts_legal_reference": {
-          },
-          "sts_legal_compliance_processors": {
-          },
-          "sts_legal_comment": {
-          },
-          "sts_research_governance_processors": {
-          },
-          "sts_managers": {
-          },
-          "sts_sample_sts_receive_date_max": {
-          },
-          "sts_sample_sts_submit_date_max": {
-          }
         }}
         {...samplesets}
       />

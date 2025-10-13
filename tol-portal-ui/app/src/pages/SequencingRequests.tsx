@@ -44,36 +44,57 @@ function SequencingRequests() {
     <RemoteTable
       id="sequencing-request-table"
       displaySource
-      defaultSort="mlwh_species.sts_scientific_name"
+      defaultSortByAttribute="mlwh_species.sts_scientific_name"
+      cellRenderer={{
+        "platform": Platform,
+      }}
       fields={{
-        "id": {
-          rename: "Sample Ref"
-        },
-        "benchling_sequencing_platform": {
-          rename: "Platform (Benchling)",
-          cellRenderer: {
-            element: Platform,
-            propPointers: {
-              platform: "benchling_sequencing_platform"
+        data: {
+          "id": {
+            rename: "Sample Ref"
+          },
+          "benchling_sequencing_platform": {
+            rename: "Platform (Benchling)",
+            cellRenderer: {
+              type: "platform",
+              props: {
+                platform: "${benchling_sequencing_platform}"
+              }
             }
+          },
+          "mlwh_species.sts_scientific_name": {
+            rename: "Species",
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "mlwh_species.id"
+              }
+            }
+          },
+          "benchling_tolid.id": {
+            rename: "ToLID (Benchling)"
+          },
+          "benchling_source": {
+            rename: "Source (Benchling)"
+          },
+          "benchling_completion_date": {
+            rename: "Completion Date (Benchling)"
+          },
+          "portaldb_date_sent_to_sciops": {
+            rename: "Date Sent To SciOps"
           }
         },
-        "mlwh_species.sts_scientific_name": {
-          rename: "Species",
-          cellRenderer: "relationshipDetail"
+        order: {
+          active: [
+            "id",
+            "benchling_sequencing_platform",
+            "mlwh_species.sts_scientific_name",
+            "benchling_tolid.id",
+            "benchling_source",
+            "benchling_completion_date",
+            "portaldb_date_sent_to_sciops",
+          ],
         },
-        "benchling_tolid.id": {
-          rename: "ToLID (Benchling)"
-        },
-        "benchling_source": {
-          rename: "Source (Benchling)"
-        },
-        "benchling_completion_date": {
-          rename: "Completion Date (Benchling)"
-        },
-        "portaldb_date_sent_to_sciops": {
-          rename: "Date Sent To SciOps"
-        }
       }}
       {...sequencingRequests}
     />

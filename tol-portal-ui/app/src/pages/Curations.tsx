@@ -42,22 +42,34 @@ function Curations() {
   const table = (
     <RemoteTable
       id="curations-table"
-      defaultSort="grit_species.id"
+      defaultSortByAttribute="grit_species.id"
       displaySource
       fields={{
-        "id": {
-          rename: "Identifier"
+        data: {
+          "id": {
+            rename: "Identifier"
+          },
+          "grit_tolid.id": {
+            rename: "ToLID"
+          },
+          "grit_species.sts_scientific_name": {
+            cellRenderer: {
+              type: "relationship",
+              props: {
+                detailPageIdAttribute: "grit_species.id"
+              }
+            }
+          },
         },
-        "grit_tolid.id": {
-          rename: "ToLID"
+        order: {
+          active: [
+            "id",
+            "grit_tolid.id",
+            "grit_species.sts_scientific_name",
+            "grit_created",
+            "grit_done_date",
+          ],
         },
-        "grit_species.sts_scientific_name": {
-          cellRenderer: "relationshipDetail"
-        },
-        "grit_created": {
-        },
-        "grit_done_date": {
-        }
       }}
       {...curations}
     />

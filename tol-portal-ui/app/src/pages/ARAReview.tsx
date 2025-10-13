@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, InfoTooltip } from '@tol/tol-ui';
+import { RemoteTable, Widgets, useZone, IconTooltip } from '@tol/tol-ui';
 import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
@@ -33,35 +33,43 @@ function ARAReview() {
       //noConfigModal
       id="top-up-required"
       displaySource
-      defaultSort="id"
+      defaultSortByAttribute="id"
+      cellRenderer={{
+        "speciesLink": SpeciesLink
+      }}
       fields={{
-        "id": {
-          rename: "ToLID",
+        data: {
+          "tolid_species.goat_scientific_name": {
+            cellRenderer: {
+              type: "speciesLink",
+              props: {
+                id: "${tolid_species.id}",
+                name: "${tolid_species.goat_scientific_name}",
+              },
+            },
+          },
         },
-        "tolid_species.goat_scientific_name": {
-          cellRenderer: {
-            element: SpeciesLink,
-            propPointers: {
-              id: 'tolid_species.id',
-              name: 'tolid_species.goat_scientific_name'
-            }
-          }
+        order: {
+          active: [
+            "id",
+            "tolid_species.goat_scientific_name",
+            "sts_sample_sts_project_union",
+            "tolid_species.informatics_tolid_informatics_status_summary_min",
+            "calc_coverage_met",
+            "calc_topup_required",
+            "calc_tolid_actionable",
+            "mlwh_sequencing_request_mlwh_volume_remaining_max",
+            "benchling_extraction_benchling_volume_ul_dna_max",
+            "benchling_tissue_prep_benchling_weight_mg_max",
+            "benchling_sample_benchling_remaining_weight_max",
+            "benchling_sample_count",
+            "sts_sample_count",
+            "calc_individual_exhausted",
+            "calc_individual_available",
+            "tolid_species.calc_recollection_needed",
+            "calc_extraction_dna_count",
+          ]
         },
-        "sts_sample_sts_project_union": {},
-        "tolid_species.informatics_tolid_informatics_status_summary_min": {},
-        "calc_coverage_met": {},
-        "calc_topup_required": {},
-        "calc_tolid_actionable": {},
-        "mlwh_sequencing_request_mlwh_volume_remaining_max": {},
-        "benchling_extraction_benchling_volume_ul_dna_max": {},
-        "benchling_tissue_prep_benchling_weight_mg_max": {},
-        "benchling_sample_benchling_remaining_weight_max": {},
-        "benchling_sample_count": {},
-        "sts_sample_count": {},
-        "calc_individual_exhausted": {},
-        "calc_individual_available": {},
-        "tolid_species.calc_recollection_needed": {},
-        "calc_extraction_dna_count": {},
       }}
       actions={['Remove from ARA Review']}
       rowSelection
@@ -74,7 +82,7 @@ function ARAReview() {
   const tableTitle = (text: string, tooltipContent: string) => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h6 style={{ marginBottom: '0px' }}>{text}</h6>
-      <InfoTooltip contents={tooltipContent} />
+      <IconTooltip contents={tooltipContent} />
     </div>
   );
 

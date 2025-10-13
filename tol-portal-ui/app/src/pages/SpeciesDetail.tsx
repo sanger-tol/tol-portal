@@ -76,26 +76,29 @@ function SpeciesDetail() {
       <p className='mb-3'>Sample information collected for this species.</p>
       <RemoteTable
         id="sample-table-detail"
-        defaultSort="sts_tolid.id"
+        defaultSortByAttribute="sts_tolid.id"
         displaySource
         height={500}
         fields={{
-          "sts_tolid.id": {
-            rename: "ToLID"
+          data: {
+            "sts_tolid.id": {
+              rename: "ToLID"
+            },
+            "sts_specimen.id": {
+              rename: "Specimen ID"
+            },
           },
-          "sts_specimen.id": {
-            rename: "Specimen ID"
+          order: {
+            active: [
+              "sts_tolid.id",
+              "sts_specimen.id",
+              "sts_gal_name",
+              "sts_sex",
+              "sts_organism_part",
+              "sts_biosample_accession",
+              "sts_biospecimen_accession",
+            ],
           },
-          "sts_gal_name": {
-          },
-          "sts_sex": {
-          },
-          "sts_organism_part": {
-          },
-          "sts_biosample_accession": {
-          },
-          "sts_biospecimen_accession": {
-          }
         }}
         {...useZone({
           objectType: 'sample',
@@ -119,16 +122,21 @@ function SpeciesDetail() {
       <p className='mb-3'>Extractions for this species.</p>
       <RemoteTable
         id="extraction-table-detail"
-        defaultSort="benchling_tolid.id"
+        defaultSortByAttribute="benchling_tolid.id"
         height={500}
         fields={{
-          "benchling_extraction_type": {
+          data: {
+            "benchling_tolid.id": {
+              rename: "ToLID"
+            },
           },
-          "benchling_tolid.id": {
-            rename: "ToLID"
+          order: {
+            active: [
+              "benchling_extraction_type",
+              "benchling_tolid.id",
+              "benchling_completion_date",
+            ],
           },
-          "benchling_completion_date": {
-          }
         }}
         {...useZone({
           objectType: 'extraction',
@@ -153,34 +161,37 @@ function SpeciesDetail() {
       <RemoteTable
         id='pacbio-table-detail'
         height={300}
+        cellRenderer={{
+          "platform": Platform,
+        }}
         fields={{
-          "tolqc_reporting_category": {
-            cellRenderer: {
-              element: Platform,
-              propPointers: {
-                platform: "tolqc_reporting_category"
+          data: {
+            "tolqc_reporting_category": {
+              cellRenderer: {
+                type: "platform",
+                props: {
+                  platform: "${tolqc_reporting_category}"
+                }
               }
-            }
+            },
+            "mlwh_tolid.id": {
+              rename: "ToLID"
+            },
           },
-          "mlwh_pipeline_id_lims": {
+          order: {
+            active: [
+              "tolqc_reporting_category",
+              "mlwh_pipeline_id_lims",
+              "mlwh_tolid.id",
+              "mlwh_run_complete",
+              "mlwh_lims_run_id",
+              "mlwh_run_id",
+              "mlwh_element",
+              "mlwh_tag_index",
+              "mlwh_biosample_accession",
+              "tolqc_bases",
+            ],
           },
-          "mlwh_tolid.id": {
-            rename: "ToLID"
-          },
-          "mlwh_run_complete": {
-          },
-          "mlwh_lims_run_id": {
-          },
-          "mlwh_run_id": {
-          },
-          "mlwh_element": {
-          },
-          "mlwh_tag_index": {
-          },
-          "mlwh_biosample_accession": {
-          },
-          "tolqc_bases": {
-          }
         }}
         {...useZone({
           objectType: 'run_data',
@@ -206,11 +217,12 @@ function SpeciesDetail() {
         id='curation-table-detail'
         height={300}
         fields={{
-          "grit_assembly_type": {
-          },
-          "grit_created": {
-          },
-          "grit_done_date": {
+          order: {
+            active: [
+              "grit_assembly_type",
+              "grit_created",
+              "grit_done_date",
+            ],
           },
         }}
         {...useZone({
@@ -237,13 +249,20 @@ function SpeciesDetail() {
         id='assembly-analysis-table-detail'
         height={300}
         fields={{
-          "gap_assembly.id": {
-            rename: "Assembly",
+          data: {
+            "gap_assembly.id": {
+              rename: "Assembly",
+            },
+            "gap_results": {
+              "link": "gap_s3"
+            },
           },
-          "gap_results": {
-            "link": "gap_s3"
-          },
-          "gap_lustre_path_analysis": {
+          order: {
+            active: [
+              "gap_assembly.id",
+              "gap_results",
+              "gap_lustre_path_analysis",
+            ],
           },
         }}
         {...useZone({
@@ -269,28 +288,36 @@ function SpeciesDetail() {
       <RemoteTable
         id='gn-table-detail'
         height={300}
+        cellRenderer={{
+          "doi": DOI,
+        }}
         fields={{
-          "gn_tolid.id": {
-            rename: "ToLID"
-          },
-          "gn_assembly.id": {
-            rename: "Assembly Accession"
-          },
-          "gn_date_published": {
-          },
-          "gn_passed_pr": {
-          },
-          "id": {
-            rename: "Note",
-            cellRenderer: {
-              element: DOI,
-              propPointers: {
-                doi: "id"
-              },
-              props: {
-                displayName: 'View Genome Note'
+          data: {
+            "gn_tolid.id": {
+              rename: "ToLID"
+            },
+            "gn_assembly.id": {
+              rename: "Assembly Accession"
+            },
+            "id": {
+              rename: "Note",
+              cellRenderer: {
+                type: "doi",
+                props: {
+                  doi: "${id}",
+                  displayName: "View Genome Note",
+                },
               }
-            }
+            },
+          },
+          order: {
+            active: [
+              "gn_tolid.id",
+              "gn_assembly.id",
+              "gn_date_published",
+              "gn_passed_pr",
+              "id",
+            ],
           },
         }}
         {...useZone({

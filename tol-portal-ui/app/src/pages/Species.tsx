@@ -149,53 +149,45 @@ function Species() {
   const table = (
     <RemoteTable
       id="species-table"
-      defaultSort="sts_scientific_name"
+      defaultSortByAttribute="sts_scientific_name"
       displaySource
+      cellRenderer={{
+        speciesLink: SpeciesLink
+      }}
       fields={{
-        "sts_scientific_name": {
-          cellRenderer: {
-            element: SpeciesLink,
-            propPointers: {
-              id: 'id',
-              name: 'sts_scientific_name'
+        data: {
+          "sts_scientific_name": {
+            cellRenderer: {
+              type: "speciesLink",
+              props: {
+                id: "${id}",
+                name: "${sts_scientific_name}"
+              }
             }
-          }
+          },
         },
-        "calc_done_date": {
-        },
-        "sts_sample_count": {
-        },
-        "sts_sample_sts_accept_date_min": {
-        },
-        "sts_sample_benchling_date_assigned_to_lab_min": {
-        },
-        "benchling_sequencing_request_benchling_completion_date_hic_min": {
-        },
-        "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
-        },
-        "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
-        },
-        "mlwh_run_data_mlwh_run_complete_hic_min": {
-        },
-        "mlwh_run_data_mlwh_run_complete_pacbio_min": {
-        },
-        "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
-        },
-        "grit_curation_grit_done_date_min": {
-        },
-        "gn_genome_note_gn_date_published_min": {
-        },
-        "informatics_tolid_informatics_status_summary_min": {
-        },
-        "tolqclegacy_assembly_stage": {
-        },
-        "sts_taxon_group": {
-        },
-        "sts_order_group": {
-        },
-        "sts_family": {
-        },
-        "sts_prefix": {
+        order: {
+          active: [
+            "sts_scientific_name",
+            "calc_done_date",
+            "sts_sample_count",
+            "sts_sample_sts_accept_date_min",
+            "sts_sample_benchling_date_assigned_to_lab_min",
+            "benchling_sequencing_request_benchling_completion_date_hic_min",
+            "benchling_sequencing_request_benchling_completion_date_pacbio_min",
+            "benchling_sequencing_request_benchling_completion_date_rnaseq_min",
+            "mlwh_run_data_mlwh_run_complete_hic_min",
+            "mlwh_run_data_mlwh_run_complete_pacbio_min",
+            "mlwh_run_data_mlwh_run_complete_rnaseq_min",
+            "grit_curation_grit_done_date_min",
+            "gn_genome_note_gn_date_published_min",
+            "informatics_tolid_informatics_status_summary_min",
+            "tolqclegacy_assembly_stage",
+            "sts_taxon_group",
+            "sts_order_group",
+            "sts_family",
+            "sts_prefix"
+          ]
         },
       }}
       {...species}
