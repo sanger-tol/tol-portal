@@ -35,7 +35,7 @@ function TUMSteps() {
       id="top-up-required"
       displaySource
       defaultSortByAttribute="id"
-      cellRenderer={{
+      cellRenderers={{
         "speciesLink": SpeciesLink,
       }}
       fields={{
