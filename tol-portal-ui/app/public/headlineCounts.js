@@ -25,8 +25,8 @@ class TolApi {
     }
   }
 
-  static async fetchCount(object_type, filter = {}) {
-    const endpoint = `${TolApi.ENDPOINT_PREFIX}/${object_type}:count`;
+  static async fetchCount(objectType, filter = {}) {
+    const endpoint = `${TolApi.ENDPOINT_PREFIX}/${objectType}:count`;
     const params = { filter: JSON.stringify(filter) };
     const queryString = new URLSearchParams(params).toString();
     const url = `${endpoint}?${queryString}`;
@@ -40,8 +40,8 @@ class TolApi {
     }
   }
 
-  static async fetchStat(object_type, attributeName, stat, filter = {}) {
-    const endpoint = `${TolApi.ENDPOINT_PREFIX}/${object_type}:stats`;
+  static async fetchStat(objectType, attributeName, stat, filter = {}) {
+    const endpoint = `${TolApi.ENDPOINT_PREFIX}/${objectType}:stats`;
     const params = {
       stats_fields: attributeName,
       stats: stat,
