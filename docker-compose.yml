@@ -109,3 +109,12 @@ services:
     command: pytest -v system
     depends_on:
       - tol-portal-python-db
+
+  tol-portal-playwright-test:
+    build: test/playwright
+    volumes:
+      - "./test/playwright:/usr/src/app:rw"
+      - "/usr/src/app/node_modules"
+    environment:
+      - PLAYWRIGHT_URL=https://host.docker.internal:3010
+      - DOCKER_COMPOSE=1

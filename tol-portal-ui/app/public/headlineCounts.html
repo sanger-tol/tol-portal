@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Headline Counts</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="headlineCounts.js"></script>
+  </head>
+  <body>
+    <script>
+    // Call on page load
+    document.addEventListener("DOMContentLoaded", async () => {
+      const setValue = (id, value) => {
+        document.getElementById(id).textContent =
+          value === null ? "N/A" : value;
+      };
+
+      try {
+        const [submitted, collected, bases] = await Promise.all([
+          TolApi.fetchTotalSpeciesSubmitted(),
+          TolApi.fetchTotalSpeciesCollected(),
+          TolApi.fetchTotalBasesSequenced()
+        ]);
+        setValue("speciesSubmittedTotal", submitted);
+        setValue("speciesCollectedTotal", collected);
+        setValue("sequencingTotal", bases);
+      } catch (error) {
+        setValue("speciesSubmittedTotal", "Error");
+        setValue("speciesCollectedTotal", "Error");
+        setValue("sequencingTotal", "Error");
+      }
+    });
+    </script>
+    <h1>ToL Headline Counts</h1>
+    <p>
+      This page shows how ToL's headline counts can be fetched and used on external sites. We
+      currently provide just the counts listed here, although if you require any others,
+      please get in touch.
+    </p>
+    <div>
+      Species submitted: <span id="speciesSubmittedTotal">Loading...</span><br/>
+      Species collected: <span id="speciesCollectedTotal">Loading...</span><br/>
+      Sequencing total: <span id="sequencingTotal">Loading...</span>
+    </div>
+  </body>
+</html>
