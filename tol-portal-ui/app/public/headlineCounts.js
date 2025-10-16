@@ -62,6 +62,7 @@ class TolApi {
   static async fetchTotalSpeciesSubmitted() {
     return await TolApi.fetchCount("species", {
       and_: {
+        goat_domain_name: {eq: {value: "Eukaryota"}},
         grit_curation_grit_done_date_min: { exists: {} },
         tolqc_run_data_count: { gt: { value: 0 } }
       }
@@ -71,6 +72,7 @@ class TolApi {
   static async fetchTotalSpeciesCollected() {
     return await TolApi.fetchCount("species", {
       and_: {
+        goat_domain_name: {eq: {value: "Eukaryota"}},
         sts_sample_sts_col_date_min: { exists: {} }
       }
     });
@@ -81,7 +83,11 @@ class TolApi {
       "species",
       "tolqc_run_data_tolqc_bases_sum",
       "sum",
-      {}
+      {
+        and_: {
+          goat_domain_name: {eq: {value: "Eukaryota"}},
+        }
+      }
     );
   }
 }
