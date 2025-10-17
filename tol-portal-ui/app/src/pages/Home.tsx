@@ -129,13 +129,25 @@ function Home() {
     />
   );
 
+  const SubmittedDescription = (
+    <>
+      The headline count for the programme:
+      <ul>
+        <li>Domain is Eukaryota</li>
+        <li>Species has a curation marked as "Done"</li>
+        <li>Species has been through the ToLQC process</li>
+      </ul>
+    </>
+  )
+
   const speciesCount = (
     <RemoteCount
       id="home-species-count"
       utilityBarConfig={{
         title: {
           text: 'Species submitted',
-        }
+        },
+        description: SubmittedDescription
       }}
       {...useZone({
         objectType: 'species',
@@ -144,8 +156,9 @@ function Home() {
           id: 'home-species-count',
           filter: {
             and_: {
-              grit_curation_grit_done_date_min: {exists: {}},
-              tolqc_run_data_count: {gt: {value: 0}}
+              goat_domain_name: { eq: { value: "Eukaryota" } },
+              grit_curation_grit_done_date_min: { exists: {} },
+              tolqc_run_data_count: { gt: { value: 0 } }
             }
           }
         }]
@@ -153,13 +166,25 @@ function Home() {
     />
   );
 
+  const CollectedDescription = (
+    <>
+      The headline collection count for the programme:
+      <ul>
+        <li>Domain is Eukaryota</li>
+        <li>Species has a sample in the ToL programme</li>
+        <li>Species has a sample with a collection date</li>
+      </ul>
+    </>
+  )
+
   const speciesCollectedCount = (
     <RemoteCount
       id="home-species-collected-count"
       utilityBarConfig={{
         title: {
           text: 'Species Collected',
-        }
+        },
+        description: CollectedDescription
       }}
       {...useZone({
         objectType: 'species',
@@ -168,8 +193,9 @@ function Home() {
           id: 'home-species-collected-count',
           filter: {
             and_: {
+              goat_domain_name: { eq: { value: "Eukaryota" } },
               sts_sample_sts_programme_union: { eq: { value: "ToL" } },
-              sts_sample_sts_col_date_min: {exists: {}}
+              sts_sample_sts_col_date_min: { exists: {} }
             }
           }
         }]
