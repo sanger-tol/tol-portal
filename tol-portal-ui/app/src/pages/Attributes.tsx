@@ -26,14 +26,19 @@ function Attributes() {
       defaultSort='object_type'
       displaySource
       fields={{
-        "data_source_config.name": {},
-        "object_type": {},
-        "name": {},
-        "display_name": {},
-        "source": {},
-        "available_on_relationships": {},
-        "description": {},
-        "runtime_definition": {},
+        data: {},
+        order: {
+          active: [
+            "data_source_config.name",
+            "object_type",
+            "name",
+            "display_name",
+            "source",
+            "available_on_relationships",
+            "description",
+            "runtime_definition",
+          ]
+        }
       }}
       {...attributes}
     />
