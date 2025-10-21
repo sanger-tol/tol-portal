@@ -5,7 +5,6 @@
  */
 
 import { RemoteTable, Widgets, useZone } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 
@@ -30,18 +29,15 @@ function SpeciesRecollection() {
       id="species-recollection-table"
       defaultSortByAttribute='sts_scientific_name'
       displaySource
-      cellRenderer={{
-        "speciesLink": SpeciesLink,
-      }}
       fields={{
         data: {
           "sts_scientific_name": {
             rename: "Scientific Name",
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${uid}",
-                name: "${sts_scientific_name}"
+                url: "/species/${uid}",
+                text: "${sts_scientific_name}"
               },
             },
           },

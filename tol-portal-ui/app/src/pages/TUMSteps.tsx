@@ -6,7 +6,6 @@
 
 import { useState } from 'react';
 import { RemoteTable, Widgets, useZone, useTranslator, Button, Modal, IconTooltip } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 // Table 1
@@ -35,17 +34,14 @@ function TUMSteps() {
       id="top-up-required"
       displaySource
       defaultSortByAttribute="id"
-      cellRenderers={{
-        "speciesLink": SpeciesLink,
-      }}
       fields={{
         data: {
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${tolid_species.id}",
-                name: "${tolid_species.goat_scientific_name}"
+                url: "/species/${tolid_species.id}",
+                text: "${tolid_species.goat_scientific_name}"
               }
             }
           },

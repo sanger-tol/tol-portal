@@ -5,7 +5,6 @@
  */
 
 import { RemoteTable, Widgets, useZone, IconTooltip } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 function ARAReview() {
@@ -19,7 +18,6 @@ function ARAReview() {
         filter: {
           and_: {
             'calc_tolid_actionable': { 'eq': { 'value': true } },
-            'calc_extraction_dna_count': { 'gt': { 'value': 0 } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
             'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
             'portaldb_in_review': { 'eq': { 'value': true } },
           }
@@ -30,21 +28,17 @@ function ARAReview() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      //noConfigModal
       id="top-up-required"
       displaySource
       defaultSortByAttribute="id"
-      cellRenderer={{
-        "speciesLink": SpeciesLink
-      }}
       fields={{
         data: {
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${tolid_species.id}",
-                name: "${tolid_species.goat_scientific_name}",
+                url: "/species/${tolid_species.id}",
+                text: "${tolid_species.goat_scientific_name}",
               },
             },
           },
