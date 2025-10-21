@@ -14,7 +14,6 @@ import {
   Col,
   useZone
 } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 
@@ -120,18 +119,15 @@ function ProjectManagement() {
     <RemoteTable
       id="pm-species-table"
       defaultSortByAttribute="sts_scientific_name"
-      cellRenderer={{
-        "speciesLink": SpeciesLink,
-      }}
       fields={{
         data: {
           "sts_scientific_name": {
             rename: "Species Name",
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${uid}",
-                name: "${sts_scientific_name}"
+                url: "/species/${uid}",
+                text: "${sts_scientific_name}"
               }
             }
           },

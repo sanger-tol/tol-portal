@@ -11,13 +11,13 @@ import {
   RemoteTable,
   Widgets,
   useZone,
-  Timeline
+  Timeline,
+  Tabs
 } from '@tol/tol-ui';
 import DOI from '../components/DOI';
 import Platform from '../components/Platform';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { Tabs } from 'rsuite';
 import { ELASTIC_DS } from '..';
 
 
@@ -362,7 +362,7 @@ function SpeciesDetail() {
 
     return (
       <div className="species-detail">
-          <Tabs defaultActiveKey="1">
+          <Tabs defaultActiveKey="1" appearance="pills">
             <Tabs.Tab eventKey="1" title="Details">
               <div className="species-detail-details">
                 <Widgets

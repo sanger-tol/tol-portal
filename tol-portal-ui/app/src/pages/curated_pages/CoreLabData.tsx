@@ -96,7 +96,7 @@ function CoreLabData() {
 
   return (
     <div>
-      <div style={{ padding: "0px 10px" }}>
+      <div style={{ paddingBottom: 6 }}>
         <StaticMessage message={CORELAB_WARNING} type={"warning"}/>
       </div>
       <Widgets

@@ -11,7 +11,6 @@ import {
   Widgets,
   useZone
 } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 
@@ -151,17 +150,14 @@ function Species() {
       id="species-table"
       defaultSortByAttribute="sts_scientific_name"
       displaySource
-      cellRenderer={{
-        speciesLink: SpeciesLink
-      }}
       fields={{
         data: {
           "sts_scientific_name": {
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${id}",
-                name: "${sts_scientific_name}"
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },

@@ -5,7 +5,6 @@
  */
 
 import { RemoteTable, Widgets, useZone, IconTooltip } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
 import { ELASTIC_DS } from '..';
 
 function ARAReview() {
@@ -29,21 +28,17 @@ function ARAReview() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      //noConfigModal
       id="top-up-required"
       displaySource
       defaultSortByAttribute="id"
-      cellRenderer={{
-        "speciesLink": SpeciesLink
-      }}
       fields={{
         data: {
           "tolid_species.goat_scientific_name": {
             cellRenderer: {
-              type: "speciesLink",
+              type: "link",
               props: {
-                id: "${tolid_species.id}",
-                name: "${tolid_species.goat_scientific_name}",
+                url: "/species/${tolid_species.id}",
+                text: "${tolid_species.goat_scientific_name}",
               },
             },
           },
