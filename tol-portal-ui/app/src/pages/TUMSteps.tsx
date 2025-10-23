@@ -585,6 +585,8 @@ function TUMSteps() {
               'gt': { 'value': 0 },
               'eq': { 'field': 'sts_tolid_count' }
             },
+            // Not already out for recollection
+            'calc_species_out_for_recollection': { 'eq': { 'value': false } }
           }
         }
       }
