@@ -53,7 +53,7 @@ function Extractions() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "benchling_species.id"
+                relationshipId: "${benchling_species.id}",
               }
             }
           },

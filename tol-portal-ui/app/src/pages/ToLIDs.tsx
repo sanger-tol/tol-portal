@@ -34,7 +34,7 @@ function ToLIDs() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "tolid_species.id"
+                relationshipId: "${tolid_species.id}",
               }
             }
           },

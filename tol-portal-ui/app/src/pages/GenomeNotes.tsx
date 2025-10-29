@@ -63,7 +63,7 @@ function GenomeNotes() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "gn_species.id"
+                relationshipId: "${gn_species.id}",
               }
             }
           },
