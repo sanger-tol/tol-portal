@@ -507,12 +507,15 @@ function TUMSteps() {
         id: 'individual-exhausted-available',
         filter: {
           and_: {
-            'sts_tolid.calc_individual_available': { 'eq': { 'value': true } },
-            'sts_tolid.calc_individual_exhausted': { 'eq': { 'value': false } },
-            'calc_sample_abandoned_in_sts': { 'eq': { 'value': false } },
-            'sts_tolid.calc_topup_required': { 'eq': { 'value': false } },
-            'sts_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
-            'sts_tolid.informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
+            // Its ToLID has not had any samples exported to Benchling 
+            'sts_tolid.benchling_sample_count': { 'eq': { 'value': 0 } },
+            // Its species has at least one individual exhausted
+            // Number of ToLIDs started == number of ToLIDs exhausted
+            // (a ToLID is started if it has had a sample exported to Benchling)
+            'sts_species.calc_individual_exhausted_tolid_count': {
+              'gt': { 'value': 0 },
+              'eq': { 'field': 'benchling_tolid_count' }
+            }
           }
         }
       }
@@ -577,8 +580,13 @@ function TUMSteps() {
         id: 'individual-exhausted-recollection',
         filter: {
           and_: {
-            'calc_recollection_needed': { 'eq': { 'value': true } },
-            'calc_species_out_for_recollection': { 'eq': { 'value': false } },
+            // Number of ToLIDs exhausted = Total number of ToLIDs within STS.
+            'calc_individual_exhausted_tolid_count': {
+              'gt': { 'value': 0 },
+              'eq': { 'field': 'sts_tolid_count' }
+            },
+            // Not already out for recollection
+            'calc_species_out_for_recollection': { 'eq': { 'value': false } }
           }
         }
       }
