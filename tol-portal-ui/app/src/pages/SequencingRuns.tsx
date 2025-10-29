@@ -55,7 +55,7 @@ function SequencingRuns() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "tolqc_species.id"
+                relationshipId: "${tolqc_species.id}",
               }
             }
           },

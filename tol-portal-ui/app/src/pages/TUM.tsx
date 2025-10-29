@@ -44,7 +44,7 @@ function TUM() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "benchling_species.id"
+                relationshipId: "${benchling_species.id}",
               }
             }
           },
@@ -53,7 +53,7 @@ function TUM() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "mlwh_species.id"
+                relationshipId: "${mlwh_species.id}",
               }
             }
           },

@@ -67,7 +67,7 @@ function SequencingRequests() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "mlwh_species.id"
+                relationshipId: "${mlwh_species.id}",
               }
             }
           },

@@ -55,7 +55,7 @@ function Samples() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "sts_species.id"
+                relationshipId: "${sts_species.id}",
               }
             }
           },

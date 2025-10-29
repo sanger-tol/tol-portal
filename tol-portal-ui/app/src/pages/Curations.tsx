@@ -56,7 +56,7 @@ function Curations() {
             cellRenderer: {
               type: "relationship",
               props: {
-                detailPageIdAttribute: "grit_species.id"
+                relationshipId: "${grit_species.id}",
               }
             }
           },
