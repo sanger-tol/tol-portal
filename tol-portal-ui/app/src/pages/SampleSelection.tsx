@@ -98,6 +98,18 @@ function SampleSelection() {
       displaySource
       defaultSortByAttribute="sts_priority"
       fields={{
+        data: {
+          "sts_tubeid": {
+            cellRenderer: {
+              type: "trafficLightStatus",
+              props: {
+                danger: {and_: {
+                  "benchling_eln_tissue_id": {"exists": {}},
+                }}
+              }
+            }
+          },
+        },
         order: {
           active: [
             "sts_project",
