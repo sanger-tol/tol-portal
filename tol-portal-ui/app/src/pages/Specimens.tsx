@@ -24,28 +24,22 @@ function Specimens() {
   const table = (
     <RemoteTable
       id="specimen-table"
-      defaultSort='sts_bio_specimen_id'
+      defaultSortByAttribute="sts_bio_specimen_id"
       displaySource
       fields={{
-        "id": {
-          rename: "ID"
+        order: {
+          active: [
+            "id",
+            "sts_bio_specimen_id",
+            "sts_dna_depleted",
+            "sts_rna_depleted",
+            "sts_tissue_depleted",
+            "sts_is_complex",
+            "sts_estimated_genome_size",
+            "sts_updated_at",
+            "sts_created_on",
+          ],
         },
-        "sts_bio_specimen_id": {
-        },
-        "sts_dna_depleted": {
-        },
-        "sts_rna_depleted": {
-        },
-        "sts_tissue_depleted": {
-        },
-        "sts_is_complex": {
-        },
-        "sts_estimated_genome_size": {
-        },
-        "sts_updated_at": {
-        },
-        "sts_created_on": {
-        }
       }}
       {...specimens}
     />

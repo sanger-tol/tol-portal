@@ -43,29 +43,22 @@ import { ELASTIC_DS } from '..';
       <RemoteTable
         id="manifest-table"
         displaySource
-        defaultSort="sts_copo_profile_title"
+        defaultSortByAttribute="sts_copo_profile_title"
         fields={{
-          "sts_copo_profile_title": {
-          },
-          "sts_project": {
-          },
-          "sts_status": {
-          },
-          "sts_shipment_status": {
-          },
-          "sts_compliance_status": {
-          },
-          "sts_sample_count": {
-          },
-          "sts_submit_date": {
-          },
-          "sts_receive_date": {
-          },
-          "sts_wildlife_compliance_processors": {
-          },
-          "sts_sampleset.sts_research_governance_processors": {
-          },
-          "sts_sampleset.sts_managers": {
+          order: {
+            active: [
+              "sts_copo_profile_title",
+              "sts_project",
+              "sts_status",
+              "sts_shipment_status",
+              "sts_compliance_status",
+              "sts_sample_count",
+              "sts_submit_date",
+              "sts_receive_date",
+              "sts_wildlife_compliance_processors",
+              "sts_sampleset.sts_research_governance_processors",
+              "sts_sampleset.sts_managers"
+            ],
           },
         }}
         {...manifests}

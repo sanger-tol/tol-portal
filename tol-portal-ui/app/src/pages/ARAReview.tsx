@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { RemoteTable, Widgets, useZone, InfoTooltip } from '@tol/tol-ui';
-import SpeciesLink from '../components/SpeciesLink';
+import { RemoteTable, Widgets, useZone, IconTooltip } from '@tol/tol-ui';
 import { ELASTIC_DS } from '..';
 
 function ARAReview() {
@@ -19,7 +18,6 @@ function ARAReview() {
         filter: {
           and_: {
             'calc_tolid_actionable': { 'eq': { 'value': true } },
-            'calc_extraction_dna_count': { 'gt': { 'value': 0 } }, //once benchling_pacbio_completed_seq_req_count is correct, this can be removed
             'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
             'portaldb_in_review': { 'eq': { 'value': true } },
           }
@@ -30,38 +28,42 @@ function ARAReview() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      //noConfigModal
       id="top-up-required"
       displaySource
-      defaultSort="id"
+      defaultSortByAttribute="id"
       fields={{
-        "id": {
-          rename: "ToLID",
+        data: {
+          "tolid_species.goat_scientific_name": {
+            cellRenderer: {
+              type: "link",
+              props: {
+                url: "/species/${tolid_species.id}",
+                text: "${tolid_species.goat_scientific_name}",
+              },
+            },
+          },
         },
-        "tolid_species.goat_scientific_name": {
-          cellRenderer: {
-            element: SpeciesLink,
-            propPointers: {
-              id: 'tolid_species.id',
-              name: 'tolid_species.goat_scientific_name'
-            }
-          }
+        order: {
+          active: [
+            "id",
+            "tolid_species.goat_scientific_name",
+            "sts_sample_sts_project_union",
+            "tolid_species.informatics_tolid_informatics_status_summary_min",
+            "calc_coverage_met",
+            "calc_topup_required",
+            "calc_tolid_actionable",
+            "mlwh_sequencing_request_mlwh_volume_remaining_max",
+            "benchling_extraction_benchling_volume_ul_dna_max",
+            "benchling_tissue_prep_benchling_weight_mg_max",
+            "benchling_sample_benchling_remaining_weight_max",
+            "benchling_sample_count",
+            "sts_sample_count",
+            "calc_individual_exhausted",
+            "calc_individual_available",
+            "tolid_species.calc_recollection_needed",
+            "calc_extraction_dna_count",
+          ]
         },
-        "sts_sample_sts_project_union": {},
-        "tolid_species.informatics_tolid_informatics_status_summary_min": {},
-        "calc_coverage_met": {},
-        "calc_topup_required": {},
-        "calc_tolid_actionable": {},
-        "mlwh_sequencing_request_mlwh_volume_remaining_max": {},
-        "benchling_extraction_benchling_volume_ul_dna_max": {},
-        "benchling_tissue_prep_benchling_weight_mg_max": {},
-        "benchling_sample_benchling_remaining_weight_max": {},
-        "benchling_sample_count": {},
-        "sts_sample_count": {},
-        "calc_individual_exhausted": {},
-        "calc_individual_available": {},
-        "tolid_species.calc_recollection_needed": {},
-        "calc_extraction_dna_count": {},
       }}
       actions={['Remove from ARA Review']}
       rowSelection
@@ -74,7 +76,7 @@ function ARAReview() {
   const tableTitle = (text: string, tooltipContent: string) => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h6 style={{ marginBottom: '0px' }}>{text}</h6>
-      <InfoTooltip contents={tooltipContent} />
+      <IconTooltip contents={tooltipContent} />
     </div>
   );
 

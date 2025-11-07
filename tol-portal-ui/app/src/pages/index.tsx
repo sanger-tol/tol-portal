@@ -6,6 +6,7 @@
 
 export { default as Home } from "./Home";
 export { default as Loaders } from "./Loaders";
+export { default as Attributes } from "./Attributes";
 export { default as Manifests } from "./Manifests";
 export { default as Species } from "./Species";
 export { default as SpeciesDetail } from "./SpeciesDetail"; 

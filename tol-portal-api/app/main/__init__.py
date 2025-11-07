@@ -95,9 +95,8 @@ def application() -> Flask:
     }
     datasource_instances = sql_ds.get_list('data_source_instance', object_filters=f)
     for datasource_instance in datasource_instances:
-        ds = DataSourceUtils.get_datasource_by_name(
-            name=datasource_instance.builtin_name,
-            **datasource_instance.kwargs if datasource_instance.kwargs else {}
+        ds = DataSourceUtils.get_datasource_by_datasource_instance(
+            datasource_instance
         )
         blueprint_data = data_blueprint(ds)
         api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \

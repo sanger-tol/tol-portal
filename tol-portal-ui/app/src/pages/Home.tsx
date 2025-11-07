@@ -107,18 +107,17 @@ function Home() {
   const speciesTable = (
     <RemoteTable
       id="home-species-table"
-      defaultSort="sts_scientific_name"
+      defaultSortByAttribute="sts_scientific_name"
       noConfigModal
       fields={{
-        "sts_scientific_name": {
-        },
-        "sts_taxon_group": {
-        },
-        "sts_family": {
-        },
-        "sts_order_group": {
-        },
-        "tolid_prefix": {
+        order: {
+          active: [
+            "sts_scientific_name",
+            "sts_taxon_group",
+            "sts_family",
+            "sts_order_group",
+            "tolid_prefix",
+          ],
         },
       }}
       {...useZone({
@@ -130,25 +129,36 @@ function Home() {
     />
   );
 
+  const SubmittedDescription = (
+    <>
+      The headline count for the programme:
+      <ul>
+        <li>Domain is Eukaryota</li>
+        <li>Species has a curation marked as "Done"</li>
+        <li>Species has been through the ToLQC process</li>
+      </ul>
+    </>
+  )
+
   const speciesCount = (
     <RemoteCount
       id="home-species-count"
       utilityBarConfig={{
         title: {
-          text: 'Species',
-        }
+          text: 'Species submitted',
+        },
+        description: SubmittedDescription
       }}
       {...useZone({
         objectType: 'species',
         dataSource: ELASTIC_DS,
-        filter: defaultFilter,
         components: [{
           id: 'home-species-count',
           filter: {
             and_: {
-              'sts_scientific_name': {
-                exists: {},
-              }
+              goat_domain_name: { eq: { value: "Eukaryota" } },
+              grit_curation_grit_done_date_min: { exists: {} },
+              tolqc_run_data_count: { gt: { value: 0 } }
             }
           }
         }]
@@ -156,25 +166,36 @@ function Home() {
     />
   );
 
-  const tolidCount = (
+  const CollectedDescription = (
+    <>
+      The headline collection count for the programme:
+      <ul>
+        <li>Domain is Eukaryota</li>
+        <li>Species has a sample in the ToL programme</li>
+        <li>Species has a sample with a collection date</li>
+      </ul>
+    </>
+  )
+
+  const speciesCollectedCount = (
     <RemoteCount
-      id="home-tolid-count"
+      id="home-species-collected-count"
       utilityBarConfig={{
         title: {
-          text: 'TOLIDs Submitted',
-        }
+          text: 'Species Collected',
+        },
+        description: CollectedDescription
       }}
       {...useZone({
-        objectType: 'tolid',
+        objectType: 'species',
         dataSource: ELASTIC_DS,
-        filter: defaultFilter,
         components: [{
-          id: 'home-tolid-count',
+          id: 'home-species-collected-count',
           filter: {
             and_: {
-              'informatics_status_summary': {
-                eq: { value: '1 submitted' }
-              }
+              goat_domain_name: { eq: { value: "Eukaryota" } },
+              sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+              sts_sample_sts_col_date_min: { exists: {} }
             }
           }
         }]
@@ -218,7 +239,7 @@ function Home() {
       type: 'sm'
     },
     {
-      component: tolidCount,
+      component: speciesCollectedCount,
       type: 'sm'
     },
     {

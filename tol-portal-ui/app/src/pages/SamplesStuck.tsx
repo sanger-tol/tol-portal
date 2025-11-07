@@ -28,32 +28,46 @@ function SamplesStuck() {
   const table = (
     <RemoteTable
       id="samples-stuck-table"
-      defaultSort='sts_tolid.id'
+      defaultSortByAttribute="sts_tolid.id"
       displaySource
       fields={{
-        "sts_tolid.id": {
-          rename: "ToLID"
+        data: {
+          "sts_tolid.id": {
+            rename: "ToLID"
+          },
+          "sts_species.sts_genome_size": {
+            rename: "Genome Size"
+          },
+          "benchling_tissue_prep_count": {
+            rename: "Tissue Preps"
+          },
+          "benchling_tissue_prep_benchling_sampleprep_date_min": {
+            rename: "First Tissue Prepped"
+          },
+          "benchling_sequencing_request_count": {
+            rename: "Sequencing Requests"
+          },
+          "benchling_sequencing_request_benchling_completion_date_hic_min": {
+            rename: "HiC Request Complete"
+          },
+          "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
+            rename: "Pacbio Request Complete"
+          },
+          "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
+            rename: "RNASeq Request Complete"
+          },  
         },
-        "sts_species.sts_genome_size": {
-          rename: "Genome Size"
-        },
-        "benchling_tissue_prep_count": {
-          rename: "Tissue Preps"
-        },
-        "benchling_tissue_prep_benchling_sampleprep_date_min": {
-          rename: "First Tissue Prepped"
-        },
-        "benchling_sequencing_request_count": {
-          rename: "Sequencing Requests"
-        },
-        "benchling_sequencing_request_benchling_completion_date_hic_min": {
-          rename: "HiC Request Complete"
-        },
-        "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
-          rename: "Pacbio Request Complete"
-        },
-        "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
-          rename: "RNASeq Request Complete"
+        order: {
+          active: [
+            "sts_tolid.id",
+            "sts_species.sts_genome_size",
+            "benchling_tissue_prep_count",
+            "benchling_tissue_prep_benchling_sampleprep_date_min",
+            "benchling_sequencing_request_count",
+            "benchling_sequencing_request_benchling_completion_date_hic_min",
+            "benchling_sequencing_request_benchling_completion_date_pacbio_min",
+            "benchling_sequencing_request_benchling_completion_date_rnaseq_min",
+          ],
         },
       }}
       {...samplesStuck}
