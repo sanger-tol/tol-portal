@@ -134,6 +134,7 @@ function TUMSteps() {
             "id",
             "mlwh_source_barcode",
             "mlwh_run_data_mlwh_pac_bio_library_tube_name_union",
+            'tolqc_run_data_pacbio_count',
             "benchling_extraction.benchling_extraction_type",
           ],
         },
@@ -583,7 +584,7 @@ function TUMSteps() {
             // Number of ToLIDs exhausted = Total number of ToLIDs within STS.
             'calc_individual_exhausted_tolid_count': {
               'gt': { 'value': 0 },
-              'eq': { 'field': 'sts_tolid_count' }
+              'eq': { 'field': 'tolid_tolid_count' }
             },
             // Not already out for recollection
             'calc_species_out_for_recollection': { 'eq': { 'value': false } }
