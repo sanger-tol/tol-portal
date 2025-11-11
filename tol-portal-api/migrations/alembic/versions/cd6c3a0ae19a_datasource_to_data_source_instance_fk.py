@@ -23,7 +23,7 @@ def upgrade() -> None:
 
     """
     Update data_source_instance id to be the name as PK in data_source_instance table
-    1. Create copies of data_source_instance_id fields in loader table
+    1. Create copies of data_source_instance_id fields in loader_instance table
     2. Pre-populate the copy fields with data_source_instance.name values
     3. Drop foreign key constraints
     4. Drop the original columns
@@ -31,21 +31,21 @@ def upgrade() -> None:
     6. Update data_source_instance.id ready to take string values
     7. Update all id fields to use name values
     8. Drop the now old name column
-    9. Re-create foreign key constraints for loader table
+    9. Re-create foreign key constraints for loader_instance table
     """
 
-    # Create copies of data_source_instance_id fields in loader table
-    op.add_column('loader', sa.Column('source_data_source_instance_id_COPY', sa.String(), nullable=True))
-    op.add_column('loader', sa.Column('destination_data_source_instance_id_COPY', sa.String(), nullable=True))
-    op.add_column('loader', sa.Column('ids_data_source_instance_id_COPY', sa.String(), nullable=True))
+    # Create copies of data_source_instance_id fields in loader_instance table
+    op.add_column('loader_instance', sa.Column('source_data_source_instance_id_copy', sa.String(), nullable=True))
+    op.add_column('loader_instance', sa.Column('destination_data_source_instance_id_copy', sa.String(), nullable=True))
+    op.add_column('loader_instance', sa.Column('ids_data_source_instance_id_copy', sa.String(), nullable=True))
 
     # Pre-populate the copy fields with data_source_instance.name values
     conn.execute(
         text("""
-        UPDATE loader
-        SET source_data_source_instance_id_COPY = (
+        UPDATE loader_instance
+        SET source_data_source_instance_id_copy = (
             SELECT name FROM data_source_instance 
-            WHERE data_source_instance.id = loader.source_data_source_instance_id
+            WHERE data_source_instance.id = loader_instance.source_data_source_instance_id
         )
         WHERE source_data_source_instance_id IS NOT NULL
         """)
@@ -53,10 +53,10 @@ def upgrade() -> None:
     
     conn.execute(
         text("""
-        UPDATE loader
-        SET destination_data_source_instance_id_COPY = (
+        UPDATE loader_instance
+        SET destination_data_source_instance_id_copy = (
             SELECT name FROM data_source_instance 
-            WHERE data_source_instance.id = loader.destination_data_source_instance_id
+            WHERE data_source_instance.id = loader_instance.destination_data_source_instance_id
         )
         WHERE destination_data_source_instance_id IS NOT NULL
         """)
@@ -64,34 +64,34 @@ def upgrade() -> None:
     
     conn.execute(
         text("""
-        UPDATE loader
-        SET ids_data_source_instance_id_COPY = (
+        UPDATE loader_instance
+        SET ids_data_source_instance_id_copy = (
             SELECT name FROM data_source_instance 
-            WHERE data_source_instance.id = loader.ids_data_source_instance_id
+            WHERE data_source_instance.id = loader_instance.ids_data_source_instance_id
         )
         WHERE ids_data_source_instance_id IS NOT NULL
         """)
     )
 
     # Drop foreign key constraints
-    op.drop_constraint('fk_loader_source_data_source_instance', 'loader', type_='foreignkey')
-    op.drop_constraint('fk_loader_destination_data_source_instance', 'loader', type_='foreignkey')
-    op.drop_constraint('fk_loader_data_source_instance', 'loader', type_='foreignkey')
+    op.drop_constraint('loader_instance_source_data_source_instance_id_fkey', 'loader_instance', type_='foreignkey')
+    op.drop_constraint('loader_instance_destination_data_source_instance_id_fkey', 'loader_instance', type_='foreignkey')
+    op.drop_constraint('loader_instance_ids_data_source_instance_id_fkey', 'loader_instance', type_='foreignkey')
 
     # Drop the original columns
-    op.drop_column('loader', 'source_data_source_instance_id')
-    op.drop_column('loader', 'destination_data_source_instance_id')
-    op.drop_column('loader', 'ids_data_source_instance_id')
+    op.drop_column('loader_instance', 'source_data_source_instance_id')
+    op.drop_column('loader_instance', 'destination_data_source_instance_id')
+    op.drop_column('loader_instance', 'ids_data_source_instance_id')
 
     # Rename the copy columns to the original names
-    op.alter_column('loader', 'source_data_source_instance_id_COPY', new_column_name='source_data_source_instance_id')
-    op.alter_column('loader', 'destination_data_source_instance_id_COPY', new_column_name='destination_data_source_instance_id')
-    op.alter_column('loader', 'ids_data_source_instance_id_COPY', new_column_name='ids_data_source_instance_id')
+    op.alter_column('loader_instance', 'source_data_source_instance_id_copy', new_column_name='source_data_source_instance_id')
+    op.alter_column('loader_instance', 'destination_data_source_instance_id_copy', new_column_name='destination_data_source_instance_id')
+    op.alter_column('loader_instance', 'ids_data_source_instance_id_copy', new_column_name='ids_data_source_instance_id')
 
     # Update data_source_instance.id ready to take string values
+    # In PostgreSQL, when you change from int to string any auto-increment behavior is auto handled
     op.alter_column('data_source_instance', 'id', 
                    type_=sa.String(),
-                   autoincrement=False,
                    nullable=False)
 
     # Update all id fields to use name values
@@ -104,23 +104,6 @@ def upgrade() -> None:
 
     # Drop the now old name column
     op.drop_column('data_source_instance', 'name')
-    
-    # Re-create foreign key constraints for loader table
-    op.create_foreign_key(
-        'fk_loader_source_data_source_instance',
-        'loader', 'data_source_instance',
-        ['source_data_source_instance_id'], ['id']
-    )
-    op.create_foreign_key(
-        'fk_loader_destination_data_source_instance',
-        'loader', 'data_source_instance',
-        ['destination_data_source_instance_id'], ['id']
-    )
-    op.create_foreign_key(
-        'fk_loader_data_source_instance',
-        'loader', 'data_source_instance',
-        ['ids_data_source_instance_id'], ['id']
-    )
 
 
     """
@@ -140,15 +123,6 @@ def upgrade() -> None:
         UPDATE data_source_instance
         SET ui_api_details = '{"url": "https://portal.tol.sanger.ac.uk", "apiPath": "/api/v1", "apiDataPath": "/data", "dataspace": "tol_production"}'
         WHERE id = 'tol_production'
-        """)
-    )
-
-    # Update tolqc id to be more specific
-    conn.execute(
-        text("""
-        UPDATE data_source_instance
-        SET id = 'tolqc_production'
-        WHERE id = 'tolqc'
         """)
     )
 
@@ -190,7 +164,7 @@ def upgrade() -> None:
         ['data_source_instance_id'], ['id']
     )
 
-    # Pre-populate `datasource_instance_id` fields with 'tol-production'
+    # Pre-populate `datasource_instance_id` fields with 'tol_production'
     conn.execute(
         text("""
         UPDATE component
@@ -208,6 +182,27 @@ def upgrade() -> None:
     op.alter_column('component', 'data_source_instance_id', nullable=False)
     op.alter_column('zone', 'data_source_instance_id', nullable=False)
 
+
+    """
+    Re-create foreign key constraints for loader_instance table
+    """
+    
+    # Re-create foreign key constraints for loader_instance table
+    op.create_foreign_key(
+        'loader_instance_source_data_source_instance_id_fkey',
+        'loader_instance', 'data_source_instance',
+        ['source_data_source_instance_id'], ['id']
+    )
+    op.create_foreign_key(
+        'loader_instance_destination_data_source_instance_id_fkey',
+        'loader_instance', 'data_source_instance',
+        ['destination_data_source_instance_id'], ['id']
+    )
+    op.create_foreign_key(
+        'loader_instance_ids_data_source_instance_id_fkey',
+        'loader_instance', 'data_source_instance',
+        ['ids_data_source_instance_id'], ['id']
+    )
 
 def downgrade() -> None:
     pass
