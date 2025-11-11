@@ -100,13 +100,13 @@ def application() -> Flask:
         )
         blueprint_data = data_blueprint(ds)
         api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \
-            '/' + datasource_instance.name
-        print(f'Registering data blueprint for {datasource_instance.name} at {api_path}')
+            '/' + datasource_instance.id
+        print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
 
         app.register_blueprint(
             blueprint_data,
             url_prefix=api_path,
-            name=datasource_instance.name
+            name=datasource_instance.id
         )
 
     # The system endpoints
