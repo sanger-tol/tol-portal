@@ -21,6 +21,15 @@ depends_on = None
 def upgrade() -> None:
     conn = op.get_bind()
 
+    # Update tolqc name to be more specific
+    conn.execute(
+        text("""
+        UPDATE data_source_instance
+        SET name = 'tolqc_production'
+        WHERE name = 'tolqc'
+        """)
+    )
+
     """
     Update data_source_instance id to be the name as PK in data_source_instance table
     1. Create copies of data_source_instance_id fields in loader_instance table
@@ -31,7 +40,6 @@ def upgrade() -> None:
     6. Update data_source_instance.id ready to take string values
     7. Update all id fields to use name values
     8. Drop the now old name column
-    9. Re-create foreign key constraints for loader_instance table
     """
 
     # Create copies of data_source_instance_id fields in loader_instance table
@@ -110,7 +118,6 @@ def upgrade() -> None:
     Add ui_api_details field to data_source_instance table and add for tol_production and tolqc_production instances
     1. Create new `api_details` field to data_source_instance table
     2. Update api_details field to data_source_instance table for 'tol_production'
-    3. Update tolqc id to be more specific
     4. Update api_details for 'tolqc_production' data source instance
     """
 
