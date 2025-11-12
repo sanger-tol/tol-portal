@@ -25,7 +25,7 @@ def upgrade() -> None:
     conn.execute(
         text("""
         UPDATE data_source_instance
-        SET name = 'tolqc_production'
+        SET name = 'tolqc_public_production'
         WHERE name = 'tolqc'
         """)
     )
@@ -115,10 +115,10 @@ def upgrade() -> None:
 
 
     """
-    Add ui_api_details field to data_source_instance table and add for tol_production and tolqc_production instances
+    Add ui_api_details field to data_source_instance table and add for tol_production and tolqc_public_production instances
     1. Create new `api_details` field to data_source_instance table
     2. Update api_details field to data_source_instance table for 'tol_production'
-    4. Update api_details for 'tolqc_production' data source instance
+    4. Update api_details for 'tolqc_public_production' data source instance
     """
 
     # Create new `api_details` field to data_source_instance table
@@ -133,12 +133,12 @@ def upgrade() -> None:
         """)
     )
 
-    # Update api_details for 'tolqc_production' data source instance
+    # Update api_details for 'tolqc_public_production' data source instance
     conn.execute(
         text("""
         UPDATE data_source_instance
-        SET ui_api_details = '{"url": "https://portal.tol.sanger.ac.uk", "apiPath": "/api/v1", "apiDataPath": "/data", "dataspace": "tolqc_production"}'
-        WHERE id = 'tolqc_production'
+        SET ui_api_details = '{"url": "https://portal.tol.sanger.ac.uk", "apiPath": "/api/v1", "apiDataPath": "/data", "dataspace": "tolqc_public_production"}'
+        WHERE id = 'tolqc_public_production'
         """)
     )
 
