@@ -25,8 +25,7 @@ from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
-from tol.sql.board import create_board_models
-from tol.sql.loader import create_loader_models
+from tol.sql.standard import create_standard_models
 from tol.sql.summary import create_summary_models
 from tol.status import StatusDataSource
 
@@ -41,12 +40,12 @@ from .model import (
 )
 
 
-def __get_board_models(
+def __get_standard_models(
     base_model: type[Model]
 ) -> tuple[list[type[Model]], type[Model]]:
-    board_models = create_board_models(base_model)
+    standard_models = create_standard_models(base_model)
 
-    return list(board_models), board_models._user_mixin
+    return list(standard_models), standard_models._user_mixin
 
 
 def application() -> Flask:
@@ -54,10 +53,9 @@ def application() -> Flask:
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    board_models, _board_user_mixin = __get_board_models(Base)
+    standard_models, _board_user_mixin = __get_standard_models(Base)
     action_models = create_action_models(Base)
     summary_models = create_summary_models(Base)
-    loader_models = create_loader_models(Base)
 
     user_mixin = type(
         '',
@@ -79,10 +77,9 @@ def application() -> Flask:
     models = [
         *MODELS,
         *action_models,
-        *board_models,
+        *standard_models,
         auth_bp.models.user_class,
-        *summary_models,
-        *loader_models
+        *summary_models
     ]
 
     sql_ds = create_sql_datasource(
@@ -103,13 +100,13 @@ def application() -> Flask:
         )
         blueprint_data = data_blueprint(ds)
         api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \
-            '/' + datasource_instance.name
-        print(f'Registering data blueprint for {datasource_instance.name} at {api_path}')
+            '/' + datasource_instance.id
+        print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
 
         app.register_blueprint(
             blueprint_data,
             url_prefix=api_path,
-            name=datasource_instance.name
+            name=datasource_instance.id
         )
 
     # The system endpoints

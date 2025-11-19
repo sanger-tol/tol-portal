@@ -31,12 +31,12 @@ import {
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown, TsDataSource, env } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 
-export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tol_production"});
+export const ELASTIC_DS = new TsDataSource(env.TOL_DATA);
 
 const species: Page = {
   name: "Species",
