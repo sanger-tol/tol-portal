@@ -1,7 +1,7 @@
 """sample selection actions
 
 Revision ID: 8ab120b0785f
-Revises: f6f142c1a7bb
+Revises: cd6c3a0ae19a
 Create Date: 2025-11-05 14:26:12.535167
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '8ab120b0785f'
-down_revision = 'f6f142c1a7bb'
+down_revision = 'cd6c3a0ae19a'
 branch_labels = None
 depends_on = None
 
