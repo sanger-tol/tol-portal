@@ -1,7 +1,7 @@
 """data_source_config_summary
 
 Revision ID: 060025da99e4
-Revises: f6f142c1a7bb
+Revises: 8ab120b0785f
 Create Date: 2025-11-11 14:39:39.803612
 
 """
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '060025da99e4'
-down_revision = 'f6f142c1a7bb'
+down_revision = '8ab120b0785f'
 branch_labels = None
 depends_on = None
 
