@@ -25,17 +25,18 @@ import {
   ProjectManagement,
   TUMSteps,
   ARAReview,
+  SampleSelection,
   Loaders,
   Attributes
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
-import { TolApp, Page, Dropdown, TsDataSource } from '@tol/tol-ui';
+import { TolApp, Page, Dropdown, TsDataSource, env } from '@tol/tol-ui';
 import Logo from './assets/logo.png';
 import './scss/styling.scss';
 
 
-export const ELASTIC_DS = new TsDataSource({apiPrefix: "data/tol_production"});
+export const ELASTIC_DS = new TsDataSource(env.TOL_DATA);
 
 const species: Page = {
   name: "Species",
@@ -128,6 +129,12 @@ const projectManagement: Page = {
   element: <ProjectManagement/>,
 }
 
+const sampleSelection: Page = {
+  name: "Sample Selection",
+  element: <SampleSelection />,
+  auth: true,
+}
+
 const tumSteps: Page = {
   name: "TUM Steps",
   element: <TUMSteps />,
@@ -189,7 +196,7 @@ const pipelineDropdown: Dropdown = {
 
 const additionalDropdown: Dropdown = {
   name: "Additional",
-  pages: [speciesRecollection, tum, tumSteps, araReview, samplesStuck,
+  pages: [speciesRecollection, sampleSelection, tum, tumSteps, araReview, samplesStuck,
     projectManagement, loaders, attributes],
   auth: true,
 }
