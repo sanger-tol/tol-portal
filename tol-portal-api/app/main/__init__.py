@@ -16,6 +16,7 @@ from tol.api_base import (
     system_blueprint,
     pipeline_steps_blueprint
 )
+from tol.api_base.misc import default_ctx_getter
 from tol.board import board_blueprint
 from tol.core import (
     DataSourceFilter,
@@ -34,6 +35,7 @@ from .auth import (
     get_auth_inspector,
     get_local_auth_inspector,
     get_prefect_auth_inspector,
+    get_pipeline_auth_inspector
 )
 from .model import (
     Base,
@@ -186,7 +188,7 @@ def application() -> Flask:
     pipeline_bp = pipeline_steps_blueprint(
         sql_ds,
         pds,
-        ctx_getter=None,
+        ctx_getter=get_pipeline_auth_inspector(default_ctx_getter),
         url_prefix=os.environ['API_PATH'] + '/local/run-pipeline',
         role=None
     )

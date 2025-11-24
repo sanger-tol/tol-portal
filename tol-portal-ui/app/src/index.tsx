@@ -27,7 +27,8 @@ import {
   ARAReview,
   SampleSelection,
   Loaders,
-  Attributes
+  Attributes,
+  ManifestValidation
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import reportWebVitals from './reportWebVitals';
@@ -168,6 +169,11 @@ const coreLabData: Page = {
   element: <CoreLabData />,
 }
 
+const manifestValidation: Page = {
+  name: "Manifest Validation",
+  element: <ManifestValidation />,
+}
+
 const taxaDropdown: Dropdown = {
   name: "Taxa",
   pages: [
@@ -209,7 +215,8 @@ const additionalDropdown: Dropdown = {
 const publicDropdown: Dropdown = {
   name: "Public",
   pages: [
-    coreLabData
+    coreLabData,
+    manifestValidation,
   ],
 }
 
