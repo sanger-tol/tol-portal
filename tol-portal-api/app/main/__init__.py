@@ -13,7 +13,8 @@ from flask_cors import CORS
 from tol.api_base import (
     action_blueprint,
     data_blueprint,
-    system_blueprint
+    system_blueprint,
+    pipeline_steps_blueprint
 )
 from tol.board import board_blueprint
 from tol.core import (
@@ -25,6 +26,7 @@ from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
+from tol.sql.pipeline_step import create_pipeline_step_models
 from tol.sql.standard import create_standard_models
 from tol.status import StatusDataSource
 
@@ -47,6 +49,14 @@ def __get_standard_models(
     return list(standard_models), standard_models._user_mixin
 
 
+def __get_pipeline_step_models(
+    base_model: type[Model],
+) -> tuple[list[type[Model], type[Model]]]:
+
+    pipeline_models = create_pipeline_step_models(base_model)
+    return list(pipeline_models), pipeline_models._user_mixin
+
+
 def application() -> Flask:
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
@@ -55,9 +65,15 @@ def application() -> Flask:
     standard_models, _board_user_mixin = __get_standard_models(Base)
     action_models = create_action_models(Base)
 
+    pipeline_models, _pipeline_user_mixin = __get_pipeline_step_models(Base)
+
     user_mixin = type(
         '',
-        (action_models._user_mixin, _board_user_mixin),
+        (
+            action_models._user_mixin,
+            _board_user_mixin,
+            _pipeline_user_mixin
+        ),
         {}
     )
 
@@ -77,6 +93,7 @@ def application() -> Flask:
         *action_models,
         *standard_models,
         auth_bp.models.user_class,
+        *pipeline_models,
     ]
 
     sql_ds = create_sql_datasource(
@@ -98,7 +115,7 @@ def application() -> Flask:
         blueprint_data = data_blueprint(ds)
         api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \
             '/' + datasource_instance.id
-        print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
+        # print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
 
         app.register_blueprint(
             blueprint_data,
@@ -164,5 +181,15 @@ def application() -> Flask:
         name='boards',
         url_prefix=os.getenv('API_PATH') + '/boards'
     )
+
+    # pipeline / validation
+    pipeline_bp = pipeline_steps_blueprint(
+        sql_ds,
+        pds,
+        ctx_getter=None,
+        url_prefix=os.environ['API_PATH'] + '/local/run-pipeline',
+        role=None
+    )
+    app.register_blueprint(pipeline_bp)
 
     return app
