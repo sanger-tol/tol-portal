@@ -7,15 +7,14 @@
 import { FileValidation } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_url: "tol-tree-of-sex-uploads",
+  s3_url: "",
   pipeline_id: 1,
-  destination: "still_not_sure",
+  destination: "portal",
 };
 
 function ManifestValidation() {
   return (
     <FileValidation
-      objectType=""
       validationConfig={VALIDATION_CONFIG}
       pageTitle="Manifest Validation Portal"
       defaultFileTemplateName="tos_test_upload.xlsx"

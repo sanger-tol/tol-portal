@@ -8,3 +8,4 @@ python_dateutil >= 2.8.1
 tol-sdk[api-base,elastic,postgresql,prefect,sheets] == 1.7.3
 flask-cors == 4.0.0
 alembic == 1.13.1
+minio
