@@ -216,6 +216,12 @@ const publicDropdown: Dropdown = {
   name: "Public",
   pages: [
     coreLabData,
+  ],
+}
+
+const toolsDropdown: Dropdown = {
+  name: "Tools",
+  pages: [
     manifestValidation,
   ],
 }
@@ -237,7 +243,8 @@ root.render(
       samplesDropdown,
       pipelineDropdown,
       additionalDropdown,
-      publicDropdown
+      publicDropdown,
+      toolsDropdown,
     ]}
     login={true}
   />
