@@ -13,8 +13,8 @@ from flask_cors import CORS
 from tol.api_base import (
     action_blueprint,
     data_blueprint,
-    system_blueprint,
-    pipeline_steps_blueprint
+    pipeline_steps_blueprint,
+    system_blueprint
 )
 from tol.api_base.misc import default_ctx_getter
 from tol.board import board_blueprint
@@ -23,6 +23,7 @@ from tol.core import (
     DataSourceUtils,
     core_data_object
 )
+from tol.s3.data_upload.blueprint import data_upload_blueprint
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
@@ -34,8 +35,7 @@ from tol.status import StatusDataSource
 from .auth import (
     get_auth_inspector,
     get_local_auth_inspector,
-    get_prefect_auth_inspector,
-    get_pipeline_auth_inspector
+    get_prefect_auth_inspector
 )
 from .model import (
     Base,
@@ -117,7 +117,7 @@ def application() -> Flask:
         blueprint_data = data_blueprint(ds)
         api_path = os.getenv('API_PATH') + os.getenv('API_DATA_PATH') + \
             '/' + datasource_instance.id
-        # print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
+        print(f'Registering data blueprint for {datasource_instance.id} at {api_path}')
 
         app.register_blueprint(
             blueprint_data,
@@ -188,10 +188,14 @@ def application() -> Flask:
     pipeline_bp = pipeline_steps_blueprint(
         sql_ds,
         pds,
-        ctx_getter=get_pipeline_auth_inspector(default_ctx_getter),
-        url_prefix=os.environ['API_PATH'] + '/local/run-pipeline',
+        ctx_getter=default_ctx_getter,
+        url_prefix=os.environ['API_PATH'] + '/run-pipeline',
         role=None
     )
     app.register_blueprint(pipeline_bp)
+
+    # data upload
+    upload_bp = data_upload_blueprint(url_prefix=os.environ['API_PATH'] + '/data-upload')
+    app.register_blueprint(upload_bp)
 
     return app
