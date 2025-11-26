@@ -7,7 +7,7 @@
 import { FileValidation } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_url: "",
+  s3_url: "tol-sample-manifests",
   pipeline_id: 1,
   destination: "portal",
 };
@@ -17,7 +17,6 @@ function ManifestValidation() {
     <FileValidation
       validationConfig={VALIDATION_CONFIG}
       pageTitle="Manifest Validation Portal"
-      defaultFileTemplateName="tos_test_upload.xlsx"
     />
   );
 }
