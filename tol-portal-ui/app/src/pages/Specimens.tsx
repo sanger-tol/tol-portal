@@ -13,9 +13,15 @@ import { ELASTIC_DS } from '..';
 
 
 function Specimens() {
+  const defaultFilter = {
+    and_: {
+      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+    }
+  }  
   const specimens = useZone({
     objectType:'specimen',
     dataSource: ELASTIC_DS,
+    filter: defaultFilter,
     components: [
       { id:'specimen-table' }
     ]
