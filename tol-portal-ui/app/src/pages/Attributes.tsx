@@ -5,14 +5,13 @@
  */
 
 import { RemoteTable, Widgets, useZone, TsDataSource } from '@tol/tol-ui';
+import { LOCAL_DS } from '..';
 
 
 function Attributes() {
   const attributes = useZone({
     objectType: 'data_source_config_attribute',
-    dataSource: new TsDataSource({
-      apiPrefix: 'local',
-    }),
+    dataSource: LOCAL_DS,
     components: [
       {
         id: 'attributes-table',
