@@ -37,6 +37,11 @@ import './scss/styling.scss';
 
 
 export const ELASTIC_DS = new TsDataSource(env.TOL_DATA);
+export const LOCAL_DS = new TsDataSource({
+  ...env.TOL_DATA,
+  apiDataPath: '/local',
+  dataspace: '',
+});
 
 const species: Page = {
   name: "Species",

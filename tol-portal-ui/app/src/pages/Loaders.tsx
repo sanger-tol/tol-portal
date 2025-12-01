@@ -5,14 +5,13 @@
  */
 
 import { RemoteTable, Widgets, useZone, TsDataSource } from '@tol/tol-ui';
+import { LOCAL_DS } from '..';
 
 
 function Loaders() {
   const loaders = useZone({
     objectType: 'loader_instance',
-    dataSource: new TsDataSource({
-      apiPrefix: 'local',
-    }),
+    dataSource: LOCAL_DS,
     components: [
       {
         id: 'loaders-table',
