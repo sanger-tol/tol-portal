@@ -27,13 +27,13 @@ function Loaders() {
       displaySource
       fields={{
         data: {
-          "source_data_source_instance.name": {
+          "source_data_source_instance.id": {
             rename: "Source"
           },
           "loader.source_object_type": {
             rename: "Source Object Type"
           },
-          "destination_data_source_instance.name": {
+          "destination_data_source_instance.id": {
             rename: "Destination"
           },
           "loader.destination_object_type": {
@@ -42,7 +42,7 @@ function Loaders() {
           "date_last_run": {
             rename: "Date Last Run"
           },
-          "ids_data_source_instance.name": {
+          "ids_data_source_instance.id": {
             rename: "IDs Source"
           },
           "loader.ids_object_type": {
@@ -54,12 +54,12 @@ function Loaders() {
         },
         order: {
           active: [
-            "source_data_source_instance.name",
+            "source_data_source_instance.id",
             "loader.source_object_type",
-            "destination_data_source_instance.name",
+            "destination_data_source_instance.id",
             "loader.destination_object_type",
             "date_last_run",
-            "ids_data_source_instance.name",
+            "ids_data_source_instance.id",
             "loader.ids_object_type",
             "loader.ids_attribute",
           ],
