@@ -23,7 +23,7 @@ from tol.core import (
     DataSourceUtils,
     core_data_object
 )
-from tol.s3.data_upload.blueprint import data_upload_blueprint
+from tol.api_base import data_upload_blueprint
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models

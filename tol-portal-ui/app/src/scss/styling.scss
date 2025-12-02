@@ -7,6 +7,12 @@
 @import "variables.scss";
 @import "@tol/tol-css/tol-styling.scss";
 
+:root {
+  .row:has(.tol-widget) {
+    margin: -5px -5px 0 !important;
+  }
+}
+
 .enum-box {
   padding: 5px 10px;
   border: 1px solid var(--grey-subtle);
