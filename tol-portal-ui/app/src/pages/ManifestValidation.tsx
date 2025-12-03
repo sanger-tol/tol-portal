@@ -14,7 +14,7 @@ import {
 } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_url: "tol-sample-manifests", // TODO: change to correct bucket depending on pipeline_id
+  s3_url: "lw23-scratch", // TODO: change to correct bucket depending on pipeline_id
   pipeline_id: 1, // TODO: Allow users to select pipeline to run
   destination: "portal",
 };
