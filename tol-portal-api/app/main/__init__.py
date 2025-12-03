@@ -16,6 +16,7 @@ from tol.api_base import (
     pipeline_steps_blueprint,
     system_blueprint
 )
+from tol.api_base import data_upload_blueprint
 from tol.api_base.misc import default_ctx_getter
 from tol.board import board_blueprint
 from tol.core import (
@@ -23,7 +24,6 @@ from tol.core import (
     DataSourceUtils,
     core_data_object
 )
-from tol.api_base import data_upload_blueprint
 from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
