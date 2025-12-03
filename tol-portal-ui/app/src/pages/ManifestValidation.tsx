@@ -14,10 +14,13 @@ import {
 } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_url: "lw23-scratch",
+  s3_url: "",
   pipeline_id: 1,
   destination: "portal",
 };
+
+// TODO: Once custom cell renderers are available, turn download column into download button
+// TODO: Once custom cell renderers are available, add a 'view results/report' button
 
 function ManifestValidation() {
   const uploads = useZone({
@@ -42,8 +45,8 @@ function ManifestValidation() {
       <Tabs.Tab eventKey="2" title="Uploaded Manifests">
         <RemoteTable
           id="uploads-table"
-          {...uploads}
           height={500}
+          noConfigModal
           fields={{
             data: {
               id: { rename: "Manifest ID", width: 130 },
@@ -52,7 +55,10 @@ function ManifestValidation() {
                 width: 130,
                 cellRenderer: "none",
               },
-              s3_filename: { rename: "File Download", width: 200 },
+              s3_filename: {
+                rename: "File Download",
+                width: 200,
+              },
               "pipeline.id": {
                 rename: "Pipeline ID",
                 width: 130,
@@ -83,11 +89,12 @@ function ManifestValidation() {
                 "destination",
                 "date_started",
                 "completed",
-                "failure_message",
                 "flow_run_id",
+                "failure_message",
               ],
             },
           }}
+          {...uploads}
         />
       </Tabs.Tab>
     </Tabs>
