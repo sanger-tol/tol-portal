@@ -13,8 +13,8 @@ from flask_cors import CORS
 from tol.api_base import (
     action_blueprint,
     data_blueprint,
-    pipeline_steps_blueprint,
     data_upload_blueprint,
+    pipeline_steps_blueprint,
     system_blueprint
 )
 from tol.api_base.misc import default_ctx_getter
