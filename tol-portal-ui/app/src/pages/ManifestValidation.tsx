@@ -7,7 +7,7 @@
 import { FileValidation } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_url: "tol-sample-manifests",
+  s3_bucket: "tol-sample-manifests",
   pipeline_id: 1,
   destination: "portal",
 };

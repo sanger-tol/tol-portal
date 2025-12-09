@@ -44,7 +44,7 @@ def upgrade() -> None:
 
     op.create_table('upload',
                     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-                    sa.Column('s3_url', sa.String(), nullable=False),
+                    sa.Column('s3_bucket', sa.String(), nullable=False),
                     sa.Column('s3_filename', sa.String(), nullable=False),
                     sa.Column('spreadsheet_config', sa.String(), nullable=True),
                     sa.Column('user_id', sa.Integer(), nullable=True),
