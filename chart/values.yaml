@@ -126,6 +126,11 @@ tolcore:
       GOOGLE_CLIENT_SECRETS: google.client_secrets_json
       PREFECT_URL: prefect.url
       PREFECT_API_PATH: prefect.api_path
+      UPLOAD_S3_BUCKET: s3.bucket
+      S3_URI: s3.uri
+      S3_ACCESS_KEY: s3.access_key
+      S3_SECRET_KEY: s3.secret_key
+      S3_SECURE: s3.secure
   flask:
     env: ""
   ui:

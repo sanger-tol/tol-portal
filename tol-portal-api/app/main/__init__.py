@@ -13,8 +13,11 @@ from flask_cors import CORS
 from tol.api_base import (
     action_blueprint,
     data_blueprint,
+    data_upload_blueprint,
+    pipeline_steps_blueprint,
     system_blueprint
 )
+from tol.api_base.misc import default_ctx_getter
 from tol.board import board_blueprint
 from tol.core import (
     DataSourceFilter,
@@ -25,13 +28,14 @@ from tol.sources.prefect import prefect
 from tol.sql import Model, create_sql_datasource
 from tol.sql.action import create_action_models
 from tol.sql.auth import db_auth_blueprint
+from tol.sql.pipeline_step import create_pipeline_step_models
 from tol.sql.standard import create_standard_models
 from tol.status import StatusDataSource
 
 from .auth import (
     get_auth_inspector,
     get_local_auth_inspector,
-    get_prefect_auth_inspector,
+    get_prefect_auth_inspector
 )
 from .model import (
     Base,
@@ -47,6 +51,14 @@ def __get_standard_models(
     return list(standard_models), standard_models._user_mixin
 
 
+def __get_pipeline_step_models(
+    base_model: type[Model],
+) -> tuple[list[type[Model], type[Model]]]:
+
+    pipeline_models = create_pipeline_step_models(base_model)
+    return list(pipeline_models), pipeline_models._user_mixin
+
+
 def application() -> Flask:
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
@@ -55,9 +67,15 @@ def application() -> Flask:
     standard_models, _board_user_mixin = __get_standard_models(Base)
     action_models = create_action_models(Base)
 
+    pipeline_models, _pipeline_user_mixin = __get_pipeline_step_models(Base)
+
     user_mixin = type(
         '',
-        (action_models._user_mixin, _board_user_mixin),
+        (
+            action_models._user_mixin,
+            _board_user_mixin,
+            _pipeline_user_mixin
+        ),
         {}
     )
 
@@ -77,6 +95,7 @@ def application() -> Flask:
         *action_models,
         *standard_models,
         auth_bp.models.user_class,
+        *pipeline_models,
     ]
 
     sql_ds = create_sql_datasource(
@@ -164,5 +183,19 @@ def application() -> Flask:
         name='boards',
         url_prefix=os.getenv('API_PATH') + '/boards'
     )
+
+    # pipeline / validation
+    pipeline_bp = pipeline_steps_blueprint(
+        sql_ds,
+        pds,
+        ctx_getter=default_ctx_getter,
+        url_prefix=os.environ['API_PATH'] + '/run-pipeline',
+        role=None
+    )
+    app.register_blueprint(pipeline_bp)
+
+    # data upload
+    upload_bp = data_upload_blueprint(url_prefix=os.environ['API_PATH'] + '/data-upload')
+    app.register_blueprint(upload_bp)
 
     return app
