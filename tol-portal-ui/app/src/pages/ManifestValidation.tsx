@@ -4,20 +4,112 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { FileValidation } from "@tol/tol-ui";
+import {
+  FileValidation,
+  Tabs,
+  RemoteTable,
+  Widgets,
+  useZone,
+  TsDataSource,
+} from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_bucket: "tol-sample-manifests",
-  pipeline_id: 1,
+  s3_bucket: "tol-sample-manifests", // TODO: change to correct bucket depending on pipeline_id
+  pipeline_id: 1, // TODO: Allow users to select pipeline to run
   destination: "portal",
 };
 
+// TODO: Once custom cell renderers are available, turn download column into download button
+// TODO: Once custom cell renderers are available, add a 'view results/report' button
+
 function ManifestValidation() {
+  const uploads = useZone({
+    objectType: "upload",
+    dataSource: new TsDataSource({
+      apiPath: "/api/v1/local",
+    }),
+    components: [
+      {
+        id: "uploads-table",
+      },
+    ],
+  });
+  const TabItems = (
+    <Tabs defaultActiveKey="1">
+      <Tabs.Tab eventKey="1" title="Manifest Validation">
+        <FileValidation
+          validationConfig={VALIDATION_CONFIG}
+          pageTitle="Manifest Validation Portal"
+        />
+      </Tabs.Tab>
+      <Tabs.Tab eventKey="2" title="Uploaded Manifests">
+        <RemoteTable
+          id="uploads-table"
+          height={500}
+          noConfigModal
+          fields={{
+            data: {
+              id: { rename: "Manifest ID", width: 130 },
+              "user.id": {
+                rename: "User ID",
+                width: 130,
+                cellRenderer: "none",
+              },
+              s3_filename: {
+                rename: "File Download",
+                width: 200,
+              },
+              "pipeline.id": {
+                rename: "Pipeline ID",
+                width: 130,
+                cellRenderer: "none",
+              },
+              destination: { rename: "Destination", width: 180 },
+              date_started: {
+                rename: "Upload Date",
+                cellRenderer: { type: "datetime" },
+                width: 180,
+              },
+              completed: {
+                rename: "Completed",
+                cellRenderer: { type: "boolean" },
+                width: 130,
+              },
+              failure_message: { rename: "Failure Reason", width: 180 },
+              flow_run_id: {
+                rename: "Flow Run ID",
+              },
+            },
+            order: {
+              active: [
+                "id",
+                "s3_filename",
+                "user.id",
+                "pipeline.id",
+                "destination",
+                "date_started",
+                "completed",
+                "flow_run_id",
+                "failure_message",
+              ],
+            },
+          }}
+          {...uploads}
+        />
+      </Tabs.Tab>
+    </Tabs>
+  );
+
+  const components = [
+    {
+      component: TabItems,
+      type: "full",
+    },
+  ];
   return (
-    <FileValidation
-      validationConfig={VALIDATION_CONFIG}
-      pageTitle="Manifest Validation Portal"
-    />
+    <>
+      <Widgets components={components} />
+    </>
   );
 }
 

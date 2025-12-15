@@ -71,6 +71,11 @@ def get_local_auth_inspector(
         **kwargs
     ) -> None:
 
+        # Non-admin users can only see their own uploads,
+        # unauthenticated users cannot see uploads at all
+        if object_type == 'upload' and 'admin' not in ctx_getter().roles:
+            return {'user.id': {'eq': {'value': ctx_getter().user_id}}}
+
         if method not in WRITE_METHODS:
             return
 
