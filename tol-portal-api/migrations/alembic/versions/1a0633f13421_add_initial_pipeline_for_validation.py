@@ -85,13 +85,13 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 16,
+            'id': 17,
             'pipeline_id': 1,
             'step_name': 'Skip Null Fields Converter',
             'stage': 1,
             'step_order': 3,
             'config': {
-                'module': 'tol.core',
+                'module': 'tol.validators',
                 'class_name': 'SkipNullFieldsConverter',
                 'is_validator': False,
                 "config_details": {
@@ -126,7 +126,7 @@ def upgrade() -> None:
             'step_order': 2,
             'config': {
                 'config_details': {
-                    'unique_keys': ['RACK_OR_PLATE_ID', 'TUBE_OR_WELL_ID'],
+                    'unique_keys': [['RACK_OR_PLATE_ID', 'TUBE_OR_WELL_ID']],
                     'detail': 'Must only be one target specimen id per rack/tube or plate/well combination.',
                     'is_error': True
                 },
@@ -196,11 +196,6 @@ def upgrade() -> None:
                             'is_error': True
                         },
                         {
-                            'key': 'TIME_OF_COLLECTION',
-                            'regex': '^([0-1][0-9]|2[0-4]):[0-5]\\d$|^$',
-                            'is_error': True
-                        },
-                        {
                             'key': 'SERIES',
                             'regex': '^\\d+$',
                             'is_error': True
@@ -215,9 +210,25 @@ def upgrade() -> None:
         {
             'id': 8,
             'pipeline_id': 1,
-            'step_name': 'Specimens Have Same Taxon',
+            'step_name': 'Type Checking',
             'stage': 2,
             'step_order': 6,
+            'config': {
+                'config_details': {
+                    'allowed_types': {
+                        'TIME_OF_COLLECTION': 'time',
+                    }
+                },
+                'module': 'tol.validators',
+                'class_name': 'TypesValidator',
+                'is_validator': True
+            },
+        },{
+            'id': 9,
+            'pipeline_id': 1,
+            'step_name': 'Specimens Have Same Taxon',
+            'stage': 2,
+            'step_order': 7,
             'config': {
                 'config_details': {
                     'taxon_id_field': 'TAXON_ID',
@@ -231,11 +242,11 @@ def upgrade() -> None:
 
         },
         {
-            'id': 9,
+            'id': 10,
             'pipeline_id': 1,
             'step_name': 'Symbiont Target Consistency',
             'stage': 2,
-            'step_order': 7,
+            'step_order': 8,
             'config': {
                 'config_details': {
                     'first_field_where': {
@@ -262,11 +273,11 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 10,
+            'id': 11,
             'pipeline_id': 1,
             'step_name': 'Specimen Barcoding Consistency',
             'stage': 2,
-            'step_order': 8,
+            'step_order': 9,
             'config': {
                 'config_details': {
                     'condition': {
@@ -308,11 +319,11 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 11,
+            'id': 12,
             'pipeline_id': 1,
             'step_name': 'GAL Pattern Matching',
             'stage': 2,
-            'step_order': 9,
+            'step_order': 10,
             'config': {
                 'config_details': {
                     'key_column': 'GAL',
@@ -333,11 +344,11 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 12,
+            'id': 13,
             'pipeline_id': 1,
             'step_name': 'Required STS Fields Present',
             'stage': 2,
-            'step_order': 10,
+            'step_order': 11,
             'config': {
                 'config_details': {
                     'project_code': 'DTOL',
@@ -348,26 +359,44 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 13,
+            'id': 14,
             'pipeline_id': 1,
             'step_name': 'Manifest Passes ENA Checklist',
             'stage': 2,
-            'step_order': 11,
+            'step_order': 12,
             'config': {
                 'config_details': {
-                    'ena_checklist_id': 'ERC000053',
+                    "converters": [
+                        {
+                            'config_details': {
+                                'ena_checklist_id': 'ERC000053',
+                                'project_name': 'ToL'
+                            },
+                            'module': 'tol.flows.converters',
+                            'class_name': 'IncomingSampleToEnaSampleConverter',
+                        }
+                    ],
+                    "validators": [
+                        {
+                            'config_details': {
+                                'ena_checklist_id': 'ERC000053'
+                            },
+                            'module': 'tol.validators',
+                            'class_name': 'EnaChecklistValidator'
+                        }
+                    ]
                 },
                 'module': 'tol.validators',
-                'class_name': 'EnaChecklistValidator',
+                'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
             }
         },
         {
-            'id': 14,
+            'id': 15,
             'pipeline_id': 1,
             'step_name': 'Allowed Values (STS)',
             'stage': 2,
-            'step_order': 12,
+            'step_order': 13,
             'config': {
                 'config_details': {
                     'converters': [],
@@ -375,7 +404,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'lifestage',
                                 'datasource_field_name': 'name',
@@ -384,7 +413,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'sex',
                                 'datasource_field_name': 'name',
@@ -393,7 +422,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'organism_part',
                                 'datasource_field_name': 'name',
@@ -402,7 +431,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'gal',
                                 'datasource_field_name': 'name',
@@ -411,7 +440,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'tissue_size',
                                 'datasource_field_name': 'size',
@@ -420,7 +449,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'organism_part',
                                 'datasource_field_name': 'name',
@@ -429,7 +458,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'hazard_group',
                                 'datasource_field_name': 'level',
@@ -438,7 +467,7 @@ def upgrade() -> None:
                         {
                             'module': 'tol.validators',
                             'class_name': 'AllowedValuesFromDataSourceValidator',
-                            'config': {
+                            'config_details': {
                                 'datasource_instance_id': 'sts',
                                 'datasource_object_type': 'specimen_purpose',
                                 'datasource_field_name': 'purpose',
@@ -452,16 +481,16 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 15,
+            'id': 16,
             'pipeline_id': 1,
             'step_name': 'Allowed Values',
             'stage': 2,
-            'step_order': 13,
+            'step_order': 14,
             'config': {
                 'config_details': {
                     'converters': [],
                     'validators': [
-                        {'module': 'tol.validators', 'class_name': 'AllowedValuesValidator', 'config':
+                        {'module': 'tol.validators', 'class_name': 'AllowedValuesValidator', 'config_details':
                          {'field': 'DIFFICULT_OR_HIGH_PRIORITY_SAMPLE',
                           'allowed_values': [
                               'HIGH_PRIORITY',
@@ -473,24 +502,24 @@ def upgrade() -> None:
                           ],
                           'is_error': True}},
                         {'module': 'tol.validators',
-                         'class_name': 'AllowedValuesValidator', 'config': {
+                         'class_name': 'AllowedValuesValidator', 'config_details': {
                              'field': 'TISSUE_REMOVED_FOR_BARCODING',
                              'allowed_values': ['Y', 'N', 'NOT_COLLECTED', 'NOT_APPLICABLE', 'NOT_PROVIDED'],
                              'is_error': True
                          }},
                         {'module': 'tol.validators',
-                         'class_name': 'AllowedValuesValidator', 'config': {
+                         'class_name': 'AllowedValuesValidator', 'config_details': {
                              'field': 'REGULATORY_COMPLIANCE',
                              'allowed_values': ['Y', 'N', 'NOT_APPLICABLE'],
                              'is_error': True
                          }},
                         {'module': 'tol.validators',
-                         'class_name': 'AllowedValuesValidator', 'config': {
+                         'class_name': 'AllowedValuesValidator', 'config_details': {
                              'field': 'SPECIMEN_ID_RISK',
                              'allowed_values': ['Y', 'N']
                          }},
                         {'module': 'tol.validators',
-                         'class_name': 'AllowedValuesValidator', 'config': {
+                         'class_name': 'AllowedValuesValidator', 'config_details': {
                              'field': 'BARCODING_HUB',
                              'allowed_values': [
                                  'UNIVERSITY OF OXFORD',
@@ -505,7 +534,7 @@ def upgrade() -> None:
                              'is_error': True
                          }},
                         {'module': 'tol.validators',
-                         'class_name': 'AllowedValuesValidator', 'config': {
+                         'class_name': 'AllowedValuesValidator', 'config_details': {
                              'field': 'BARCODING_STATUS',
                              'allowed_values': [
                                  'DNA_BARCODING_COMPLETED',
@@ -515,7 +544,7 @@ def upgrade() -> None:
                              ],
                              'is_error': True
                          }},
-                        {'module': 'tol.validators', 'class_name': 'AllowedValuesValidator', 'config': {
+                        {'module': 'tol.validators', 'class_name': 'AllowedValuesValidator', 'config_details': {
                             'field': 'SAMPLE_FORMAT',
                             'allowed_values': [
                                 'live biological sample from infectious organism',
