@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-<<<<<<< HEAD
 import {
   FileValidation,
   Tabs,
@@ -111,22 +110,6 @@ function ManifestValidation() {
     <>
       <Widgets components={components} />
     </>
-=======
-import { FileValidation } from "@tol/tol-ui";
-
-const VALIDATION_CONFIG = {
-  s3_bucket: "tol-sample-manifests",
-  pipeline_id: 1,
-  destination: "portal",
-};
-
-function ManifestValidation() {
-  return (
-    <FileValidation
-      validationConfig={VALIDATION_CONFIG}
-      pageTitle="Manifest Validation Portal"
-    />
->>>>>>> 0bc6fe9440482c1467f55da4daf01e01cb145a4a
   );
 }
 
