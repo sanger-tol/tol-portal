@@ -85,7 +85,7 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 17,
+            'id': 18,
             'pipeline_id': 1,
             'step_name': 'Skip Null Fields Converter',
             'stage': 1,
@@ -321,9 +321,37 @@ def upgrade() -> None:
         {
             'id': 12,
             'pipeline_id': 1,
-            'step_name': 'GAL Pattern Matching',
+            'step_name': 'Inactivation Consistency',
             'stage': 2,
             'step_order': 10,
+            'config': {
+                'config_details': {
+                    'condition': {
+                        'field': 'INACTIVATION_METHOD',
+                        'operator': '!=',
+                        'value': '',
+                        'is_error': True
+                    },
+                    'assertions': [
+                        {
+                            'field': 'SAMPLE_FORMAT',
+                            'operator': '==',
+                            'value': 'inactivated biological sample from infectious organism',
+                            'is_error': True
+                        }
+                    ]
+                },
+                'module': 'tol.validators',
+                'class_name': 'AssertOnConditionValidator',
+                'is_validator': True
+            },
+        },
+        {
+            'id': 13,
+            'pipeline_id': 1,
+            'step_name': 'GAL Pattern Matching',
+            'stage': 2,
+            'step_order': 11,
             'config': {
                 'config_details': {
                     'key_column': 'GAL',
@@ -344,14 +372,14 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 13,
+            'id': 14,
             'pipeline_id': 1,
             'step_name': 'Required STS Fields Present',
             'stage': 2,
-            'step_order': 11,
+            'step_order': 12,
             'config': {
                 'config_details': {
-                    'project_code': 'DTOL',
+                    'project_code': 'DTOL'
                 },
                 'module': 'tol.validators',
                 'class_name': 'StsFieldsValidator',
@@ -359,11 +387,11 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 14,
+            'id': 15,
             'pipeline_id': 1,
             'step_name': 'Manifest Passes ENA Checklist',
             'stage': 2,
-            'step_order': 12,
+            'step_order': 13,
             'config': {
                 'config_details': {
                     "converters": [
@@ -392,11 +420,11 @@ def upgrade() -> None:
             }
         },
         {
-            'id': 15,
+            'id': 16,
             'pipeline_id': 1,
             'step_name': 'Allowed Values (STS)',
             'stage': 2,
-            'step_order': 13,
+            'step_order': 14,
             'config': {
                 'config_details': {
                     'converters': [],
@@ -481,11 +509,11 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 16,
+            'id': 17,
             'pipeline_id': 1,
             'step_name': 'Allowed Values',
             'stage': 2,
-            'step_order': 14,
+            'step_order': 15,
             'config': {
                 'config_details': {
                     'converters': [],
