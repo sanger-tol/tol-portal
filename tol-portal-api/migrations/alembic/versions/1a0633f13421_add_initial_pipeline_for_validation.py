@@ -319,7 +319,7 @@ def upgrade() -> None:
             },
         },
         {
-            'id': 11,
+            'id': 12,
             'pipeline_id': 1,
             'step_name': 'Inactivation Consistency',
             'stage': 2,
