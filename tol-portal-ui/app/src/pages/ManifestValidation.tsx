@@ -14,7 +14,7 @@ import {
 } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
-  s3_bucket: "tol-sample-manifests", // TODO: change to correct bucket depending on pipeline_id
+  s3_bucket: "lw23-scratch", // TODO: change to correct bucket depending on pipeline_id
   pipeline_id: 1, // TODO: Allow users to select pipeline to run
   destination: "portal",
 };
@@ -34,6 +34,63 @@ function ManifestValidation() {
       },
     ],
   });
+
+  const UploadTable = (
+    <RemoteTable
+      id="uploads-table"
+      height={500}
+      noConfigModal
+      fields={{
+        data: {
+          id: { rename: "Manifest ID", width: 130 },
+          "user.id": {
+            rename: "User ID",
+            width: 130,
+            cellRenderer: "none",
+          },
+          s3_filename: {
+            rename: "File Download",
+            width: 200,
+          },
+          "pipeline.id": {
+            rename: "Pipeline ID",
+            width: 130,
+            cellRenderer: "none",
+          },
+          destination: { rename: "Destination", width: 180 },
+          date_started: {
+            rename: "Upload Date",
+            cellRenderer: { type: "datetime" },
+            width: 180,
+          },
+          completed: {
+            rename: "Completed",
+            cellRenderer: { type: "boolean" },
+            width: 130,
+          },
+          failure_message: { rename: "Failure Reason", width: 180 },
+          flow_run_id: {
+            rename: "Flow Run ID",
+          },
+        },
+        order: {
+          active: [
+            "id",
+            "s3_filename",
+            "user.id",
+            "pipeline.id",
+            "destination",
+            "date_started",
+            "completed",
+            "flow_run_id",
+            "failure_message",
+          ],
+        },
+      }}
+      {...uploads}
+    />
+  );
+  
   const TabItems = (
     <Tabs defaultActiveKey="1">
       <Tabs.Tab eventKey="1" title="Manifest Validation">
@@ -43,74 +100,17 @@ function ManifestValidation() {
         />
       </Tabs.Tab>
       <Tabs.Tab eventKey="2" title="Uploaded Manifests">
-        <RemoteTable
-          id="uploads-table"
-          height={500}
-          noConfigModal
-          fields={{
-            data: {
-              id: { rename: "Manifest ID", width: 130 },
-              "user.id": {
-                rename: "User ID",
-                width: 130,
-                cellRenderer: "none",
-              },
-              s3_filename: {
-                rename: "File Download",
-                width: 200,
-              },
-              "pipeline.id": {
-                rename: "Pipeline ID",
-                width: 130,
-                cellRenderer: "none",
-              },
-              destination: { rename: "Destination", width: 180 },
-              date_started: {
-                rename: "Upload Date",
-                cellRenderer: { type: "datetime" },
-                width: 180,
-              },
-              completed: {
-                rename: "Completed",
-                cellRenderer: { type: "boolean" },
-                width: 130,
-              },
-              failure_message: { rename: "Failure Reason", width: 180 },
-              flow_run_id: {
-                rename: "Flow Run ID",
-              },
-            },
-            order: {
-              active: [
-                "id",
-                "s3_filename",
-                "user.id",
-                "pipeline.id",
-                "destination",
-                "date_started",
-                "completed",
-                "flow_run_id",
-                "failure_message",
-              ],
-            },
-          }}
-          {...uploads}
+        <Widgets
+          components={[
+            { component: <h2>Uploaded Manifests</h2>, type: "full" },
+            { component: UploadTable, type: "full" },
+          ]}
         />
       </Tabs.Tab>
     </Tabs>
   );
 
-  const components = [
-    {
-      component: TabItems,
-      type: "full",
-    },
-  ];
-  return (
-    <>
-      <Widgets components={components} />
-    </>
-  );
+  return <>{TabItems}</>;
 }
 
 export default ManifestValidation;

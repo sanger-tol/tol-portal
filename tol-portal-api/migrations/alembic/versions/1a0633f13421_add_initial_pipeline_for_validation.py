@@ -42,6 +42,7 @@ def upgrade() -> None:
                         column('step_name', String),
                         column('stage', Integer),
                         column('step_order', Integer),
+                        column('is_visible', sa.Boolean),
                         column('config', JSON)
                         )
     steps_data = [
@@ -51,6 +52,7 @@ def upgrade() -> None:
             'step_name': 'Sanitise Incoming Manifest',
             'stage': 1,
             'step_order': 1,
+            'is_visible': False,
             'config': {
                 'module': 'tol.core',
                 'class_name': 'SanitisingConverter',
@@ -64,6 +66,7 @@ def upgrade() -> None:
             'step_name': 'Convert Pipes to Lists',
             'stage': 1,
             'step_order': 2,
+            'is_visible': False,
             'config': {
                 'config_details': {
                     'fields_to_convert': [
@@ -90,8 +93,9 @@ def upgrade() -> None:
             'step_name': 'Skip Null Fields Converter',
             'stage': 1,
             'step_order': 3,
+            'is_visible': False,
             'config': {
-                'module': 'tol.validators',
+                'module': 'tol.flows.converters',
                 'class_name': 'SkipNullFieldsConverter',
                 'is_validator': False,
                 "config_details": {
@@ -109,6 +113,7 @@ def upgrade() -> None:
             'step_name': 'Can Submit to ENA',
             'stage': 2,
             'step_order': 1,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'field_name': 'TAXON_ID'
@@ -124,6 +129,7 @@ def upgrade() -> None:
             'step_name': 'Unique rack/tube or plate/well IDs',
             'stage': 2,
             'step_order': 2,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'unique_keys': [['RACK_OR_PLATE_ID', 'TUBE_OR_WELL_ID']],
@@ -142,6 +148,7 @@ def upgrade() -> None:
             'step_name': 'ToLID Species Check',
             'stage': 2,
             'step_order': 3,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'species_id_field': 'TAXON_ID',
@@ -161,6 +168,7 @@ def upgrade() -> None:
             'step_name': 'Rack/Plate ID or Tube/Well ID Present',
             'stage': 2,
             'step_order': 4,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'keys': ['RACK_OR_PLATE_ID', 'TUBE_OR_WELL_ID'],
@@ -177,6 +185,7 @@ def upgrade() -> None:
             'step_name': 'Pattern Matching',
             'stage': 2,
             'step_order': 5,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'regexes': [
@@ -213,11 +222,13 @@ def upgrade() -> None:
             'step_name': 'Type Checking',
             'stage': 2,
             'step_order': 6,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'allowed_types': {
                         'TIME_OF_COLLECTION': 'time',
-                    }
+                    },
+                    'is_error': False
                 },
                 'module': 'tol.validators',
                 'class_name': 'TypesValidator',
@@ -229,6 +240,7 @@ def upgrade() -> None:
             'step_name': 'Specimens Have Same Taxon',
             'stage': 2,
             'step_order': 7,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'taxon_id_field': 'TAXON_ID',
@@ -247,6 +259,7 @@ def upgrade() -> None:
             'step_name': 'Symbiont Target Consistency',
             'stage': 2,
             'step_order': 8,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'first_field_where': {
@@ -278,6 +291,7 @@ def upgrade() -> None:
             'step_name': 'Specimen Barcoding Consistency',
             'stage': 2,
             'step_order': 9,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'condition': {
@@ -324,12 +338,13 @@ def upgrade() -> None:
             'step_name': 'Inactivation Consistency',
             'stage': 2,
             'step_order': 10,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'condition': {
                         'field': 'INACTIVATION_METHOD',
                         'operator': '!=',
-                        'value': '',
+                        'value': None,
                         'is_error': True
                     },
                     'assertions': [
@@ -352,6 +367,7 @@ def upgrade() -> None:
             'step_name': 'GAL Pattern Matching',
             'stage': 2,
             'step_order': 11,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'key_column': 'GAL',
@@ -377,6 +393,7 @@ def upgrade() -> None:
             'step_name': 'Required STS Fields Present',
             'stage': 2,
             'step_order': 12,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'project_code': 'DTOL'
@@ -392,6 +409,7 @@ def upgrade() -> None:
             'step_name': 'Manifest Passes ENA Checklist',
             'stage': 2,
             'step_order': 13,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     "converters": [
@@ -425,6 +443,7 @@ def upgrade() -> None:
             'step_name': 'Allowed Values (STS)',
             'stage': 2,
             'step_order': 14,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'converters': [],
@@ -514,6 +533,7 @@ def upgrade() -> None:
             'step_name': 'Allowed Values',
             'stage': 2,
             'step_order': 15,
+            'is_visible': True,
             'config': {
                 'config_details': {
                     'converters': [],
