@@ -61,7 +61,7 @@ def get_local_auth_inspector(
         OperatorMethod.DELETE,
         OperatorMethod.INSERT,
         OperatorMethod.UPDATE,
-        OperatorMethod.UPSERT,
+        OperatorMethod.UPSERT
     )
 
     def auth_inspector(

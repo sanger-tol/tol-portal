@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import {useHistory} from "react-router-dom";
 import {
   FileValidation,
   Tabs,
@@ -11,6 +12,10 @@ import {
   Widgets,
   useZone,
   TsDataSource,
+  downloadFileFromS3,
+  Button,
+  truncateString,
+  splitS3FilenameString,
 } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
@@ -19,10 +24,9 @@ const VALIDATION_CONFIG = {
   destination: "portal",
 };
 
-// TODO: Once custom cell renderers are available, turn download column into download button
-// TODO: Once custom cell renderers are available, add a 'view results/report' button
-
 function ManifestValidation() {
+  const history = useHistory();
+
   const uploads = useZone({
     objectType: "upload",
     dataSource: new TsDataSource({
@@ -35,11 +39,47 @@ function ManifestValidation() {
     ],
   });
 
+  const ManifestDownloadButton = ({ downloadName }) => {
+    return (
+      <Button
+        text={truncateString(splitS3FilenameString(downloadName), 25)}
+        onClick={() =>
+          downloadFileFromS3(
+            new TsDataSource({
+              apiPath: "/api/v1",
+            }),
+            VALIDATION_CONFIG.s3_bucket,
+            downloadName
+          )
+        }
+      />
+    );
+  };
+
+  const ViewResultsButton = ({ dataObject }) => {
+    const id = dataObject?.id;
+
+    const handleViewResults = () => {
+      history.push(`/file-validation/results/${id}`);
+    };
+
+    return (
+      <Button
+        text="View"
+        onClick={handleViewResults}
+      />
+    );
+  }
+
   const UploadTable = (
     <RemoteTable
       id="uploads-table"
       height={500}
       noConfigModal
+      cellRenderers={{
+        download_button: ManifestDownloadButton,
+        view_results: ViewResultsButton,
+      }}
       fields={{
         data: {
           id: { rename: "Manifest ID", width: 130 },
@@ -50,7 +90,11 @@ function ManifestValidation() {
           },
           s3_filename: {
             rename: "File Download",
-            width: 200,
+            cellRenderer: {
+              type: "download_button",
+              props: { downloadName: "${s3_filename}" },
+            },
+            width: 250,
           },
           "pipeline.id": {
             rename: "Pipeline ID",
@@ -72,6 +116,15 @@ function ManifestValidation() {
           flow_run_id: {
             rename: "Flow Run ID",
           },
+          view_results: {
+            rename: "View Results",
+            custom: true,
+            width: 150,
+            cellRenderer: {
+              type: "view_results",
+            }
+
+          }
         },
         order: {
           active: [
@@ -84,13 +137,14 @@ function ManifestValidation() {
             "completed",
             "flow_run_id",
             "failure_message",
+            "view_results",
           ],
         },
       }}
       {...uploads}
     />
   );
-  
+
   const TabItems = (
     <Tabs defaultActiveKey="1">
       <Tabs.Tab eventKey="1" title="Manifest Validation">
