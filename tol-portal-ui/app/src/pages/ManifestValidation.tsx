@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   FileValidation,
   Tabs,
@@ -63,13 +63,8 @@ function ManifestValidation() {
       history.push(`/file-validation/results/${id}`);
     };
 
-    return (
-      <Button
-        text="View"
-        onClick={handleViewResults}
-      />
-    );
-  }
+    return <Button text="View" onClick={handleViewResults} />;
+  };
 
   const UploadTable = (
     <RemoteTable
@@ -122,9 +117,12 @@ function ManifestValidation() {
             width: 150,
             cellRenderer: {
               type: "view_results",
-            }
-
-          }
+            },
+            is_ready: {
+              rename: "Is Ready",
+              width: 130,
+            },
+          },
         },
         order: {
           active: [
@@ -135,6 +133,7 @@ function ManifestValidation() {
             "destination",
             "date_started",
             "completed",
+            "is_ready",
             "flow_run_id",
             "failure_message",
             "view_results",
