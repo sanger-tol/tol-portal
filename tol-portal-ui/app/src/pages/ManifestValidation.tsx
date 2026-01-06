@@ -27,6 +27,15 @@ const VALIDATION_CONFIG = {
 function ManifestValidation() {
   const history = useHistory();
 
+  // Introductory SOP paragraph widget
+  const SOPIntro = (
+    <div >
+      <p>
+        Please review the <a href="https://example.com/sop" target="_blank" rel="noopener noreferrer">Standard Operating Procedure (SOP)</a> for manifest validation before submitting your file. This SOP outlines the required steps and best practices for successful validation.
+      </p>
+    </div>
+  );
+
   const uploads = useZone({
     objectType: "upload",
     dataSource: new TsDataSource({
@@ -147,9 +156,14 @@ function ManifestValidation() {
   const TabItems = (
     <Tabs defaultActiveKey="1">
       <Tabs.Tab eventKey="1" title="Manifest Validation">
-        <FileValidation
-          validationConfig={VALIDATION_CONFIG}
-          pageTitle="Manifest Validation Portal"
+        <Widgets
+          components={[
+            { component: SOPIntro, type: "full" },
+            { component: <FileValidation
+                validationConfig={VALIDATION_CONFIG}
+                pageTitle="Manifest Validation Portal"
+              />, type: "full" },
+          ]}
         />
       </Tabs.Tab>
       <Tabs.Tab eventKey="2" title="Uploaded Manifests">
