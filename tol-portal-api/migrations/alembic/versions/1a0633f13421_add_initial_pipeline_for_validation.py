@@ -59,7 +59,7 @@ def upgrade() -> None:
                 'class_name': 'SanitisingConverter',
                 'is_validator': False
             },
-
+            'description': ''
         },
         {
             'id': 2,
@@ -87,6 +87,7 @@ def upgrade() -> None:
                 'class_name': 'IncomingSampleToIncomingSampleWithListsConverter',
                 'is_validator': False
             },
+            'description': ''
         },
         {
             'id': 18,
@@ -106,7 +107,7 @@ def upgrade() -> None:
                     ]
                 }
             },
-
+            'description': ''
         },
         {
             'id': 3,
@@ -384,7 +385,7 @@ def upgrade() -> None:
                 'module': 'tol.validators',
                 'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
-            },            
+            },      
             'description': 'Manifest is converted to ENA requirements (e.g. case sensitivity, etc.). This checks that the converted fields do match ENA requirements.',
         },
         {

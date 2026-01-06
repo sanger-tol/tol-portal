@@ -29,9 +29,18 @@ function ManifestValidation() {
 
   // Introductory SOP paragraph widget
   const SOPIntro = (
-    <div >
+    <div>
       <p>
-        Please review the <a href="https://example.com/sop" target="_blank" rel="noopener noreferrer">Standard Operating Procedure (SOP)</a> for manifest validation before submitting your file. This SOP outlines the required steps and best practices for successful validation.
+        Please review the{" "}
+        <a
+          href="https://example.com/sop"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Standard Operating Procedure (SOP)
+        </a>{" "}
+        for manifest validation before submitting your file. This SOP outlines
+        the required steps and best practices for successful validation.
       </p>
     </div>
   );
@@ -112,9 +121,9 @@ function ManifestValidation() {
             width: 180,
           },
           completed: {
-            rename: "Completed",
+            rename: "Validation Complete",
             cellRenderer: { type: "boolean" },
-            width: 130,
+            width: 200,
           },
           failure_message: { rename: "Failure Reason", width: 180 },
           flow_run_id: {
@@ -127,10 +136,10 @@ function ManifestValidation() {
             cellRenderer: {
               type: "view_results",
             },
-            is_ready: {
-              rename: "Is Ready",
-              width: 130,
-            },
+          },
+          is_ready: {
+            rename: "Is Ready",
+            width: 130,
           },
         },
         order: {
@@ -159,10 +168,15 @@ function ManifestValidation() {
         <Widgets
           components={[
             { component: SOPIntro, type: "full" },
-            { component: <FileValidation
-                validationConfig={VALIDATION_CONFIG}
-                pageTitle="Manifest Validation Portal"
-              />, type: "full" },
+            {
+              component: (
+                <FileValidation
+                  validationConfig={VALIDATION_CONFIG}
+                  pageTitle="Manifest Validation Portal"
+                />
+              ),
+              type: "full",
+            },
           ]}
         />
       </Tabs.Tab>
