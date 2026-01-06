@@ -43,7 +43,8 @@ def upgrade() -> None:
                         column('stage', Integer),
                         column('step_order', Integer),
                         column('is_visible', sa.Boolean),
-                        column('config', JSON)
+                        column('config', JSON),
+                        column('description', String),
                         )
     steps_data = [
         {
@@ -110,7 +111,7 @@ def upgrade() -> None:
         {
             'id': 3,
             'pipeline_id': 1,
-            'step_name': 'Can Submit to ENA',
+            'step_name': 'Taxon ID/s submittable to ENA',
             'stage': 2,
             'step_order': 1,
             'is_visible': True,
@@ -122,11 +123,12 @@ def upgrade() -> None:
                 'class_name': 'EnaSubmittableValidator',
                 'is_validator': True
             },
+            'description': 'Checks that the given TAXON_IDs are suitable for submission to ENA. To qualify, the TAXON_ID must be ranked at species level (ENA “rank” : “species”), ENA accepts them as submittable (ENA “submittable” : “true”) and the species name qualifies as binomial (ENA “binomial” : “true”). This can be checked at https://www.ebi.ac.uk/ena/taxonomy/rest/scientific-name/1234 where 1234 = taxon ID.',
         },
         {
             'id': 4,
             'pipeline_id': 1,
-            'step_name': 'Unique rack/tube or plate/well IDs',
+            'step_name': 'Unique RACK_OR_PLATE_ID and TUBE_OR_WELL_ID combinations',
             'stage': 2,
             'step_order': 2,
             'is_visible': True,
@@ -140,6 +142,7 @@ def upgrade() -> None:
                 'class_name': 'UniqueValuesValidator',
                 'is_validator': True
             },
+            'description': 'Checks that, within the manifest, the concatenation of the RACK_OR_PLATE_ID and TUBE_OR_WELL_ID, is unique (i.e. no tubes entered twice).',
 
         },
         {
@@ -161,6 +164,7 @@ def upgrade() -> None:
                 'class_name': 'TolidValidator',
                 'is_validator': True
             },
+            'description': 'Checks that the TAXON_IDs are in the ToLID service. If the specimen_ID exists in the TOLID service, it must have the same TAXON_ID.',
         },
         {
             'id': 6,
@@ -178,6 +182,7 @@ def upgrade() -> None:
                 'class_name': 'MinOneValidValueValidator',
                 'is_validator': True
             },
+            'description': 'Checks that meaningful information is present in RACK_OR_PLATE_ID or TUBE_OR_WELL_ID.  NOT_COLLECTED or NOT_PROVIDED can be present ',
         },
         {
             'id': 7,
@@ -215,6 +220,7 @@ def upgrade() -> None:
                 'class_name': 'RegexValidator',
                 'is_validator': True
             },
+            'description': 'Gives a warning if TUBE_OR_WELL_ID is not in expected fluidX format (FB1234567), RACK_OR_PLATE_ID is not in expected fluidX format (FB1234567, Time elapsed is numerical, Series is numerical.',
         },
         {
             'id': 8,
@@ -234,6 +240,7 @@ def upgrade() -> None:
                 'class_name': 'TypesValidator',
                 'is_validator': True
             },
+            'description': 'Checks that TIME_OF_COLLECTION is a time in the manifest.',
         },{
             'id': 9,
             'pipeline_id': 1,
@@ -251,44 +258,12 @@ def upgrade() -> None:
                 'class_name': 'SpecimensHaveSameTaxonValidator',
                 'is_validator': True
             },
-
-        },
-        {
-            'id': 10,
-            'pipeline_id': 1,
-            'step_name': 'Symbiont Target Consistency',
-            'stage': 2,
-            'step_order': 8,
-            'is_visible': True,
-            'config': {
-                'config_details': {
-                    'first_field_where': {
-                        'field': 'SYMBIONT',
-                        'operator': '!=',
-                        'value': 'SYMBIONT',
-                        'is_error': True
-                    },
-                    'second_field_where': {
-                        'field': 'SYMBIONT',
-                        'operator': '==',
-                        'value': 'SYMBIONT',
-                        'is_error': True
-                    },
-                    'target_fields': [
-                        'RACK_OR_PLATE_ID',
-                        'TUBE_OR_WELL_ID'
-                    ],
-                    'detail': 'All symbionts must have a TARGET with same rack/plate and tube/well'
-                },
-                'module': 'tol.validators',
-                'class_name': 'MutuallyExclusiveValidator',
-                'is_validator': True
-            },
+            'description': 'Within the manifest, checks that specimens that feature in more than one sample (row) on the manifest, the TAXON_ID matches.',
         },
         {
             'id': 11,
             'pipeline_id': 1,
-            'step_name': 'Specimen Barcoding Consistency',
+            'step_name': 'Barcoding fields consistency',
             'stage': 2,
             'step_order': 9,
             'is_visible': True,
@@ -331,40 +306,12 @@ def upgrade() -> None:
                 'class_name': 'AssertOnConditionValidator',
                 'is_validator': True
             },
-        },
-        {
-            'id': 12,
-            'pipeline_id': 1,
-            'step_name': 'Inactivation Consistency',
-            'stage': 2,
-            'step_order': 10,
-            'is_visible': True,
-            'config': {
-                'config_details': {
-                    'condition': {
-                        'field': 'INACTIVATION_METHOD',
-                        'operator': '!=',
-                        'value': None,
-                        'is_error': True
-                    },
-                    'assertions': [
-                        {
-                            'field': 'SAMPLE_FORMAT',
-                            'operator': '==',
-                            'value': 'inactivated biological sample from infectious organism',
-                            'is_error': True
-                        }
-                    ]
-                },
-                'module': 'tol.validators',
-                'class_name': 'AssertOnConditionValidator',
-                'is_validator': True
-            },
+            'description': 'Where no tissue removed for barcoding, ensures that the rest of the barcoding fields contain NOT_APPLICABLE.',
         },
         {
             'id': 13,
             'pipeline_id': 1,
-            'step_name': 'GAL Pattern Matching',
+            'step_name': 'Specimen_ID format correct for GAL',
             'stage': 2,
             'step_order': 11,
             'is_visible': True,
@@ -386,6 +333,7 @@ def upgrade() -> None:
                 'class_name': 'RegexByValueValidator',
                 'is_validator': True
             },
+            'description': 'Checks that the correct specimen_ID prefix is in use for the GAL',
         },
         {
             'id': 14,
@@ -402,6 +350,7 @@ def upgrade() -> None:
                 'class_name': 'StsFieldsValidator',
                 'is_validator': True
             },
+            'description': 'Looks at allowed values specified in the manifest and ensures matches (e.g. min/max characters etc.)',
         },
         {
             'id': 15,
@@ -435,7 +384,8 @@ def upgrade() -> None:
                 'module': 'tol.validators',
                 'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
-            }
+            },            
+            'description': 'Manifest is converted to ENA requirements (e.g. case sensitivity, etc.). This checks that the converted fields do match ENA requirements.',
         },
         {
             'id': 16,
@@ -526,6 +476,7 @@ def upgrade() -> None:
                 'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
             },
+            'description': 'Checks that where values in a field are controlled (e.g. LIFESTAGE, SEX, ORGANISM_PART), the entry matches the allowed values.',
         },
         {
             'id': 17,
@@ -608,6 +559,42 @@ def upgrade() -> None:
                 'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
             },
+            'description': 'DIFFICULT or high priority, Tissue removed for barcoding, Regulatory compliance, specimenID risk, Barcoding Hub, Barcoding status, Sample format"',
+        },
+        {
+            'id': 19,
+            'pipeline_id': 1,
+            'step_name': 'Correct GAL',
+            'stage': 2,
+            'step_order': 16,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'field': 'GAL'
+                },
+                'module': 'tol.validators',
+                'class_name': 'UniqueValueCheckValidator',
+                'is_validator': True
+            },
+            'description': 'Only 1 GAL listed in the manifest',
+        },
+        {
+            'id': 20,
+            'pipeline_id': 1,
+            'step_name': 'Ensure SYMBIONT = TARGET',
+            'stage': 2,
+            'step_order': 17,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'field': 'SYMBIONT',
+                    'value': 'TARGET'
+                },
+                'module': 'tol.validators',
+                'class_name': 'ValueCheckValidator',
+                'is_validator': True
+            },
+            'description': 'No SYMBIONTS',
         },
     ]
     op.bulk_insert(steps_table, steps_data)
