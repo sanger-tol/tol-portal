@@ -43,7 +43,8 @@ def upgrade() -> None:
                         column('stage', Integer),
                         column('step_order', Integer),
                         column('is_visible', sa.Boolean),
-                        column('config', JSON)
+                        column('config', JSON),
+                        column('description', String),
                         )
     steps_data = [
         {
@@ -260,39 +261,6 @@ def upgrade() -> None:
             'description': 'Within the manifest, checks that specimens that feature in more than one sample (row) on the manifest, the TAXON_ID matches.',
         },
         {
-            'id': 10,
-            'pipeline_id': 1,
-            'step_name': 'Symbiont Target Consistency',
-            'stage': 2,
-            'step_order': 8,
-            'is_visible': True,
-            'config': {
-                'config_details': {
-                    'first_field_where': {
-                        'field': 'SYMBIONT',
-                        'operator': '!=',
-                        'value': 'SYMBIONT',
-                        'is_error': True
-                    },
-                    'second_field_where': {
-                        'field': 'SYMBIONT',
-                        'operator': '==',
-                        'value': 'SYMBIONT',
-                        'is_error': True
-                    },
-                    'target_fields': [
-                        'RACK_OR_PLATE_ID',
-                        'TUBE_OR_WELL_ID'
-                    ],
-                    'detail': 'All symbionts must have a TARGET with same rack/plate and tube/well'
-                },
-                'module': 'tol.validators',
-                'class_name': 'MutuallyExclusiveValidator',
-                'is_validator': True
-            },
-            'description': 'If a symbiont is ffeatured in the manifest, it matches the same TUBE_OR_WELL_ID as the target.',
-        },
-        {
             'id': 11,
             'pipeline_id': 1,
             'step_name': 'Barcoding fields consistency',
@@ -339,36 +307,6 @@ def upgrade() -> None:
                 'is_validator': True
             },
             'description': 'Where no tissue removed for barcoding, ensures that the rest of the barcoding fields contain NOT_APPLICABLE.',
-        },
-        {
-            'id': 12,
-            'pipeline_id': 1,
-            'step_name': 'Inactivation Consistency',
-            'stage': 2,
-            'step_order': 10,
-            'is_visible': True,
-            'config': {
-                'config_details': {
-                    'condition': {
-                        'field': 'INACTIVATION_METHOD',
-                        'operator': '!=',
-                        'value': None,
-                        'is_error': True
-                    },
-                    'assertions': [
-                        {
-                            'field': 'SAMPLE_FORMAT',
-                            'operator': '==',
-                            'value': 'inactivated biological sample from infectious organism',
-                            'is_error': True
-                        }
-                    ]
-                },
-                'module': 'tol.validators',
-                'class_name': 'AssertOnConditionValidator',
-                'is_validator': True
-            },
-            'description': 'CASM/PAM field - definitely not a TOL field.',
         },
         {
             'id': 13,
@@ -622,6 +560,41 @@ def upgrade() -> None:
                 'is_validator': True
             },
             'description': 'DIFFICULT or high priority, Tissue removed for barcoding, Regulatory compliance, specimenID risk, Barcoding Hub, Barcoding status, Sample format"',
+        },
+        {
+            'id': 19,
+            'pipeline_id': 1,
+            'step_name': 'Correct GAL',
+            'stage': 2,
+            'step_order': 16,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'field': 'GAL'
+                },
+                'module': 'tol.validators',
+                'class_name': 'UniqueValueCheckValidator',
+                'is_validator': True
+            },
+            'description': 'Only 1 GAL listed in the manifest',
+        },
+        {
+            'id': 20,
+            'pipeline_id': 1,
+            'step_name': 'Ensure SYMBIONT = TARGET',
+            'stage': 2,
+            'step_order': 17,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'field': 'SYMBIONT',
+                    'value': 'TARGET'
+                },
+                'module': 'tol.validators',
+                'class_name': 'ValueCheckValidator',
+                'is_validator': True
+            },
+            'description': 'No SYMBIONTS',
         },
     ]
     op.bulk_insert(steps_table, steps_data)
