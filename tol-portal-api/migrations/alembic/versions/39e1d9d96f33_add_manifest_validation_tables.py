@@ -34,7 +34,7 @@ def upgrade() -> None:
                     sa.Column('step_order', sa.Integer(), nullable=False),
                     sa.Column('is_visible', sa.Boolean(), nullable=False, default=True),
                     sa.Column('config', postgresql.JSONB(), nullable=False, server_default='{}'),
-                    sa.Column('description', sa.Text(), nullable=True),
+                    sa.Column('description', sa.String(), nullable=False, default=''),
                     sa.ForeignKeyConstraint(['pipeline_id'], ['pipeline.id'], ),
                     sa.PrimaryKeyConstraint('id'),
                     sa.UniqueConstraint(
