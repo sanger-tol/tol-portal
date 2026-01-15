@@ -375,24 +375,12 @@ def upgrade() -> None:
                             }
                         ],
 
-                        'SANGER INSTITUTE': [
+                        "SANGER INSTITUTE": [
                             {
-                                'key': 'SPECIMEN_ID',
-                                'regex': '^SAN\\d{7}$',
-                                'detail': 'SPECIMEN_ID must start with SAN followed by 7 digits',
-                                'is_error': True
-                            },
-                            {
-                                'key': 'SPECIMEN_ID',
-                                'regex': '^BLAX\\d{7}$',
-                                'detail': 'SPECIMEN_ID must start with BLAX followed by 7 digits',
-                                'is_error': True
-                            },
-                            {
-                                'key': 'SPECIMEN_ID',
-                                'regex': '^ERGA_[A-Z]{2}_[A-Z]{2}\\d{3}$',
-                                'detail': 'SPECIMEN_ID must be ERGA_CC_TT### (e.g. ERGA_UK_PL001)',
-                                'is_error': True
+                                "key": "SPECIMEN_ID",
+                                "regex": "(^SAN\\d{8}$)|(^BLAX\\d{8}$)|(^ERGA_[A-Z]{2}_[A-Z]{2}\\d{3}$)",
+                                "detail": "SPECIMEN_ID must start with SAN|BLAX followed by 7 digits or ERGA format: ERGA_XX_XX000",
+                                "is_error": True
                             }
                         ],
 
@@ -839,7 +827,7 @@ def upgrade() -> None:
                     ],
                 },
                 'module': 'tol.validators',
-                'class_name': 'branching',
+                'class_name': 'BranchingValidator',
                 'is_validator': True
             },
             'description': 'if the manifest type is rack/tube, then the values provided in the TUBE_OR_WELL_ID column must be unique (no duplicate values).'
@@ -873,7 +861,7 @@ def upgrade() -> None:
                     ],
                 },
                 'module': 'tol.validators',
-                'class_name': 'branching',
+                'class_name': 'BranchingValidator',
                 'is_validator': True
             },
             'description': 'TUBE_OR_WELL_ID must match (2) letters, followed by (8) digits, i.e. FF12345678'
