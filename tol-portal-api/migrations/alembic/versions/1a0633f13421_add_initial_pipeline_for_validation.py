@@ -866,6 +866,20 @@ def upgrade() -> None:
             },
             'description': 'TUBE_OR_WELL_ID must match (2) letters, followed by (8) digits, i.e. FF12345678'
         },
+        {
+            'id': 24,
+            'pipeline_id': 1,
+            'step_name': 'Skip Null Fields Converter',
+            'stage': 1,
+            'step_order': 4,
+            'is_visible': False,
+            'config': {
+                'module': 'tol.flows.converters',
+                'class_name': 'TimeStringToTimeConverter',
+                'is_validator': False,
+            },
+            'description': ''
+        },
     ]
     op.bulk_insert(steps_table, steps_data)
 
