@@ -55,79 +55,79 @@ const species: Page = {
 const specimens: Page = {
   name: "Specimens",
   element: <Specimens />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const tolids: Page = {
   name: "ToLIDs",
   element: <ToLIDs />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const samplesets: Page = {
   name: "Sample Sets",
   element: <Samplesets />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const manifests: Page = {
   name: "Manifests",
   element: <Manifests />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const samples: Page = {
   name: "Samples",
   element: <Samples />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const extractions: Page = {
   name: "Extractions",
   element: <Extractions />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const sequencingRequests: Page = {
   name: "Requests",
   element: <SequencingRequests />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const sequencingRuns: Page = {
   name: "Runs",
   element: <SequencingRuns />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const curations: Page = {
   name: "Curations",
   element: <Curations />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const genomeNotes: Page = {
   name: "Genome Notes",
   element: <GenomeNotes />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const tum: Page = {
   name: "TUM",
   element: <TUM />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const speciesRecollection: Page = {
   name: "Recollection",
   element: <SpeciesRecollection/>,
-  auth: true,
+  auth: ["tol"],
 }
 
 const samplesStuck: Page = {
   name: "Samples Stuck",
   element: <SamplesStuck/>,
-  auth: true,
+  auth: ["tol"],
 }
 
 const projectManagement: Page = {
@@ -138,31 +138,31 @@ const projectManagement: Page = {
 const sampleSelection: Page = {
   name: "Sample Selection",
   element: <SampleSelection />,
-  auth: true,
+  auth: ["tol"],
 }
 
 const tumSteps: Page = {
   name: "TUM Steps",
   element: <TUMSteps />,
-  auth: true,
+  auth: ["tol"],
 }
 
 const araReview: Page = {
   name: "ARA Review",
   element: <ARAReview />,
-  auth: true,
+  auth: ["tol"],
 }
 
 const loaders: Page = {
     name: "Loaders",
     element: <Loaders />,
-  auth: true,
+    auth: ["tol"],
 }
 
 const attributes: Page = {
     name: "Attributes",
     element: <Attributes />,
-  auth: true,
+  auth: ["tol"],
 }
 const coreLabData: Page = {
   name: "Core Lab Data",
@@ -190,7 +190,7 @@ const samplesDropdown: Dropdown = {
     manifests,
     samples,
   ],
-  auth: true,
+  auth: ["tol"],
 };
 
 const pipelineDropdown: Dropdown = {
@@ -202,14 +202,14 @@ const pipelineDropdown: Dropdown = {
     curations,
     genomeNotes,
   ],
-  auth: true,
+  auth: ["tol"],
 };
 
 const additionalDropdown: Dropdown = {
   name: "Additional",
   pages: [speciesRecollection, sampleSelection, tum, tumSteps, araReview, samplesStuck,
     projectManagement, loaders, attributes],
-  auth: true,
+  auth: ["tol"],
 }
 
 const publicDropdown: Dropdown = {
@@ -224,6 +224,7 @@ const toolsDropdown: Dropdown = {
   pages: [
     manifestValidation,
   ],
+  auth: true,
 }
 
 const root = createRoot(document.getElementById('root')!);
