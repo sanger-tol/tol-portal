@@ -103,7 +103,7 @@ const sequencingRuns: Page = {
 const curations: Page = {
   name: "Curations",
   element: <Curations />,
-  auth: true,
+  auth: ["tol"],
 };
 
 const genomeNotes: Page = {
@@ -156,7 +156,7 @@ const araReview: Page = {
 const loaders: Page = {
     name: "Loaders",
     element: <Loaders />,
-  auth: ["tol"],
+    auth: ["tol"],
 }
 
 const attributes: Page = {
