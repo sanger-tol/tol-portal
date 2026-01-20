@@ -60,6 +60,7 @@ function ManifestValidation() {
   const ManifestDownloadButton = ({ downloadName }) => {
     return (
       <Button
+        icon={"download"}
         text={truncateString(splitS3FilenameString(downloadName), 25)}
         onClick={() =>
           downloadFileFromS3(

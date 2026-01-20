@@ -183,7 +183,7 @@ def upgrade() -> None:
                 'class_name': 'MinOneValidValueValidator',
                 'is_validator': True
             },
-            'description': 'Checks that meaningful information is present in RACK_OR_PLATE_ID or TUBE_OR_WELL_ID.  NOT_COLLECTED or NOT_PROVIDED can be present ',
+            'description': 'Checks that meaningful information is present in RACK_OR_PLATE_ID or TUBE_OR_WELL_ID. NOT_COLLECTED or NOT_PROVIDED can be present in RACK_OR_PLATE_ID, but not TUBE_OR_WELL_ID.\nIf providing a plate, you may use A1 - H12 in the TUBE_OR_WELL_ID and the RACK_OR_PLATE_ID must be meaningful.\nIf providing a tube, use FluidX barcode or other meaningful ID and the RACK_OR_PLATE_ID can be meaningful or NOT_PROVIDED.'
         },
         {
             'id': 7,
@@ -195,11 +195,6 @@ def upgrade() -> None:
             'config': {
                 'config_details': {
                     'regexes': [
-                        {
-                            'key': 'TUBE_OR_WELL_ID',
-                            'regex': '^[a-zA-Z]{2}\\d{8}$',
-                            'is_error': False
-                        },
                         {
                             'key': 'RACK_OR_PLATE_ID',
                             'regex': '^[a-zA-Z]{2}\\d{8}$',
@@ -214,6 +209,11 @@ def upgrade() -> None:
                             'key': 'SERIES',
                             'regex': '^\\d+$',
                             'is_error': True
+                        },
+                        {
+                            'key': 'COLLECTION_LOCATION',
+                            'regex': r'^.* \| .*$',
+                            'is_error': False
                         }
                     ]
                 },
@@ -242,7 +242,7 @@ def upgrade() -> None:
                 'is_validator': True
             },
             'description': 'Checks that TIME_OF_COLLECTION is a time in the manifest.',
-        },{
+        }, {
             'id': 9,
             'pipeline_id': 1,
             'step_name': 'Specimens Have Same Taxon',
@@ -320,21 +320,214 @@ def upgrade() -> None:
                 'config_details': {
                     'key_column': 'GAL',
                     'regexes': {
+
                         'UNIVERSITY OF OXFORD': [
                             {
                                 'key': 'SPECIMEN_ID',
                                 'regex': '^Ox\\d{6}$',
-                                'detail': 'SPECIMEN_ID does not match required pattern for GAL_1',
+                                'detail': 'SPECIMEN_ID must start with "Ox" followed by 6 digits (e.g. Ox123456)',
+                                'is_error': True
+                            }
+                        ],
+
+                        'MARINE BIOLOGICAL ASSOCIATION': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^MBA-\\d{6}-\\d{3}[A-Z]$',
+                                'detail': 'SPECIMEN_ID must be MBA-######-###X (e.g. MBA-123456-001A)',
+                                'is_error': True
+                            }
+                        ],
+
+                        'ROYAL BOTANIC GARDENS KEW': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^KDTOL\\d{5}$',
+                                'detail': 'SPECIMEN_ID must start with KDTOL followed by 5 digits',
+                                'is_error': True
+                            }
+                        ],
+
+                        'ROYAL BOTANIC GARDEN EDINBURGH': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^EDTOL\\d{5}$',
+                                'detail': 'SPECIMEN_ID must start with EDTOL followed by 5 digits',
+                                'is_error': True
+                            }
+                        ],
+
+                        'EARLHAM INSTITUTE': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^EI_\\d{5}$',
+                                'detail': 'SPECIMEN_ID must start with EI_ followed by 5 digits',
+                                'is_error': True
+                            }
+                        ],
+
+                        'NATURAL HISTORY MUSEUM': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^NHMUK\\d{9}$',
+                                'detail': 'SPECIMEN_ID must start with NHMUK followed by 9 digits',
+                                'is_error': True
+                            }
+                        ],
+
+                        'SANGER INSTITUTE': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^SAN\\d{7}$',
+                                'detail': 'SPECIMEN_ID must start with SAN followed by 7 digits',
                                 'is_error': True
                             },
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^BLAX\\d{7}$',
+                                'detail': 'SPECIMEN_ID must start with BLAX followed by 7 digits',
+                                'is_error': True
+                            },
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^ERGA_[A-Z]{2}_[A-Z]{2}\\d{3}$',
+                                'detail': 'SPECIMEN_ID must be ERGA_CC_TT### (e.g. ERGA_UK_PL001)',
+                                'is_error': True
+                            }
                         ],
+
+                        'UNIVERSITY OF DERBY': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^UDUK$',
+                                'detail': 'SPECIMEN_ID must start with UDUK',
+                                'is_error': True
+                            }
+                        ],
+
+                        'DALHOUSIE UNIVERSITY': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^DU$',
+                                'detail': 'SPECIMEN_ID must start with DU',
+                                'is_error': True
+                            }
+                        ],
+
+                        'NOVA SOUTHEASTERN UNIVERSITY': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^NSU$',
+                                'detail': 'SPECIMEN_ID must start with NSU',
+                                'is_error': True
+                            }
+                        ],
+
+                        'GEOMAR HELMHOLTZ CENTRE': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^GHC$',
+                                'detail': 'SPECIMEN_ID must start with GHC',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF BRITISH COLUMBIA': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^UOBC$',
+                                'detail': 'SPECIMEN_ID must start with UOBC',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF VIENNA (MOLLUSC)': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^VIEM$',
+                                'detail': 'SPECIMEN_ID must start with VIEM',
+                                'is_error': True
+                            }
+                        ],
+
+                        'QUEEN MARY UNIVERSITY OF LONDON': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^QMOUL$',
+                                'detail': 'SPECIMEN_ID must start with QMOUL',
+                                'is_error': True
+                            }
+                        ],
+
+                        'THE SAINSBURY LABORATORY': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^SL$',
+                                'detail': 'SPECIMEN_ID must start with SL',
+                                'is_error': True
+                            }
+                        ],
+
+                        'PORTLAND STATE UNIVERSITY': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^PORT$',
+                                'detail': 'SPECIMEN_ID must start with PORT',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF RHODE ISLAND': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^URI$',
+                                'detail': 'SPECIMEN_ID must start with URI',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF CALIFORNIA': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^UCALI$',
+                                'detail': 'SPECIMEN_ID must start with UCALI',
+                                'is_error': True
+                            }
+                        ],
+
+                        'SENCKENBERG RESEARCH INSTITUTE': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^SENCK$',
+                                'detail': 'SPECIMEN_ID must start with SENCK',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF VIENNA (CEPHALOPOD)': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^VIEC$',
+                                'detail': 'SPECIMEN_ID must start with VIEC',
+                                'is_error': True
+                            }
+                        ],
+
+                        'UNIVERSITY OF ORGEON': [
+                            {
+                                'key': 'SPECIMEN_ID',
+                                'regex': '^UOREG$',
+                                'detail': 'SPECIMEN_ID must start with UOREG',
+                                'is_error': True
+                            }
+                        ]
                     }
                 },
                 'module': 'tol.validators',
                 'class_name': 'RegexByValueValidator',
                 'is_validator': True
             },
-            'description': 'Checks that the correct specimen_ID prefix is in use for the GAL',
+            'description': 'Checks that the correct specimen_ID format is used for the selected GAL'
         },
         {
             'id': 14,
@@ -385,7 +578,7 @@ def upgrade() -> None:
                 'module': 'tol.validators',
                 'class_name': 'ConverterAndValidateValidator',
                 'is_validator': True
-            },      
+            },
             'description': 'Manifest is converted to ENA requirements (e.g. case sensitivity, etc.). This checks that the converted fields do match ENA requirements.',
         },
         {
@@ -596,6 +789,94 @@ def upgrade() -> None:
                 'is_validator': True
             },
             'description': 'No SYMBIONTS',
+        },
+        {
+            'id': 21,
+            'pipeline_id': 1,
+            'step_name': 'Unique Whole Organisms',
+            'stage': 2,
+            'step_order': 18,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'symbiont_field': 'SYMBIONT',
+                    'organism_part_field': 'ORGANISM_PART',
+                    'specimen_id_field': 'SPECIMEN_ID'
+                },
+                'module': 'tol.validators',
+                'class_name': 'UniqueWholeOrganismsValidator',
+                'is_validator': True
+            },
+            'description': 'Ensures no two whole organisms have the same SPECIMEN_ID and no part organism shares a SPECIMEN_ID with a whole organism.'
+        },
+        {
+            'id': 22,
+            'pipeline_id': 1,
+            'step_name': 'Unique TUBE_OR_WELL_ID',
+            'stage': 2,
+            'step_order': 19,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'validations': [
+                        {
+                            'condition': {
+                                'field': 'manifest_type',
+                                'operator': '==',
+                                'value': 'RACK_TUBE',
+                                'is_error': True
+                            },
+                            'module': 'tol.validators',
+                            'class_name': 'UniqueValuesValidator',
+                            'config_details': {
+                                'unique_keys': [
+                                    'TUBE_OR_WELL_ID'
+                                ],
+                                'detail': 'TUBE_OR_WELL_ID must be a unique value across the whole manifest.',
+                                'is_error': True
+                            }
+                        },
+                    ],
+                },
+                'module': 'tol.validators',
+                'class_name': 'branching',
+                'is_validator': True
+            },
+            'description': 'if the manifest type is rack/tube, then the values provided in the TUBE_OR_WELL_ID column must be unique (no duplicate values).'
+        },
+        {
+            'id': 23,
+            'pipeline_id': 1,
+            'step_name': 'Pattern Matching for TUBE_OR_WELL_ID',
+            'stage': 2,
+            'step_order': 20,
+            'is_visible': True,
+            'config': {
+                'config_details': {
+                    'validations': [
+                        {
+                            'condition': {
+                                'field': 'manifest_type',
+                                'operator': '==',
+                                'value': 'RACK_TUBE',
+                                'is_error': False
+                            },
+                            'module': 'tol.validators',
+                            'class_name': 'RegexValidator',
+                            'config_details':
+                            {
+                                'key': 'TUBE_OR_WELL_ID',
+                                'regex': '(^[a-zA-Z]{2}\\d{8}$)|(^NA$)',
+                                'is_error': False
+                            },
+                        },
+                    ],
+                },
+                'module': 'tol.validators',
+                'class_name': 'branching',
+                'is_validator': True
+            },
+            'description': 'TUBE_OR_WELL_ID must match (2) letters, followed by (8) digits, i.e. FF12345678'
         },
     ]
     op.bulk_insert(steps_table, steps_data)

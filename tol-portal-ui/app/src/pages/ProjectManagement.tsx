@@ -126,7 +126,7 @@ function ProjectManagement() {
             cellRenderer: {
               type: "link",
               props: {
-                url: "/species/${uid}",
+                url: "/species/${id}",
                 text: "${sts_scientific_name}"
               }
             }
