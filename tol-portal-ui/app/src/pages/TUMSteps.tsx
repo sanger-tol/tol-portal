@@ -56,7 +56,7 @@ function TUMSteps() {
             "calc_topup_required",
             "calc_tolid_actionable",
             "mlwh_sequencing_request_mlwh_volume_remaining_max",
-            "benchling_extraction_benchling_volume_ul_dna_max",
+            "calc_extraction_container_calc_benchling_volume_ul_dna_max",
             "benchling_tissue_prep_benchling_weight_mg_max",
             "benchling_sample_benchling_remaining_weight_max",
             "benchling_sample_count",
@@ -64,7 +64,7 @@ function TUMSteps() {
             "calc_individual_exhausted",
             "calc_individual_available",
             "tolid_species.calc_recollection_needed",
-            "calc_extraction_dna_count",
+            "calc_extraction_container_dna_count",
           ],
         },
       }}
@@ -145,8 +145,8 @@ function TUMSteps() {
   );
 
   // Table 3
-  const extraction = useZone({
-    objectType: 'extraction',
+  const extraction_container = useZone({
+    objectType: 'extraction_container',
     dataSource: ELASTIC_DS,
     components: [
       {
@@ -154,7 +154,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_benchling_volume_ul': { 'gt': { 'value': 0.0 } },
-            'benchling_extraction_type': { 'in_list': { 'value': ['dna'] } },
+            'benchling_extraction.benchling_extraction_type': { 'in_list': { 'value': ['dna'] } },
             'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max': { 'lte': { 'value': 0.0 } },
             'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
             'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
@@ -166,7 +166,7 @@ function TUMSteps() {
 
   useTranslator({
     source: tolid,
-    target: extraction,
+    target: extraction_container,
     translations: {
       "benchling_pacbio_sequencing_request_count": "benchling_tolid.benchling_pacbio_sequencing_request_count",
       "tolid_species.goat_scientific_name": "benchling_species.goat_scientific_name",
@@ -195,17 +195,17 @@ function TUMSteps() {
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_species.sts_sample_sts_priority_min",
             "benchling_tolid.sts_sample_sts_project_union",
-            "calc_dna_volume_remaining",
+            "calc_benchling_volume_ul",
             "benchling_nanodrop_concentration_ngul",
             "benchling_yield_ng",
             "benchling_extraction_qc_result",
             "benchling_femto_description",
             "benchling_tolid.informatics_status_summary",
-            "benchling_extraction_name",
+            "benchling_extraction.benchling_extraction_name",
             "benchling_tube_type",
             "benchling_volume_ul",
             "benchling_fluidx_id",
-            "benchling_extraction_type",
+            "benchling_extraction.benchling_extraction_type",
             "benchling_species.goat_ploidy",
             "benchling_qubit_concentration_ngul",
             "benchling_femto_date_code",
@@ -217,7 +217,7 @@ function TUMSteps() {
       }}
       actions={['Insert into LI Work List', 'Insert into ULI Work List', 'Mark as Not Valid']}
       rowSelection={true}
-      {...extraction}
+      {...extraction_container}
     />
   );
 
@@ -232,7 +232,7 @@ function TUMSteps() {
           and_: {
             'calc_benchling_weight_mg': { 'gt': { 'value': 0.0 } },
             'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max': { 'lte': { 'value': 0.0 } },
-            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
+            'benchling_tolid.calc_extraction_container_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
             'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
             'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
           }
@@ -302,7 +302,7 @@ function TUMSteps() {
             'calc_benchling_remaining_weight': { 'gt': { 'value': 0.0 } },
             'sts_eln_id': { 'exists': { } },
             'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max': { 'lte': { 'value': 0.0 } },
-            'benchling_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
+            'benchling_tolid.calc_extraction_container_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
             'benchling_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': { 'lte': { 'value': 0.0 } },
             'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
             'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
@@ -372,7 +372,7 @@ function TUMSteps() {
             'sts_eln_id': { 'exists': { 'negate': true } },
             'calc_sts_export_eligible': { 'eq': { 'value': true } },
             'sts_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max': { 'lte': { 'value': 0.0 } },
-            'sts_tolid.calc_extraction_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
+            'sts_tolid.calc_extraction_container_calc_benchling_volume_ul_dna_max': { 'lte': { 'value': 0.0 } },
             'sts_tolid.calc_tissue_prep_calc_benchling_weight_mg_max': { 'lte': { 'value': 0.0 } },
             'sts_tolid.calc_sample_calc_benchling_remaining_weight_max': { 'lte': { 'value': 0.0 } },
             'sts_tolid.calc_topup_required': { 'eq': { 'value': true } },
@@ -767,7 +767,7 @@ function TUMSteps() {
     },
     {
       component: tableTitle('DNA Remaining',
-        'DNA extractions with volume remaining (≥ 0 units) for ToLIDs with no library material. These DNA extractions require library preparation before sequencing.'),
+        'DNA extraction containers with volume remaining (≥ 0 units) for ToLIDs with no library material. These DNA extraction containers require library preparation before sequencing.'),
       type: 'full'
     },
     {

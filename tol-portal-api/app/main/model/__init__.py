@@ -4,7 +4,7 @@
 
 from .base import Base  # noqa
 from .data_load_event import DataLoadEvent
-from .extraction_event import ExtractionEvent
+from .extraction_container_event import ExtractionContainerEvent
 from .sample_event import SampleEvent
 from .sequencing_request_event import SequencingRequestEvent
 from .species_event import SpeciesEvent
@@ -14,7 +14,7 @@ from .tolid_event import TolidEvent
 
 MODELS = (
     DataLoadEvent,
-    ExtractionEvent,
+    ExtractionContainerEvent,
     SampleEvent,
     SequencingRequestEvent,
     TissuePrepEvent,
