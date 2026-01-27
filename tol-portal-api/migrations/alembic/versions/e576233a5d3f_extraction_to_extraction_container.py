@@ -1,7 +1,7 @@
 """extraction to extraction container
 
 Revision ID: e576233a5d3f
-Revises: fde0a833b72a
+Revises: bbc207dbbf53
 Create Date: 2026-01-20 11:37:31.079812
 
 """
@@ -25,19 +25,19 @@ def upgrade() -> None:
         sa.Column('topup_actioned_by', sa.VARCHAR(length=255), nullable=True),
     )
     mappings = {
-        'bfi_SvYnn5cE': '1',
-        'bfi_F0c9l8iR': '2',
-        'bfi_C9dG4fCT': '3',
-        'bfi_PFiZlcHL': '4',
-        'bfi_BLFqDTN5eD': '5',
-        'bfi_G2MzFpAQ': '6',
-        'bfi_J1bt5HQ2': '7',
-        'bfi_Vpl1Xsyp': '8',
-        'bfi_bXoRetjG': '9',
-        'bfi_TB6zwgs4': '10',
-        'bfi_NZCdXKez': '11'
+        'con_BzqGm4Cu': 'bfi_bXoRetjG',
+        'con_mQXTh1Au': 'bfi_bXoRetjG',
+        'con_VdvdSgbu': 'bfi_C9dG4fCT',	
+        'con_MSaITmFQ': 'bfi_C9dG4fCT',	
+        'con_RyIWfLj0': 'bfi_F0c9l8iR',	
+        'con_4VjXyU1E': 'bfi_NZCdXKez',	
+        'con_aXEtix0Y': 'bfi_NZCdXKez',	
+        'con_K5EuTN4P': 'bfi_SvYnn5cE',
+        'con_bHfrft6y': 'bfi_SvYnn5cE',	
+        'con_vNbfi0eI': 'bfi_TB6zwgs4',
+        'con_cv8EsO0a': 'bfi_TB6zwgs4'	
     }
-    for extraction_id, extraction_container_id in mappings.items():
+    for extraction_container_id, extraction_id in mappings.items():
         op.execute(
             f"""
             INSERT INTO extraction_container_event (extraction_container_id, date_abandoned, abandoned_by, date_topup_actioned, topup_actioned_by)
