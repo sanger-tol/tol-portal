@@ -867,6 +867,21 @@ def upgrade() -> None:
             'description': 'TUBE_OR_WELL_ID must match (2) letters, followed by (8) digits, i.e. FF12345678'
         },
         {
+            'id': 25,
+            'pipeline_id': 1,
+            'step_name': 'Ensure taxon ranks match the values in GoaT',
+            'stage': 2,
+            'step_order': 21,
+            'is_visible': True,
+            'config': {
+                'config_details': {},
+                'module': 'tol.validators',
+                'class_name': 'TaxonMatchesGoatValidator',
+                'is_validator': True
+            },
+            'description': 'Taxon ranks match GoaT',
+        },
+        {
             'id': 24,
             'pipeline_id': 1,
             'step_name': 'Skip Null Fields Converter',
