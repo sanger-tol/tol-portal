@@ -29,53 +29,60 @@ import {
   Loaders,
   Attributes,
   ManifestValidation,
-} from './pages';
-import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
-import { NAV_CONFIG } from './config';
-import reportWebVitals from './reportWebVitals';
-import { SmartApp, TPageElements, TsDataSource, env } from '@tol/tol-ui';
-import Logo from './assets/logo.png';
-import './scss/styling.scss';
+} from "./pages";
+import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
+import { NAV_CONFIG } from "./config";
+import reportWebVitals from "./reportWebVitals";
+import {
+  SmartApp,
+  TPageElements,
+  TsDataSource,
+  env,
+  createBaseValidationModule,
+  ValidationModuleProvider,
+} from "@tol/tol-ui";
+import Logo from "./assets/logo.png";
+import "./scss/styling.scss";
 
 export const ELASTIC_DS = new TsDataSource(env.TOL_DATA);
 export const LOCAL_DS = new TsDataSource({
   ...env.TOL_DATA,
-  apiDataPath: '/local',
-  dataspace: '',
+  apiDataPath: "/local",
+  dataspace: "",
 });
 
 export const PAGE_ELEMENTS: TPageElements = {
   // Home
-  "home": <Home />,
+  home: <Home />,
 
   // Taxa
-  "species": <Species />,
+  species: <Species />,
   "species-detail": <SpeciesDetail />,
-  "specimen": <Specimens />,
-  "tolids": <ToLIDs />,
+  specimen: <Specimens />,
+  tolids: <ToLIDs />,
 
   // Samples
   "sample-sets": <Samplesets />,
-  "manifests": <Manifests />,
-  "samples": <Samples />,
+  manifests: <Manifests />,
+  samples: <Samples />,
 
   // Pipeline
-  "extractions": <Extractions />,
-  "requests": <SequencingRequests />,
+  extractions: <Extractions />,
+  requests: <SequencingRequests />,
   "sequencing-runs": <SequencingRuns />,
-  "curations": <Curations />,
+  curations: <Curations />,
   "genome-notes": <GenomeNotes />,
 
   // Additional
-  "recollection": <SpeciesRecollection />,
+  recollection: <SpeciesRecollection />,
   "sample-selection": <SampleSelection />,
-  "tum": <TUM />,
+  tum: <TUM />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
   "samples-stuck": <SamplesStuck />,
   "project-management": <ProjectManagement />,
-  "loaders": <Loaders />,
-  "attributes": <Attributes />,
+  loaders: <Loaders />,
+  attributes: <Attributes />,
   // Tools
   "manifest-validation": <ManifestValidation />,
   // Public
@@ -83,20 +90,23 @@ export const PAGE_ELEMENTS: TPageElements = {
   "core-lab-data": <CoreLabData />,
 };
 
+const baseModule = createBaseValidationModule();
 const root = createRoot(document.getElementById("root")!);
 root.render(
-  <SmartApp
-    id="tol_portal"
-    brand={
+  <ValidationModuleProvider module={baseModule}>
+    <SmartApp
+      id="tol_portal"
+      brand={
       <img
         src={Logo}
         alt="ToL Portal Logo"
         style={{ height: 35 }}
       />
-    }
-    pageElements={PAGE_ELEMENTS}
-    configurableBoards
+      }
+      pageElements={PAGE_ELEMENTS}
+      configurableBoards
   />
+  </ValidationModuleProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

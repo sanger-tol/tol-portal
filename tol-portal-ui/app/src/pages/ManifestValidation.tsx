@@ -16,6 +16,7 @@ import {
   Button,
   truncateString,
   splitS3FilenameString,
+  normaliseCaps,
 } from "@tol/tol-ui";
 
 const VALIDATION_CONFIG = {
@@ -69,11 +70,15 @@ function ManifestValidation() {
               apiPath: "/api/v1",
             }),
             VALIDATION_CONFIG.s3_bucket,
-            downloadName
+            downloadName,
           )
         }
       />
     );
+  };
+
+  const ValidationStatus = ({ validationStatus }) => {
+    return <p>{`Validation ${normaliseCaps(validationStatus)}`}</p>;
   };
 
   const ViewResultsButton = ({ dataObject }) => {
@@ -94,14 +99,13 @@ function ManifestValidation() {
       cellRenderers={{
         download_button: ManifestDownloadButton,
         view_results: ViewResultsButton,
+        validation_status: ValidationStatus,
       }}
       fields={{
         data: {
           id: { rename: "Manifest ID", width: 130 },
-          "user.id": {
-            rename: "User ID",
-            width: 130,
-            cellRenderer: "none",
+          "user.oidc_id": {
+            rename: "User",
           },
           s3_filename: {
             rename: "File Download",
@@ -116,7 +120,6 @@ function ManifestValidation() {
             width: 130,
             cellRenderer: "none",
           },
-          destination: { rename: "Destination", width: 180 },
           date_started: {
             rename: "Upload Date",
             cellRenderer: { type: "datetime" },
@@ -139,21 +142,23 @@ function ManifestValidation() {
               type: "view_results",
             },
           },
-          is_ready: {
-            rename: "Is Ready",
-            width: 130,
+          validation_status: {
+            rename: "Status",
+            width: 180,
+            cellRenderer: {
+              type: "list",
+            },
           },
         },
         order: {
           active: [
             "id",
             "s3_filename",
-            "user.id",
+            "user.oidc_id",
             "pipeline.id",
-            "destination",
             "date_started",
+            "validation_status",
             "completed",
-            "is_ready",
             "flow_run_id",
             "failure_message",
             "view_results",
