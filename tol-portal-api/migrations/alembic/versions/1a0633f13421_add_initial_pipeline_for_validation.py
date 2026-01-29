@@ -874,7 +874,11 @@ def upgrade() -> None:
             'step_order': 21,
             'is_visible': True,
             'config': {
-                'config_details': {},
+                'config_details': {
+                    'species_field': 'SCIENTIFIC_NAME',
+                    'genus_field': 'GENUS',
+                    'family_field': 'FAMILY',
+                },
                 'module': 'tol.validators',
                 'class_name': 'TaxonMatchesGoatValidator',
                 'is_validator': True
