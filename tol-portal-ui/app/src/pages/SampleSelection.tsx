@@ -115,7 +115,7 @@ function SampleSelection() {
             "sts_project",
             "sts_priority",
             "sts_tolid.id",
-            "sts_scientific_name",
+            "sts_species.goat_scientific_name",
             "sts_tubeid",
             "sts_sampleset.id",
             "benchling_remaining_weight",
