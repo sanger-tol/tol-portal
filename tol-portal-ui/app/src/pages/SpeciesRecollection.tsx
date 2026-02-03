@@ -36,7 +36,7 @@ function SpeciesRecollection() {
             cellRenderer: {
               type: "link",
               props: {
-                url: "/species/${uid}",
+                url: "/species/${id}",
                 text: "${sts_scientific_name}"
               },
             },
@@ -44,14 +44,11 @@ function SpeciesRecollection() {
           "calc_sample_calc_benchling_remaining_weight_sum": {
             rename: "Tissue Remaining"
           },
-          "calc_extraction_calc_benchling_volume_ul_sum": {
+          "calc_extraction_calc_benchling_volume_ul_dna_sum": {
             rename: "Volume of Extraction"
           },
           "calc_tissue_prep_calc_benchling_weight_mg_sum": {
             rename: "Tissue Prep Remaining"
-          },
-          "benchling_sequencing_request_lrpacbio_library_remaining_sum": {
-            rename: "Long Read PacBio Library Remaining in SciOps"
           },
           "benchling_sequencing_request_benchling_completion_date_hic_min": {
             rename: "HiC Request Complete"
@@ -82,9 +79,8 @@ function SpeciesRecollection() {
           active: [
             "sts_scientific_name",
             "calc_sample_calc_benchling_remaining_weight_sum",
-            "calc_extraction_calc_benchling_volume_ul_sum",
+            "calc_extraction_calc_benchling_volume_ul_dna_sum",
             "calc_tissue_prep_calc_benchling_weight_mg_sum",
-            "benchling_sequencing_request_lrpacbio_library_remaining_sum",
             "benchling_sequencing_request_benchling_completion_date_hic_min",
             "benchling_sequencing_request_benchling_completion_date_pacbio_min",
             "benchling_sequencing_request_benchling_completion_date_rnaseq_min",

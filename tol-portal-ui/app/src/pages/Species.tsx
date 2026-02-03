@@ -5,7 +5,7 @@
  */
 
 import {
-  RemoteCount,
+  RemoteStatistics,
   RemoteTable,
   RemoteSunburst,
   Widgets,
@@ -83,7 +83,7 @@ function Species() {
   });
 
   const speciesReceivedCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="species-received-count"
       utilityBarConfig={{
         title: {
@@ -95,7 +95,7 @@ function Species() {
   );
 
   const speciesExtractedCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="species-extracted-count"
       utilityBarConfig={{
         title: {
@@ -107,7 +107,7 @@ function Species() {
   );
 
   const speciesSubmittedCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="species-submitted-count"
       utilityBarConfig={{
         title: {
@@ -119,7 +119,7 @@ function Species() {
   );
 
   const speciesDoneCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="species-done-count"
       utilityBarConfig={{
         title: {
