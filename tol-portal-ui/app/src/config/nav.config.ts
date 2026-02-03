@@ -9,6 +9,7 @@ import { TNavConfig, PAGE_ACCESS } from "@tol/tol-ui";
 
 export const NAV_CONFIG: TNavConfig = {
   data: {
+
     "Home": {
       access: PAGE_ACCESS.PUBLIC,
       path: {
@@ -16,6 +17,7 @@ export const NAV_CONFIG: TNavConfig = {
         route: "/",
       }
     },
+
     "Taxa": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -53,6 +55,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
+
     "Samples": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -83,6 +86,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
+
     "Pipeline": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -127,6 +131,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
+
     "Additional": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -199,6 +204,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
+
     "Tools": {
       access: PAGE_ACCESS.AUTHENTICATED,
       pages: {
@@ -215,6 +221,7 @@ export const NAV_CONFIG: TNavConfig = {
         ]
       }
     },
+
     "Public": {
       access: PAGE_ACCESS.PUBLIC,
       pages: {
