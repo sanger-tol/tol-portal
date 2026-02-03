@@ -32,6 +32,7 @@ import {
 } from "./pages";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
 import { NAV_CONFIG } from "./config";
+import { NAV_CONFIG } from "./config";
 import reportWebVitals from "./reportWebVitals";
 import {
   SmartApp,
@@ -83,8 +84,10 @@ export const PAGE_ELEMENTS: TPageElements = {
   "project-management": <ProjectManagement />,
   loaders: <Loaders />,
   attributes: <Attributes />,
+
   // Tools
   "manifest-validation": <ManifestValidation />,
+
   // Public
   "public-species": <CuratedSpecies />,
   "core-lab-data": <CoreLabData />,
@@ -96,17 +99,11 @@ root.render(
   <ValidationModuleProvider module={baseModule}>
     <SmartApp
       id="tol_portal"
-      brand={
-      <img
-        src={Logo}
-        alt="ToL Portal Logo"
-        style={{ height: 35 }}
-      />
-      }
+      brand={<img src={Logo} alt="ToL Portal Logo" style={{ height: 35 }} />}
       pageElements={PAGE_ELEMENTS}
       configurableBoards
-  />
-  </ValidationModuleProvider>
+    />
+  </ValidationModuleProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
