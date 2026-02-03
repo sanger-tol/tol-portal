@@ -54,7 +54,12 @@ def upgrade() -> None:
                     sa.Column('destination', sa.String(), nullable=False),
                     sa.Column('flow_run_id', sa.String(), nullable=True),
                     sa.Column('date_started', sa.DateTime(), nullable=False),
-                    sa.Column('validation_status', sa.String(), nullable=False, default="in_progress"),
+                    sa.Column('validation_status',
+                              sa.String(),
+                              nullable=False,
+                              default="in_progress"
+                              ),
+                    sa.Column('rejection_reason', sa.String(), nullable=True),
                     sa.Column('validation_results',
                               postgresql.JSONB(),
                               nullable=False,

@@ -96,6 +96,7 @@ function ManifestValidation() {
       id="uploads-table"
       height={500}
       noConfigModal
+      rowSelection
       cellRenderers={{
         download_button: ManifestDownloadButton,
         view_results: ViewResultsButton,
