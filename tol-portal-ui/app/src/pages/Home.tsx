@@ -11,7 +11,7 @@ import {
   Widgets,
   Row,
   Col,
-  RemoteCount,
+  RemoteStatistics,
   useZone
 } from '@tol/tol-ui';
 import { ELASTIC_DS } from '..';
@@ -141,7 +141,7 @@ function Home() {
   )
 
   const speciesCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="home-species-count"
       utilityBarConfig={{
         title: {
@@ -178,7 +178,7 @@ function Home() {
   )
 
   const speciesCollectedCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="home-species-collected-count"
       utilityBarConfig={{
         title: {
@@ -204,7 +204,7 @@ function Home() {
   );
 
   const extractionsCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="home-extractions-count"
       objectType='extraction'
       dataSource={ELASTIC_DS}
@@ -217,7 +217,7 @@ function Home() {
   );
 
   const runDataCount = (
-    <RemoteCount
+    <RemoteStatistics
       id="home-run-data-count"
       objectType='run_data'
       dataSource={ELASTIC_DS}
