@@ -89,7 +89,7 @@ export const PAGE_ELEMENTS: TPageElements = {
 const root = createRoot(document.getElementById('root')!);
 root.render(
   <SmartApp
-    boards={{ dataSource: ELASTIC_DS }}
+    boards
     brand={
       <img
         src={Logo}
