@@ -17,8 +17,12 @@ import {
   truncateString,
   splitS3FilenameString,
   normaliseCaps,
+  useValidationPolicyModule,
 } from "@tol/tol-ui";
 
+import type { TFileValidationAction } from "@tol/tol-ui";
+
+// Create the validation config object that will be passed as a prop to the component
 const VALIDATION_CONFIG = {
   s3_bucket: "lw23-scratch", // TODO: change to correct bucket depending on pipeline_id
   pipeline_id: 1, // TODO: Allow users to select pipeline to run
@@ -28,6 +32,9 @@ const VALIDATION_CONFIG = {
 
 function ManifestValidation() {
   const history = useHistory();
+
+  // Get status policy and all available actions
+  const { actions, policies } = useValidationPolicyModule();
 
   // Introductory SOP paragraph widget
   const SOPIntro = (
@@ -47,18 +54,8 @@ function ManifestValidation() {
     </div>
   );
 
-  const uploads = useZone({
-    objectType: "upload",
-    dataSource: new TsDataSource({
-      apiPath: "/api/v1/local",
-    }),
-    components: [
-      {
-        id: "uploads-table",
-      },
-    ],
-  });
-
+  // Download button that calls the s3 service to download the specified
+  // file from the S3 bucket
   const ManifestDownloadButton = ({ downloadName }) => {
     return (
       <Button
@@ -77,10 +74,48 @@ function ManifestValidation() {
     );
   };
 
-  const ValidationStatus = ({ validationStatus }) => {
-    return <p>{`Validation ${normaliseCaps(validationStatus)}`}</p>;
+  // Render table actions based on current validation status
+  const baseValidationActions = Object.values(actions).map(
+    (action: TFileValidationAction) => ({
+      name: action.label,
+      isVisibleAction: (selectedRows: any[] = []) =>
+        selectedRows.length > 0 &&
+        // Make sure the action can be completed by every selected row before rendering it
+        selectedRows.every((row) => {
+          // Get the validation status of the row
+          const status = row?.validation_status?.props?.value;
+          // Check against the allowed actions of that particular status
+          const allowed = policies[status]?.allowedActions ?? [];
+          // Return all allowed actions of that policy
+          return allowed.includes(action.id);
+        }),
+    }),
+  );
+
+  // Fallback "no actions available" dropdown list
+  const noActionsAvailableAction = {
+    name: "No Actions Available for Selection",
+    disabled: true,
+    isVisibleAction: (selectedRows: any[] = []) =>
+      selectedRows.length > 0 &&
+      // If no valid actions are available, return true to show this placeholder action
+      !baseValidationActions.some((action) =>
+        action.isVisibleAction ? action.isVisibleAction(selectedRows) : true,
+      ),
   };
 
+  // build final actions array
+  const validationActions = [
+    ...baseValidationActions,
+    noActionsAvailableAction,
+  ];
+
+  // Easy to read validation status component
+  const ValidationStatus = ({ validationStatus }) => {
+    return <p>{`${normaliseCaps(validationStatus)}`}</p>;
+  };
+
+  // Results button that goes directly to /file-validation/results/<id>
   const ViewResultsButton = ({ dataObject }) => {
     const id = dataObject?.id;
 
@@ -91,16 +126,19 @@ function ManifestValidation() {
     return <Button text="View" onClick={handleViewResults} />;
   };
 
-  const UploadTable = (
+  // Table for viewing all previous validaitons, admins can see all
+  // validation uploads, normal users can only see their own.
+  const AllValidationUploadsTable = (
     <RemoteTable
       id="uploads-table"
       height={500}
+      actions={validationActions}
       noConfigModal
       rowSelection
       cellRenderers={{
-        download_button: ManifestDownloadButton,
-        view_results: ViewResultsButton,
-        validation_status: ValidationStatus,
+        downloadButton: ManifestDownloadButton,
+        viewResults: ViewResultsButton,
+        validationStatus: ValidationStatus,
       }}
       fields={{
         data: {
@@ -111,7 +149,7 @@ function ManifestValidation() {
           s3_filename: {
             rename: "File Download",
             cellRenderer: {
-              type: "download_button",
+              type: "downloadButton",
               props: { downloadName: "${s3_filename}" },
             },
             width: 250,
@@ -131,7 +169,7 @@ function ManifestValidation() {
             cellRenderer: { type: "boolean" },
             width: 200,
           },
-          failure_message: { rename: "Failure Reason", width: 180 },
+          failure_message: { rename: "System Failure Reason", width: 180 },
           flow_run_id: {
             rename: "Flow Run ID",
           },
@@ -140,14 +178,15 @@ function ManifestValidation() {
             custom: true,
             width: 150,
             cellRenderer: {
-              type: "view_results",
+              type: "viewResults",
             },
           },
           validation_status: {
-            rename: "Status",
-            width: 180,
+            rename: "Validation Status",
+            width: 200,
             cellRenderer: {
-              type: "list",
+              type: "validationStatus",
+              props: { validationStatus: "${validation_status}" },
             },
           },
         },
@@ -166,11 +205,22 @@ function ManifestValidation() {
           ],
         },
       }}
-      {...uploads}
+      {...useZone({
+        objectType: "upload",
+        dataSource: new TsDataSource({
+          apiPath: "/api/v1/local",
+        }),
+        components: [
+          {
+            id: "uploads-table",
+          },
+        ],
+      })}
     />
   );
 
-  const TabItems = (
+  // Tabs to separate file uploader from previous validations table
+  const PageTabs = (
     <Tabs defaultActiveKey="1">
       <Tabs.Tab eventKey="1" title="Manifest Validation">
         <Widgets
@@ -192,14 +242,14 @@ function ManifestValidation() {
         <Widgets
           components={[
             { component: <h2>Uploaded Manifests</h2>, type: "full" },
-            { component: UploadTable, type: "full" },
+            { component: AllValidationUploadsTable, type: "full" },
           ]}
         />
       </Tabs.Tab>
     </Tabs>
   );
 
-  return <>{TabItems}</>;
+  return <>{PageTabs}</>;
 }
 
 export default ManifestValidation;

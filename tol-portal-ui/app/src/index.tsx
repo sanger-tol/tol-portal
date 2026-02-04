@@ -32,7 +32,6 @@ import {
 } from "./pages";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
 import { NAV_CONFIG } from "./config";
-import { NAV_CONFIG } from "./config";
 import reportWebVitals from "./reportWebVitals";
 import {
   SmartApp,
@@ -93,9 +92,14 @@ export const PAGE_ELEMENTS: TPageElements = {
   "core-lab-data": <CoreLabData />,
 };
 
+// Gather available base policies and actions
 const baseModule = createBaseValidationModule();
-const root = createRoot(document.getElementById("root")!);
+
+const root = createRoot(document.getElementById('root')!);
 root.render(
+  // Use a provider for validation statuses and policies.
+  // It needs to be here, because /file-validation/results/<id>
+  // is a separate route inside of <SmartApp />
   <ValidationModuleProvider module={baseModule}>
     <SmartApp
       id="tol_portal"
