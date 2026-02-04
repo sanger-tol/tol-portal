@@ -888,7 +888,7 @@ def upgrade() -> None:
         {
             'id': 24,
             'pipeline_id': 1,
-            'step_name': 'Skip Null Fields Converter',
+            'step_name': 'Time string to time object Converter',
             'stage': 1,
             'step_order': 4,
             'is_visible': False,
@@ -896,6 +896,9 @@ def upgrade() -> None:
                 'module': 'tol.flows.converters',
                 'class_name': 'TimeStringToTimeConverter',
                 'is_validator': False,
+                'config_details': {
+                    'field_names': ['TIME_OF_COLLECTION']
+                }
             },
             'description': ''
         },
