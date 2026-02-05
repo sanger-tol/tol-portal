@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   FileValidation,
@@ -18,6 +19,9 @@ import {
   splitS3FilenameString,
   normaliseCaps,
   useValidationPolicyModule,
+  PIPELINE_DS,
+  getUserFromLocalStorage,
+  SubmissionRejectModal,
 } from "@tol/tol-ui";
 
 import type { TFileValidationAction } from "@tol/tol-ui";
@@ -35,6 +39,10 @@ function ManifestValidation() {
 
   // Get status policy and all available actions
   const { actions, policies } = useValidationPolicyModule();
+
+  const [reportOpen, setReportOpen] = useState<boolean>(false);
+  const [submissionRejectModalOpen, setSubmissionRejectModalOpen] =
+    useState<boolean>(false);
 
   // Introductory SOP paragraph widget
   const SOPIntro = (
@@ -56,22 +64,8 @@ function ManifestValidation() {
 
   // Download button that calls the s3 service to download the specified
   // file from the S3 bucket
-  const ManifestDownloadButton = ({ downloadName }) => {
-    return (
-      <Button
-        icon={"download"}
-        text={truncateString(splitS3FilenameString(downloadName), 25)}
-        onClick={() =>
-          downloadFileFromS3(
-            new TsDataSource({
-              apiPath: "/api/v1",
-            }),
-            VALIDATION_CONFIG.s3_bucket,
-            downloadName,
-          )
-        }
-      />
-    );
+  const DownloadName = ({ fileName }) => {
+    return <p>{splitS3FilenameString(fileName)}</p>;
   };
 
   // Render table actions based on current validation status
@@ -89,6 +83,20 @@ function ManifestValidation() {
           // Return all allowed actions of that policy
           return allowed.includes(action.id);
         }),
+      action: async (selectedRows: any[] = []) => {
+        // TODO: Make any callback functions robust enough, that they fetch the required data if only an ID has been provided.
+        const rowIds = Object.values(selectedRows).map((row) => ({
+          id: row.key,
+        }));
+        // Provide the action callback with the required context to perform the action.
+        action.callback({
+          items: rowIds,
+          dataSource: PIPELINE_DS,
+          user: getUserFromLocalStorage().id,
+          setReportOpen, // TODO: what to do with you?
+          setSubmissionRejectModalOpen, // TODO: And you?
+        });
+      },
     }),
   );
 
@@ -97,8 +105,8 @@ function ManifestValidation() {
     name: "No Actions Available for Selection",
     disabled: true,
     isVisibleAction: (selectedRows: any[] = []) =>
-      selectedRows.length > 0 &&
       // If no valid actions are available, return true to show this placeholder action
+      // Also show if no actions have been selected
       !baseValidationActions.some((action) =>
         action.isVisibleAction ? action.isVisibleAction(selectedRows) : true,
       ),
@@ -135,8 +143,9 @@ function ManifestValidation() {
       actions={validationActions}
       noConfigModal
       rowSelection
+      noActionsFooter
       cellRenderers={{
-        downloadButton: ManifestDownloadButton,
+        splitDownloadName: DownloadName,
         viewResults: ViewResultsButton,
         validationStatus: ValidationStatus,
       }}
@@ -147,10 +156,10 @@ function ManifestValidation() {
             rename: "User",
           },
           s3_filename: {
-            rename: "File Download",
+            rename: "Manifest Name",
             cellRenderer: {
-              type: "downloadButton",
-              props: { downloadName: "${s3_filename}" },
+              type: "splitDownloadName",
+              props: { fileName: "${s3_filename}" },
             },
             width: 250,
           },
@@ -249,7 +258,27 @@ function ManifestValidation() {
     </Tabs>
   );
 
-  return <>{PageTabs}</>;
+  // TODO: Decide what to do with the modals...
+  // TODO: Capture the upload ID when a manifest is selected
+  // TODO: Double todo: make modals handle multiple upload IDs in case of multiple selection, or prevent multiple selection when modals are required (which is boring).
+
+  return (
+    <>
+      {" "}
+      {/* <ValidationReport
+        data={latestPipelineResults.data}
+        open={reportOpen}
+        setOpen={setReportOpen}
+        uploadStatus={uploadStatus?.rename}
+      /> */}
+      <SubmissionRejectModal
+        open={submissionRejectModalOpen}
+        setOpen={setSubmissionRejectModalOpen}
+        uploadId={1}
+      />
+      {PageTabs}
+    </>
+  );
 }
 
 export default ManifestValidation;
