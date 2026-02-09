@@ -94,7 +94,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Extractions": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "extractions",
+              pageElementReference: "b_8IQkJw3bnOz8",
             }
           },
           "Requests": {
@@ -169,7 +169,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Samples Stuck": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "samples-stuck",
+              pageElementReference: "b_8g6ZHtngq1fv",
             },
           },
           "Project Management": {
@@ -181,13 +181,13 @@ export const NAV_CONFIG: TNavConfig = {
           "Loaders": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "loaders",
+              pageElementReference: "b_wPbyR6z3mwBs",
             },
           },
           "Attributes": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "attributes",
+              pageElementReference: "b_YbMdsOMnwRRc",
             },
           },
         },

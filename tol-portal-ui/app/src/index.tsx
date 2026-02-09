@@ -7,16 +7,12 @@ SPDX-License-Identifier: MIT
 import { createRoot } from "react-dom/client";
 import {
   SpeciesDetail,
-  Extractions,
   TUM,
   SpeciesRecollection,
-  SamplesStuck,
   ProjectManagement,
   TUMSteps,
   ARAReview,
   SampleSelection,
-  Loaders,
-  Attributes,
   ManifestValidation,
 } from "./pages";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
@@ -34,26 +30,8 @@ export const LOCAL_DS = new TsDataSource({
 });
 
 export const PAGE_ELEMENTS: TPageElements = {
-  // Home
-  // home: <Home />,
-
   // Taxa
-  // species: <Species />,
   "species-detail": <SpeciesDetail />,
-  // specimen: <Specimens />,
-  // tolids: <ToLIDs />,
-
-  // Samples
-  // "sample-sets": <Samplesets />,
-  // manifests: <Manifests />,
-  // samples: <Samples />,
-
-  // Pipeline
-  extractions: <Extractions />,
-  // requests: <SequencingRequests />,
-  // "sequencing-runs": <SequencingRuns />,
-  // curations: <Curations />,
-  // "genome-notes": <GenomeNotes />,
 
   // Additional
   recollection: <SpeciesRecollection />,
@@ -61,10 +39,7 @@ export const PAGE_ELEMENTS: TPageElements = {
   tum: <TUM />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
-  "samples-stuck": <SamplesStuck />,
   "project-management": <ProjectManagement />,
-  loaders: <Loaders />,
-  attributes: <Attributes />,
 
   // Tools
   "manifest-validation": <ManifestValidation />,
