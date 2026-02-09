@@ -139,7 +139,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Recollection": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "recollection",
+              pageElementReference: "b_tZkO2SpA5miW",
             },
           },
           "Sample Selection": {

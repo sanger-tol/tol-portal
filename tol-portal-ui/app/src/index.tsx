@@ -8,7 +8,6 @@ import { createRoot } from "react-dom/client";
 import {
   SpeciesDetail,
   TUM,
-  SpeciesRecollection,
   ProjectManagement,
   TUMSteps,
   ARAReview,
@@ -34,7 +33,6 @@ export const PAGE_ELEMENTS: TPageElements = {
   "species-detail": <SpeciesDetail />,
 
   // Additional
-  recollection: <SpeciesRecollection />,
   "sample-selection": <SampleSelection />,
   tum: <TUM />,
   "tum-steps": <TUMSteps />,
