@@ -257,3 +257,8 @@ export const NAV_CONFIG: TNavConfig = {
     "Public",
   ],
 };
+
+// Pages have been converted to board components for the following:
+// Home, Species, Specimen, ToLIDs, Sample Sets, Manifests, Samples,
+// Extractions, Requests, Runs, Curations, Genome Notes, Recollection,
+// Samples Stuck, Loaders and Attributes.

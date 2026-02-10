@@ -31,17 +31,14 @@ export const LOCAL_DS = new TsDataSource({
 export const PAGE_ELEMENTS: TPageElements = {
   // Taxa
   "species-detail": <SpeciesDetail />,
-
   // Additional
   "sample-selection": <SampleSelection />,
   tum: <TUM />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
   "project-management": <ProjectManagement />,
-
   // Tools
   "manifest-validation": <ManifestValidation />,
-
   // Public
   "public-species": <CuratedSpecies />,
   "core-lab-data": <CoreLabData />,
