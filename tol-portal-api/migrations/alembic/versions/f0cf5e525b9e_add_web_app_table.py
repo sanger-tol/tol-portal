@@ -35,7 +35,7 @@ def upgrade() -> None:
             """
             INSERT INTO web_app (id, navigation, profile_navigation)
             VALUES (
-                'portal',
+                'tol_portal',
                 '{
                   "data": {
                     "Home": {
@@ -59,7 +59,7 @@ def upgrade() -> None:
                             "access": "role_required",
                             "path": {
                               "pageElementReference": "species-detail",
-                              "route": "/species/:id"
+                              "route": "/species/\\:id"
                             }
                           },
                           "Specimen": {

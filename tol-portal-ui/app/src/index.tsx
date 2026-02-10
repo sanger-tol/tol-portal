@@ -89,7 +89,7 @@ export const PAGE_ELEMENTS: TPageElements = {
 const root = createRoot(document.getElementById('root')!);
 root.render(
   <SmartApp
-    boards
+    id="tol_portal"
     brand={
       <img
         src={Logo}
@@ -97,8 +97,8 @@ root.render(
         style={{ height: 30 }}
       />
     }
-    navigation={NAV_CONFIG}
     pageElements={PAGE_ELEMENTS}
+    configurableBoards
   />
 );
 
