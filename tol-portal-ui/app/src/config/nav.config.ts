@@ -13,7 +13,7 @@ export const NAV_CONFIG: TNavConfig = {
     "Home": {
       access: PAGE_ACCESS.PUBLIC,
       path: {
-        pageElementReference: "home",
+        pageElementReference: "b_Crt4ZZEssGP0",
         route: "/",
       }
     },
@@ -25,7 +25,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Species": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "species",
+              pageElementReference: "b_TZG77Ww4sJea",
             }
           },
           "Species Detail": {
@@ -38,13 +38,13 @@ export const NAV_CONFIG: TNavConfig = {
           "Specimen": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "specimen",
+              pageElementReference: "b_YLymR9X6JnBL",
             }
           },
           "ToLIDs": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "tolids",
+              pageElementReference: "b_nBFQFABaRVss",
             }
           }
         },
@@ -63,19 +63,19 @@ export const NAV_CONFIG: TNavConfig = {
           "Sample Sets": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "sample-sets",
+              pageElementReference: "b_GdykdLnDcZLF",
             }
           },
           "Manifests": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "manifests",
+              pageElementReference: "b_X8SD2Q9R1SOZ",
             }
           },
           "Samples": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "samples",
+              pageElementReference: "b_pF6935aPXMpE",
             }
           }
         },
@@ -94,31 +94,31 @@ export const NAV_CONFIG: TNavConfig = {
           "Extractions": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "extractions",
+              pageElementReference: "b_8IQkJw3bnOz8",
             }
           },
           "Requests": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "requests",
+              pageElementReference: "b_NZqOBUMH09zm",
             }
           },
           "Runs": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "sequencing-runs",
+              pageElementReference: "b_P23qqk6w1L1a",
             }
           },
           "Curations": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "curations",
+              pageElementReference: "b_C3ytfvrNtdQS",
             }
           },
           "Genome Notes": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "genome-notes",
+              pageElementReference: "b_7lZd0mVA8EQC",
             }
           }
         },
@@ -139,7 +139,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Recollection": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "recollection",
+              pageElementReference: "b_tZkO2SpA5miW",
             },
           },
           "Sample Selection": {
@@ -169,7 +169,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Samples Stuck": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "samples-stuck",
+              pageElementReference: "b_8g6ZHtngq1fv",
             },
           },
           "Project Management": {
@@ -181,13 +181,13 @@ export const NAV_CONFIG: TNavConfig = {
           "Loaders": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "loaders",
+              pageElementReference: "b_wPbyR6z3mwBs",
             },
           },
           "Attributes": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-              pageElementReference: "attributes",
+              pageElementReference: "b_YbMdsOMnwRRc",
             },
           },
         },
@@ -229,7 +229,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Public Species": {
             access: PAGE_ACCESS.PUBLIC,
             path: {
-              pageElementReference: "public-species",
+              pageElementReference: "b_abxAtD6Adf0c",
               route: "/public/species",
             }
           },
@@ -257,3 +257,8 @@ export const NAV_CONFIG: TNavConfig = {
     "Public",
   ],
 };
+
+// Pages have been converted to board components for the following:
+// Home, Species, Specimen, ToLIDs, Sample Sets, Manifests, Samples,
+// Extractions, Requests, Runs, Curations, Genome Notes, Recollection,
+// Samples Stuck, Loaders and Attributes.
