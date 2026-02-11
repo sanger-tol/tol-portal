@@ -15,7 +15,6 @@ import {
   ManifestValidation,
 } from "./pages";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
-import { NAV_CONFIG } from "./config";
 import reportWebVitals from "./reportWebVitals";
 import { SmartApp, TPageElements, TsDataSource, env } from "@tol/tol-ui";
 import Logo from "./assets/logo.png";
@@ -33,7 +32,7 @@ export const PAGE_ELEMENTS: TPageElements = {
   "species-detail": <SpeciesDetail />,
   // Additional
   "sample-selection": <SampleSelection />,
-  tum: <TUM />,
+  "tum": <TUM />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
   "project-management": <ProjectManagement />,
