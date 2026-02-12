@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Genome Research Ltd.
 SPDX-License-Identifier: MIT
 */
 
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import {
   Home,
   Species,
@@ -28,7 +28,7 @@ import {
   SampleSelection,
   Loaders,
   Attributes,
-  ManifestValidation
+  ManifestValidation,
 } from './pages';
 import { CoreLabData, CuratedSpecies } from './pages/curated_pages';
 import { NAV_CONFIG } from './config';
@@ -76,6 +76,8 @@ export const PAGE_ELEMENTS: TPageElements = {
   "project-management": <ProjectManagement />,
   "loaders": <Loaders />,
   "attributes": <Attributes />,
+  // Tools
+  "manifest-validation": <ManifestValidation />,
   // Public
   "public-species": <CuratedSpecies />,
   "core-lab-data": <CoreLabData />,

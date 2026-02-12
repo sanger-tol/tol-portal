@@ -26,3 +26,4 @@ export { default as SamplesStuck } from "./SamplesStuck";
 export { default as ProjectManagement } from "./ProjectManagement";
 export { default as TUMSteps } from "./TUMSteps";
 export { default as ARAReview } from "./ARAReview";
+export { default as ManifestValidation} from "./ManifestValidation";
