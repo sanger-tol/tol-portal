@@ -65,6 +65,7 @@ def upgrade() -> None:
                               nullable=False,
                               server_default='[]'),
                     sa.Column('completed', sa.Boolean(), default=False, nullable=False),
+                    sa.Column('hidden', sa.Boolean(), default=False, nullable=False),
                     sa.Column('failure_message', sa.String(), nullable=True),
                     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
                     sa.ForeignKeyConstraint(['pipeline_id'], ['pipeline.id'], ),

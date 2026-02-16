@@ -4,27 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import {
-  FileValidation,
-  Tabs,
-  RemoteTable,
-  Widgets,
-  useZone,
-  TsDataSource,
-  downloadFileFromS3,
-  Button,
-  truncateString,
-  splitS3FilenameString,
-  normaliseCaps,
-  useValidationPolicyModule,
-  PIPELINE_DS,
-  getUserFromLocalStorage,
-  SubmissionRejectModal,
-} from "@tol/tol-ui";
-
-import type { TFileValidationAction } from "@tol/tol-ui";
+import { FileValidationHome } from "@tol/tol-ui";
 
 // Create the validation config object that will be passed as a prop to the component
 const VALIDATION_CONFIG = {
@@ -35,15 +15,6 @@ const VALIDATION_CONFIG = {
 };
 
 function ManifestValidation() {
-  const history = useHistory();
-
-  // Get status policy and all available actions
-  const { actions, policies } = useValidationPolicyModule();
-
-  const [reportOpen, setReportOpen] = useState<boolean>(false);
-  const [submissionRejectModalOpen, setSubmissionRejectModalOpen] =
-    useState<boolean>(false);
-
   // Introductory SOP paragraph widget
   const SOPIntro = (
     <div>
@@ -62,222 +33,22 @@ function ManifestValidation() {
     </div>
   );
 
-  // Download button that calls the s3 service to download the specified
-  // file from the S3 bucket
-  const DownloadName = ({ fileName }) => {
-    return <p>{splitS3FilenameString(fileName)}</p>;
-  };
-
-  // Render table actions based on current validation status
-  const baseValidationActions = Object.values(actions).map(
-    (action: TFileValidationAction) => ({
-      name: action.label,
-      isVisibleAction: (selectedRows: any[] = []) =>
-        selectedRows.length > 0 &&
-        // Make sure the action can be completed by every selected row before rendering it
-        selectedRows.every((row) => {
-          // Get the validation status of the row
-          const status = row?.validation_status?.props?.value;
-          // Check against the allowed actions of that particular status
-          const allowed = policies[status]?.allowedActions ?? [];
-          // Return all allowed actions of that policy
-          return allowed.includes(action.id);
-        }),
-      action: async (selectedRows: any[] = []) => {
-        // TODO: Make any callback functions robust enough, that they fetch the required data if only an ID has been provided.
-        const rowIds = Object.values(selectedRows).map((row) => ({
-          id: row.key,
-        }));
-        // Provide the action callback with the required context to perform the action.
-        action.callback({
-          items: rowIds,
-          dataSource: PIPELINE_DS,
-          user: getUserFromLocalStorage().id,
-          setReportOpen, // TODO: what to do with you?
-          setSubmissionRejectModalOpen, // TODO: And you?
-        });
-      },
-    }),
-  );
-
-  // Fallback "no actions available" dropdown list
-  const noActionsAvailableAction = {
-    name: "No Actions Available for Selection",
-    disabled: true,
-    isVisibleAction: (selectedRows: any[] = []) =>
-      // If no valid actions are available, return true to show this placeholder action
-      // Also show if no actions have been selected
-      !baseValidationActions.some((action) =>
-        action.isVisibleAction ? action.isVisibleAction(selectedRows) : true,
-      ),
-  };
-
-  // build final actions array
-  const validationActions = [
-    ...baseValidationActions,
-    noActionsAvailableAction,
-  ];
-
-  // Easy to read validation status component
-  const ValidationStatus = ({ validationStatus }) => {
-    return <p>{`${normaliseCaps(validationStatus)}`}</p>;
-  };
-
-  // Results button that goes directly to /file-validation/results/<id>
-  const ViewResultsButton = ({ dataObject }) => {
-    const id = dataObject?.id;
-
-    const handleViewResults = () => {
-      history.push(`/file-validation/results/${id}`);
-    };
-
-    return <Button text="View" onClick={handleViewResults} />;
-  };
-
-  // Table for viewing all previous validaitons, admins can see all
-  // validation uploads, normal users can only see their own.
-  const AllValidationUploadsTable = (
-    <RemoteTable
-      id="uploads-table"
-      height={500}
-      actions={validationActions}
-      noConfigModal
-      rowSelection
-      noActionsFooter
-      cellRenderers={{
-        splitDownloadName: DownloadName,
-        viewResults: ViewResultsButton,
-        validationStatus: ValidationStatus,
-      }}
-      fields={{
-        data: {
-          id: { rename: "Manifest ID", width: 130 },
-          "user.oidc_id": {
-            rename: "User",
-          },
-          s3_filename: {
-            rename: "Manifest Name",
-            cellRenderer: {
-              type: "splitDownloadName",
-              props: { fileName: "${s3_filename}" },
-            },
-            width: 250,
-          },
-          "pipeline.id": {
-            rename: "Pipeline ID",
-            width: 130,
-            cellRenderer: "none",
-          },
-          date_started: {
-            rename: "Upload Date",
-            cellRenderer: { type: "datetime" },
-            width: 180,
-          },
-          completed: {
-            rename: "Validation Complete",
-            cellRenderer: { type: "boolean" },
-            width: 200,
-          },
-          failure_message: { rename: "System Failure Reason", width: 180 },
-          flow_run_id: {
-            rename: "Flow Run ID",
-          },
-          view_results: {
-            rename: "View Results",
-            custom: true,
-            width: 150,
-            cellRenderer: {
-              type: "viewResults",
-            },
-          },
-          validation_status: {
-            rename: "Validation Status",
-            width: 200,
-            cellRenderer: {
-              type: "validationStatus",
-              props: { validationStatus: "${validation_status}" },
-            },
-          },
-        },
-        order: {
-          active: [
-            "id",
-            "s3_filename",
-            "user.oidc_id",
-            "pipeline.id",
-            "date_started",
-            "validation_status",
-            "completed",
-            "flow_run_id",
-            "failure_message",
-            "view_results",
-          ],
-        },
-      }}
-      {...useZone({
-        objectType: "upload",
-        dataSource: new TsDataSource({
-          apiPath: "/api/v1/local",
-        }),
-        components: [
-          {
-            id: "uploads-table",
-          },
-        ],
-      })}
-    />
-  );
-
-  // Tabs to separate file uploader from previous validations table
-  const PageTabs = (
-    <Tabs defaultActiveKey="1">
-      <Tabs.Tab eventKey="1" title="Manifest Validation">
-        <Widgets
-          components={[
-            { component: SOPIntro, type: "full" },
-            {
-              component: (
-                <FileValidation
-                  validationConfig={VALIDATION_CONFIG}
-                  pageTitle="Manifest Validation Portal"
-                />
-              ),
-              type: "full",
-            },
-          ]}
-        />
-      </Tabs.Tab>
-      <Tabs.Tab eventKey="2" title="Uploaded Manifests">
-        <Widgets
-          components={[
-            { component: <h2>Uploaded Manifests</h2>, type: "full" },
-            { component: AllValidationUploadsTable, type: "full" },
-          ]}
-        />
-      </Tabs.Tab>
-    </Tabs>
-  );
-
   // TODO: Decide what to do with the modals...
   // TODO: Capture the upload ID when a manifest is selected
   // TODO: Double todo: make modals handle multiple upload IDs in case of multiple selection, or prevent multiple selection when modals are required (which is boring).
 
   return (
-    <>
-      {" "}
-      {/* <ValidationReport
-        data={latestPipelineResults.data}
-        open={reportOpen}
-        setOpen={setReportOpen}
-        uploadStatus={uploadStatus?.rename}
-      /> */}
-      <SubmissionRejectModal
-        open={submissionRejectModalOpen}
-        setOpen={setSubmissionRejectModalOpen}
-        uploadId={1}
-      />
-      {PageTabs}
-    </>
+    <FileValidationHome
+      validationConfig={VALIDATION_CONFIG}
+      intro={SOPIntro}
+      additionalTableConfig={{
+        cellRenderers: {},
+        fields: {
+          rejection_reason: { rename: "Reason for Rejection", width: 200 },
+        },
+        order: ["rejection_reason"],
+      }}
+    />
   );
 }
 

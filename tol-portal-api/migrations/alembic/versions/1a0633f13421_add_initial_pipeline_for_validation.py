@@ -378,8 +378,8 @@ def upgrade() -> None:
                         "SANGER INSTITUTE": [
                             {
                                 "key": "SPECIMEN_ID",
-                                "regex": "(^SAN\\d{8}$)|(^BLAX\\d{8}$)|(^ERGA_[A-Z]{2}_[A-Z]{2}\\d{3}$)",
-                                "detail": "SPECIMEN_ID must start with SAN|BLAX followed by 7 digits or ERGA format: ERGA_XX_XX000",
+                                "regex": "(^SAN\\d{8}$)|(^ERGA_[A-Z]{2}_[A-Z]{2}\\d{3}$)",
+                                "detail": "SPECIMEN_ID must start with SAN followed by 8 digits or ERGA format: ERGA_XX_XX000",
                                 "is_error": True
                             }
                         ],
