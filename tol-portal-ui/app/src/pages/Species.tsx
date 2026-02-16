@@ -1,0 +1,238 @@
+/*
+ * SPDX-FileCopyrightText: 2023 Genome Research Ltd.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+import {
+  RemoteStatistics,
+  RemoteTable,
+  RemoteSunburst,
+  Widgets,
+  useZone
+} from '@tol/tol-ui';
+import { ELASTIC_DS } from '..';
+
+
+function Species() {
+  const defaultFilter = {
+    and_: {
+      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+    }
+  }
+
+  const species = useZone({
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
+    filter: defaultFilter,
+    components: [
+      {
+        id: 'species-received-count',
+        filter: {
+          and_: {
+            "sts_species_id": {exists: {}}
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-extracted-count',
+        filter: {
+          and_: {
+            "benchling_extraction_count": {
+              'gt': {'value': 0}
+            }
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-submitted-count',
+        filter: {
+          and_: {
+            "informatics_tolid_informatics_status_summary_min": {
+              'eq': {'value': '1 submitted'}
+            }
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-done-count',
+        filter: {
+          and_: {
+            "calc_done_date": {exists: {}}
+          }
+        },
+        filterPassThrough: true
+      },
+      {
+        id: 'species-sunburst',
+        filter: {
+          and_: {
+            'sts_species_id': {
+              exists: {}
+            }
+          }
+        }
+      },
+      {
+        id: 'species-table'
+      }
+    ]
+  });
+
+  const speciesReceivedCount = (
+    <RemoteStatistics
+      id="species-received-count"
+      utilityBarConfig={{
+        title: {
+          text: 'Species Received',
+        }
+      }}
+      {...species}
+    />
+  );
+
+  const speciesExtractedCount = (
+    <RemoteStatistics
+      id="species-extracted-count"
+      utilityBarConfig={{
+        title: {
+          text: 'Species Extracted',
+        }
+      }}
+      {...species}
+    />
+  );
+
+  const speciesSubmittedCount = (
+    <RemoteStatistics
+      id="species-submitted-count"
+      utilityBarConfig={{
+        title: {
+          text: 'Species Submitted',
+        }
+      }}
+      {...species}
+    />
+  );
+
+  const speciesDoneCount = (
+    <RemoteStatistics
+      id="species-done-count"
+      utilityBarConfig={{
+        title: {
+          text: 'Species Marked as Done',
+        }
+      }}
+      {...species}
+    />
+  );
+
+  const sunburst = (
+    <RemoteSunburst
+      id="species-sunburst"
+      utilityBarConfig={{
+        title: {
+          text: 'Species',
+        }
+      }}
+      sliceBy={["sts_order_group", "sts_family"]}
+      height={450}
+      legendPosition="right"
+      {...species}
+    />
+  );
+  
+  const table = (
+    <RemoteTable
+      id="species-table"
+      defaultSortByAttribute="sts_scientific_name"
+      displaySource
+      fields={{
+        data: {
+          "sts_scientific_name": {
+            cellRenderer: {
+              type: "link",
+              props: {
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
+              }
+            }
+          },
+        },
+        order: {
+          active: [
+            "sts_scientific_name",
+            "calc_done_date",
+            "sts_sample_count",
+            "sts_sample_sts_accept_date_min",
+            "sts_sample_benchling_date_assigned_to_lab_min",
+            "benchling_sequencing_request_benchling_completion_date_hic_min",
+            "benchling_sequencing_request_benchling_completion_date_pacbio_min",
+            "benchling_sequencing_request_benchling_completion_date_rnaseq_min",
+            "mlwh_run_data_mlwh_run_complete_hic_min",
+            "mlwh_run_data_mlwh_run_complete_pacbio_min",
+            "mlwh_run_data_mlwh_run_complete_rnaseq_min",
+            "grit_curation_grit_done_date_min",
+            "gn_genome_note_gn_date_published_min",
+            "informatics_tolid_informatics_status_summary_min",
+            "tolqclegacy_assembly_stage",
+            "sts_taxon_group",
+            "sts_order_group",
+            "sts_family",
+            "sts_prefix"
+          ]
+        },
+      }}
+      {...species}
+    />
+  );
+
+  const title = (
+    <div>
+      <h2>Species</h2>
+    </div>
+  );
+
+  const components = [
+    {
+      component: title,
+      type: 'full'
+    },
+    {
+      component: speciesReceivedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesExtractedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesSubmittedCount,
+      type: 'sm'
+    },
+    {
+      component: speciesDoneCount,
+      type: 'sm'
+    },
+    {
+      component: sunburst,
+      type: 'full'
+    },
+    {
+      component: table,
+      type: 'xl'
+    },
+  ];
+
+  return (
+    <div className="species">
+      <Widgets
+        components={components}
+      />
+    </div>
+  );
+}
+export default Species;
