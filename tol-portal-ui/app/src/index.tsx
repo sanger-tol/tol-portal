@@ -95,7 +95,7 @@ export const PAGE_ELEMENTS: TPageElements = {
 // Gather available base policies and actions
 const baseModule = createBaseValidationModule();
 
-const root = createRoot(document.getElementById('root')!);
+const root = createRoot(document.getElementById("root")!);
 root.render(
   // Use a provider for validation statuses and policies.
   // It needs to be here, because /file-validation/results/<id>
