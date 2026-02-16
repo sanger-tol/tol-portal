@@ -41,7 +41,7 @@ def upgrade() -> None:
                     "Home": {
                       "access": "public",
                       "path": {
-                        "pageElementReference": "b_Crt4ZZEssGP0",
+                        "pageElementReference": "home",
                         "route": "/"
                       }
                     },
@@ -52,7 +52,7 @@ def upgrade() -> None:
                           "Species": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_TZG77Ww4sJea"
+                              "pageElementReference": "species"
                             }
                           },
                           "Species Detail": {
@@ -65,13 +65,13 @@ def upgrade() -> None:
                           "Specimen": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_YLymR9X6JnBL"
+                              "pageElementReference": "specimen"
                             }
                           },
                           "ToLIDs": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_nBFQFABaRVss"
+                              "pageElementReference": "tolids"
                             }
                           }
                         },
@@ -85,19 +85,19 @@ def upgrade() -> None:
                           "Sample Sets": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_GdykdLnDcZLF"
+                              "pageElementReference": "sample-sets"
                             }
                           },
                           "Manifests": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_X8SD2Q9R1SOZ"
+                              "pageElementReference": "manifests"
                             }
                           },
                           "Samples": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_pF6935aPXMpE"
+                              "pageElementReference": "samples"
                             }
                           }
                         },
@@ -111,31 +111,31 @@ def upgrade() -> None:
                           "Extractions": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_8IQkJw3bnOz8"
+                              "pageElementReference": "extractions"
                             }
                           },
                           "Requests": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_NZqOBUMH09zm"
+                              "pageElementReference": "requests"
                             }
                           },
                           "Runs": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_P23qqk6w1L1a"
+                              "pageElementReference": "sequencing-runs"
                             }
                           },
                           "Curations": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_C3ytfvrNtdQS"
+                              "pageElementReference": "curations"
                             }
                           },
                           "Genome Notes": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_7lZd0mVA8EQC"
+                              "pageElementReference": "genome-notes"
                             }
                           }
                         },
@@ -149,7 +149,7 @@ def upgrade() -> None:
                           "Recollection": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_tZkO2SpA5miW"
+                              "pageElementReference": "recollection"
                             }
                           },
                           "Sample Selection": {
@@ -179,7 +179,7 @@ def upgrade() -> None:
                           "Samples Stuck": {
                             "access": "role_required",
                             "path": {
-                              "pageElementReference": "b_8g6ZHtngq1fv"
+                              "pageElementReference": "samples-stuck"
                             }
                           },
                           "Project Management": {
@@ -225,7 +225,7 @@ def upgrade() -> None:
                           "Public Species": {
                             "access": "public",
                             "path": {
-                              "pageElementReference": "b_abxAtD6Adf0c",
+                              "pageElementReference": "public-species",
                               "route": "/public/species"
                             }
                           },

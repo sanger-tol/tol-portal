@@ -51,7 +51,7 @@ root.render(
       <img
         src={Logo}
         alt="ToL Portal Logo"
-        style={{ height: 30 }}
+        style={{ height: 35 }}
       />
     }
     pageElements={PAGE_ELEMENTS}
