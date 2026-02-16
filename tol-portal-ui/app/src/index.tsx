@@ -86,11 +86,17 @@ export const PAGE_ELEMENTS: TPageElements = {
 const root = createRoot(document.getElementById("root")!);
 root.render(
   <SmartApp
-    boards
-    brand={<img src={Logo} alt="ToL Portal Logo" style={{ height: 30 }} />}
-    navigation={NAV_CONFIG}
+    id="tol_portal"
+    brand={
+      <img
+        src={Logo}
+        alt="ToL Portal Logo"
+        style={{ height: 35 }}
+      />
+    }
     pageElements={PAGE_ELEMENTS}
-  />,
+    configurableBoards
+  />
 );
 
 // If you want to start measuring performance in your app, pass a function
