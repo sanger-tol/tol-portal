@@ -9,8 +9,6 @@ import { TNavConfig, PAGE_ACCESS } from "@tol/tol-ui";
 
 export const NAV_CONFIG: TNavConfig = {
   data: {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     "Home": {
       access: PAGE_ACCESS.PUBLIC,
@@ -20,22 +18,6 @@ export const NAV_CONFIG: TNavConfig = {
       }
     },
 
-=======
-=======
-
->>>>>>> 4cdf1da (spacing)
-    "Home": {
-      access: PAGE_ACCESS.PUBLIC,
-      path: {
-        pageElementReference: "home",
-        route: "/",
-      }
-    },
-<<<<<<< HEAD
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Taxa": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -43,11 +25,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Species": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_TZG77Ww4sJea",
-=======
-              pageElementReference: "species",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Species Detail": {
@@ -60,21 +38,13 @@ export const NAV_CONFIG: TNavConfig = {
           "Specimen": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_YLymR9X6JnBL",
-=======
-              pageElementReference: "specimen",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "ToLIDs": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_nBFQFABaRVss",
-=======
-              pageElementReference: "tolids",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           }
         },
@@ -85,14 +55,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Samples": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -100,31 +63,19 @@ export const NAV_CONFIG: TNavConfig = {
           "Sample Sets": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_GdykdLnDcZLF",
-=======
-              pageElementReference: "sample-sets",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Manifests": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_X8SD2Q9R1SOZ",
-=======
-              pageElementReference: "manifests",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Samples": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_pF6935aPXMpE",
-=======
-              pageElementReference: "samples",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           }
         },
@@ -135,14 +86,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Pipeline": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -150,51 +94,31 @@ export const NAV_CONFIG: TNavConfig = {
           "Extractions": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_8IQkJw3bnOz8",
-=======
-              pageElementReference: "extractions",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Requests": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_NZqOBUMH09zm",
-=======
-              pageElementReference: "requests",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Runs": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_P23qqk6w1L1a",
-=======
-              pageElementReference: "sequencing-runs",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Curations": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_C3ytfvrNtdQS",
-=======
-              pageElementReference: "curations",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           },
           "Genome Notes": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_7lZd0mVA8EQC",
-=======
-              pageElementReference: "genome-notes",
->>>>>>> 447cd38 (nav updates and recollection table)
             }
           }
         },
@@ -207,14 +131,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Additional": {
       access: PAGE_ACCESS.ROLE_REQUIRED,
       pages: {
@@ -222,11 +139,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Recollection": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_tZkO2SpA5miW",
-=======
-              pageElementReference: "recollection",
->>>>>>> 447cd38 (nav updates and recollection table)
             },
           },
           "Sample Selection": {
@@ -256,11 +169,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Samples Stuck": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_8g6ZHtngq1fv",
-=======
-              pageElementReference: "samples-stuck",
->>>>>>> 447cd38 (nav updates and recollection table)
             },
           },
           "Project Management": {
@@ -272,21 +181,13 @@ export const NAV_CONFIG: TNavConfig = {
           "Loaders": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_wPbyR6z3mwBs",
-=======
-              pageElementReference: "loaders",
->>>>>>> 447cd38 (nav updates and recollection table)
             },
           },
           "Attributes": {
             access: PAGE_ACCESS.ROLE_REQUIRED,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_YbMdsOMnwRRc",
-=======
-              pageElementReference: "attributes",
->>>>>>> 447cd38 (nav updates and recollection table)
             },
           },
         },
@@ -303,14 +204,7 @@ export const NAV_CONFIG: TNavConfig = {
         ],
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Tools": {
       access: PAGE_ACCESS.AUTHENTICATED,
       pages: {
@@ -327,14 +221,7 @@ export const NAV_CONFIG: TNavConfig = {
         ]
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
-=======
-
->>>>>>> 4cdf1da (spacing)
     "Public": {
       access: PAGE_ACCESS.PUBLIC,
       pages: {
@@ -342,11 +229,7 @@ export const NAV_CONFIG: TNavConfig = {
           "Public Species": {
             access: PAGE_ACCESS.PUBLIC,
             path: {
-<<<<<<< HEAD
               pageElementReference: "b_abxAtD6Adf0c",
-=======
-              pageElementReference: "public-species",
->>>>>>> 447cd38 (nav updates and recollection table)
               route: "/public/species",
             }
           },
@@ -374,11 +257,8 @@ export const NAV_CONFIG: TNavConfig = {
     "Public",
   ],
 };
-<<<<<<< HEAD
 
 // Pages have been converted to board components for the following:
 // Home, Species, Specimen, ToLIDs, Sample Sets, Manifests, Samples,
 // Extractions, Requests, Runs, Curations, Genome Notes, Recollection,
 // Samples Stuck, Loaders and Attributes.
-=======
->>>>>>> 447cd38 (nav updates and recollection table)
