@@ -31,14 +31,13 @@ import {
   ManifestValidation,
 } from "./pages";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
-import { NAV_CONFIG } from "./config";
 import reportWebVitals from "./reportWebVitals";
 import {
   SmartApp,
   TPageElements,
   TsDataSource,
   env,
-  createBaseValidationModule,
+  createValidationModule,
   ValidationModuleProvider,
 } from "@tol/tol-ui";
 import Logo from "./assets/logo.png";
@@ -93,7 +92,7 @@ export const PAGE_ELEMENTS: TPageElements = {
 };
 
 // Gather available base policies and actions
-const baseModule = createBaseValidationModule();
+const baseModule = createValidationModule();
 
 const root = createRoot(document.getElementById("root")!);
 root.render(
