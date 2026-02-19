@@ -4,15 +4,56 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { FileValidationHome } from "@tol/tol-ui";
+import {
+  FileValidationHome,
+  FILE_VALIDATION_STATUS,
+  createValidationModule,
+  setValidationStatusAction
+} from "@tol/tol-ui";
 
 // Create the validation config object that will be passed as a prop to the component
 const VALIDATION_CONFIG = {
-  s3_bucket: "lw23-scratch", // TODO: change to correct bucket depending on pipeline_id
-  pipeline_id: 1, // TODO: Allow users to select pipeline to run
+  s3_bucket: "lw23-scratch", // TODO: change back
+  pipeline_id: 1,
   destination: "portal",
-  project: "portal",
 };
+
+// Create app specific status constants
+export const PORTAL_FILE_VALIDATION_STATUS = {
+  SENT_TO_STS: "sent_to_sts",
+} as const;
+
+// Create the app specific status types
+export type TPortalFileValidationStatus =
+  (typeof PORTAL_FILE_VALIDATION_STATUS)[keyof typeof PORTAL_FILE_VALIDATION_STATUS];
+
+// Create app specific policies and actions using new statuses and types
+export const portalValidationModule =
+  createValidationModule<TPortalFileValidationStatus>({
+    policies: {
+      [PORTAL_FILE_VALIDATION_STATUS.SENT_TO_STS]: {
+        status: PORTAL_FILE_VALIDATION_STATUS.SENT_TO_STS,
+        rename: "Sent to STS",
+        summary: "This manifest has now been sent to STS.",
+        textColor: "var(--tol-info)",
+        isFailureStatus: false,
+        allowedActions: ["viewReport", "downloadReport"],
+      },
+    },
+    actions: {
+      sendToSts: {
+        ...setValidationStatusAction(
+          { id: "sendToSts", label: "Send to STS" },
+          "sent_to_sts",
+        ),
+        isAvailable: ({ user }) => user?.roles.includes("admin") ?? false,
+      },
+    },
+    // Pass existing policies any new actions that can be used with that status
+    extendAllowedActions: {
+      [FILE_VALIDATION_STATUS.MARKED_AS_READY]: ["sendToSts"],
+    },
+  });
 
 function ManifestValidation() {
   // Introductory SOP paragraph widget
@@ -32,10 +73,6 @@ function ManifestValidation() {
       </p>
     </div>
   );
-
-  // TODO: Decide what to do with the modals...
-  // TODO: Capture the upload ID when a manifest is selected
-  // TODO: Double todo: make modals handle multiple upload IDs in case of multiple selection, or prevent multiple selection when modals are required (which is boring).
 
   return (
     <FileValidationHome

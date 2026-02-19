@@ -30,6 +30,7 @@ import {
   Attributes,
   ManifestValidation,
 } from "./pages";
+import {portalValidationModule} from "./pages/ManifestValidation"
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
 import reportWebVitals from "./reportWebVitals";
 import {
@@ -37,7 +38,6 @@ import {
   TPageElements,
   TsDataSource,
   env,
-  createValidationModule,
   ValidationModuleProvider,
 } from "@tol/tol-ui";
 import Logo from "./assets/logo.png";
@@ -91,15 +91,12 @@ export const PAGE_ELEMENTS: TPageElements = {
   "core-lab-data": <CoreLabData />,
 };
 
-// Gather available base policies and actions
-const baseModule = createValidationModule();
-
 const root = createRoot(document.getElementById("root")!);
 root.render(
   // Use a provider for validation statuses and policies.
   // It needs to be here, because /file-validation/results/<id>
   // is a separate route inside of <SmartApp />
-  <ValidationModuleProvider module={baseModule}>
+  <ValidationModuleProvider module={portalValidationModule}>
     <SmartApp
       id="tol_portal"
       brand={<img src={Logo} alt="ToL Portal Logo" style={{ height: 35 }} />}
