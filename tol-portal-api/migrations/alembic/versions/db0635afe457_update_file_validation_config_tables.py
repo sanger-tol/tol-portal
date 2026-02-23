@@ -32,14 +32,15 @@ def upgrade() -> None:
         sa.Column(
             'validation_status',
             sa.String(),
-            nullable=False,
-            default='in_progress'
+            nullable=True,
+            default='in_progress',
+            server_default='in_progress'
         )
     )
 
     op.add_column(
         'upload',
-        sa.Column('hidden', sa.Boolean(), default=False, nullable=False)
+        sa.Column('hidden', sa.Boolean(), default=False, nullable=True)
     )
 
     op.add_column(
@@ -52,12 +53,13 @@ def upgrade() -> None:
         SET config = jsonb_set(
             jsonb_set(
                 config,
-                '{config_details,regexes,"SANGER INSTITUTE",0,regex}',
+                '{config_details,regexes,SANGER INSTITUTE,0,regex}',
                 '"(^SAN\\\\d{8}$)|(^ERGA_[A-Z]{2}_[A-Z]{2}\\\\d{3}$)"'
             ),
-            '{config_details,regexes,"SANGER INSTITUTE",0,detail}',
+            '{config_details,regexes,SANGER INSTITUTE,0,detail}',
             '"SPECIMEN_ID must start with SAN followed by 8 digits or ERGA format: ERGA_XX_XX000"'
         )
+        WHERE id = 13
     """)
 
 
