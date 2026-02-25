@@ -38,7 +38,7 @@ export const portalValidationModule =
         status: PORTAL_FILE_VALIDATION_STATUS.SENT_TO_STS,
         rename: "Sent to STS",
         summary: "This manifest has now been sent to STS.",
-        textColor: "var(--tol-info)",
+        textColor: "var(--tol-royal)",
         isFailureStatus: false,
         allowedActions: ["viewReport", "downloadReport", "downloadFile"],
       },
