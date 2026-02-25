@@ -43,11 +43,11 @@ export const portalValidationModule =
       },
       [FILE_VALIDATION_STATUS.TIMEOUT]: {
         summary:
-          "The validation status has timed out, if this persists, please contact: treeoflifesamples@sanger.ac.uk for further assistance.",
+          "The validation status has timed out, if this persists, please contact: 'treeoflifesamples@sanger.ac.uk' for further assistance.",
       },
       [FILE_VALIDATION_STATUS.SYSTEM_ERROR]: {
         summary:
-          "The validation status has timed out, if this persists, please contact: treeoflifesamples@sanger.ac.uk for further assistance.",
+          "The validation status has timed out, if this persists, please contact: 'treeoflifesamples@sanger.ac.uk' for further assistance.",
       },
     },
     // New Actions
