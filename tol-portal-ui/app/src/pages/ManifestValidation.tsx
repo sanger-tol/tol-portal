@@ -13,8 +13,7 @@ import {
 
 // Create the validation config object that will be passed as a prop to the component
 const VALIDATION_CONFIG = {
-  s3_bucket: "lw23-scratch",
-  // s3_bucket: "tol-sample-manifests",
+  s3_bucket: "tol-sample-manifests",
   pipeline_id: 1,
   destination: "portal",
 };
