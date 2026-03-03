@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile.dev
     image: tol-portal-api
     environment:
+      - REDIS_HOST
+      - REDIS_PORT 
       - ELASTIC_URI
       - ELASTIC_USER
       - ELASTIC_PASSWORD
@@ -49,6 +51,8 @@ services:
       - './tol-portal-api/app/main:/app/main'
       - '../tol-sdk:/packages/tol-sdk:rw'
     restart: always
+    depends_on:
+      - tol-portal-redis
 
   tol-portal-ui:
     build:
@@ -100,6 +104,24 @@ services:
     volumes:
       - ./tol-portal-api/migrations/alembic/versions:/migrations/alembic/versions
 
+  tol-portal-redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: >
+      redis-server
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
   tol-portal-python-db:
     image: elasticsearch:7.17.10
     environment:
@@ -127,3 +149,6 @@ services:
     environment:
       - PLAYWRIGHT_URL=https://host.docker.internal:3010
       - DOCKER_COMPOSE=1
+
+volumes:
+  redis_data:
