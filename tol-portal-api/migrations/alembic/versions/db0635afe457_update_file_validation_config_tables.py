@@ -62,6 +62,38 @@ def upgrade() -> None:
         WHERE id = 13
     """)
 
+    op.execute("""
+        INSERT INTO pipeline (id, name)
+        VALUES (2, 'unused')
+    """)
+    
+    op.execute("""
+        SELECT setval(pg_get_serial_sequence('pipeline', 'id'), (SELECT MAX(id) FROM pipeline))
+    """)
+
+    op.execute("""
+        UPDATE pipeline_steps
+        SET pipeline_id = (SELECT id FROM pipeline WHERE name = 'unused')
+        WHERE id IN (8, 24)
+    """)
+
+    op.execute("""
+        UPDATE pipeline_steps
+        SET config = jsonb_set(
+            config,
+            '{config_details,regexes}',
+            (config->'config_details'->'regexes') || '[
+                {
+                    "key": "TIME_OF_COLLECTION",
+                    "regex": "^([0-1][0-9]|2[0-4]):[0-5]\\\\d$|^$",
+                    "is_error": true,
+                    "detail": "Only HH:MM format is accepted."
+                }
+            ]'::jsonb
+        )
+        WHERE step_name = 'Pattern Matching'
+    """)
+
 
 def downgrade() -> None:
     pass
