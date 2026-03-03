@@ -55,6 +55,12 @@ function TUMSteps() {
             "calc_coverage_met",
             "calc_topup_required",
             "calc_tolid_actionable",
+            "calc_ongoing_submissions",
+            "sts_sample_sts_target_coverage_max",
+            "calc_coverage",
+            "informatics_gscope_coverage",
+            "informatics_status",
+            "informatics_status_summary",
             "mlwh_sequencing_request_mlwh_volume_remaining_max",
             "calc_extraction_container_calc_benchling_volume_ul_dna_max",
             "benchling_tissue_prep_benchling_weight_mg_max",
@@ -106,7 +112,7 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-
+      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -126,10 +132,13 @@ function TUMSteps() {
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_species.sts_sample_sts_priority_min",
             "benchling_tolid.sts_sample_sts_project_union",
+            "benchling_tolid.calc_ongoing_submissions",
+            "benchling_tolid.sts_sample_sts_target_coverage_max",
+            "benchling_tolid.informatics_status",
+            "benchling_tolid.informatics_status_summary",
             "mlwh_volume_remaining",
             "benchling_species.goat_ploidy",
             "tolqc_run_data_tolqc_bases_pacbio_sum",
-            "benchling_tolid.informatics_status_summary",
             "id",
             "mlwh_source_barcode",
             "mlwh_run_data_mlwh_pac_bio_library_tube_name_union",
@@ -177,6 +186,7 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -195,12 +205,15 @@ function TUMSteps() {
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_species.sts_sample_sts_priority_min",
             "benchling_tolid.sts_sample_sts_project_union",
+            "benchling_tolid.calc_ongoing_submissions",
+            "benchling_tolid.sts_sample_sts_target_coverage_max",
+            "benchling_tolid.informatics_status",
+            "benchling_tolid.informatics_status_summary",
             "calc_benchling_volume_ul",
             "benchling_nanodrop_concentration_ngul",
             "benchling_yield_ng",
             "benchling_extraction_qc_result",
             "benchling_femto_description",
-            "benchling_tolid.informatics_status_summary",
             "benchling_extraction.benchling_extraction_name",
             "benchling_tube_type",
             "benchling_volume_ul",
@@ -254,6 +267,7 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -274,6 +288,9 @@ function TUMSteps() {
             "benchling_tube_location",
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_species.goat_genome_size",
+            "benchling_tolid.calc_ongoing_submissions",
+            "benchling_tolid.sts_sample_sts_target_coverage_max",
+            "benchling_tolid.informatics_status",
             "benchling_tolid.informatics_status_summary",
             "benchling_tolid.calc_coverage",
             "benchling_sampleprep_date",
@@ -325,6 +342,7 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -345,6 +363,9 @@ function TUMSteps() {
             "sts_labwhere_parentage",
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_species.goat_genome_size",
+            "benchling_tolid.calc_ongoing_submissions",
+            "benchling_tolid.sts_sample_sts_target_coverage_max",
+            "benchling_tolid.informatics_status",
             "benchling_tolid.informatics_status_summary",
             "benchling_tolid.calc_coverage",
             "benchling_species.goat_ploidy",
@@ -396,6 +417,7 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -416,6 +438,9 @@ function TUMSteps() {
             "sts_labwhere_parentage",
             "sts_tolid.informatics_gscope_coverage",
             "sts_species.goat_genome_size",
+            "sts_tolid.calc_ongoing_submissions",
+            "sts_tolid.sts_sample_sts_target_coverage_max",
+            "sts_tolid.informatics_status",
             "sts_tolid.informatics_status_summary",
             "sts_tolid.calc_coverage",
             "sts_organism_part",
