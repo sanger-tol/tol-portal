@@ -112,7 +112,6 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -186,7 +185,6 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -267,7 +265,6 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -342,7 +339,6 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
@@ -417,7 +413,6 @@ function TUMSteps() {
       "calc_ongoing_submissions": "benchling_tolid.calc_ongoing_submissions",
       "informatics_status_summary": "benchling_tolid.informatics_status_summary",
       "calc_coverage_met": "benchling_tolid.calc_coverage_met",
-      "informatics_status": "benchling_tolid.informatics_status",
     }
   })
 
