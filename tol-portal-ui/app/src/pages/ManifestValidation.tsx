@@ -73,7 +73,7 @@ function ManifestValidation() {
       <p>
         Please review the{" "}
         <a
-          href="https://docs.google.com/document/d/1k8JFta9uJ4DIRCWqe6RtmZWBSOrxciIRSGaFovWavxo"
+          href="https://tinyurl.com/treeoflifesamplesubmission"
           target="_blank"
           rel="noopener noreferrer"
         >
