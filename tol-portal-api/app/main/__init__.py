@@ -69,7 +69,8 @@ def application() -> Flask:
     # network resource which can block calls to the API (unless user opts in manually)
     @app.after_request
     def add_pna_header(response):
-        response.headers['Access-Control-Allow-Private-Network'] = 'true'
+        if request.method == "OPTIONS":
+            response.headers['Access-Control-Allow-Private-Network'] = 'true'
         
         return response
 
