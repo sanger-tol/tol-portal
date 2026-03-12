@@ -6,7 +6,7 @@
 
 import os
 
-from flask import Flask
+from flask import Flask, request
 
 from flask_cors import CORS
 
@@ -60,9 +60,19 @@ def __get_pipeline_step_models(
 
 
 def application() -> Flask:
+    #TODO: Need to restrict CORS to just TOLP managed sites
     app = Flask(__name__)
     CORS(app, resources={r'/api/*': {'origins': '*'}})
     app.config['CORS_HEADERS'] = 'Content-Type'
+    
+    # This is needed as Chrome treats requests to Portal as requests to a private
+    # network resource which can block calls to the API (unless user opts in manually)
+    @app.after_request
+    def add_pna_header(response):
+        if request.method == "OPTIONS":
+            response.headers['Access-Control-Allow-Private-Network'] = 'true'
+        
+        return response
 
     standard_models, _board_user_mixin = __get_standard_models(Base)
     action_models = create_action_models(Base)
