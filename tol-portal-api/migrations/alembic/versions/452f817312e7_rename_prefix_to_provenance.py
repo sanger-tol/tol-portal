@@ -1,7 +1,7 @@
 """Rename prefix to provenance
 
 Revision ID: 452f817312e7
-Revises: f0cf5e525b9e
+Revises: b2541bcce14d
 Create Date: 2026-03-16 10:10:26.640983
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '452f817312e7'
-down_revision = 'f0cf5e525b9e'
+down_revision = 'b2541bcce14d'
 branch_labels = None
 depends_on = None
 
