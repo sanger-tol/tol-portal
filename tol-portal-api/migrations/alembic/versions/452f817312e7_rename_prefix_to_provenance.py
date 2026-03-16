@@ -17,8 +17,8 @@ depends_on = None
 
 
 def upgrade() -> None:
-    pass
+    op.alter_column('loader', 'prefix', new_column_name='provenance')
 
 
 def downgrade() -> None:
-    pass
+    op.alter_column('loader', 'provenance', new_column_name='prefix')
