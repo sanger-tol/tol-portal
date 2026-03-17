@@ -4,36 +4,76 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useHistory } from "react-router-dom";
 import {
-  FileValidation,
-  Tabs,
-  RemoteTable,
-  Widgets,
-  useZone,
-  TsDataSource,
-  downloadFileFromS3,
-  Button,
-  truncateString,
-  splitS3FilenameString,
+  FileValidationHome,
+  FILE_VALIDATION_STATUS,
+  createValidationModule,
+  setValidationStatusAction,
 } from "@tol/tol-ui";
 
+// Create the validation config object that will be passed as a prop to the component
 const VALIDATION_CONFIG = {
-  s3_bucket: "tol-sample-manifests", // TODO: change to correct bucket depending on pipeline_id
-  pipeline_id: 1, // TODO: Allow users to select pipeline to run
+  s3_bucket: "tol-sample-manifests",
+  pipeline_id: 1,
   destination: "portal",
 };
 
-function ManifestValidation() {
-  const history = useHistory();
+// Create app specific status constants
+export const PORTAL_FILE_VALIDATION_STATUS = {
+  SENT_TO_STS: "sent_to_sts",
+} as const;
 
+// Create the app specific status types
+export type TPortalFileValidationStatus =
+  (typeof PORTAL_FILE_VALIDATION_STATUS)[keyof typeof PORTAL_FILE_VALIDATION_STATUS];
+
+// Create app specific policies and actions using new statuses and types
+// And override any attributes to be more specific to this particular app
+export const portalValidationModule =
+  createValidationModule<TPortalFileValidationStatus>({
+    // New Policies
+    policies: {
+      [PORTAL_FILE_VALIDATION_STATUS.SENT_TO_STS]: {
+        status: PORTAL_FILE_VALIDATION_STATUS.SENT_TO_STS,
+        rename: "Sent to STS",
+        summary: "This manifest has now been sent to STS.",
+        textColor: "var(--tol-royal)",
+        isFailureStatus: false,
+        allowedActions: ["viewReport", "downloadReport", "downloadFile"],
+      },
+      [FILE_VALIDATION_STATUS.TIMEOUT]: {
+        summary:
+          "The validation status has timed out, if this persists, please contact: 'treeoflifesamples@sanger.ac.uk' for further assistance.",
+      },
+      [FILE_VALIDATION_STATUS.SYSTEM_ERROR]: {
+        summary:
+          "The validation status has timed out, if this persists, please contact: 'treeoflifesamples@sanger.ac.uk' for further assistance.",
+      },
+    },
+    // New Actions
+    actions: {
+      sentToSts: {
+        ...setValidationStatusAction(
+          { id: "sentToSts", label: "Item(s) Sent to STS" },
+          "sent_to_sts",
+        ),
+        isAvailable: ({ user }) => user?.roles.includes("admin") ?? false,
+      },
+    },
+    // Pass existing policies any new actions that can be used with that status
+    extendAllowedActions: {
+      [FILE_VALIDATION_STATUS.MARKED_AS_READY]: ["sentToSts"],
+    },
+  });
+
+function ManifestValidation() {
   // Introductory SOP paragraph widget
   const SOPIntro = (
     <div>
       <p>
         Please review the{" "}
         <a
-          href="https://example.com/sop"
+          href="https://tinyurl.com/treeoflifesamplesubmission"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -45,154 +85,19 @@ function ManifestValidation() {
     </div>
   );
 
-  const uploads = useZone({
-    objectType: "upload",
-    dataSource: new TsDataSource({
-      apiPath: "/api/v1/local",
-    }),
-    components: [
-      {
-        id: "uploads-table",
-      },
-    ],
-  });
-
-  const ManifestDownloadButton = ({ downloadName }) => {
-    return (
-      <Button
-        icon={"download"}
-        text={truncateString(splitS3FilenameString(downloadName), 25)}
-        onClick={() =>
-          downloadFileFromS3(
-            new TsDataSource({
-              apiPath: "/api/v1",
-            }),
-            VALIDATION_CONFIG.s3_bucket,
-            downloadName
-          )
-        }
-      />
-    );
-  };
-
-  const ViewResultsButton = ({ dataObject }) => {
-    const id = dataObject?.id;
-
-    const handleViewResults = () => {
-      history.push(`/file-validation/results/${id}`);
-    };
-
-    return <Button text="View" onClick={handleViewResults} />;
-  };
-
-  const UploadTable = (
-    <RemoteTable
-      id="uploads-table"
-      height={500}
-      noConfigModal
-      cellRenderers={{
-        download_button: ManifestDownloadButton,
-        view_results: ViewResultsButton,
-      }}
-      fields={{
-        data: {
-          id: { rename: "Manifest ID", width: 130 },
-          "user.id": {
-            rename: "User ID",
-            width: 130,
-            cellRenderer: "none",
-          },
-          s3_filename: {
-            rename: "File Download",
-            cellRenderer: {
-              type: "download_button",
-              props: { downloadName: "${s3_filename}" },
-            },
-            width: 250,
-          },
-          "pipeline.id": {
-            rename: "Pipeline ID",
-            width: 130,
-            cellRenderer: "none",
-          },
-          destination: { rename: "Destination", width: 180 },
-          date_started: {
-            rename: "Upload Date",
-            cellRenderer: { type: "datetime" },
-            width: 180,
-          },
-          completed: {
-            rename: "Validation Complete",
-            cellRenderer: { type: "boolean" },
-            width: 200,
-          },
-          failure_message: { rename: "Failure Reason", width: 180 },
-          flow_run_id: {
-            rename: "Flow Run ID",
-          },
-          view_results: {
-            rename: "View Results",
-            custom: true,
-            width: 150,
-            cellRenderer: {
-              type: "view_results",
-            },
-          },
-          is_ready: {
-            rename: "Is Ready",
-            width: 130,
-          },
+  return (
+    <FileValidationHome
+      validationConfig={VALIDATION_CONFIG}
+      intro={SOPIntro}
+      additionalTableConfig={{
+        cellRenderers: {},
+        fields: {
+          rejection_reason: { rename: "Reason for Rejection", width: 200 },
         },
-        order: {
-          active: [
-            "id",
-            "s3_filename",
-            "user.id",
-            "pipeline.id",
-            "destination",
-            "date_started",
-            "completed",
-            "is_ready",
-            "flow_run_id",
-            "failure_message",
-            "view_results",
-          ],
-        },
+        order: ["rejection_reason"],
       }}
-      {...uploads}
     />
   );
-
-  const TabItems = (
-    <Tabs defaultActiveKey="1">
-      <Tabs.Tab eventKey="1" title="Manifest Validation">
-        <Widgets
-          components={[
-            { component: SOPIntro, type: "full" },
-            {
-              component: (
-                <FileValidation
-                  validationConfig={VALIDATION_CONFIG}
-                  pageTitle="Manifest Validation Portal"
-                />
-              ),
-              type: "full",
-            },
-          ]}
-        />
-      </Tabs.Tab>
-      <Tabs.Tab eventKey="2" title="Uploaded Manifests">
-        <Widgets
-          components={[
-            { component: <h2>Uploaded Manifests</h2>, type: "full" },
-            { component: UploadTable, type: "full" },
-          ]}
-        />
-      </Tabs.Tab>
-    </Tabs>
-  );
-
-  return <>{TabItems}</>;
 }
 
 export default ManifestValidation;
