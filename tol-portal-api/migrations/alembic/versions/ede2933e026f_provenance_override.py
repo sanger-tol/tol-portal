@@ -17,10 +17,14 @@ depends_on = None
 
 
 def upgrade() -> None:
-    op.rename_column('loader', 'provenance', 'provenance_override')
-    op.rename_column('data_source_config_summary', 'provenance', 'provenance_override')
+    op.alter_column(
+        'loader', 'provenance', new_column_name='provenance_override'
+    )
+    op.alter_column(
+        'data_source_config_summary', 'prefix', new_column_name='provenance_override'
+    )
 
 
 def downgrade() -> None:
-    op.rename_column('loader', 'provenance_override', 'provenance')
-    op.rename_column('data_source_config_summary', 'provenance_override', 'provenance')
+    op.alter_column('loader', 'provenance_override', new_column_name='provenance')
+    op.alter_column('data_source_config_summary', 'provenance_override', new_column_name='prefix')
