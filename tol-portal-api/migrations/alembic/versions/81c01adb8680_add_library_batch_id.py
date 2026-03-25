@@ -24,7 +24,7 @@ def upgrade() -> None:
     result = session.execute(
         sa.text(
             "INSERT INTO data_source_instance (id, builtin_name, kwargs, publish, data_source_config_id) "
-            "VALUES ('library_batch_ids', 'library_batch_ids', '{}', false, (SELECT id FROM data_source_config WHERE name = 'tol')) "
+            "VALUES ('library_batch_ids', 'library_batch_ids', '{}', false, null) "
             "RETURNING id"
         )
     )
@@ -32,7 +32,7 @@ def upgrade() -> None:
 
     result = session.execute(
         sa.text(
-            "INSERT INTO loader (source_object_type, destination_object_type, object_filters, convert_class, provenance) "
+            "INSERT INTO loader (source_object_type, destination_object_type, object_filters, convert_class, provenance_override) "
             "VALUES ('sequencing_request', 'sequencing_request', '{}', null, 'benchling') "
             "RETURNING id"
         )
