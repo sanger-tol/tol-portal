@@ -198,6 +198,8 @@ function TUMSteps() {
         order: {
           active: [
             "benchling_tolid.id",
+            "benchling_fluidx_id",
+            "benchling_extraction.benchling_extraction_name",
             "benchling_species.goat_genome_size",
             "benchling_tolid.calc_coverage",
             "benchling_tolid.informatics_gscope_coverage",
@@ -205,6 +207,7 @@ function TUMSteps() {
             "benchling_tolid.sts_sample_sts_project_union",
             "benchling_tolid.calc_ongoing_submissions",
             "benchling_tolid.sts_sample_sts_target_coverage_max",
+            "benchling_extraction.benchling_extraction_protocol",
             "benchling_tolid.informatics_status",
             "benchling_tolid.informatics_status_summary",
             "calc_benchling_volume_ul",
@@ -212,10 +215,8 @@ function TUMSteps() {
             "benchling_yield_ng",
             "benchling_extraction_qc_result",
             "benchling_femto_description",
-            "benchling_extraction.benchling_extraction_name",
             "benchling_tube_type",
             "benchling_volume_ul",
-            "benchling_fluidx_id",
             "benchling_extraction.benchling_extraction_type",
             "benchling_species.goat_ploidy",
             "benchling_qubit_concentration_ngul",
