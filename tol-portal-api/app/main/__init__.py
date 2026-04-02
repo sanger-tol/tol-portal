@@ -88,7 +88,7 @@ def application() -> Flask:
         ),
         {}
     )
-    
+
     role_mixin = type(
         '',
         (action_models._role_mixin,),
@@ -146,7 +146,7 @@ def application() -> Flask:
     # The system endpoints
     blueprint_system = system_blueprint()
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
-    
+
     # Define Prefect datasource here
     pds = prefect(insecure=True)
 
