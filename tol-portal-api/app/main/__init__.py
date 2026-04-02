@@ -89,12 +89,19 @@ def application() -> Flask:
         {}
     )
 
+    role_mixin = type(
+        '',
+        (action_models._role_mixin,),
+        {}
+    )
+
     # auth
     auth_bp = db_auth_blueprint(
         Base,
         os.environ['DB_URI'],
         url_prefix=os.environ['API_PATH'] + '/auth',
-        user_mixin_class=user_mixin
+        user_mixin_class=user_mixin,
+        role_mixin_class=role_mixin
     )
     app.register_blueprint(auth_bp)
     auth_bp.register_authenticator(app)
@@ -105,6 +112,7 @@ def application() -> Flask:
         *action_models,
         *standard_models,
         auth_bp.models.user_class,
+        auth_bp.models.role_class,
         *pipeline_models,
     ]
 
@@ -139,11 +147,16 @@ def application() -> Flask:
     blueprint_system = system_blueprint()
     app.register_blueprint(blueprint_system, url_prefix=os.getenv('API_PATH') + '/system')
 
+    # Define Prefect datasource here
+    pds = prefect(insecure=True)
+
     # Endpoints targeting our local database
     core_data_object(sql_ds)
     blueprint_data_local = data_blueprint(
         sql_ds,
         auth_inspector=get_local_auth_inspector(),
+        flow_ds=pds,
+        action_ds=sql_ds
     )
     app.register_blueprint(
         blueprint_data_local,
@@ -163,7 +176,6 @@ def application() -> Flask:
                            url_prefix=os.getenv('API_PATH') + '/status')
 
     # actions
-    pds = prefect(insecure=True)
     actions_bp = action_blueprint(
         sql_ds,
         pds,
