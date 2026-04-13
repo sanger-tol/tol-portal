@@ -23,11 +23,9 @@ def upgrade() -> None:
         'board_diff',
         sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
         sa.Column('user_id', sa.Integer(), nullable=False),
-        sa.Column('board_id', sa.String(), nullable=False),
         sa.Column('component_id', sa.String(), nullable=False),
         sa.Column('config', JSONB(), nullable=False),
-        
-        sa.ForeignKeyConstraint(['board_id'], ['board.id']),
+
         sa.ForeignKeyConstraint(['user_id'], ['user.id']),
         sa.ForeignKeyConstraint(['component_id'], ['component.id']),
         sa.PrimaryKeyConstraint('id')
