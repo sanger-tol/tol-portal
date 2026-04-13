@@ -21,6 +21,30 @@ function Species() {
     }
   }
 
+  const submittedSpecies = useZone({
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
+    components: [
+      {
+        id: 'species-submitted-count',
+        filter: {
+          and_: {
+            "goat_domain_name": {
+              'eq': {'value': 'Eukaryota'}
+            },
+            "grit_curation_grit_done_date_min": {
+              exists: {}
+            },
+            "tolqc_run_data_count": {
+              'gt': {'value': 0}
+            }
+          }
+        },
+        filterPassThrough: false
+      }
+    ]
+  });
+
   const species = useZone({
     objectType: 'species',
     dataSource: ELASTIC_DS,
@@ -41,17 +65,6 @@ function Species() {
           and_: {
             "benchling_extraction_count": {
               'gt': {'value': 0}
-            }
-          }
-        },
-        filterPassThrough: true
-      },
-      {
-        id: 'species-submitted-count',
-        filter: {
-          and_: {
-            "informatics_tolid_informatics_status_summary_min": {
-              'eq': {'value': '1 submitted'}
             }
           }
         },
@@ -114,7 +127,7 @@ function Species() {
           text: 'Species Submitted',
         }
       }}
-      {...species}
+      {...submittedSpecies}
     />
   );
 
