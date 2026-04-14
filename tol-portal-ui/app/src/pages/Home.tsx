@@ -58,11 +58,10 @@ function Home() {
     dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
-      { id: 'home-project-filter' },
-      { id: 'home-species-sunburst' },
-      { id: 'home-species-table' },
+      { id: 'home-project-filter', filterPassThrough: true },
       {
         id: 'home-species-count',
+        filterPassThrough: true,
         filter: {
           and_: {
             goat_domain_name: { eq: { value: "Eukaryota" } },
@@ -73,6 +72,7 @@ function Home() {
       },
       {
         id: 'home-species-collected-count',
+        filterPassThrough: true,
         filter: {
           and_: {
             goat_domain_name: { eq: { value: "Eukaryota" } },
@@ -80,7 +80,9 @@ function Home() {
             sts_sample_sts_col_date_min: { exists: {} }
           }
         }
-      }
+      },
+      { id: 'home-species-sunburst', filterPassThrough: true },
+      { id: 'home-species-table', filterPassThrough: true },
     ]
   });
 
@@ -89,8 +91,8 @@ function Home() {
     objectType: 'run_data',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'home-run-bar-chart' },
-      { id: 'home-run-data-count' },
+      { id: 'home-run-bar-chart', filterPassThrough: true },
+      { id: 'home-run-data-count', filterPassThrough: true },
     ]
   });
 
@@ -99,7 +101,7 @@ function Home() {
     objectType: 'sample',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'home-sample-bar-chart' },
+      { id: 'home-sample-bar-chart', filterPassThrough: true },
     ]
   });
 
@@ -108,7 +110,7 @@ function Home() {
     objectType: 'extraction',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'home-extractions-count' },
+      { id: 'home-extractions-count', filterPassThrough: true },
     ]
   });
 
@@ -117,21 +119,18 @@ function Home() {
     source: homeSpeciesZone,
     target: homeRunDataZone,
     translations: { 'sts_sample_sts_project_union': 'mlwh_tolid.sts_sample_sts_project_union' },
-    excludeAfterId: 'home-project-filter',
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeSampleZone,
     translations: { 'sts_sample_sts_project_union': 'sts_project' },
-    excludeAfterId: 'home-project-filter',
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeExtractionZone,
     translations: { 'sts_sample_sts_project_union': 'benchling_tolid.sts_sample_sts_project_union' },
-    excludeAfterId: 'home-project-filter',
   });
 
   const projectFilter = (
