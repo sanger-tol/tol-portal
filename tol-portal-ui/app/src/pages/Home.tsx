@@ -12,7 +12,9 @@ import {
   Row,
   Col,
   RemoteStatistics,
-  useZone
+  useZone,
+  Filter,
+  useTranslator
 } from '@tol/tol-ui';
 import { ELASTIC_DS } from '..';
 
@@ -50,11 +52,104 @@ const intro = (
 );
 
 function Home() {
+  // Species zone — drives the project filter widget and all species components
+  const homeSpeciesZone = useZone({
+    objectType: 'species',
+    dataSource: ELASTIC_DS,
+    filter: defaultFilter,
+    components: [
+      { id: 'home-project-filter' },
+      {
+        id: 'home-species-count',
+        filterPassThrough: true,
+        filter: {
+          and_: {
+            goat_domain_name: { eq: { value: "Eukaryota" } },
+            grit_curation_grit_done_date_min: { exists: {} },
+            tolqc_run_data_count: { gt: { value: 0 } }
+          }
+        }
+      },
+      {
+        id: 'home-species-collected-count',
+        filterPassThrough: true,
+        filter: {
+          and_: {
+            goat_domain_name: { eq: { value: "Eukaryota" } },
+            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+            sts_sample_sts_col_date_min: { exists: {} }
+          }
+        }
+      },
+      { id: 'home-species-sunburst', filterPassThrough: true },
+      { id: 'home-species-table', filterPassThrough: true },
+    ]
+  });
+
+  // Run data zone — receives translated project filter from species zone
+  const homeRunDataZone = useZone({
+    objectType: 'run_data',
+    dataSource: ELASTIC_DS,
+    components: [
+      { id: 'home-run-bar-chart', filterPassThrough: true },
+      { id: 'home-run-data-count', filterPassThrough: true },
+    ]
+  });
+
+  // Sample zone — receives translated project filter from species zone
+  const homeSampleZone = useZone({
+    objectType: 'sample',
+    dataSource: ELASTIC_DS,
+    components: [
+      { id: 'home-sample-bar-chart', filterPassThrough: true },
+    ]
+  });
+
+  // Extraction zone — receives translated project filter from species zone
+  const homeExtractionZone = useZone({
+    objectType: 'extraction',
+    dataSource: ELASTIC_DS,
+    components: [
+      { id: 'home-extractions-count', filterPassThrough: true },
+    ]
+  });
+
+  // Propagate the project filter selection to each non-species zone
+  useTranslator({
+    source: homeSpeciesZone,
+    target: homeRunDataZone,
+    translations: { 'sts_sample_sts_project_union': 'mlwh_tolid.sts_sample_sts_project_union' },
+  });
+
+  useTranslator({
+    source: homeSpeciesZone,
+    target: homeSampleZone,
+    translations: { 'sts_sample_sts_project_union': 'sts_project' },
+  });
+
+  useTranslator({
+    source: homeSpeciesZone,
+    target: homeExtractionZone,
+    translations: { 'sts_sample_sts_project_union': 'benchling_tolid.sts_sample_sts_project_union' },
+  });
+
+  const projectFilter = (
+    <Row className="home-filters">
+      <Col>
+        <Filter
+          attribute='sts_sample_sts_project_union'
+          rename="All Projects"
+          type='multi'
+          componentId="home-project-filter"
+          {...homeSpeciesZone}
+        />
+      </Col>
+    </Row>
+  );
+
   const runChart = (
     <RemoteBarChart
       id="home-run-bar-chart"
-      objectType="run_data"
-      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
@@ -64,14 +159,13 @@ function Home() {
       breakDownBy="mlwh_instrument_model"
       xAxis="mlwh_run_complete"
       type='M'
+      {...homeRunDataZone}
     />
   );
 
   const sampleChart = (
     <RemoteBarChart
       id="home-sample-bar-chart"
-      objectType="sample"
-      dataSource={ELASTIC_DS}
       stacked
       utilityBarConfig={{
         title: {
@@ -81,14 +175,13 @@ function Home() {
       breakDownBy="sts_ac_status"
       xAxis="benchling_date_sample_received_at_sanger"
       type='M'
+      {...homeSampleZone}
     />
   );
 
   const speciesSunburst = (
     <RemoteSunburst
       id="home-species-sunburst"
-      objectType="species"
-      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           text: 'Species',
@@ -96,14 +189,10 @@ function Home() {
       }}
       sliceBy={["sts_order_group", "sts_family"]}
       legendPosition="left"
+      {...homeSpeciesZone}
     />
   );
 
-  const defaultFilter = {
-    and_: {
-      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
-    }
-  }
   const speciesTable = (
     <RemoteTable
       id="home-species-table"
@@ -120,12 +209,7 @@ function Home() {
           ],
         },
       }}
-      {...useZone({
-        objectType: 'species',
-        dataSource: ELASTIC_DS,
-        filter: defaultFilter,
-        components: [{ id: 'home-species-table' }]
-      })}
+      {...homeSpeciesZone}
     />
   );
 
@@ -149,20 +233,7 @@ function Home() {
         },
         description: SubmittedDescription
       }}
-      {...useZone({
-        objectType: 'species',
-        dataSource: ELASTIC_DS,
-        components: [{
-          id: 'home-species-count',
-          filter: {
-            and_: {
-              goat_domain_name: { eq: { value: "Eukaryota" } },
-              grit_curation_grit_done_date_min: { exists: {} },
-              tolqc_run_data_count: { gt: { value: 0 } }
-            }
-          }
-        }]
-      })}
+      {...homeSpeciesZone}
     />
   );
 
@@ -186,52 +257,41 @@ function Home() {
         },
         description: CollectedDescription
       }}
-      {...useZone({
-        objectType: 'species',
-        dataSource: ELASTIC_DS,
-        components: [{
-          id: 'home-species-collected-count',
-          filter: {
-            and_: {
-              goat_domain_name: { eq: { value: "Eukaryota" } },
-              sts_sample_sts_programme_union: { eq: { value: "ToL" } },
-              sts_sample_sts_col_date_min: { exists: {} }
-            }
-          }
-        }]
-      })}
+      {...homeSpeciesZone}
     />
   );
 
   const extractionsCount = (
     <RemoteStatistics
       id="home-extractions-count"
-      objectType='extraction'
-      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           text: 'Extractions',
         }
       }}
+      {...homeExtractionZone}
     />
   );
 
   const runDataCount = (
     <RemoteStatistics
       id="home-run-data-count"
-      objectType='run_data'
-      dataSource={ELASTIC_DS}
       utilityBarConfig={{
         title: {
           text: 'Runs',
         }
       }}
+      {...homeRunDataZone}
     />
   );
 
   const components = [
     {
       component: intro,
+      type: 'full'
+    },
+    {
+      component: projectFilter,
       type: 'full'
     },
     {
