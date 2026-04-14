@@ -58,7 +58,7 @@ function Home() {
     dataSource: ELASTIC_DS,
     filter: defaultFilter,
     components: [
-      { id: 'home-project-filter', filterPassThrough: true },
+      { id: 'home-project-filter' },
       {
         id: 'home-species-count',
         filterPassThrough: true,
