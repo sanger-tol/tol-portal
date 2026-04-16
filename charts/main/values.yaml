@@ -100,11 +100,6 @@ tolcore:
     name: ""
     host: ""
     port: "" # specify as a string
-  schemaspy:
-    enabled: true
-    image:
-      repository: ""
-      tag: ""
   elastic:
     uri: ""
     user: ""
