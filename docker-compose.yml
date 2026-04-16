@@ -74,7 +74,7 @@ services:
       - '../components/components-ui/app/src/tol-ui:/usr/src/app/src/tol-ui'
 
   tol-portal-dbutils:
-    image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.0.6
+    image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.0.10
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
