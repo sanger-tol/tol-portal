@@ -56,7 +56,6 @@ function Home() {
   const homeSpeciesZone = useZone({
     objectType: 'species',
     dataSource: ELASTIC_DS,
-    filter: defaultFilter,
     components: [
       { id: 'home-project-filter' },
       {
@@ -81,8 +80,22 @@ function Home() {
           }
         }
       },
-      { id: 'home-species-sunburst', filterPassThrough: true },
-      { id: 'home-species-table', filterPassThrough: true },
+      { id: 'home-species-sunburst', 
+        filterPassThrough: true,
+        filter: {
+          and_: {
+            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+          }
+        }
+      },
+      { id: 'home-species-table', 
+        filterPassThrough: true,
+        filter: {
+          and_: {
+            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+          }
+        }
+      },
     ]
   });
 
