@@ -123,9 +123,21 @@ function TUMSteps() {
       displaySource
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
+        data: {
+          "benchling_species.id": {
+            cellRenderer: {
+              type: "link",
+              props: {
+                url: "https://links.tol.sanger.ac.uk/species/${id}",
+                text: "TOLQC"
+              }
+            }
+          },
+        },
         order: {
           active: [
             "benchling_tolid.id",
+            "benchling_species.id",
             "benchling_species.goat_genome_size",
             "benchling_tolid.calc_coverage",
             "benchling_tolid.informatics_gscope_coverage",
