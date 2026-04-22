@@ -12,3 +12,4 @@ SPDX-License-Identifier: MIT
 
 - Added CHANGELOG.md
 - Updated TUM Library Remaining Table with a link to TOLQC Species Page
+- Changed filter on TUM individual exhausted page

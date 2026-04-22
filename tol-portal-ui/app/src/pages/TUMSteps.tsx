@@ -545,7 +545,7 @@ function TUMSteps() {
             // (a ToLID is started if it has had a sample exported to Benchling)
             'sts_species.calc_individual_exhausted_tolid_count': {
               'gt': { 'value': 0 },
-              'eq': { 'field': 'benchling_tolid_count' }
+              'eq': { 'field': 'sts_species.benchling_tolid_count' }
             }
           }
         }
