@@ -40,8 +40,8 @@ function TUMSteps() {
             cellRenderer: {
               type: "link",
               props: {
-                url: "/species/${tolid_species.id}",
-                text: "${tolid_species.goat_scientific_name}"
+                url: "/species/${id}",
+                text: "${goat_scientific_name}"
               }
             }
           },
