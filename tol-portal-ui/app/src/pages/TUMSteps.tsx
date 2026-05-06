@@ -137,6 +137,7 @@ function TUMSteps() {
         order: {
           active: [
             "benchling_tolid.id",
+            "benchling_library_batch_id",
             "benchling_species.id",
             "benchling_species.goat_genome_size",
             "benchling_tolid.calc_coverage",
