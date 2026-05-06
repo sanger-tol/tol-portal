@@ -53,6 +53,48 @@ def get_prefect_auth_inspector(
     return auth_inspector
 
 
+def get_boards_auth_inspector(
+    ctx_getter: CtxGetter = default_ctx_getter
+) -> AuthInspector:
+    """
+    Returns a `AuthInspector` `Callable` that
+    required authentication on board queries
+    """
+    
+    WRITE_METHODS = (  # noqa N806
+        OperatorMethod.DELETE,
+        OperatorMethod.INSERT,
+        OperatorMethod.UPDATE,
+        OperatorMethod.UPSERT
+    )
+    BOARD_OBJECT_TYPES = ('board', 'component', 'zone', 'view',
+                              'component_zone', 'zone_view', 'view_board')
+
+    def auth_inspector(
+        object_type: str,
+        method: OperatorMethod,
+        *args,
+        **kwargs
+    ) -> None:
+
+        if object_type not in BOARD_OBJECT_TYPES:
+            return
+        if method not in WRITE_METHODS:
+            return
+        
+        ctx = ctx_getter()
+        
+        if not ctx.authenticated:
+            raise ForbiddenError()
+        
+        if 'admin' in ctx.roles:
+            return
+        
+        return {'user.id': {'eq': {'value': ctx.user_id}}}
+
+    return auth_inspector
+
+
 def get_local_auth_inspector(
     ctx_getter: CtxGetter = default_ctx_getter
 ) -> AuthInspector:
