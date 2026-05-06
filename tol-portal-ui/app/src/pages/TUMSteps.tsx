@@ -124,9 +124,6 @@ function TUMSteps() {
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
         data: {
-          "benchling_library_batch_id": {
-            rename: "Library Batch ID"
-          },
           "benchling_species.id": {
             cellRenderer: {
               type: "link",
