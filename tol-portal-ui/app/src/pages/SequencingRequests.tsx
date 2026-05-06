@@ -65,9 +65,10 @@ function SequencingRequests() {
           "mlwh_species.sts_scientific_name": {
             rename: "Species",
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${mlwh_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },

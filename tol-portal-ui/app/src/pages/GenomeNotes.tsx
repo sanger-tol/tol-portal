@@ -61,9 +61,10 @@ function GenomeNotes() {
           "gn_species.goat_scientific_name": {
             rename: "Species",
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${gn_species.id}",
+                url: "/species/${id}",
+                text: "${goat_scientific_name}"
               }
             }
           },

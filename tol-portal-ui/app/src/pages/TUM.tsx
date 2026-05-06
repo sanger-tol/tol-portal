@@ -42,18 +42,20 @@ function TUM() {
           "benchling_species.sts_scientific_name": {
             rename: "Benchling Species",
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${benchling_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },
           "mlwh_species.sts_scientific_name": {
             rename: "MLWH Species",
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${mlwh_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },
@@ -133,23 +135,18 @@ function TUM() {
             "mlwh_species.sts_scientific_name",
             "benchling_completion_date",
             "portaldb_date_sent_to_sciops",
-            "tolqc_run_data_tolqc_bases_sum",
-            "benchling_tolid.tolqc_run_data_tolqc_bases_sum",
-            "mlwh_tolid.tolqc_run_data_tolqc_bases_sum",
-            "mlwh_species.tolqc_run_data_tolqc_bases_sum",
+            "tolqc_run_data_tolqc_bases_pacbio_sum",
+            "benchling_tolid.tolqc_run_data_tolqc_bases_pacbio_sum",
+            "mlwh_tolid.tolqc_run_data_tolqc_bases_pacbio_sum",
+            "mlwh_species.tolqc_run_data_tolqc_bases_pacbio_sum",
             "mlwh_species.sts_genome_size",
             "benchling_tolid.informatics_status",
             "benchling_tolid.informatics_gscope_coverage",
             "benchling_library_type",
-            "lrpacbio_library_remaining",
-            "lrpacbio_portion_of_cell",
-            "lrpacbio_cell_status",
-            "lrpacbio_library_remaining_oplc",
-            "lrpacbio_estimated_max_oplc",
             "benchling_sample.sts_project",
             "benchling_sample.sts_priority",
             "benchling_species.sts_taxon_group",
-            "benchling_species.calc_coverage",
+            "benchling_tolid.calc_coverage",
             "benchling_specimen.sts_estimated_genome_size",
             "benchling_specimen.calc_coverage_post_run",
             "mlwh_specimen.sts_estimated_genome_size",

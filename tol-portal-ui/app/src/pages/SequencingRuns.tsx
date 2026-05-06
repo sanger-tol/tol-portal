@@ -51,11 +51,12 @@ function SequencingRuns() {
       }}
       fields={{
         data: {
-          "tolqc_species.sts_scientific_name": {
+          "tolqc_species.goat_scientific_name": {
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${tolqc_species.id}",
+                url: "/species/${id}",
+                text: "${goat_scientific_name}"
               }
             }
           },

@@ -51,9 +51,10 @@ function Extractions() {
           },
           "benchling_species.sts_scientific_name": {
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${benchling_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },

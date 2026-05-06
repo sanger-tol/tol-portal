@@ -53,9 +53,10 @@ function Samples() {
           },
           "sts_species.sts_scientific_name": {
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${sts_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },

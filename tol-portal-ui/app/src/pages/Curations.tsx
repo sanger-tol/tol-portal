@@ -54,9 +54,10 @@ function Curations() {
           },
           "grit_species.sts_scientific_name": {
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${grit_species.id}",
+                url: "/species/${id}",
+                text: "${goat_scientific_name}"
               }
             }
           },
