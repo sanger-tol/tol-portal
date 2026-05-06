@@ -124,7 +124,7 @@ function TUMSteps() {
       defaultSortByAttribute="benchling_tolid.id"
       fields={{
         data: {
-          "library_batch_id": {
+          "library_batch_ids": {
             rename: "Library Batch ID"
           },
           "benchling_species.id": {
@@ -140,7 +140,7 @@ function TUMSteps() {
         order: {
           active: [
             "benchling_tolid.id",
-            "library_batch_id",
+            "library_batch_ids",
             "benchling_species.id",
             "benchling_species.goat_genome_size",
             "benchling_tolid.calc_coverage",
