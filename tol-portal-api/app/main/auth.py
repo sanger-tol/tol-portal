@@ -87,7 +87,7 @@ def get_boards_auth_inspector(
         if not ctx.authenticated:
             raise ForbiddenError()
         
-        if 'admin' in ctx.roles:
+        if 'warden' in ctx.roles:
             return
         
         return {'user.id': {'eq': {'value': ctx.user_id}}}
