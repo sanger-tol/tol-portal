@@ -39,6 +39,9 @@ function CuratedSpecies() {
 
   const fields = {
     data: {
+      sts_sample_sts_priority_status: {
+        filter: "multi",
+      },
       informatics_tolid_informatics_status_summary_min: {
         filter: "multi",
       },
@@ -55,6 +58,7 @@ function CuratedSpecies() {
         "sts_family",
         "sts_genus",
         "sts_scientific_name",
+        "sts_sample_sts_priority_status",
         "sts_prefix",
         "tolid_tolid_count",
         "informatics_tolid_informatics_status_summary_min",
