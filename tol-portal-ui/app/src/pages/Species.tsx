@@ -165,7 +165,6 @@ function Species() {
         order: {
           active: [
             "sts_scientific_name",
-            "sts_sample_sts_priority_status",
             "calc_done_date",
             "sts_sample_count",
             "sts_sample_sts_accept_date_min",
