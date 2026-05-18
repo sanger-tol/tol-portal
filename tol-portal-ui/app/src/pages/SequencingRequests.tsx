@@ -44,7 +44,7 @@ function SequencingRequests() {
     <RemoteTable
       id="sequencing-request-table"
       displaySource
-      defaultSortByAttribute="mlwh_species.sts_scientific_name"
+      defaultSortByAttribute="benchling_species.goat_scientific_name"
       cellRenderer={{
         "platform": Platform,
       }}
@@ -62,13 +62,13 @@ function SequencingRequests() {
               }
             }
           },
-          "mlwh_species.sts_scientific_name": {
+          "benchling_species.goat_scientific_name": {
             rename: "Species",
             cellRenderer: {
               type: "link",
               props: {
                 url: "/species/${id}",
-                text: "${sts_scientific_name}"
+                text: "${goat_scientific_name}"
               }
             }
           },
@@ -89,7 +89,7 @@ function SequencingRequests() {
           active: [
             "id",
             "benchling_sequencing_platform",
-            "mlwh_species.sts_scientific_name",
+            "benchling_species.goat_scientific_name",
             "benchling_tolid.id",
             "benchling_source",
             "benchling_completion_date",

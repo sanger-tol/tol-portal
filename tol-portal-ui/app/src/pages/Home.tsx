@@ -64,8 +64,7 @@ function Home() {
         filter: {
           and_: {
             goat_domain_name: { eq: { value: "Eukaryota" } },
-            grit_curation_grit_done_date_min: { exists: {} },
-            tolqc_run_data_count: { gt: { value: 0 } }
+            grit_curation_grit_done_date_min: { exists: {} }
           }
         }
       },
@@ -232,7 +231,6 @@ function Home() {
       <ul>
         <li>Domain is Eukaryota</li>
         <li>Species has a curation marked as "Done"</li>
-        <li>Species has been through the ToLQC process</li>
       </ul>
     </>
   )

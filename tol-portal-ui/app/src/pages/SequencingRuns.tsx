@@ -86,7 +86,7 @@ function SequencingRuns() {
         order: {
           active: [
             "tolqc_run",
-            "tolqc_species.sts_scientific_name",
+            "tolqc_species.goat_scientific_name",
             "tolqc_tolid.id",
             "tolqc_sequencing_request.id",
             "tolqc_run_complete",

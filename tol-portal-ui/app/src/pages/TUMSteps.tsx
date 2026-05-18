@@ -156,6 +156,8 @@ function TUMSteps() {
             "mlwh_run_data_mlwh_pac_bio_library_tube_name_union",
             'tolqc_run_data_pacbio_count',
             "benchling_extraction.benchling_extraction_type",
+            "benchling_plate_name",
+            "benchling_completion_date"
           ],
         },
       }}
@@ -292,7 +294,7 @@ function TUMSteps() {
         order: {
           active: [
             "benchling_tolid.id",
-            "benchling_eln_tissue_prep_name",
+            "benchling_tissue_prep_name",
             "benchling_tolid.sts_sample_sts_project_union",
             "benchling_tissue_prep_fluidx_id",
             "benchling_weight_mg",

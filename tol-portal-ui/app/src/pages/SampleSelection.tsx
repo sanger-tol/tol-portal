@@ -50,7 +50,7 @@ function SampleSelection() {
             "sts_sample_sts_project_union",
             "sts_sample_sts_priority_min",
             "tolid_prefix",
-            "sts_scientific_name",
+            "goat_scientific_name",
             "sts_sample_sts_banked_sample_category_union",
             "goat_family_name",
             "sts_sample_sts_receive_date_min"

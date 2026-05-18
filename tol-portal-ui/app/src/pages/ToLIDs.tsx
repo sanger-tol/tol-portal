@@ -32,9 +32,10 @@ function ToLIDs() {
           },
           "tolid_species.sts_scientific_name": {
             cellRenderer: {
-              type: "relationship",
+              type: "link",
               props: {
-                relationshipId: "${tolid_species.id}",
+                url: "/species/${id}",
+                text: "${sts_scientific_name}"
               }
             }
           },

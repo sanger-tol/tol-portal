@@ -63,8 +63,7 @@ class TolApi {
     return await TolApi.fetchCount("species", {
       and_: {
         goat_domain_name: {eq: {value: "Eukaryota"}},
-        grit_curation_grit_done_date_min: { exists: {} },
-        tolqc_run_data_count: { gt: { value: 0 } }
+        grit_curation_grit_done_date_min: { exists: {} }
       }
     });
   }
