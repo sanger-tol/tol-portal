@@ -87,6 +87,7 @@ function SampleSelection() {
       "tolid_prefix": "sts_species.tolid_prefix",
       "sts_scientific_name": "sts_species.sts_scientific_name",
       "goat_family_name": "sts_species.goat_family_name",
+      "calc_is_novel": "sts_species.calc_is_novel",
     }
   })
 
