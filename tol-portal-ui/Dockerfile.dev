@@ -7,6 +7,8 @@ FROM gitlab-registry.internal.sanger.ac.uk/tol/tol-core/web-base-dev:1.0.6
 
 COPY ./app/package.json ./
 
+ENV TMPDIR=/usr/src/app/.tmp
+ENV YARN_CACHE_FOLDER=/usr/src/app/.yarn-cache
 RUN yarn install --dev
 
 COPY ./app/ ./

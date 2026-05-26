@@ -1,7 +1,7 @@
-"""create new board_diffs table
+"""create new entity_diffs table
 
 Revision ID: b4559bcbcef0
-Revises: 4428f2cf7741
+Revises: c11cc136cba3
 Create Date: 2026-04-13 07:44:31.468831
 
 """
@@ -13,14 +13,14 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 # revision identifiers, used by Alembic.
 revision = 'b4559bcbcef0'
-down_revision = '4428f2cf7741'
+down_revision = 'c11cc136cba3'
 branch_labels = None
 depends_on = None
 
 
 def upgrade() -> None:
     op.create_table(
-        'board_diff',
+        'entity_diff',
         sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
         sa.Column('user_id', sa.Integer(), nullable=False),
         sa.Column('component_id', sa.String(), nullable=False),
@@ -33,4 +33,4 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_table('board_diff')
+    op.drop_table('entity_diff')
