@@ -65,6 +65,7 @@ function TUMSteps() {
             "benchling_sample_count",
             "sts_sample_count",
             "calc_individual_exhausted",
+            "calc_sample_abandoned_in_sts_sample_count",
             "calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max",
             "calc_tissue_prep_calc_benchling_weight_mg_max",
             "calc_sample_calc_benchling_remaining_weight_max",
