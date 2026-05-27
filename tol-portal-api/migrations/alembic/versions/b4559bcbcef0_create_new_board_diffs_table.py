@@ -31,6 +31,31 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint('id')
     )
 
+    # Set all view titles to 'View 1'
+    view_table = sa.table('view', sa.column('title', sa.String()))
+    op.execute(view_table.update().values(title='View 1'))
+
+    # Replace non-deferred unique constraints with deferred ones
+    for table, columns, old_name in [
+        ('component_zone', ['zone_id', 'order'], 'component_zone_zone_id_order_key'),
+        ('zone_view',      ['view_id', 'order'], 'zone_view_view_id_order_key'),
+        ('view_board',     ['board_id', 'order'], 'view_board_board_id_order_key'),
+    ]:
+        op.drop_constraint(old_name, table, type_='unique')
+        op.create_unique_constraint(
+            old_name, table, columns,
+            deferrable=True, initially='DEFERRED'
+        )
+
 
 def downgrade() -> None:
+    # Revert deferred constraints back to non-deferred
+    for table, columns, name in [
+        ('component_zone', ['zone_id', 'order'], 'component_zone_zone_id_order_key'),
+        ('zone_view',      ['view_id', 'order'], 'zone_view_view_id_order_key'),
+        ('view_board',     ['board_id', 'order'], 'view_board_board_id_order_key'),
+    ]:
+        op.drop_constraint(name, table, type_='unique')
+        op.create_unique_constraint(name, table, columns)
+
     op.drop_table('entity_diff')
