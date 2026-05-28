@@ -34,9 +34,9 @@ from tol.status import StatusDataSource
 
 from .auth import (
     get_auth_inspector,
+    get_boards_auth_inspector,
     get_local_auth_inspector,
-    get_prefect_auth_inspector,
-    get_boards_auth_inspector
+    get_prefect_auth_inspector
 )
 from .model import (
     Base,
