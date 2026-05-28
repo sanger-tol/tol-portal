@@ -60,15 +60,14 @@ def get_boards_auth_inspector(
     Returns a `AuthInspector` `Callable` that
     required authentication on board queries
     """
-    
-    WRITE_METHODS = (  # noqa N806
+    write_methods = (  # noqa N806
         OperatorMethod.DELETE,
         OperatorMethod.INSERT,
         OperatorMethod.UPDATE,
         OperatorMethod.UPSERT
     )
-    BOARD_OBJECT_TYPES = ('board', 'component', 'zone', 'view',
-                              'component_zone', 'zone_view', 'view_board')
+    board_object_types = ('board', 'component', 'zone', 'view',
+                          'component_zone', 'zone_view', 'view_board')
 
     def auth_inspector(
         object_type: str,
@@ -77,19 +76,19 @@ def get_boards_auth_inspector(
         **kwargs
     ) -> None:
 
-        if object_type not in BOARD_OBJECT_TYPES:
+        if object_type not in board_object_types:
             return
-        if method not in WRITE_METHODS:
+        if method not in write_methods:
             return
-        
+
         ctx = ctx_getter()
-        
+
         if not ctx.authenticated:
             raise ForbiddenError()
-        
+
         if 'warden' in ctx.roles:
             return
-        
+
         return {'user.id': {'eq': {'value': ctx.user_id}}}
 
     return auth_inspector
