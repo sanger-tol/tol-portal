@@ -178,7 +178,7 @@ function TUMSteps() {
         filter: {
           and_: {
             'calc_benchling_volume_ul': { 'gt': { 'value': 0.0 } },
-            'benchling_extraction.benchling_extraction_type': { 'in_list': { 'value': ['dna'] } },
+            'benchling_extraction.benchling_extraction_type': { 'in_list': { 'value': ['dna', 'lres'] } },
             'benchling_tolid.calc_sequencing_request_calc_mlwh_volume_remaining_pacbio_max': { 'lte': { 'value': 0.0 } },
             'benchling_tolid.calc_topup_required': { 'eq': { 'value': true } },
             'benchling_tolid.calc_tolid_actionable': { 'eq': { 'value': true } },
