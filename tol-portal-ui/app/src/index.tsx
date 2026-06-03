@@ -9,6 +9,7 @@ import {
   Home,
   Species,
   SpeciesDetail,
+  PublicSpeciesDetail,
   Specimens,
   ToLIDs,
   Samples,
@@ -38,6 +39,7 @@ import {
   TPageElements,
   TsDataSource,
   env,
+  PAGE_ACCESS,
   ValidationModuleProvider,
 } from "@tol/tol-ui";
 import Logo from "./assets/logo.png";
@@ -88,7 +90,21 @@ export const PAGE_ELEMENTS: TPageElements = {
 
   // Public
   "public-species": <CuratedSpecies />,
+  "public-species-detail": <PublicSpeciesDetail />,
   "core-lab-data": <CoreLabData />,
+};
+
+const LOCAL_NAVIGATION = {
+  data: {
+    "Public Species Detail": {
+      access: PAGE_ACCESS.PUBLIC,
+      path: {
+        pageElementReference: "public-species-detail",
+        route: "/public-species/:id",
+      },
+    },
+  },
+  order: [],
 };
 
 const root = createRoot(document.getElementById("root")!);
@@ -101,6 +117,7 @@ root.render(
       id="tol_portal"
       brand={<img src={Logo} alt="ToL Portal Logo" style={{ height: 35 }} />}
       pageElements={PAGE_ELEMENTS}
+      navigation={LOCAL_NAVIGATION}
       configurableBoards
     />
   </ValidationModuleProvider>,
