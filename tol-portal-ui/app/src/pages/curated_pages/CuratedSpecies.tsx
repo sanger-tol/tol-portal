@@ -39,6 +39,15 @@ function CuratedSpecies() {
 
   const fields = {
     data: {
+      sts_scientific_name: {
+        cellRenderer: {
+          type: "link",
+          props: {
+            url: "/public-species/${id}",
+            text: "${sts_scientific_name}",
+          },
+        },
+      },
       sts_sample_sts_priority_status: {
         filter: "multi",
       },
