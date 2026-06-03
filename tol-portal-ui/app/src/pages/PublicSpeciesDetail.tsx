@@ -85,6 +85,7 @@ function PublicSpeciesDetail() {
           },
           order: {
             active: [
+              "sts_project",
               "sts_tolid.id",
               "sts_specimen.id",
               "sts_gal_name",
@@ -95,6 +96,13 @@ function PublicSpeciesDetail() {
             ],
             inactive: [
               "sts_project",
+              "sts_tolid.id",
+              "sts_specimen.id",
+              "sts_gal_name",
+              "sts_sex",
+              "sts_organism_part",
+              "sts_biosample_accession",
+              "sts_biospecimen_accession",
             ],
           },
         }}
@@ -137,21 +145,21 @@ function PublicSpeciesDetail() {
               description:
                 "The type of genetic material extracted from the source sample.",
             },
-            "benchling_completion_date": {
-              rename: "Extraction date",
-            },
             "benchling_sample.sts_lifestage": {
               rename: "Lifestage",
             },
           },
           order: {
             active: [
-              "benchling_extraction_type",
+              "benchling_sample.sts_project",
               "benchling_tolid.id",
-              "benchling_completion_date",
+              "benchling_extraction_type",
+              "benchling_sample.sts_lifestage",
             ],
             inactive: [
               "benchling_sample.sts_project",
+              "benchling_tolid.id",
+              "benchling_extraction_type",
               "benchling_sample.sts_lifestage",
             ],
           },
@@ -190,20 +198,11 @@ function PublicSpeciesDetail() {
             "benchling_sample.sts_project": {
               rename: "Project",
             },
+            "tolqc_tolid.id": {
+              rename: "ToLID",
+            },
             "benchling_sample.sts_specimen.id": {
               rename: "Specimen ID",
-            },
-            "benchling_sample.sts_gal_name": {
-              rename: "GAL/Partner name",
-            },
-            "benchling_sample.sts_sex": {
-              rename: "Sex",
-            },
-            "benchling_sample.sts_organism_part": {
-              rename: "Organism Part",
-            },
-            "benchling_sample.sts_biospecimen_accession": {
-              rename: "Biospecimen ID (part-organisms only)",
             },
             "tolqc_reporting_category": {
               cellRenderer: {
@@ -215,8 +214,20 @@ function PublicSpeciesDetail() {
               description:
                 "The assembly data type being reported on for this sample, such as the sequencing platform or method (e.g. PacBio, HiC).",
             },
-            "mlwh_tolid.id": {
-              rename: "ToLID",
+            "benchling_sample.sts_gal_name": {
+              rename: "GAL/Partner name",
+            },
+            "benchling_sample.sts_sex": {
+              rename: "Sex",
+            },
+            "benchling_sample.sts_organism_part": {
+              rename: "Organism Part",
+            },
+            "mlwh_biosample_accession": {
+              rename: "Biosample ID",
+            },
+            "mlwh_biospecimen_accession": {
+              rename: "Biospecimen ID",
             },
             "tolqc_bases": {
               description:
@@ -225,24 +236,28 @@ function PublicSpeciesDetail() {
           },
           order: {
             active: [
+              "benchling_sample.sts_project",
+              "tolqc_tolid.id",
+              "benchling_sample.sts_specimen.id",
               "tolqc_reporting_category",
-              "mlwh_pipeline_id_lims",
-              "mlwh_tolid.id",
-              "mlwh_run_complete",
-              "mlwh_lims_run_id",
-              "mlwh_run_id",
-              "mlwh_element",
-              "mlwh_tag_index",
+              "benchling_sample.sts_gal_name",
+              "benchling_sample.sts_sex",
+              "benchling_sample.sts_organism_part",
               "mlwh_biosample_accession",
+              "mlwh_biospecimen_accession",
               "tolqc_bases",
             ],
             inactive: [
               "benchling_sample.sts_project",
+              "tolqc_tolid.id",
               "benchling_sample.sts_specimen.id",
+              "tolqc_reporting_category",
               "benchling_sample.sts_gal_name",
               "benchling_sample.sts_sex",
               "benchling_sample.sts_organism_part",
-              "benchling_sample.sts_biospecimen_accession",
+              "mlwh_biosample_accession",
+              "mlwh_biospecimen_accession",
+              "tolqc_bases",
             ],
           },
         }}
@@ -270,27 +285,41 @@ function PublicSpeciesDetail() {
       <p className="mb-3">Curations for this species.</p>
       <RemoteTable
         id="public-curation-table-detail"
-        defaultSortByAttribute="grit_created"
         height={500}
         fields={{
           data: {
             "grit_issue_type": {
               rename: "Project",
+              description: "The project that this sample belongs to",
             },
             "grit_tolid.id": {
               rename: "ToLID",
             },
-            "TOLP-9703": {
+            "grit_priority": {
               rename: "Priority",
             },
             "grit_species_name": {
               rename: "Species Name",
             },
+            "grit_created": {
+              rename: "Created",
+            },
+            "grit_done_date": {
+              rename: "Curation Date",
+            },
             "grit_expected_karyotype": {
               rename: "Expected Karyotype",
+              description: "The expected number of chromosomes to be present for this sample",
             },
             "grit_contamination": {
               rename: "Contamination",
+              description: "This field contains the contamination report generated by FCS-GX for the assembly. It includes the total length and number of scaffolds removed, the largest scaffold removed, and a breakdown of identified contaminant species or sequences (e.g. plastid, mitochondrion, insect species) with their scaffold counts and total lengths.",
+            },
+            "grit_telomere_motif":{
+                rename: "HiC Map",
+            },
+            "grit_telomere_motif_k-mer_length": {
+                rename: "K-mer Spectra",
             },
             "grit_higlass_entry": {
               rename: "Analysis",
@@ -298,22 +327,38 @@ function PublicSpeciesDetail() {
             "grit_treeval_data": {
               rename: "Links",
             },
+            "grit_labels": {
+                rename: "Labels",
+            }
           },
           order: {
             active: [
-              "grit_assembly_type",
+              "grit_issue_type",
+              "grit_tolid.id",
+              "grit_priority",
+              "grit_species_name",
               "grit_created",
               "grit_done_date",
+              "grit_expected_karyotype",
+              "grit_contamination",
+              "grit_telomere_motif",
+              "grit_telomere_motif_k-mer_length",
+              "grit_higlass_entry",
+              "grit_treeval_data",
+              "grit_labels",
             ],
             inactive: [
               "grit_issue_type",
               "grit_tolid.id",
-              "TOLP-9703",
+              "grit_priority",
               "grit_species_name",
+              "grit_created",
+              "grit_done_date",
               "grit_expected_karyotype",
               "grit_contamination",
               "grit_higlass_entry",
               "grit_treeval_data",
+              "grit_labels",
             ],
           },
         }}
@@ -345,23 +390,33 @@ function PublicSpeciesDetail() {
         height={500}
         fields={{
           data: {
+            "gap_species.goat_long_list": {
+              rename: "Project",
+            },
             "gap_assembly.id": {
-              rename: "Assembly",
+              rename: "Accession",
             },
-            "gap_results": {
-              rename: "Gap Results",
+            "gap_analysis": {
+              rename: "Analysis",
+              description: "Genome After Party analysis type performed on the sample",
             },
-            "gap_lustre_path_analysis": {
-              rename: "Gap Lustre Path Analysis",
+            "gap_species.goat_scientific_name": {
+              rename: "Species",
             },
           },
           order: {
             active: [
+              "gap_species.goat_long_list",
+              "gap_species.goat_scientific_name",
               "gap_assembly.id",
-              "gap_results",
-              "gap_lustre_path_analysis",
+              "gap_analysis",
             ],
-            inactive: [],
+            inactive: [
+              "gap_species.goat_long_list",
+              "gap_species.goat_scientific_name",
+              "gap_assembly.id",
+              "gap_analysis",
+            ],
           },
         }}
         {...useZone({
@@ -373,57 +428,6 @@ function PublicSpeciesDetail() {
               filter: {
                 and_: {
                   "gap_species.id": { eq: { value: id } },
-                },
-              },
-            },
-          ],
-        })}
-      />
-    </div>
-  );
-
-  const genomeNotesTable = (
-    <div>
-      <h5>Genome Notes</h5>
-      <p className="mb-3">Genome Notes for this species.</p>
-      <RemoteTable
-        id="public-gn-table-detail"
-        height={500}
-        cellRenderer={{
-          doi: DOI,
-        }}
-        fields={{
-          data: {
-            "gn_tolid.id": {
-              rename: "ToLID",
-            },
-            "gn_assembly.id": {
-              rename: "Assembly Accession",
-            },
-            id: {
-              rename: "Note",
-              cellRenderer: {
-                type: "doi",
-                props: {
-                  doi: "${id}",
-                  displayName: "View Genome Note",
-                },
-              },
-            },
-          },
-          order: {
-            active: ["gn_tolid.id", "gn_assembly.id", "gn_date_published", "gn_passed_pr", "id"],
-          },
-        }}
-        {...useZone({
-          objectType: "genome_note",
-          dataSource: ELASTIC_DS,
-          components: [
-            {
-              id: "public-gn-table-detail",
-              filter: {
-                and_: {
-                  "gn_species.id": { eq: { value: id } },
                 },
               },
             },
@@ -522,10 +526,6 @@ function PublicSpeciesDetail() {
               components={[
                 {
                   component: assemblyAnalysisTable,
-                  type: "full",
-                },
-                {
-                  component: genomeNotesTable,
                   type: "full",
                 },
               ]}
