@@ -43,7 +43,7 @@ function CuratedSpecies() {
         cellRenderer: {
           type: "link",
           props: {
-            url: "/public-species/${id}",
+            url: "/public/species/${id}",
             text: "${sts_scientific_name}",
           },
         },

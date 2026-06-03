@@ -100,7 +100,7 @@ const LOCAL_NAVIGATION = {
       access: PAGE_ACCESS.PUBLIC,
       path: {
         pageElementReference: "public-species-detail",
-        route: "/public-species/:id",
+        route: "/public/species/:id",
       },
     },
   },
