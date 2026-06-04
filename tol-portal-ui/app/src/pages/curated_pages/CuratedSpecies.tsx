@@ -39,6 +39,15 @@ function CuratedSpecies() {
 
   const fields = {
     data: {
+      sts_scientific_name: {
+        cellRenderer: {
+          type: "link",
+          props: {
+            url: "/public/species/${id}",
+            text: "${sts_scientific_name}",
+          },
+        },
+      },
       sts_sample_sts_priority_status: {
         filter: "multi",
       },
@@ -54,24 +63,34 @@ function CuratedSpecies() {
     },
     order: {
       active: [
-        "id",
-        "sts_family",
-        "sts_genus",
         "sts_scientific_name",
-        "sts_sample_sts_priority_status",
         "sts_prefix",
-        "tolid_tolid_count",
+        "sts_sample_count",
         "informatics_tolid_informatics_status_summary_min",
-        "sts_sample_sts_gal_name_union",
+        "calc_recollection_needed",
+        "sts_taxon_group",
+        "sts_family",
+        "sts_order_group",
+        "mlwh_run_data_mlwh_run_complete_hic_min",
+        "mlwh_run_data_mlwh_run_complete_pacbio_min",
+        "mlwh_run_data_mlwh_run_complete_rnaseq_min",
+        "sts_sample_sts_priority_status",
       ],
       inactive: [
-        "calc_done_date",
         "sts_sample_count",
+        "informatics_tolid_informatics_status_summary_min",
+        "calc_recollection_needed",
+        "sts_taxon_group",
+        "sts_family",
+        "sts_order_group",
+        "mlwh_run_data_mlwh_run_complete_hic_min",
+        "mlwh_run_data_mlwh_run_complete_pacbio_min",
+        "mlwh_run_data_mlwh_run_complete_rnaseq_min",
+        "sts_sample_sts_priority_status",
+        "calc_done_date",
         "benchling_sequencing_request_benchling_completion_date_hic_min",
         "benchling_sequencing_request_benchling_completion_date_pacbio_min",
         "tolqclegacy_assembly_stage",
-        "sts_taxon_group",
-        "sts_order_group",
         "goat_chromosome_number",
         "goat_ploidy",
         "sts_sample_sts_col_date_max",
