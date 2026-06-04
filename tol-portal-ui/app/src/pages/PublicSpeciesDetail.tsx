@@ -78,9 +78,6 @@ function PublicSpeciesDetail() {
         height={500}
         fields={{
           data: {
-            "sts_project": {
-              rename: "Project",
-            },
             "sts_tolid.id": {
               rename: "ToLID",
             },
@@ -141,12 +138,6 @@ function PublicSpeciesDetail() {
             },
             "benchling_tolid.id": {
               rename: "ToLID",
-            },
-            "benchling_extraction_type": {
-              rename: "Extraction type",
-            },
-            "benchling_sample.sts_lifestage": {
-              rename: "Lifestage",
             },
           },
           order: {
@@ -211,23 +202,6 @@ function PublicSpeciesDetail() {
                 },
               },
             },
-            "benchling_sample.sts_gal_name": {
-              rename: "GAL/Partner name",
-            },
-            "benchling_sample.sts_sex": {
-              rename: "Sex",
-            },
-            "benchling_sample.sts_organism_part": {
-              rename: "Organism Part",
-            },
-            "mlwh_biosample_accession": {
-              rename: "Biosample ID",
-            },
-            "mlwh_biospecimen_accession": {
-              rename: "Biospecimen ID",
-            },
-            "tolqc_bases": {
-            },
           },
           order: {
             active: [
@@ -289,23 +263,6 @@ function PublicSpeciesDetail() {
             "grit_tolid.id": {
               rename: "ToLID",
             },
-            "grit_species_name": {
-              rename: "Species Name",
-            },
-            "grit_species.sts_sample_sts_priority_status": {
-            },
-            "grit_created": {
-              rename: "Created",
-            },
-            "grit_done_date": {
-              rename: "Curation Date",
-            },
-            "grit_expected_karyotype": {
-              rename: "Expected Karyotype",
-            },
-            "grit_contamination": {
-              rename: "Contamination",
-            },
             "grit_higlass_entry": {
               rename: "Analysis",
             },
@@ -317,7 +274,7 @@ function PublicSpeciesDetail() {
               "grit_species.sts_sample_sts_priority_status",
               "grit_species_name",
               "grit_created",
-              "grit_done_date",
+              "grit_curation_date",
               "grit_expected_karyotype",
               "grit_contamination",
               "grit_higlass_entry",
@@ -328,7 +285,7 @@ function PublicSpeciesDetail() {
               "grit_species.sts_sample_sts_priority_status",
               "grit_species_name",
               "grit_created",
-              "grit_done_date",
+              "grit_curation_date",
               "grit_expected_karyotype",
               "grit_contamination",
               "grit_higlass_entry",
@@ -371,9 +328,6 @@ function PublicSpeciesDetail() {
             "gap_assembly.id": {
               rename: "Assembly",
             },
-            "gap_analysis": {
-              rename: "Analysis",
-            },
             "gap_species.goat_scientific_name": {
               rename: "Scientific Name",
             },
@@ -381,17 +335,17 @@ function PublicSpeciesDetail() {
           order: {
             active: [
               "gap_species.goat_long_list",
-              "gap_species.goat_scientific_name",
+              "gap_species.tolid_prefix",
               "gap_assembly.id",
               "gap_analysis",
-              "gap_species.tolid_prefix",
+              "gap_species.goat_scientific_name",
             ],
             inactive: [
               "gap_species.goat_long_list",
               "gap_species.tolid_prefix",
-              "gap_species.goat_scientific_name",
               "gap_assembly.id",
               "gap_analysis",
+              "gap_species.goat_scientific_name",
             ],
           },
         }}
