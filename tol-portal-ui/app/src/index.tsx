@@ -31,7 +31,7 @@ import {
   Attributes,
   ManifestValidation,
 } from "./pages";
-import {portalValidationModule} from "./pages/ManifestValidation"
+import { portalValidationModule } from "./pages/ManifestValidation";
 import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
 import reportWebVitals from "./reportWebVitals";
 import {
@@ -41,6 +41,8 @@ import {
   env,
   PAGE_ACCESS,
   ValidationModuleProvider,
+  URL_PATHS,
+  API_PATHS,
 } from "@tol/tol-ui";
 import Logo from "./assets/logo.png";
 import "./scss/styling.scss";
@@ -48,7 +50,7 @@ import "./scss/styling.scss";
 export const ELASTIC_DS = new TsDataSource(env.TOL_DATA);
 export const LOCAL_DS = new TsDataSource({
   ...env.TOL_DATA,
-  apiDataPath: "/local",
+  apiDataPath: API_PATHS.API_DATA_PATH,
   dataspace: "",
 });
 
@@ -119,6 +121,8 @@ root.render(
       pageElements={PAGE_ELEMENTS}
       navigation={LOCAL_NAVIGATION}
       configurableBoards
+      register
+      customCallbackUrl={URL_PATHS.PROFILE}
     />
   </ValidationModuleProvider>,
 );
