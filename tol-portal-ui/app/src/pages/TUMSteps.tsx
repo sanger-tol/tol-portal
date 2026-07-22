@@ -158,7 +158,9 @@ function TUMSteps() {
             'tolqc_run_data_pacbio_count',
             "benchling_extraction.benchling_extraction_type",
             "benchling_plate_name",
-            "benchling_completion_date"
+            "benchling_completion_date",
+            "tolqc_run_data_tolqc_instrument_model_recent",
+            "mlwh_run_data_mlwh_plex_count_recent"
           ],
         },
       }}
