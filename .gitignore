@@ -21,3 +21,4 @@ chart/charts/
 yalc.lock
 inject.js
 .virtualenv/
+*.tmp
