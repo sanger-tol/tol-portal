@@ -34,6 +34,7 @@ from tol.status import StatusDataSource
 
 from .auth import (
     get_auth_inspector,
+    get_boards_auth_inspector,
     get_local_auth_inspector,
     get_prefect_auth_inspector
 )
@@ -199,7 +200,8 @@ def application() -> Flask:
         name='custom_boards',
         url_prefix=os.environ['API_PATH'] + '/boards'
     )
-    blueprint_board_data = data_blueprint(sql_ds)
+    blueprint_board_data = data_blueprint(sql_ds,
+                                          auth_inspector=get_boards_auth_inspector())
     app.register_blueprint(
         blueprint_board_data,
         name='boards',
