@@ -1,7 +1,7 @@
 """builtin and api
 
 Revision ID: 31bcd610a2b1
-Revises: f1436e01b2cd
+Revises: 5f3a925dad6b
 Create Date: 2026-06-12 16:58:18.408837
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '31bcd610a2b1'
-down_revision = 'f1436e01b2cd'
+down_revision = '5f3a925dad6b'
 branch_labels = None
 depends_on = None
 
@@ -39,6 +39,7 @@ def upgrade() -> None:
         AND publish = true
         """
     )
+
 
 def downgrade() -> None:
     op.alter_column('data_source_instance', 'direct_name', new_column_name='builtin_name')
