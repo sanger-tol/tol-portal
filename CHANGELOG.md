@@ -6,6 +6,12 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10035]("https://jira.sanger.ac.uk/browse/TOLP-10035")
+
+27-07-2026
+
+- Advanced translators and the ability to exclude incoming filters
+
 ## [TOLP-10073]("https://jira.sanger.ac.uk/browse/TOLP-10073")
 
 27-07-2026
