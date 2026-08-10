@@ -93,6 +93,15 @@ def _upgrade_field_list(field_list: list[str]) -> list[str]:
         for field in field_list
     ]
 
+def _upgrade_keys_and_values(dictionary: dict) -> dict:
+    """
+    Upgrades each key AND value in a dictionary
+    """
+    return {
+        _upgrade_field(key): _upgrade_field(value)
+        for key, value in dictionary.items()
+    }
+
 
 def _upgrade_filter(filter_dict: dict) -> dict:
     assert isinstance(filter_dict, dict)
@@ -276,6 +285,7 @@ def upgrade() -> None:
     _perform_upgrade('component', 'filter', _upgrade_filter)
     _perform_upgrade('view', 'filter', _upgrade_filter)
     _perform_upgrade('zone', 'filter', _upgrade_filter)
+    _perform_upgrade('zone', 'translations', _upgrade_keys_and_values)
     _perform_upgrade(
         'entity_diff',
         'config',
