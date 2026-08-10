@@ -53,6 +53,9 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
 
 
 def __upgrade_field_part(part: str) -> str:
+    """
+    Upgrade a single field part to the Provenance format
+    """
     if __is_summarised_attribute(part):
         # Remove the first source prefix at the start
         attr_first_source_removed = __remove_attribute_source_prefix(part)
@@ -84,6 +87,7 @@ def _upgrade_field(attribute: str) -> str:
     Upgrades a single field to the Provenance format.
     This is the core conversion made in this migration.
     """
+    # Call upgrade part for each part (split by ".")
     return ".".join(map(__upgrade_field_part, attribute.split(".")))
 
 
