@@ -41,7 +41,7 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     # NOTE: This also accounts for 'tolid' being both an object type and a source,
     # as if it's an object type it won't be followed by an underscore
     for source_prefix in (
-        'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'gn_', 'goat_',
+        'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'calc_', 'gn_', 'goat_',
         'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_',
     ):
         if after_substr.startswith(source_prefix):
