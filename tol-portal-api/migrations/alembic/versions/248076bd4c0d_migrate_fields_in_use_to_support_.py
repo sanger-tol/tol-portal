@@ -38,7 +38,7 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     after_substr = attribute[starting_at_index:]
 
     if after_substr.startswith('tolid'):
-        # todo tolid is weird
+        # TODO tolid is weird
         return before_substr + after_substr
     else:
         # Remove the source prefix
@@ -52,14 +52,10 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
         return before_substr + after_substr
 
 
-def _upgrade_field(attribute: str) -> str:
-    """
-    Upgrades a single field to the Provenance format.
-    This is the core conversion made in this migration.
-    """
-    if __is_summarised_attribute(attribute):
+def __upgrade_field_part(part: str) -> str:
+    if __is_summarised_attribute(part):
         # Remove the first source prefix at the start
-        attr_first_source_removed = __remove_attribute_source_prefix(attribute)
+        attr_first_source_removed = __remove_attribute_source_prefix(part)
 
         # The second source prefix comes after the object type,
         # so we need to work out where that ends
@@ -80,7 +76,15 @@ def _upgrade_field(attribute: str) -> str:
         )
     else:
         # Just remove the first source prefix
-        return __remove_attribute_source_prefix(attribute)
+        return __remove_attribute_source_prefix(part)
+
+
+def _upgrade_field(attribute: str) -> str:
+    """
+    Upgrades a single field to the Provenance format.
+    This is the core conversion made in this migration.
+    """
+    return ".".join(map(__upgrade_field_part, attribute.split(".")))
 
 
 def _upgrade_field_list(field_list: list[str]) -> list[str]:
