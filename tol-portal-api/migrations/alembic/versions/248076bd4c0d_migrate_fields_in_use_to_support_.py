@@ -23,6 +23,11 @@ branch_labels = None
 depends_on = None
 
 
+FIELD_EXCEPTIONS = {
+    'tolid_prefix': 'tolid_prefix'
+}
+
+
 def __is_summarised_attribute(attribute: str) -> bool:
     return attribute.endswith((
         'min',
@@ -54,7 +59,9 @@ def __upgrade_field_part(part: str) -> str:
     """
     Upgrade a single field part to the Provenance format
     """
-    if __is_summarised_attribute(part):
+    if part in FIELD_EXCEPTIONS:
+        return FIELD_EXCEPTIONS[part]
+    elif __is_summarised_attribute(part):
         # Remove the first source prefix at the start
         attr_first_source_removed = __remove_attribute_source_prefix(part)
 
