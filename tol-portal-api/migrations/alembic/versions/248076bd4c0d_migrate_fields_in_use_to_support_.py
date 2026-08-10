@@ -88,7 +88,7 @@ def _upgrade_field(attribute: str) -> str:
     This is the core conversion made in this migration.
     """
     # Call upgrade part for each part (split by ".")
-    return ".".join(map(__upgrade_field_part, attribute.split(".")))
+    return '.'.join(map(__upgrade_field_part, attribute.split('.')))
 
 
 def _upgrade_field_list(field_list: list[str]) -> list[str]:
@@ -270,8 +270,8 @@ def _perform_upgrade(
     # For each row, perform the upgrade action on the value then save back to the database
     update_statement = (
         sa.update(table)
-        .where(id_column == sa.bindparam("row_id"))
-        .values({column_name: sa.bindparam("new_value")})
+        .where(id_column == sa.bindparam('row_id'))
+        .values({column_name: sa.bindparam('new_value')})
     )
     for row_id, old_value in rows:
         # NULL values can be skipped over
