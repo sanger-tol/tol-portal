@@ -37,19 +37,17 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     before_substr = attribute[:starting_at_index]
     after_substr = attribute[starting_at_index:]
 
-    if after_substr.startswith('tolid'):
-        # TODO tolid is weird
-        return before_substr + after_substr
-    else:
-        # Remove the source prefix
-        for source_prefix in (
-            'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'gn_', 'goat_',
-            'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolqc_',
-        ):
-            if after_substr.startswith(source_prefix):
-                return before_substr + after_substr.removeprefix(source_prefix)
+    # Remove the source prefix.
+    # NOTE: This also accounts for 'tolid' being both an object type and a source,
+    # as if it's an object type it won't be followed by an underscore
+    for source_prefix in (
+        'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'gn_', 'goat_',
+        'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_',
+    ):
+        if after_substr.startswith(source_prefix):
+            return before_substr + after_substr.removeprefix(source_prefix)
 
-        return before_substr + after_substr
+    return before_substr + after_substr
 
 
 def __upgrade_field_part(part: str) -> str:
@@ -87,7 +85,7 @@ def _upgrade_field(attribute: str) -> str:
     Upgrades a single field to the Provenance format.
     This is the core conversion made in this migration.
     """
-    # Call upgrade part for each part (split by ".")
+    # Call upgrade part for each part (split by '.')
     return '.'.join(map(__upgrade_field_part, attribute.split('.')))
 
 
