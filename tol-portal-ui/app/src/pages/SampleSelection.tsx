@@ -31,15 +31,15 @@ function SampleSelection() {
       //noConfigModal
       id="species"
       displaySource
-      defaultSortByAttribute="sts_sample_sts_priority_min"
+      defaultSortByAttribute="sample_priority_min"
       fields={{
         data: {
-          "goat_scientific_name": {
+          "scientific_name": {
             cellRenderer: {
               type: "link",
               props: {
                 url: "/species/${id}",
-                text: "${goat_scientific_name}"
+                text: "${scientific_name}"
               }
             }
           },
@@ -47,13 +47,13 @@ function SampleSelection() {
         order: {
           active: [
             "calc_is_novel",
-            "sts_sample_sts_project_union",
-            "sts_sample_sts_priority_min",
+            "sample_project_union",
+            "sample_priority_min",
             "tolid_prefix",
-            "goat_scientific_name",
-            "sts_sample_sts_banked_sample_category_union",
-            "goat_family_name",
-            "sts_sample_sts_receive_date_min"
+            "scientific_name",
+            "sample_banked_sample_category_union",
+            "family_name",
+            "sample_receive_date_min"
           ],
         },
       }}
@@ -82,12 +82,12 @@ function SampleSelection() {
     source: species,
     target: sample,
     translations: {
-      "id": "sts_species.id",
-      "sts_sample_sts_project_union": "sts_project",
-      "tolid_prefix": "sts_species.tolid_prefix",
-      "sts_scientific_name": "sts_species.sts_scientific_name",
-      "goat_family_name": "sts_species.goat_family_name",
-      "calc_is_novel": "sts_species.calc_is_novel",
+      "id": "species.id",
+      "sample_project_union": "project",
+      "tolid_prefix": "species.tolid_prefix",
+      "scientific_name": "species.scientific_name",
+      "family_name": "species.family_name",
+      "calc_is_novel": "species.calc_is_novel",
     }
   })
 
@@ -105,7 +105,7 @@ function SampleSelection() {
               type: "trafficLightStatus",
               props: {
                 danger: {and_: {
-                  "benchling_eln_tissue_id": {"exists": {}},
+                  "eln_tissue_id": {"exists": {}},
                 }}
               }
             }
@@ -113,23 +113,23 @@ function SampleSelection() {
         },
         order: {
           active: [
-            "sts_project",
-            "sts_priority",
-            "sts_tolid.id",
-            "sts_species.goat_scientific_name",
-            "sts_tubeid",
-            "sts_sampleset.id",
-            "benchling_remaining_weight",
+            "project",
+            "priority",
+            "tolid.id",
+            "species.scientific_name",
+            "tubeid",
+            "sampleset.id",
+            "remaining_weight",
             "calc_sts_export_eligible",
-            "sts_species.goat_family_name",
-            "sts_rackid",
-            "sts_sex",
-            "sts_tissue_size",
-            "sts_organism_part",
-            "sts_receive_date",
+            "species.family_name",
+            "rackid",
+            "sex",
+            "tissue_size",
+            "organism_part",
+            "receive_date",
             // Need date released to lab
-            "sts_banked_sample_category",
-            "sts_other_info",
+            "banked_sample_category",
+            "other_info",
           ],
         },
       }}

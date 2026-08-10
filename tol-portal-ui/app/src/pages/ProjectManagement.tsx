@@ -28,8 +28,8 @@ function ProjectManagement() {
         id: 'project-filters',
         filter: {
           and_: {
-            "sts_sample_sts_programme_union": { eq: { value: "ToL" } },
-            "informatics_tolid_informatics_status_min": { neq: { value: "71_abandoned" } }
+            "sample_programme_union": { eq: { value: "ToL" } },
+            "tolid_status_min": { neq: { value: "71_abandoned" } }
           }
         }
       },
@@ -62,7 +62,7 @@ function ProjectManagement() {
     <Row className="mobile-filters">
       <Col>
         <Filter
-          attribute='sts_sample_sts_project_union'
+          attribute='sample_project_union'
           rename="Project"
           type='multi'
           componentId="project-filters"
@@ -71,7 +71,7 @@ function ProjectManagement() {
       </Col>
       <Col>
         <Filter
-          attribute='sts_order_group'
+          attribute='order_group'
           rename="Order"
           type='multi'
           componentId="project-filters"
@@ -91,8 +91,8 @@ function ProjectManagement() {
       }}
       stacked
       shortDate={true}
-      breakDownBy="sts_sample_sts_project_union"
-      xAxis="grit_curation_grit_done_date_min"
+      breakDownBy="sample_project_union"
+      xAxis="curation_done_date_min"
       type='M'
       cumulative={cumulative} // Pass the cumulative state to RemoteBarChart
       {...projectManagement}
@@ -108,7 +108,7 @@ function ProjectManagement() {
       }}
       id="pm-status-bar-chart"
       stacked
-      breakDownBy="sts_sample_sts_project_union"
+      breakDownBy="sample_project_union"
       xAxis="calc_pm_status"
       type='categorical'
       {...projectManagement}
@@ -121,44 +121,44 @@ function ProjectManagement() {
       defaultSortByAttribute="sts_scientific_name"
       fields={{
         data: {
-          "sts_scientific_name": {
+          "scientific_name": {
             rename: "Species Name",
             cellRenderer: {
               type: "link",
               props: {
                 url: "/species/${id}",
-                text: "${sts_scientific_name}"
+                text: "${scientific_name}"
               }
             }
           },
-          "sts_sample_sts_project_union": {
+          "sample_project_union": {
             rename: "Project"
           },
-          "sts_sample_sts_tollab_assign_date_min": {
+          "sample_tollab_assign_date_min": {
             rename: "Assigned To Lab Date"
           },
-          "informatics_tolid_informatics_status_summary_min": {
+          "tolid_status_summary_min": {
             rename: "Informatics Status"
           },
-          "tolqclegacy_assembly_stage": {
+          "assembly_stage": {
             rename: "Assembly Stage"
           },
-          "mlwh_run_data_mlwh_run_complete_hic_min": {
+          "run_data_run_complete_hic_min": {
             rename: "Latest HiC Run"
           },
-          "mlwh_run_data_mlwh_run_complete_pacbio_min": {
+          "run_data_run_complete_pacbio_min": {
             rename: "Latest PacBio Run"
           }
         },
         order: {
           active: [
-            "sts_scientific_name",
-            "sts_sample_sts_project_union",
-            "sts_sample_sts_tollab_assign_date_min",
-            "informatics_tolid_informatics_status_summary_min",
-            "tolqclegacy_assembly_stage",
-            "mlwh_run_data_mlwh_run_complete_hic_min",
-            "mlwh_run_data_mlwh_run_complete_pacbio_min",
+            "scientific_name",
+            "sample_project_union",
+            "sample_tollab_assign_date_min",
+            "tolid_status_summary_min",
+            "assembly_stage",
+            "run_data_run_complete_hic_min",
+            "run_data_run_complete_pacbio_min",
           ],
         },
       }}

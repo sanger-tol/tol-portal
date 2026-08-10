@@ -22,7 +22,7 @@ function CuratedSpecies() {
 
   const defaultFilter = {
     and_: {
-      "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+      "sample_programme_union": { eq: { value: "ToL" } }
     }
   }
 
@@ -39,67 +39,67 @@ function CuratedSpecies() {
 
   const fields = {
     data: {
-      sts_scientific_name: {
+      scientific_name: {
         cellRenderer: {
           type: "link",
           props: {
             url: "/public/species/${id}",
-            text: "${sts_scientific_name}",
+            text: "${scientific_name}",
           },
         },
       },
-      sts_sample_sts_priority_status: {
+      sample_priority_status: {
         filter: "multi",
       },
-      informatics_tolid_informatics_status_summary_min: {
+      tolid_status_summary_min: {
         filter: "multi",
       },
-      sts_sample_sts_gal_name_union: {
+      sample_gal_name_union: {
         filter: "multi",
       },
-      tolqclegacy_assembly_stage: {
+      assembly_stage: {
         filter: "multi",
       },
     },
     order: {
       active: [
-        "sts_scientific_name",
-        "sts_prefix",
-        "sts_sample_count",
-        "informatics_tolid_informatics_status_summary_min",
+        "scientific_name",
+        "prefix",
+        "sample_count",
+        "tolid_status_summary_min",
         "calc_recollection_needed",
-        "sts_taxon_group",
-        "sts_family",
-        "sts_order_group",
-        "mlwh_run_data_mlwh_run_complete_hic_min",
-        "mlwh_run_data_mlwh_run_complete_pacbio_min",
-        "mlwh_run_data_mlwh_run_complete_rnaseq_min",
-        "sts_sample_sts_priority_status",
+        "taxon_group",
+        "family",
+        "order_group",
+        "run_data_run_complete_hic_min",
+        "run_data_run_complete_pacbio_min",
+        "run_data_run_complete_rnaseq_min",
+        "sample_priority_status",
       ],
       inactive: [
-        "sts_sample_count",
-        "informatics_tolid_informatics_status_summary_min",
+        "sample_count",
+        "tolid_status_summary_min",
         "calc_recollection_needed",
-        "sts_taxon_group",
-        "sts_family",
-        "sts_order_group",
-        "mlwh_run_data_mlwh_run_complete_hic_min",
-        "mlwh_run_data_mlwh_run_complete_pacbio_min",
-        "mlwh_run_data_mlwh_run_complete_rnaseq_min",
-        "sts_sample_sts_priority_status",
+        "taxon_group",
+        "family",
+        "order_group",
+        "run_data_run_complete_hic_min",
+        "run_data_run_complete_pacbio_min",
+        "run_data_run_complete_rnaseq_min",
+        "sample_priority_status",
         "calc_done_date",
-        "benchling_sequencing_request_benchling_completion_date_hic_min",
-        "benchling_sequencing_request_benchling_completion_date_pacbio_min",
-        "tolqclegacy_assembly_stage",
-        "goat_chromosome_number",
-        "goat_ploidy",
-        "sts_sample_sts_col_date_max",
-        "benchling_sample_count",
-        "sts_genome_size",
-        "sts_tissue_depleted",
-        "sts_sequencing_material_status_updated_at",
-        "sts_sequencing_material_status",
-        "goat_long_list",
+        "sequencing_request_completion_date_hic_min",
+        "sequencing_request_completion_date_pacbio_min",
+        "assembly_stage",
+        "chromosome_number",
+        "ploidy",
+        "sample_col_date_max",
+        "sample_count",
+        "genome_size",
+        "tissue_depleted",
+        "sequencing_material_status_updated_at",
+        "sequencing_material_status",
+        "long_list",
       ],
     },
   };

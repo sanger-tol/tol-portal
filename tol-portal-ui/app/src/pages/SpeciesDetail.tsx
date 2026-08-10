@@ -24,13 +24,13 @@ import { ELASTIC_DS } from '..';
 function generateDetail(id: string, attributes: any) {
   return (
     <div>
-      <h1 className='mb-3'>{(attributes as any)['sts_scientific_name']}</h1>
+      <h1 className='mb-3'>{(attributes as any)['scientific_name']}</h1>
       <ObjectDetail
         data={{
           "Taxonomy ID": id,
-          "Common name": attributes['sts_common_name'],
-          "Lineage": (attributes['goat_lineage'] ?? []).join(' / '),
-          "Genome Size": attributes['goat_genome_size'],
+          "Common name": attributes['common_name'],
+          "Lineage": (attributes['lineage'] ?? []).join(' / '),
+          "Genome Size": attributes['genome_size'],
           "ToLID Prefix": attributes['tolid_prefix'],
         }}
       />
@@ -43,22 +43,22 @@ const generateTimeline = (id: string, attributes: any) => {
     <div>
       <Timeline
         id={id}
-        title={`Timeline of events for ${attributes['sts_scientific_name']}`}
+        title={`Timeline of events for ${attributes['scientific_name']}`}
         data={{
-          "Compliance in Progress": { date: attributes['sts_sample_sts_submit_date_min'] },
-          "Approved to Ship": { date: attributes['sts_sample_sts_accept_date_min'] },
-          "Arrived at Sanger": { date: attributes['sts_sample_sts_receive_date_min'] },
-          "Released to Lab": { date: attributes['sts_sample_benchling_date_assigned_to_lab_min'] },
-          "Assembly Complete": { date: attributes['grit_curation_grit_open_date_min'] },
-          "Curation": { date: attributes['grit_curation_grit_done_date_min'] },
-          "ToLA / Grit Submission": { date: attributes['grit_curation_grit_in_submission_date_min'] },
-          "Genome Note Published": { date: attributes['gn_genome_note_gn_date_published_min'] },
-          "PacBio Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_pacbio_min'] },
-          "PacBio Sequenced": { date: attributes['mlwh_run_data_mlwh_run_complete_pacbio_min'] },
-          "RNASeq Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_rnaseq_min'] },
-          "RNASeq Sequenced": { date: attributes['mlwh_run_data_mlwh_run_complete_rnaseq_min'] },
-          "HiC Submission": { date: attributes['benchling_sequencing_request_benchling_completion_date_hic_min'] },
-          "HiC Sequenced": { date: attributes['mlwh_run_data_mlwh_run_complete_hic_min'] },
+          "Compliance in Progress": { date: attributes['sample_submit_date_min'] },
+          "Approved to Ship": { date: attributes['sample_accept_date_min'] },
+          "Arrived at Sanger": { date: attributes['sample_receive_date_min'] },
+          "Released to Lab": { date: attributes['sample_date_assigned_to_lab_min'] },
+          "Assembly Complete": { date: attributes['curation_open_date_min'] },
+          "Curation": { date: attributes['curation_done_date_min'] },
+          "ToLA / Grit Submission": { date: attributes['curation_in_submission_date_min'] },
+          "Genome Note Published": { date: attributes['genome_note_date_published_min'] },
+          "PacBio Submission": { date: attributes['sequencing_request_completion_date_pacbio_min'] },
+          "PacBio Sequenced": { date: attributes['run_data_run_complete_pacbio_min'] },
+          "RNASeq Submission": { date: attributes['sequencing_request_completion_date_rnaseq_min'] },
+          "RNASeq Sequenced": { date: attributes['run_data_run_complete_rnaseq_min'] },
+          "HiC Submission": { date: attributes['sequencing_request_completion_date_hic_min'] },
+          "HiC Sequenced": { date: attributes['run_data_run_complete_hic_min'] },
         }}
         defaultIcon
       />
@@ -81,22 +81,22 @@ function SpeciesDetail() {
         height={500}
         fields={{
           data: {
-            "sts_tolid.id": {
+            "tolid.id": {
               rename: "ToLID"
             },
-            "sts_specimen.id": {
+            "specimen.id": {
               rename: "Specimen ID"
             },
           },
           order: {
             active: [
-              "sts_tolid.id",
-              "sts_specimen.id",
-              "sts_gal_name",
-              "sts_sex",
-              "sts_organism_part",
-              "sts_biosample_accession",
-              "sts_biospecimen_accession",
+              "tolid.id",
+              "specimen.id",
+              "gal_name",
+              "sex",
+              "organism_part",
+              "biosample_accession",
+              "biospecimen_accession",
             ],
           },
         }}
@@ -107,7 +107,7 @@ function SpeciesDetail() {
             id: 'sample-table-detail',
             filter: {
               and_: {
-                "sts_species.id": { eq: { value: id } },
+                "species.id": { eq: { value: id } },
               }
             },
           }],
@@ -122,19 +122,19 @@ function SpeciesDetail() {
       <p className='mb-3'>Extractions for this species.</p>
       <RemoteTable
         id="extraction-table-detail"
-        defaultSortByAttribute="benchling_tolid.id"
+        defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
           data: {
-            "benchling_tolid.id": {
+            "tolid.id": {
               rename: "ToLID"
             },
           },
           order: {
             active: [
-              "benchling_extraction_type",
-              "benchling_tolid.id",
-              "benchling_completion_date",
+              "extraction_type",
+              "tolid.id",
+              "completion_date",
             ],
           },
         }}
@@ -145,7 +145,7 @@ function SpeciesDetail() {
             id: 'extraction-table-detail',
             filter: {
               and_: {
-                "benchling_species.id": { eq: { value: id } },
+                "species.id": { eq: { value: id } },
               }
             },
           }],
@@ -166,30 +166,30 @@ function SpeciesDetail() {
         }}
         fields={{
           data: {
-            "tolqc_reporting_category": {
+            "reporting_category": {
               cellRenderer: {
                 type: "platform",
                 props: {
-                  platform: "${tolqc_reporting_category}"
+                  platform: "${reporting_category}"
                 }
               }
             },
-            "mlwh_tolid.id": {
+            "tolid.id": {
               rename: "ToLID"
             },
           },
           order: {
             active: [
-              "tolqc_reporting_category",
-              "mlwh_pipeline_id_lims",
-              "mlwh_tolid.id",
-              "mlwh_run_complete",
-              "mlwh_lims_run_id",
-              "mlwh_run_id",
-              "mlwh_element",
-              "mlwh_tag_index",
-              "mlwh_biosample_accession",
-              "tolqc_bases",
+              "reporting_category",
+              "pipeline_id_lims",
+              "tolid.id",
+              "run_complete",
+              "lims_run_id",
+              "run_id",
+              "element",
+              "tag_index",
+              "biosample_accession",
+              "bases",
             ],
           },
         }}
@@ -200,7 +200,7 @@ function SpeciesDetail() {
             id: 'pacbio-table-detail',
             filter: {
               and_: {
-                "mlwh_species.id": { eq: { value: id } },
+                "species.id": { eq: { value: id } },
               }
             },
           }],
@@ -219,9 +219,9 @@ function SpeciesDetail() {
         fields={{
           order: {
             active: [
-              "grit_assembly_type",
-              "grit_created",
-              "grit_done_date",
+              "assembly_type",
+              "created",
+              "done_date",
             ],
           },
         }}
@@ -232,7 +232,7 @@ function SpeciesDetail() {
             id: 'curation-table-detail',
             filter: {
               and_: {
-                "grit_species.id": { eq: { value: id } }
+                "species.id": { eq: { value: id } }
               }
             },
           }],
@@ -250,18 +250,18 @@ function SpeciesDetail() {
         height={300}
         fields={{
           data: {
-            "gap_assembly.id": {
+            "assembly.id": {
               rename: "Assembly",
             },
-            "gap_results": {
+            "results": {
               "link": "gap_s3"
             },
           },
           order: {
             active: [
-              "gap_assembly.id",
-              "gap_results",
-              "gap_lustre_path_analysis",
+              "assembly.id",
+              "results",
+              "lustre_path_analysis",
             ],
           },
         }}
@@ -272,7 +272,7 @@ function SpeciesDetail() {
             id: 'assembly-analysis-table-detail',
             filter: {
               and_: {
-                "gap_species.id": { eq: { value: id } }
+                "species.id": { eq: { value: id } }
               }
             },
           }],
@@ -293,10 +293,10 @@ function SpeciesDetail() {
         }}
         fields={{
           data: {
-            "gn_tolid.id": {
+            "tolid.id": {
               rename: "ToLID"
             },
-            "gn_assembly.id": {
+            "assembly.id": {
               rename: "Assembly Accession"
             },
             "id": {
@@ -312,10 +312,10 @@ function SpeciesDetail() {
           },
           order: {
             active: [
-              "gn_tolid.id",
-              "gn_assembly.id",
-              "gn_date_published",
-              "gn_passed_pr",
+              "tolid.id",
+              "assembly.id",
+              "date_published",
+              "passed_pr",
               "id",
             ],
           },
@@ -327,7 +327,7 @@ function SpeciesDetail() {
             id: 'gn-table-detail',
             filter: {
               and_: {
-                "gn_species.id": { eq: { value: id } }
+                "species.id": { eq: { value: id } }
               }
             },
           }],

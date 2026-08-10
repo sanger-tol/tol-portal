@@ -7,32 +7,18 @@ SPDX-License-Identifier: MIT
 import { createRoot } from "react-dom/client";
 import {
   Home,
-  Species,
   SpeciesDetail,
   PublicSpeciesDetail,
-  Specimens,
-  ToLIDs,
-  Samples,
-  Samplesets,
-  Manifests,
-  Extractions,
-  SequencingRequests,
-  SequencingRuns,
-  Curations,
-  GenomeNotes,
-  TUM,
   SpeciesRecollection,
   SamplesStuck,
   ProjectManagement,
   TUMSteps,
   ARAReview,
   SampleSelection,
-  Loaders,
-  Attributes,
   ManifestValidation,
 } from "./pages";
 import { portalValidationModule } from "./pages/ManifestValidation";
-import { CoreLabData, CuratedSpecies } from "./pages/curated_pages";
+import { CuratedSpecies } from "./pages/curated_pages";
 import reportWebVitals from "./reportWebVitals";
 import {
   SmartApp,
@@ -59,33 +45,15 @@ export const PAGE_ELEMENTS: TPageElements = {
   home: <Home />,
 
   // Taxa
-  species: <Species />,
   "species-detail": <SpeciesDetail />,
-  specimen: <Specimens />,
-  tolids: <ToLIDs />,
-
-  // Samples
-  "sample-sets": <Samplesets />,
-  manifests: <Manifests />,
-  samples: <Samples />,
-
-  // Pipeline
-  extractions: <Extractions />,
-  requests: <SequencingRequests />,
-  "sequencing-runs": <SequencingRuns />,
-  curations: <Curations />,
-  "genome-notes": <GenomeNotes />,
 
   // Additional
   recollection: <SpeciesRecollection />,
   "sample-selection": <SampleSelection />,
-  tum: <TUM />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
   "samples-stuck": <SamplesStuck />,
   "project-management": <ProjectManagement />,
-  loaders: <Loaders />,
-  attributes: <Attributes />,
 
   // Tools
   "manifest-validation": <ManifestValidation />,
@@ -93,7 +61,6 @@ export const PAGE_ELEMENTS: TPageElements = {
   // Public
   "public-species": <CuratedSpecies />,
   "public-species-detail": <PublicSpeciesDetail />,
-  "core-lab-data": <CoreLabData />,
 };
 
 const LOCAL_NAVIGATION = {

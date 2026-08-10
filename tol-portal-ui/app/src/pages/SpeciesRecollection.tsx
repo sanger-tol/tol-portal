@@ -17,7 +17,7 @@ function SpeciesRecollection() {
         id: 'species-recollection-table',
         filter: {
           and_: {
-            "sts_species_id": { exists: {} }
+            "species_id": { exists: {} }
           }
         },
       }
@@ -27,68 +27,68 @@ function SpeciesRecollection() {
   const table = (
     <RemoteTable
       id="species-recollection-table"
-      defaultSortByAttribute='sts_scientific_name'
+      defaultSortByAttribute='scientific_name'
       displaySource
       fields={{
         data: {
-          "sts_scientific_name": {
+          "scientific_name": {
             rename: "Scientific Name",
             cellRenderer: {
               type: "link",
               props: {
                 url: "/species/${id}",
-                text: "${sts_scientific_name}"
+                text: "${scientific_name}"
               },
             },
           },
-          "calc_sample_calc_benchling_remaining_weight_sum": {
+          "sample_calc_benchling_remaining_weight_sum": {
             rename: "Tissue Remaining"
           },
-          "calc_extraction_calc_benchling_volume_ul_dna_sum": {
+          "extraction_calc_benchling_volume_ul_dna_sum": {
             rename: "Volume of Extraction"
           },
-          "calc_tissue_prep_calc_benchling_weight_mg_sum": {
+          "tissue_prep_calc_benchling_weight_mg_sum": {
             rename: "Tissue Prep Remaining"
           },
-          "benchling_sequencing_request_benchling_completion_date_hic_min": {
+          "sequencing_request_completion_date_hic_min": {
             rename: "HiC Request Complete"
           },
-          "benchling_sequencing_request_benchling_completion_date_pacbio_min": {
+          "sequencing_request_completion_date_pacbio_min": {
             rename: "Pacbio Request Complete"
           },
-          "benchling_sequencing_request_benchling_completion_date_rnaseq_min": {
+          "sequencing_request_completion_date_rnaseq_min": {
             rename: "RNASeq Request Complete"
           },
-          "mlwh_run_data_mlwh_run_complete_hic_min": {
+          "run_data_run_complete_hic_min": {
             rename: "HiC Run Complete"
           },
-          "mlwh_run_data_mlwh_run_complete_pacbio_min": {
+          "run_data_run_complete_pacbio_min": {
             rename: "PacBio Run Complete"
           },
-          "mlwh_run_data_mlwh_run_complete_rnaseq_min": {
+          "run_data_run_complete_rnaseq_min": {
             rename: "RNASeq Run Complete"
           },
-          "sts_sequencing_material_status": {
+          "sequencing_material_status": {
             rename: "Material Status"
           },
-          "sts_sequencing_material_status_updated_at": {
+          "sequencing_material_status_updated_at": {
             rename: "Material Status Updated"
           },
         },
         order: {
           active: [
-            "sts_scientific_name",
-            "calc_sample_calc_benchling_remaining_weight_sum",
-            "calc_extraction_calc_benchling_volume_ul_dna_sum",
-            "calc_tissue_prep_calc_benchling_weight_mg_sum",
-            "benchling_sequencing_request_benchling_completion_date_hic_min",
-            "benchling_sequencing_request_benchling_completion_date_pacbio_min",
-            "benchling_sequencing_request_benchling_completion_date_rnaseq_min",
-            "mlwh_run_data_mlwh_run_complete_hic_min",
-            "mlwh_run_data_mlwh_run_complete_pacbio_min",
-            "mlwh_run_data_mlwh_run_complete_rnaseq_min",
-            "sts_sequencing_material_status",
-            "sts_sequencing_material_status_updated_at",
+            "scientific_name",
+            "sample_calc_benchling_remaining_weight_sum",
+            "extraction_calc_benchling_volume_ul_dna_sum",
+            "tissue_prep_calc_benchling_weight_mg_sum",
+            "sequencing_request_completion_date_hic_min",
+            "sequencing_request_completion_date_pacbio_min",
+            "sequencing_request_completion_date_rnaseq_min",
+            "run_data_run_complete_hic_min",
+            "run_data_run_complete_pacbio_min",
+            "run_data_run_complete_rnaseq_min",
+            "sequencing_material_status",
+            "sequencing_material_status_updated_at",
           ],
         },
       }}

@@ -21,7 +21,7 @@ import { ELASTIC_DS } from '..';
 
 const defaultFilter = {
   and_: {
-    "sts_sample_sts_programme_union": { eq: { value: "ToL" } }
+    "sample_programme_union": { eq: { value: "ToL" } }
   }
 }
 
@@ -63,8 +63,8 @@ function Home() {
         filterPassThrough: true,
         filter: {
           and_: {
-            goat_domain_name: { eq: { value: "Eukaryota" } },
-            grit_curation_grit_done_date_min: { exists: {} }
+            domain_name: { eq: { value: "Eukaryota" } },
+            curation_done_date_min: { exists: {} }
           }
         }
       },
@@ -73,9 +73,9 @@ function Home() {
         filterPassThrough: true,
         filter: {
           and_: {
-            goat_domain_name: { eq: { value: "Eukaryota" } },
-            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
-            sts_sample_sts_col_date_min: { exists: {} }
+            domain_name: { eq: { value: "Eukaryota" } },
+            sampleprogramme_union: { eq: { value: "ToL" } },
+            sample_col_date_min: { exists: {} }
           }
         }
       },
@@ -83,7 +83,7 @@ function Home() {
         filterPassThrough: true,
         filter: {
           and_: {
-            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+            sample_programme_union: { eq: { value: "ToL" } },
           }
         }
       },
@@ -91,7 +91,7 @@ function Home() {
         filterPassThrough: true,
         filter: {
           and_: {
-            sts_sample_sts_programme_union: { eq: { value: "ToL" } },
+            sample_programme_union: { eq: { value: "ToL" } },
           }
         }
       },
@@ -130,26 +130,26 @@ function Home() {
   useTranslator({
     source: homeSpeciesZone,
     target: homeRunDataZone,
-    translations: { 'sts_sample_sts_project_union': 'mlwh_tolid.sts_sample_sts_project_union' },
+    translations: { 'sample_project_union': 'mlwh_tolid.sts_sample_sts_project_union' },
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeSampleZone,
-    translations: { 'sts_sample_sts_project_union': 'sts_project' },
+    translations: { 'sample_project_union': 'sts_project' },
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeExtractionZone,
-    translations: { 'sts_sample_sts_project_union': 'benchling_tolid.sts_sample_sts_project_union' },
+    translations: { 'sample_project_union': 'benchling_tolid.sts_sample_sts_project_union' },
   });
 
   const projectFilter = (
     <Row className="home-filters">
       <Col>
         <Filter
-          attribute='sts_sample_sts_project_union'
+          attribute='sample_project_union'
           rename="All Projects"
           type='multi'
           componentId="home-project-filter"
@@ -168,8 +168,8 @@ function Home() {
           text: 'Run Complete Data',
         }
       }}
-      breakDownBy="mlwh_instrument_model"
-      xAxis="mlwh_run_complete"
+      breakDownBy="instrument_model"
+      xAxis="run_complete"
       type='M'
       {...homeRunDataZone}
     />
@@ -184,8 +184,8 @@ function Home() {
           text: 'Species Received',
         }
       }}
-      breakDownBy="sts_ac_status"
-      xAxis="benchling_date_sample_received_at_sanger"
+      breakDownBy="ac_status"
+      xAxis="date_sample_received_at_sanger"
       type='M'
       {...homeSampleZone}
     />
@@ -199,7 +199,7 @@ function Home() {
           text: 'Species',
         }
       }}
-      sliceBy={["sts_order_group", "sts_family"]}
+      sliceBy={["order_group", "family"]}
       legendPosition="left"
       {...homeSpeciesZone}
     />
@@ -208,15 +208,15 @@ function Home() {
   const speciesTable = (
     <RemoteTable
       id="home-species-table"
-      defaultSortByAttribute="sts_scientific_name"
+      defaultSortByAttribute="scientific_name"
       noConfigModal
       fields={{
         order: {
           active: [
-            "sts_scientific_name",
-            "sts_taxon_group",
-            "sts_family",
-            "sts_order_group",
+            "scientific_name",
+            "taxon_group",
+            "family",
+            "order_group",
             "tolid_prefix",
           ],
         },
