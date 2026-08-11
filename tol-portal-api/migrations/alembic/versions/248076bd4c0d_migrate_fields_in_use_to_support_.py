@@ -28,6 +28,14 @@ FIELD_EXCEPTIONS = {
 }
 
 
+def __check(check_passed: bool) -> None:
+    if not check_passed:
+        raise Exception(
+            "Migration 248076bd4c0d failed due either to a programming error "
+            "or to malformed data in the database"
+        )
+
+
 def __is_summarised_attribute(attribute: str) -> bool:
     return attribute.endswith((
         'min',
@@ -100,7 +108,7 @@ def _upgrade_field_list(field_list: list[str]) -> list[str]:
     """
     Upgrades each field in a list
     """
-    assert isinstance(field_list, list)
+    __check(isinstance(field_list, list))
     return [
         _upgrade_field(field)
         for field in field_list
@@ -117,7 +125,7 @@ def _upgrade_keys_and_values(dictionary: dict) -> dict:
 
 
 def _upgrade_filter(filter_dict: dict) -> dict:
-    assert isinstance(filter_dict, dict)
+    __check(isinstance(filter_dict, dict))
 
     # Convert dict to DataSourceFilter
     filter = dacite.from_dict(DataSourceFilter, filter_dict)
@@ -200,7 +208,7 @@ def __upgrade_field_meta_data(field_meta_data: dict) -> dict:
 
 
 def _upgrade_component_config(config: dict) -> dict:
-    assert isinstance(config, dict)
+    __check(isinstance(config, dict))
     if not config:
         # Skip empty dicts
         return config
