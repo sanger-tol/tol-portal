@@ -21,7 +21,7 @@ def upgrade() -> None:
     # Translations
     op.alter_column('zone', 'translations', new_column_name='attribute_translations')
     op.add_column('zone', sa.Column('relationship_translations', JSONB, nullable=False, server_default='{}'))
-    op.add_column('zone', sa.Column('auto_translations', sa.Boolean(), nullable=False, server_default=sa.false()))
+    op.add_column('zone', sa.Column('auto_translations', sa.Boolean(), nullable=False, server_default=sa.true()))
 
     # Filter pass through
     op.add_column('zone', sa.Column('filter_pass_through', sa.Boolean(), nullable=False, server_default=sa.false()))
