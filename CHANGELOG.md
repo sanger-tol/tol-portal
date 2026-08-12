@@ -6,6 +6,12 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10145]("https://jira.sanger.ac.uk/browse/TOLP-10145")
+
+27-07-2026
+
+- Fixed bug: defaultFilter acting as a base stopping live filters being removed
+
 ## [TOLP-10035]("https://jira.sanger.ac.uk/browse/TOLP-10035")
 
 27-07-2026
