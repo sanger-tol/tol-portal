@@ -6,6 +6,15 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10094](https://jira.sanger.ac.uk/browse/TOLP-9958)
+
+13/08/2026
+
+- Removed old `topup` role
+- Added new `core lab top up` and `core lab sample export` roles
+- Associated roles and actions based on supplied list
+- Re-assigned `topup` users to appropriate new roles.
+
 ## [TOLP-10145]("https://jira.sanger.ac.uk/browse/TOLP-10145")
 
 27-07-2026
