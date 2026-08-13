@@ -10,10 +10,7 @@ SPDX-License-Identifier: MIT
 
 13-08-2026
 
-- Via tol-ui version update:
-    - Fixed dates being erroneously displayed in the TitleTooltip when filtering an integer field
-    - Fixed strange wrapping in the TitleTooltip when long field names are present
-    - Added a button to TitleTooltip to copy the ID of the current entity
+- `tol-ui 4.0.12`
 
 ## [TOLP-10145](https://jira.sanger.ac.uk/browse/TOLP-10145)
 
