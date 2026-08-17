@@ -6,6 +6,12 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10027](https://jira/sanger.ac.uk/browse/TOLP-10027)
+
+17-08-2026
+
+- `tol-ui 4.0.13`
+
 ## [TOLP-10094](https://jira.sanger.ac.uk/browse/TOLP-9958)
 
 13-08-2026
