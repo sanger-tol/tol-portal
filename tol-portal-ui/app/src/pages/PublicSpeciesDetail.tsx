@@ -74,7 +74,7 @@ function PublicSpeciesDetail() {
       <p className="mb-3">Sample information collected for this species.</p>
       <RemoteTable
         id="public-sample-table-detail"
-        defaultSortByAttribute="sts_tolid.id"
+        defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
           data: {
@@ -129,11 +129,11 @@ function PublicSpeciesDetail() {
       <p className="mb-3">Extractions for this species.</p>
       <RemoteTable
         id="public-extraction-table-detail"
-        defaultSortByAttribute="benchling_tolid.id"
+        defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
           data: {
-            "sample.sts_project": {
+            "sample.project": {
               rename: "Project",
             },
             "tolid.id": {
@@ -142,13 +142,13 @@ function PublicSpeciesDetail() {
           },
           order: {
             active: [
-              "sample.sts_project",
+              "sample.project",
               "tolid.id",
               "extraction_type",
-              "sample.sts_lifestage",
+              "sample.lifestage",
             ],
             inactive: [
-              "sample.sts_project",
+              "sample.project",
               "tolid.id",
               "extraction_type",
               "sample.lifestage",
