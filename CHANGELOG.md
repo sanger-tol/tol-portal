@@ -6,7 +6,14 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
-## [TOLP-10027](https://jira/sanger.ac.uk/browse/TOLP-10027)
+## [TOLP-10200](https://jira.sanger.ac.uk/browse/TOLP-10200)
+
+26-08-2026
+
+- `tol-ui 5.0.0`
+    - Which fixes incorrect filters being used on the Home page
+
+## [TOLP-10027](https://jira.sanger.ac.uk/browse/TOLP-10027)
 
 17-08-2026
 
