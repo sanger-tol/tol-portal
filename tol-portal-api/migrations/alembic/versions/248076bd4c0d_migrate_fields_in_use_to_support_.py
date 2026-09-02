@@ -5,7 +5,7 @@ Revises: b77923994607
 Create Date: 2026-08-10 08:12:44.340674
 
 """
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any
 import dataclasses
 import re
@@ -260,34 +260,46 @@ def _upgrade_component_config(config: dict) -> dict:
     return config
 
 
-def __is_entity_in_the_tol_production_dataspace(entity_id: str) -> bool:
-    entity_prefix = entity_id.split('_')[0]
+def __select_with_dataspace(
+    connection: sa.Connection,
+    table: sa.Table,
+    id_column: sa.Column,
+    target_column: sa.Column,
+    dataspace_check_column: sa.Column
+) -> Sequence[sa.Row]:
+    """
+    Selects (`id_column`, `target_column`, `dataspace_check_column`) from `table`.
+    If there is no dataspace associated with this table (e.g. 'view') then the returned
+    datasource_instance_id will be None.
+    """
+    component_table = sa.Table(
+        'component', sa.MetaData(), autoload_with=connection
+    ).alias('dataspace_component')
+    zone_table = sa.Table(
+        'zone', sa.MetaData(), autoload_with=connection
+    ).alias('dataspace_zone')
 
-    # Only Components and Zones are linked to a data source instance
-    if entity_prefix not in ('c', 'z'):
-        return False
-
-    # Fetch the data source instance this entity uses for the database
-    connection = op.get_bind()
-    table = sa.Table(
-        'component' if entity_prefix == 'c' else 'zone',
-        sa.MetaData(),
-        autoload_with=connection
-    )
     select_statement = (
-        sa.select(table.c.data_source_instance_id)
-        .where(table.c.id == entity_id)
+        sa.select(
+            id_column,
+            target_column,
+            sa.func.coalesce(
+                component_table.c.data_source_instance_id,
+                zone_table.c.data_source_instance_id
+            )
+        )
+        .select_from(table)
+        .outerjoin(component_table, dataspace_check_column == component_table.c.id)
+        .outerjoin(zone_table, dataspace_check_column == zone_table.c.id)
     )
-    data_source_instance_id = connection.execute(select_statement).scalar_one_or_none()
-
-    # Check whether it's tol_production
-    return data_source_instance_id == 'tol_production'
+    return connection.execute(select_statement).all()
 
 
 def _perform_upgrade(
     table_name: str,
     column_name: str,
-    upgrade_action: Callable[[Any], Any]
+    upgrade_action: Callable[[Any], Any],
+    dataspace_check_column_name: str = 'id'
 ) -> None:
     """
     Function providing a delcarative interface for what isbeing upgraded, such that `upgrade` is
@@ -295,25 +307,31 @@ def _perform_upgrade(
 
     Extracts all values for the column `column_name` in the table `table_name`, upgrades it
     by passing it through `upgrade_action`, then saves the changes to the database.
+
+    `dataspace_check_column_name` is the column whose value identifies the entity to check the
+    dataspace of. This defaults to `id`, but some tables (e.g. `entity_diff`) don't have a
+    `c_`/`z_`-style entity id of their own, so the id of a linked entity (e.g. `component_id`)
+    must be used instead.
     """
     connection = op.get_bind()
     # Reflect the table so SQLAlchemy knows the column types
     metadata = sa.MetaData()
     table = sa.Table(table_name, metadata, autoload_with=connection)
     id_column = table.c.id
+    dataspace_check_column = table.c[dataspace_check_column_name]
     target_column = table.c[column_name]
 
-    # Extract the current field values
-    select_statement = sa.select(id_column, target_column)
-    rows = connection.execute(select_statement).all()
+    rows = __select_with_dataspace(
+        connection, table, id_column, target_column, dataspace_check_column
+    )
     # For each row, perform the upgrade action on the value then save back to the database
     update_statement = (
         sa.update(table)
         .where(id_column == sa.bindparam('row_id'))
         .values({column_name: sa.bindparam('new_value')})
     )
-    for row_id, old_value in rows:
-        if not __is_entity_in_the_tol_production_dataspace(row_id):
+    for row_id, old_value, data_source_instance_id in rows:
+        if data_source_instance_id != 'tol_production':
             # Don't perform the migration on anything not using the tol_production dataspace
             continue
         elif old_value is None:
@@ -340,7 +358,10 @@ def upgrade() -> None:
         'entity_diff',
         'config',
         # Currently, only components (specifically tables) can have entity diffs
-        _upgrade_component_config
+        _upgrade_component_config,
+        # entity_diff's own id is an unrelated autoincrement integer, so use its
+        # linked component's id for the dataspace check instead
+        dataspace_check_column_name='component_id'
     )
 
 
