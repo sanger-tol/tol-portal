@@ -237,6 +237,11 @@ def _upgrade_component_config(config: dict) -> dict:
                 for field, field_meta_data in field_meta['data'].items()
             }
 
+    # Upgrade sortBy (for tables)
+    sort_by = config.get('sortBy')
+    if sort_by:
+        config['sortBy'] = _upgrade_field(sort_by)
+
     # Upgrade sliceBy (for sunbursts)
     slice_by = config.get('sliceBy')
     if slice_by:
