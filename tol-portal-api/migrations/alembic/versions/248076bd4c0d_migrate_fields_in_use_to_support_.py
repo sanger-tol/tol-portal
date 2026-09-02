@@ -309,9 +309,9 @@ def _perform_upgrade(
     by passing it through `upgrade_action`, then saves the changes to the database.
 
     `dataspace_check_column_name` is the column whose value identifies the entity to check the
-    dataspace of. This defaults to `id`, but some tables (e.g. `entity_diff`) don't have a
-    `c_`/`z_`-style entity id of their own, so the id of a linked entity (e.g. `component_id`)
-    must be used instead.
+    dataspace of. It's in entity ID format. This defaults to `id` (e.g. for the `zone` table),
+    but some tables (e.g. `entity_diff`) reference an ID in a different way (in that case,
+    through the `component_id` column), so this can refer to that instead.
     """
     connection = op.get_bind()
     # Reflect the table so SQLAlchemy knows the column types
