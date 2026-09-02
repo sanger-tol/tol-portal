@@ -1,7 +1,7 @@
 """Migrate fields in use to support provenance
 
 Revision ID: 248076bd4c0d
-Revises: 76b4b918b8a4
+Revises: b77923994607
 Create Date: 2026-08-10 08:12:44.340674
 
 """
@@ -18,7 +18,7 @@ from tol.core import DataSourceFilter
 
 # revision identifiers, used by Alembic.
 revision = '248076bd4c0d'
-down_revision = '76b4b918b8a4'
+down_revision = 'b77923994607'
 branch_labels = None
 depends_on = None
 
@@ -143,7 +143,7 @@ def _upgrade_filter(filter_dict: dict) -> dict:
     )
 
     # Convert back to a dict
-    new_filter_dict = dataclasses.asdict(new_filter)
+    new_filter_dict = {'_and': new_filter.and_}
     return new_filter_dict
 
 
@@ -268,18 +268,15 @@ def _perform_upgrade(
     by passing it through `upgrade_action`, then saves the changes to the database.
     """
     connection = op.get_bind()
-    engine = connection.engine
-
     # Reflect the table so SQLAlchemy knows the column types
     metadata = sa.MetaData()
-    table = sa.Table(table_name, metadata, autoload_with=engine)
+    table = sa.Table(table_name, metadata, autoload_with=connection)
     id_column = table.c.id
     target_column = table.c[column_name]
 
     # Extract the current field values
     select_statement = sa.select(id_column, target_column)
     rows = connection.execute(select_statement).all()
-
     # For each row, perform the upgrade action on the value then save back to the database
     update_statement = (
         sa.update(table)
@@ -290,7 +287,6 @@ def _perform_upgrade(
         # NULL values can be skipped over
         if old_value is None:
             continue
-
         new_value = upgrade_action(old_value)
         connection.execute(update_statement, {'new_value': new_value, 'row_id': row_id})
 
@@ -306,7 +302,7 @@ def upgrade() -> None:
     _perform_upgrade('component', 'filter', _upgrade_filter)
     _perform_upgrade('view', 'filter', _upgrade_filter)
     _perform_upgrade('zone', 'filter', _upgrade_filter)
-    _perform_upgrade('zone', 'translations', _upgrade_keys_and_values)
+    _perform_upgrade('zone', 'attribute_translations', _upgrade_keys_and_values)
     _perform_upgrade(
         'entity_diff',
         'config',

@@ -74,7 +74,7 @@ function Home() {
         filter: {
           and_: {
             domain_name: { eq: { value: "Eukaryota" } },
-            sampleprogramme_union: { eq: { value: "ToL" } },
+            sample_programme_union: { eq: { value: "ToL" } },
             sample_col_date_min: { exists: {} }
           }
         }
@@ -130,19 +130,19 @@ function Home() {
   useTranslator({
     source: homeSpeciesZone,
     target: homeRunDataZone,
-    translations: { 'sample_project_union': 'mlwh_tolid.sts_sample_sts_project_union' },
+    translations: { 'sample_project_union': 'tolid.sample_project_union' },
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeSampleZone,
-    translations: { 'sample_project_union': 'sts_project' },
+    translations: { 'sample_project_union': 'project' },
   });
 
   useTranslator({
     source: homeSpeciesZone,
     target: homeExtractionZone,
-    translations: { 'sample_project_union': 'benchling_tolid.sts_sample_sts_project_union' },
+    translations: { 'sample_project_union': 'tolid.sample_project_union' },
   });
 
   const projectFilter = (
@@ -185,7 +185,7 @@ function Home() {
         }
       }}
       breakDownBy="ac_status"
-      xAxis="date_sample_received_at_sanger"
+      xAxis="receive_date"
       type='M'
       {...homeSampleZone}
     />
@@ -199,7 +199,7 @@ function Home() {
           text: 'Species',
         }
       }}
-      sliceBy={["order_group", "family"]}
+      sliceBy={["order_group.provenance.sts.value", "family.provenance.sts.value"]}
       legendPosition="left"
       {...homeSpeciesZone}
     />
