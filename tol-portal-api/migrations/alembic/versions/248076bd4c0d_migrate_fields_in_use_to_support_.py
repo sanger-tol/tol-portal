@@ -260,6 +260,30 @@ def _upgrade_component_config(config: dict) -> dict:
     return config
 
 
+def __is_entity_in_the_tol_production_dataspace(entity_id: str) -> bool:
+    entity_prefix = entity_id.split('_')[0]
+
+    # Only Components and Zones are linked to a data source instance
+    if entity_prefix not in ('c', 'z'):
+        return False
+
+    # Fetch the data source instance this entity uses for the database
+    connection = op.get_bind()
+    table = sa.Table(
+        name='component' if entity_prefix == 'c' else 'zone',
+        metadata=sa.MetaData(),
+        autoload_with=connection
+    )
+    select_statement = (
+        sa.select(table.c.data_source_instance_id)
+        .where(table.c.id == entity_id)
+    )
+    data_source_instance_id = connection.execute(select_statement).scalar_one_or_none()
+
+    # Check whether it's tol_production
+    return data_source_instance_id == 'tol_production'
+
+
 def _perform_upgrade(
     table_name: str,
     column_name: str,
@@ -289,9 +313,13 @@ def _perform_upgrade(
         .values({column_name: sa.bindparam('new_value')})
     )
     for row_id, old_value in rows:
-        # NULL values can be skipped over
-        if old_value is None:
+        if not __is_entity_in_the_tol_production_dataspace(row_id):
+            # Don't perform the migration on anything not using the tol_production dataspace
             continue
+        elif old_value is None:
+            # NULL values can be skipped over
+            continue
+
         new_value = upgrade_action(old_value)
         connection.execute(update_statement, {'new_value': new_value, 'row_id': row_id})
 
