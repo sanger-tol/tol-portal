@@ -55,7 +55,7 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     # as if it's an object type it won't be followed by an underscore
     for source_prefix in (
         'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'calc_', 'gn_', 'goat_',
-        'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_',
+        'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_', 'portaldb_'
     ):
         if after_substr.startswith(source_prefix):
             return before_substr + after_substr.removeprefix(source_prefix)
@@ -143,7 +143,7 @@ def _upgrade_filter(filter_dict: dict) -> dict:
     )
 
     # Convert back to a dict
-    new_filter_dict = {'_and': new_filter.and_}
+    new_filter_dict = {'and_': new_filter.and_}
     return new_filter_dict
 
 
@@ -238,9 +238,9 @@ def _upgrade_component_config(config: dict) -> dict:
             }
 
     # Upgrade sortBy (for tables)
-    sort_by = config.get('sortBy')
+    sort_by = config.get('defaultSortByAttribute')
     if sort_by:
-        config['sortBy'] = _upgrade_field(sort_by)
+        config['defaultSortByAttribute'] = _upgrade_field(sort_by)
 
     # Upgrade sliceBy (for sunbursts)
     slice_by = config.get('sliceBy')

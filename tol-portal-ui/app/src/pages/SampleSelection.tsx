@@ -97,7 +97,7 @@ function SampleSelection() {
       //noConfigModal
       id="sample"
       displaySource
-      defaultSortByAttribute="sts_priority"
+      defaultSortByAttribute="priority"
       fields={{
         data: {
           "sts_tubeid": {
@@ -105,7 +105,7 @@ function SampleSelection() {
               type: "trafficLightStatus",
               props: {
                 danger: {and_: {
-                  "eln_tissue_id": {"exists": {}},
+                  "eln_id": {"exists": {}},
                 }}
               }
             }
