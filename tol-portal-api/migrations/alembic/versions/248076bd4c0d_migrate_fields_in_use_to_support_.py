@@ -270,8 +270,8 @@ def __is_entity_in_the_tol_production_dataspace(entity_id: str) -> bool:
     # Fetch the data source instance this entity uses for the database
     connection = op.get_bind()
     table = sa.Table(
-        name='component' if entity_prefix == 'c' else 'zone',
-        metadata=sa.MetaData(),
+        'component' if entity_prefix == 'c' else 'zone',
+        sa.MetaData(),
         autoload_with=connection
     )
     select_statement = (
