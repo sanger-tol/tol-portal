@@ -109,6 +109,11 @@ tolcore:
     enabled: true
     fullname: "tol-portal-api"
     probe_url: '/api/v1/system/healthz'
+    probe:
+      initialDelaySeconds: 240
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 6
     path: '/api/v1'
     data_path: '/data'
     extra_env:
@@ -131,6 +136,11 @@ tolcore:
   ui:
     fullname: "tol-portal-ui"
     probe_url: '/'
+    probe:
+      initialDelaySeconds: 90
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 6
     matomo_site_id: ''
     extra_env:
       REACT_APP_API_PATH: api.path
