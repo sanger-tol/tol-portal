@@ -6,6 +6,12 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10146](https://jira.sanger.ac.uk/browse/TOLP-10146)
+
+09-09-2026
+
+- Added sample actions to the TUM page
+
 ## [TOLP-10200](https://jira.sanger.ac.uk/browse/TOLP-10200)
 
 26-08-2026
