@@ -8,8 +8,9 @@ SPDX-License-Identifier: MIT
 
 ## [TOLP-10146](https://jira.sanger.ac.uk/browse/TOLP-10146)
 
-09-09-2026
-
+11-09-2026
+- `tol-ui 5.3.0`
+    - Fixes table errors on TUM pages
 - Added sample actions to the TUM page
 
 ## [TOLP-10200](https://jira.sanger.ac.uk/browse/TOLP-10200)
