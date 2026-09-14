@@ -389,7 +389,7 @@ function TUMSteps() {
           ],
         },
       }}
-      actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid']}
+      actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid', 'Export into Benchling']}
       rowSelection={true}
       {...tissueBenchling}
     />
@@ -465,7 +465,18 @@ function TUMSteps() {
           ],
         },
       }}
-      actions={['Export into Benchling', 'Mark as Not Valid']}
+      actions={[
+        'Export into Benchling',
+        'Mark as Not Valid',
+        'LRES - DNA extraction',
+        'LRES - DNA extraction + HiC',
+        'HiC',
+        'HiC only',
+        'HiC + RNA',
+        'RNA',
+        'PiMmS',
+        'Export into Benchling'
+      ]}
       rowSelection={true}
       {...sampleSTS}
     />
