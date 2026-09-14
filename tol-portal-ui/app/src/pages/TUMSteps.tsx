@@ -469,19 +469,12 @@ function TUMSteps() {
         'Export into Benchling',
         'Mark as Not Valid',
         'LRES - DNA extraction',
-        'LRES - DNA extraction (NEW)',
         'LRES - DNA extraction + HiC',
-        'LRES - DNA extraction + HiC (NEW)',
         'HiC',
-        'HiC (NEW)',
         'HiC only',
-        'HiC only (NEW)',
         'HiC + RNA',
-        'HiC + RNA (NEW)',
         'RNA',
         'PiMmS',
-        'RNA (NEW)',
-        'PiMmS (NEW)',
         'Export into Benchling'
       ]}
       rowSelection={true}
