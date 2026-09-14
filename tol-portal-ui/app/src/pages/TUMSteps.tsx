@@ -62,9 +62,10 @@ function TUMSteps() {
             "status",
             "status_summary",
             "extraction_container_calc_benchling_volume_ul_dna_max",
-            "sample_count",
+            "sample_count[benchling]",
+            "sample_count[sts]",
             "calc_individual_exhausted",
-            "calc_sample_abandoned_in_sts_sample_count",
+            "sample_abandoned_count",
             "sequencing_request_calc_mlwh_volume_remaining_pacbio_max",
             "tissue_prep_calc_benchling_weight_mg_max",
             "sample_calc_benchling_remaining_weight_max",
@@ -121,7 +122,7 @@ function TUMSteps() {
       //noConfigModal
       id="library-remaining"
       displaySource
-      defaultSortByAttribute="benchling_tolid.id"
+      defaultSortByAttribute="tolid.id"
       fields={{
         data: {
           "species.id": {
@@ -235,7 +236,7 @@ function TUMSteps() {
             "tube_type",
             "volume_ul",
             "extraction.extraction_type",
-            "species.goat_ploidy",
+            "species.ploidy",
             "qubit_concentration_ngul",
             "femto_date_code",
             "gqn_index",
@@ -281,7 +282,7 @@ function TUMSteps() {
       "calc_coverage": "tolid.calc_coverage",
       "sample_target_coverage_max": "tolid.sample_target_coverage_max",
       "calc_ongoing_submissions": "tolid.calc_ongoing_submissions",
-      "status_summary": "tolid.informatics_status_summary",
+      "status_summary": "tolid.status_summary",
       "calc_coverage_met": "tolid.calc_coverage_met",
     }
   })
@@ -291,7 +292,7 @@ function TUMSteps() {
       //noConfigModal
       id="tissue-prep-remaining"
       displaySource
-      defaultSortByAttribute="benchling_tolid.id"
+      defaultSortByAttribute="tolid.id"
       fields={{
         order: {
           active: [
@@ -430,7 +431,7 @@ function TUMSteps() {
       "sample_target_coverage_max": "tolid.sample_target_coverage_max",
       "calc_ongoing_submissions": "tolid.calc_ongoing_submissions",
       "status_summary": "tolid.status_summary",
-      "calc_coverage_met": "benchling_tolid.calc_coverage_met",
+      "calc_coverage_met": "tolid.calc_coverage_met",
     }
   })
 
@@ -493,7 +494,7 @@ function TUMSteps() {
     target: individualExhausted,
     translations: {
       "sequencing_request_pacbio_count": "sequencing_request_pacbio_count",
-      "species.goat_scientific_name": "species.goat_scientific_name",
+      "species.scientific_name": "species.scientific_name",
       "id": "id",
       "sample_project_union": "sample_project_union",
       "calc_coverage": "calc_coverage",
@@ -548,9 +549,9 @@ function TUMSteps() {
             // Its species has at least one individual exhausted
             // Number of ToLIDs started == number of ToLIDs exhausted
             // (a ToLID is started if it has had a sample exported to Benchling)
-            'species.calc_individual_exhausted_tolid_count': {
+            'species.tolid_individual_exhausted_count': {
               'gt': { 'value': 0 },
-              'eq': { 'field': 'species.benchling_tolid_count' }
+              'eq': { 'field': 'species.tolid_count' }
             }
           }
         }
@@ -617,9 +618,9 @@ function TUMSteps() {
         filter: {
           and_: {
             // Number of ToLIDs exhausted = Total number of ToLIDs within STS.
-            'calc_individual_exhausted_tolid_count': {
+            'tolid_individual_exhausted_count': {
               'gt': { 'value': 0 },
-              'eq': { 'field': 'tolid_tolid_count' }
+              'eq': { 'field': 'tolid_count' }
             },
             // Not already out for recollection
             'calc_species_out_for_recollection': { 'eq': { 'value': false } }
@@ -634,7 +635,7 @@ function TUMSteps() {
   //   target: individualExhaustedRecollection,
   //   translations: {
   //     "sequencing_request_pacbio_count": "tolid.sequencing_request_pacbio_count",
-  //     "tolid_species.goat_scientific_name": "tolid_species.goat_scientific_name",
+  //     "tolid_species.scientific_name": "tolid_species.scientific_name",
   //     "id": "id",
   //     "sts_sample_sts_project_union": "sts_sample_sts_project_union",
   //     "calc_coverage": "calc_coverage",
@@ -656,7 +657,7 @@ function TUMSteps() {
             "scientific_name",
             "id",
             "sample_project_union",
-            "calc_sample_calc_benchling_remaining_weight_sum",
+            "sample_calc_benchling_remaining_weight_sum",
             "genome_size",
             "tolid_status_summary_min",
             "ploidy",

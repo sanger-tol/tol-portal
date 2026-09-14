@@ -118,7 +118,7 @@ function ProjectManagement() {
   const table = (
     <RemoteTable
       id="pm-species-table"
-      defaultSortByAttribute="sts_scientific_name"
+      defaultSortByAttribute="scientific_name"
       fields={{
         data: {
           "scientific_name": {

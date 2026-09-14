@@ -53,7 +53,7 @@ function ARAReview() {
             "calc_topup_required",
             "calc_tolid_actionable",
             "sequencing_request_volume_remaining_max",
-            "extraction_container_volume_ul_dna_max",
+            "extraction_container_calc_benchling_volume_ul_dna_max",
             "tissue_prep_weight_mg_max",
             "sample_remaining_weight_max",
             "sample_count",
@@ -61,7 +61,7 @@ function ARAReview() {
             "calc_individual_exhausted",
             "calc_individual_available",
             "species.calc_recollection_needed",
-            "calc_extraction_dna_count",
+            "extraction_dna_count",
           ]
         },
       }}

@@ -27,6 +27,18 @@ FIELD_EXCEPTIONS = {
     'tolid_prefix': 'tolid_prefix'
 }
 
+FIELD_MAPPINGS = {
+    'benchling_biospecimen_id': 'biospecimen_accession',
+    'calc_sample_abandoned_in_sts_sample_count': 'sample_abandoned_count',
+    'calc_topup_required_tolid_count': 'tolid_topup_required_count',
+    'calc_individual_exhausted_tolid_count': 'tolid_individual_exhausted_count',
+    'benchling_pacbio_completed_sequencing_request_count': 'sequencing_request_pacbio_completed_count',
+    'benchling_pacbio_sequencing_request_count': 'sequencing_request_pacbio_count',
+    'grit_tolid_grit_curation_grit_scaffolds_total_after_recent_max': 'tolid_curation_scaffolds_total_after_recent_max',
+    'grit_tolid_grit_curation_grit_scaffolds_total_after_recent_min': 'tolid_curation_scaffolds_total_after_recent_min',
+    'grit_curation_grit_scaffolds_total_after_recent': 'curation_scaffolds_total_after_recent',
+}
+
 
 def __check(check_passed: bool) -> None:
     if not check_passed:
@@ -54,7 +66,7 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     # NOTE: This also accounts for 'tolid' being both an object type and a source,
     # as if it's an object type it won't be followed by an underscore
     for source_prefix in (
-        'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'calc_', 'gn_', 'goat_',
+        'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'gn_', 'goat_',
         'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_', 'portaldb_'
     ):
         if after_substr.startswith(source_prefix):
@@ -69,6 +81,8 @@ def __upgrade_field_part(part: str) -> str:
     """
     if part in FIELD_EXCEPTIONS:
         return FIELD_EXCEPTIONS[part]
+    elif part in FIELD_MAPPINGS:
+        return FIELD_MAPPINGS[part]
     elif __is_summarised_attribute(part):
         # Remove the first source prefix at the start
         attr_first_source_removed = __remove_attribute_source_prefix(part)
@@ -241,6 +255,11 @@ def _upgrade_component_config(config: dict) -> dict:
     sort_by = config.get('defaultSortByAttribute')
     if sort_by:
         config['defaultSortByAttribute'] = _upgrade_field(sort_by)
+
+    # Upgrade field (for stat cards)
+    field = config.get('field')
+    if field:
+        config['field'] = _upgrade_field(field)
 
     # Upgrade sliceBy (for sunbursts)
     slice_by = config.get('sliceBy')
