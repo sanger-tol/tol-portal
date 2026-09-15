@@ -37,7 +37,7 @@ def upgrade() -> None:
     op.execute(
         """
         UPDATE data_source_instance
-        SET direct_name = name, direct_kwargs = kwargs
+        SET direct_name = builtin_name, direct_kwargs = kwargs
         """
     )
 
