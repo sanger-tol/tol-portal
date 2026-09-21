@@ -1,7 +1,7 @@
 """Migrate fields in use to support provenance
 
 Revision ID: 248076bd4c0d
-Revises: b77923994607
+Revises: 31bcd610a2b1
 Create Date: 2026-08-10 08:12:44.340674
 
 """
@@ -18,7 +18,7 @@ from tol.core import DataSourceFilter
 
 # revision identifiers, used by Alembic.
 revision = '248076bd4c0d'
-down_revision = 'b77923994607'
+down_revision = '31bcd610a2b1'
 branch_labels = None
 depends_on = None
 
