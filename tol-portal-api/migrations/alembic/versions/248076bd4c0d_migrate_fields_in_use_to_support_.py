@@ -37,6 +37,13 @@ FIELD_MAPPINGS = {
     'grit_tolid_grit_curation_grit_scaffolds_total_after_recent_max': 'tolid_curation_scaffolds_total_after_recent_max',
     'grit_tolid_grit_curation_grit_scaffolds_total_after_recent_min': 'tolid_curation_scaffolds_total_after_recent_min',
     'grit_curation_grit_scaffolds_total_after_recent': 'curation_scaffolds_total_after_recent',
+    'bioscan_image_url': 'image_url',
+    'gn_date_published': 'published_date',
+    'sts_preservative_solution': 'preservation_solution',
+    'calc_no_null_tolid_tolid_count': 'calc_no_null_tolid_count',
+    'sts_sample_benchling_date_assigned_to_lab_min': 'sample_tollab_assign_date_min',
+    'labwhere_parentage': 'location_parentage',
+    'labwhere_name': 'location_name'
 }
 
 
@@ -67,7 +74,8 @@ def __remove_attribute_source_prefix(attribute: str, starting_at_index: int = 0)
     # as if it's an object type it won't be followed by an underscore
     for source_prefix in (
         'benchling_', 'benchling_pacbio_', 'benchling_pacbio_completed_', 'gn_', 'goat_',
-        'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_', 'portaldb_'
+        'grit_', 'informatics_', 'mlwh_', 'sts_', 'tolid_', 'tolqc_', 'portaldb_',
+        'bioscan_qc_', 'bioscan_extra_'
     ):
         if after_substr.startswith(source_prefix):
             return before_substr + after_substr.removeprefix(source_prefix)
@@ -275,6 +283,11 @@ def _upgrade_component_config(config: dict) -> dict:
     break_down_by = config.get('breakDownBy')
     if break_down_by:
         config['breakDownBy'] = _upgrade_field(break_down_by)
+
+    # Upgrade attributes (for filterBlock)
+    attributes = config.get('attributes')
+    if attributes:
+        config['attributes'] = _upgrade_field_list(attributes)
 
     return config
 

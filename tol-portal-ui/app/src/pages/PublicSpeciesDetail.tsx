@@ -334,18 +334,14 @@ function PublicSpeciesDetail() {
           },
           order: {
             active: [
-              "species.goat_long_list",
-              "species.tolid_prefix",
-              "assembly.id",
-              "analysis",
-              "species.scientific_name",
-            ],
-            inactive: [
               "species.long_list",
               "species.tolid_prefix",
               "assembly.id",
-              "analysis",
+              "workflow_name",
               "species.scientific_name",
+            ],
+            inactive: [
+              "species.family_name",
             ],
           },
         }}

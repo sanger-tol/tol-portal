@@ -631,7 +631,7 @@ function TUMSteps() {
             // Number of ToLIDs exhausted = Total number of ToLIDs within STS.
             'tolid_individual_exhausted_count': {
               'gt': { 'value': 0 },
-              'eq': { 'field': 'tolid_count' }
+              'eq': { 'field': 'tolid_count[sts]' }
             },
             // Not already out for recollection
             'calc_species_out_for_recollection': { 'eq': { 'value': false } }
