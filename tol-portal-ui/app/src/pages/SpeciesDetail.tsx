@@ -22,17 +22,24 @@ import { ELASTIC_DS } from '..';
 
 
 function generateDetail(id: string, attributes: any) {
+  const data = {
+    "Taxonomy ID": id,
+    "Common name": attributes["sts_common_name"],
+    "Lineage": (attributes["goat_lineage"] ?? []).join(" / "),
+    "Genome Size": attributes["goat_genome_size"],
+    "ToLID Prefix": attributes["tolid_prefix"],
+  };
+
   return (
     <div>
-      <h1 className='mb-3'>{(attributes as any)['sts_scientific_name']}</h1>
+      <h1 className="mb-3">{attributes["sts_scientific_name"]}</h1>
       <ObjectDetail
-        data={{
-          "Taxonomy ID": id,
-          "Common name": attributes['sts_common_name'],
-          "Lineage": (attributes['goat_lineage'] ?? []).join(' / '),
-          "Genome Size": attributes['goat_genome_size'],
-          "ToLID Prefix": attributes['tolid_prefix'],
+        fields={{
+          order: {
+            active: Object.keys(data),
+          },
         }}
+        data={data}
       />
     </div>
   );
