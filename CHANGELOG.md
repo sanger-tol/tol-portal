@@ -8,6 +8,11 @@ SPDX-License-Identifier: MIT
 
 ## [TOLP-10146](https://jira.sanger.ac.uk/browse/TOLP-10146)
 
+28-09-2026
+- `tol-ui 5.6.1`: Detail Card, Parameter Converters & More
+
+## [TOLP-10146](https://jira.sanger.ac.uk/browse/TOLP-10146)
+
 11-09-2026
 - `tol-ui 5.3.0`
     - Fixes table errors on TUM pages
