@@ -75,7 +75,7 @@ function TUMSteps() {
           ],
         },
       }}
-      actions={['Send for ARA Review']}
+      actions={['Send for ARA Review', 'Mark as Not Valid']}
       rowSelection={true}
       {...tolid}
     />
