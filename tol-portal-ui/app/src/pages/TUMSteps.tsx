@@ -641,22 +641,6 @@ function TUMSteps() {
     ]
   });
 
-  // useTranslator({
-  //   source: tolid,
-  //   target: individualExhaustedRecollection,
-  //   translations: {
-  //     "sequencing_request_pacbio_count": "tolid.sequencing_request_pacbio_count",
-  //     "tolid_species.scientific_name": "tolid_species.scientific_name",
-  //     "id": "id",
-  //     "sts_sample_sts_project_union": "sts_sample_sts_project_union",
-  //     "calc_coverage": "calc_coverage",
-  //     "sts_sample_sts_target_coverage_max": "sts_sample_sts_target_coverage_max",
-  //     "calc_ongoing_submissions": "calc_ongoing_submissions",
-  //     "informatics_status_summary": "informatics_status_summary",
-  //     "calc_coverage_met": "calc_coverage_met",
-  //   }
-  // })
-
   const individualExhaustedRecollectionTable = (
     <RemoteTable
       //noConfigModal
