@@ -17,7 +17,7 @@ function SampleSelection() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'species',
+        id: 'species-v2',
         filter: {
           and_: {
           }
@@ -29,7 +29,7 @@ function SampleSelection() {
   const speciesTable = (
     <RemoteTable
       //noConfigModal
-      id="species"
+      id="species-v2"
       displaySource
       defaultSortByAttribute="sample_priority_min"
       fields={{
@@ -69,7 +69,7 @@ function SampleSelection() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample',
+        id: 'sample-v2',
         filter: {
           and_: {
           }
@@ -95,7 +95,7 @@ function SampleSelection() {
   const sampleTable = (
     <RemoteTable
       //noConfigModal
-      id="sample"
+      id="sample-v2"
       displaySource
       defaultSortByAttribute="priority"
       fields={{

@@ -14,7 +14,7 @@ function ARAReview() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'top-up-required',
+        id: 'top-up-required-v2',
         filter: {
           and_: {
             'calc_tolid_actionable': { 'eq': { 'value': true } },
@@ -28,7 +28,7 @@ function ARAReview() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      id="top-up-required"
+      id="top-up-required-v2"
       displaySource
       defaultSortByAttribute="id"
       fields={{

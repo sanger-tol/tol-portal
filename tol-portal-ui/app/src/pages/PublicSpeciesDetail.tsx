@@ -80,7 +80,7 @@ function PublicSpeciesDetail() {
       <h5>Sample</h5>
       <p className="mb-3">Sample information collected for this species.</p>
       <RemoteTable
-        id="public-sample-table-detail"
+        id="public-sample-table-detail-v2"
         defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
@@ -117,7 +117,7 @@ function PublicSpeciesDetail() {
           dataSource: ELASTIC_DS,
           components: [
             {
-              id: "public-sample-table-detail",
+              id: "public-sample-table-detail-v2",
               filter: {
                 and_: {
                   "species.id": { eq: { value: id } },
@@ -135,7 +135,7 @@ function PublicSpeciesDetail() {
       <h5>Extractions</h5>
       <p className="mb-3">Extractions for this species.</p>
       <RemoteTable
-        id="public-extraction-table-detail"
+        id="public-extraction-table-detail-v2"
         defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
@@ -167,7 +167,7 @@ function PublicSpeciesDetail() {
           dataSource: ELASTIC_DS,
           components: [
             {
-              id: "public-extraction-table-detail",
+              id: "public-extraction-table-detail-v2",
               filter: {
                 and_: {
                   "species.id": { eq: { value: id } },
@@ -185,7 +185,7 @@ function PublicSpeciesDetail() {
       <h5>Run Data</h5>
       <p className="mb-3">Information for each sequencing run collected for this species</p>
       <RemoteTable
-        id="public-run-data-table-detail-v2"
+        id="public-run-data-table-detail-v3"
         height={500}
         cellRenderer={{
           platform: Platform,
@@ -242,7 +242,7 @@ function PublicSpeciesDetail() {
           dataSource: ELASTIC_DS,
           components: [
             {
-              id: "public-run-data-table-detail-v2",
+              id: "public-run-data-table-detail-v3",
               filter: {
                 and_: {
                   "species.id": { eq: { value: id } },
@@ -260,7 +260,7 @@ function PublicSpeciesDetail() {
       <h5>Curation Data</h5>
       <p className="mb-3">Curations for this species.</p>
       <RemoteTable
-        id="public-curation-table-detail"
+        id="public-curation-table-detail-v2"
         height={500}
         fields={{
           data: {
@@ -304,7 +304,7 @@ function PublicSpeciesDetail() {
           dataSource: ELASTIC_DS,
           components: [
             {
-              id: "public-curation-table-detail",
+              id: "public-curation-table-detail-v2",
               filter: {
                 and_: {
                   "species.id": { eq: { value: id } },
@@ -322,7 +322,8 @@ function PublicSpeciesDetail() {
       <h5>Assembly Analysis</h5>
       <p className="mb-3">Analysis performed on the assemblies for this species .</p>
       <RemoteTable
-        id="public-assembly-analysis-table-detail-v2"
+        id="public-assembly-analysis-table-detail-v3"
+        defaultSortByAttribute="assembly.id"
         height={500}
         fields={{
           data: {
@@ -357,7 +358,7 @@ function PublicSpeciesDetail() {
           dataSource: ELASTIC_DS,
           components: [
             {
-              id: "public-assembly-analysis-table-detail-v2",
+              id: "public-assembly-analysis-table-detail-v3",
               filter: {
                 and_: {
                   "species.id": { eq: { value: id } },

@@ -87,7 +87,7 @@ function Home() {
           }
         }
       },
-      { id: 'home-species-table', 
+      { id: 'home-species-table-v2', 
         filterPassThrough: true,
         filter: {
           and_: {
@@ -103,7 +103,15 @@ function Home() {
     objectType: 'run_data',
     dataSource: ELASTIC_DS,
     components: [
-      { id: 'home-run-bar-chart', filterPassThrough: true },
+      {
+        id: 'home-run-bar-chart',
+        filterPassThrough: true,
+        filter: {
+          and_: {
+            run_complete: { gt: { value: "2019-01-01" } }
+          }
+        }
+      },
       { id: 'home-run-data-count', filterPassThrough: true },
     ]
   });
@@ -207,7 +215,7 @@ function Home() {
 
   const speciesTable = (
     <RemoteTable
-      id="home-species-table"
+      id="home-species-table-v2"
       defaultSortByAttribute="scientific_name"
       noConfigModal
       fields={{

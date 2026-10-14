@@ -17,7 +17,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'top-up-required',
+        id: 'top-up-required-v2',
         filter: {
           and_: {
             'calc_topup_required': { 'eq': { 'value': true } },
@@ -31,7 +31,7 @@ function TUMSteps() {
   const topUpRequiredTable = (
     <RemoteTable
       //noConfigModal
-      id="top-up-required"
+      id="top-up-required-v2"
       displaySource
       defaultSortByAttribute="id"
       fields={{
@@ -87,7 +87,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'library-remaining',
+        id: 'library-remaining-v2',
         filter: {
           and_: {
             'calc_mlwh_volume_remaining': { 'gt': { 'value': 0.0 } },
@@ -120,7 +120,7 @@ function TUMSteps() {
   const libraryRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="library-remaining"
+      id="library-remaining-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -176,7 +176,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'dna-remaining',
+        id: 'dna-remaining-v2',
         filter: {
           and_: {
             'calc_benchling_volume_ul': { 'gt': { 'value': 0.0 } },
@@ -209,7 +209,7 @@ function TUMSteps() {
   const dnaRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="dna-remaining"
+      id="dna-remaining-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -257,7 +257,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'tissue-prep-remaining',
+        id: 'tissue-prep-remaining-v2',
         filter: {
           and_: {
             'calc_benchling_weight_mg': { 'gt': { 'value': 0.0 } },
@@ -290,7 +290,7 @@ function TUMSteps() {
   const tissuePrepRemainingTable = (
     <RemoteTable
       //noConfigModal
-      id="tissue-prep-remaining"
+      id="tissue-prep-remaining-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -329,7 +329,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-benchling',
+        id: 'sample-remaining-benchling-v2',
         filter: {
           and_: {
             'calc_benchling_remaining_weight': { 'gt': { 'value': 0.0 } },
@@ -364,7 +364,7 @@ function TUMSteps() {
   const tissueRemainingBenchlingTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-benchling"
+      id="sample-remaining-benchling-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -401,7 +401,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'sample-remaining-STS',
+        id: 'sample-remaining-STS-v2',
         filter: {
           and_: {
             'date_abandoned': { 'exists': { 'negate': true } },
@@ -438,7 +438,7 @@ function TUMSteps() {
   const sampleRemainingSTSTable = (
     <RemoteTable
       //noConfigModal
-      id="sample-remaining-STS"
+      id="sample-remaining-STS-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -488,7 +488,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted',
+        id: 'individual-exhausted-v2',
         filter: {
           and_: {
             'calc_individual_exhausted': { 'eq': { 'value': true } },
@@ -552,7 +552,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-available',
+        id: 'individual-exhausted-available-v2',
         filter: {
           and_: {
             // Its ToLID has not had any samples exported to Benchling 
@@ -589,7 +589,7 @@ function TUMSteps() {
   const individualExhaustedAvailableTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted-available"
+      id="individual-exhausted-available-v2"
       displaySource
       defaultSortByAttribute="tolid.id"
       fields={{
@@ -625,7 +625,7 @@ function TUMSteps() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'individual-exhausted-recollection',
+        id: 'individual-exhausted-recollection-v2',
         filter: {
           and_: {
             // Number of ToLIDs exhausted = Total number of ToLIDs within STS.
@@ -644,7 +644,7 @@ function TUMSteps() {
   const individualExhaustedRecollectionTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted-recollection"
+      id="individual-exhausted-recollection-v2"
       displaySource
       fields={{
         order: {

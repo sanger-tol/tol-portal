@@ -24,15 +24,15 @@ import { ELASTIC_DS } from '..';
 function generateDetail(id: string, attributes: any) {
   const data = {
     "Taxonomy ID": id,
-    "Common name": attributes["sts_common_name"],
-    "Lineage": (attributes["goat_lineage"] ?? []).join(" / "),
-    "Genome Size": attributes["goat_genome_size"],
+    "Common name": attributes["common_name"],
+    "Lineage": (attributes["lineage"] ?? []).join(" / "),
+    "Genome Size": attributes["genome_size"],
     "ToLID Prefix": attributes["tolid_prefix"],
   };
 
   return (
     <div>
-      <h1 className="mb-3">{attributes["sts_scientific_name"]}</h1>
+      <h1 className="mb-3">{attributes["scientific_name"]}</h1>
       <ObjectDetail
         fields={{
           order: {
@@ -82,8 +82,8 @@ function SpeciesDetail() {
       <h5>Sample</h5>
       <p className='mb-3'>Sample information collected for this species.</p>
       <RemoteTable
-        id="sample-table-detail"
-        defaultSortByAttribute="sts_tolid.id"
+        id="sample-table-detail-v2"
+        defaultSortByAttribute="tolid.id"
         displaySource
         height={500}
         fields={{
@@ -111,7 +111,7 @@ function SpeciesDetail() {
           objectType: 'sample',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'sample-table-detail',
+            id: 'sample-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } },
@@ -128,7 +128,7 @@ function SpeciesDetail() {
       <h5>Extractions</h5>
       <p className='mb-3'>Extractions for this species.</p>
       <RemoteTable
-        id="extraction-table-detail"
+        id="extraction-table-detail-v2"
         defaultSortByAttribute="tolid.id"
         height={500}
         fields={{
@@ -149,7 +149,7 @@ function SpeciesDetail() {
           objectType: 'extraction',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'extraction-table-detail',
+            id: 'extraction-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } },
@@ -166,7 +166,7 @@ function SpeciesDetail() {
       <h5>Run Data</h5>
       <p className='mb-3'>Information for each sequencing run collected for this species.</p>
       <RemoteTable
-        id='pacbio-table-detail'
+        id='pacbio-table-detail-v2'
         height={300}
         cellRenderer={{
           "platform": Platform,
@@ -204,7 +204,7 @@ function SpeciesDetail() {
           objectType: 'run_data',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'pacbio-table-detail',
+            id: 'pacbio-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } },
@@ -221,7 +221,7 @@ function SpeciesDetail() {
       <h5>Curation Data</h5>
       <p className='mb-3'>Curations for this species.</p>
       <RemoteTable
-        id='curation-table-detail'
+        id='curation-table-detail-v2'
         height={300}
         fields={{
           order: {
@@ -236,7 +236,7 @@ function SpeciesDetail() {
           objectType: 'curation',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'curation-table-detail',
+            id: 'curation-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } }
@@ -253,22 +253,19 @@ function SpeciesDetail() {
       <h5>Assembly Analysis</h5>
       <p className='mb-3'>Analysis performed on the assemblies for this species.</p>
       <RemoteTable
-        id='assembly-analysis-table-detail'
+        id='assembly-analysis-table-detail-v2'
         height={300}
         fields={{
           data: {
-            "assembly.id": {
-              rename: "Assembly",
-            },
-            "results": {
-              "link": "gap_s3"
-            },
           },
           order: {
             active: [
+              "id",
               "assembly.id",
-              "results",
-              "lustre_path_analysis",
+              "workflow_name",
+              "workflow_version",
+              "workflow_description",
+              "end_date"
             ],
           },
         }}
@@ -276,7 +273,7 @@ function SpeciesDetail() {
           objectType: 'assembly_analysis',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'assembly-analysis-table-detail',
+            id: 'assembly-analysis-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } }
@@ -293,7 +290,7 @@ function SpeciesDetail() {
       <h5>Genome Notes</h5>
       <p className='mb-3'>Genome Notes for this species.</p>
       <RemoteTable
-        id='gn-table-detail'
+        id='gn-table-detail-v2'
         height={300}
         cellRenderer={{
           "doi": DOI,
@@ -319,11 +316,11 @@ function SpeciesDetail() {
           },
           order: {
             active: [
+              "id",
               "tolid.id",
               "assembly.id",
-              "date_published",
-              "passed_pr",
-              "id",
+              "published_date",
+              "authors"
             ],
           },
         }}
@@ -331,7 +328,7 @@ function SpeciesDetail() {
           objectType: 'genome_note',
           dataSource: ELASTIC_DS,
           components: [{
-            id: 'gn-table-detail',
+            id: 'gn-table-detail-v2',
             filter: {
               and_: {
                 "species.id": { eq: { value: id } }

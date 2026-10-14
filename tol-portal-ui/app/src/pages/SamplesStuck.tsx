@@ -14,7 +14,7 @@ function SamplesStuck() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'samples-stuck-table',
+        id: 'samples-stuck-table-v2',
         filter: {
           and_: {
             "tissue_prep_count": { "gt": { "value": 0 }},
@@ -27,7 +27,7 @@ function SamplesStuck() {
 
   const table = (
     <RemoteTable
-      id="samples-stuck-table"
+      id="samples-stuck-table-v2"
       defaultSortByAttribute="tolid.id"
       displaySource
       fields={{
