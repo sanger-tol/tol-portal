@@ -14,12 +14,12 @@ function ARAReview() {
     dataSource: ELASTIC_DS,
     components: [
       {
-        id: 'top-up-required',
+        id: 'top-up-required-v2',
         filter: {
           and_: {
             'calc_tolid_actionable': { 'eq': { 'value': true } },
-            'informatics_status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
-            'portaldb_in_review': { 'eq': { 'value': true } },
+            'status_summary': { 'in_list': { 'value': ['7 ignore'], 'negate': true } },
+            'in_review': { 'eq': { 'value': true } },
           }
         }
       }
@@ -28,17 +28,17 @@ function ARAReview() {
 
   const topUpRequiredTable = (
     <RemoteTable
-      id="top-up-required"
+      id="top-up-required-v2"
       displaySource
       defaultSortByAttribute="id"
       fields={{
         data: {
-          "tolid_species.goat_scientific_name": {
+          "species.scientific_name": {
             cellRenderer: {
               type: "link",
               props: {
                 url: "/species/${id}",
-                text: "${goat_scientific_name}"
+                text: "${scientific_name}"
               }
             },
           },
@@ -46,22 +46,22 @@ function ARAReview() {
         order: {
           active: [
             "id",
-            "tolid_species.goat_scientific_name",
-            "sts_sample_sts_project_union",
-            "tolid_species.informatics_tolid_informatics_status_summary_min",
+            "species.scientific_name",
+            "sample_project_union",
+            "species.tolid_status_summary_min",
             "calc_coverage_met",
             "calc_topup_required",
             "calc_tolid_actionable",
-            "mlwh_sequencing_request_mlwh_volume_remaining_max",
-            "benchling_extraction_benchling_volume_ul_dna_max",
-            "benchling_tissue_prep_benchling_weight_mg_max",
-            "benchling_sample_benchling_remaining_weight_max",
-            "benchling_sample_count",
-            "sts_sample_count",
+            "sequencing_request_volume_remaining_max",
+            "extraction_container_calc_benchling_volume_ul_dna_max",
+            "tissue_prep_weight_mg_max",
+            "sample_remaining_weight_max",
+            "sample_count",
+            "sample_count",
             "calc_individual_exhausted",
             "calc_individual_available",
-            "tolid_species.calc_recollection_needed",
-            "calc_extraction_dna_count",
+            "species.calc_recollection_needed",
+            "extraction_dna_count",
           ]
         },
       }}
