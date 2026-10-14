@@ -35,7 +35,7 @@ function ProjectManagement() {
       },
       { id: 'pm-submitted-bar-chart' },
       { id: 'pm-status-bar-chart' },
-      { id: 'pm-species-table' }
+      { id: 'pm-species-table-v2' }
     ]
   });
 
@@ -117,7 +117,7 @@ function ProjectManagement() {
 
   const table = (
     <RemoteTable
-      id="pm-species-table"
+      id="pm-species-table-v2"
       defaultSortByAttribute="scientific_name"
       fields={{
         data: {

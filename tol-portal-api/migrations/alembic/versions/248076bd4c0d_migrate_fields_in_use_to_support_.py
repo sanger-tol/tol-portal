@@ -289,6 +289,24 @@ def _upgrade_component_config(config: dict) -> dict:
     if attributes:
         config['attributes'] = _upgrade_field_list(attributes)
 
+    # Upgrade longitude (for maps)
+    longitude = config.get('longitudeKey')
+    if longitude:
+        config['longitudeKey'] = _upgrade_field(longitude)
+
+    # Upgrade latitude (for maps)
+    latitude = config.get('latitudeKey')
+    if latitude:
+        config['latitudeKey'] = _upgrade_field(latitude)
+
+    # Upgrade attributeKeys (for map)
+    attribute_keys = config.get('attributeKeys')
+    if attribute_keys:
+        config['attributeKeys'] = ','.join(
+            _upgrade_field(attribute.strip())
+            for attribute in attribute_keys.split(',')
+        )
+
     return config
 
 
