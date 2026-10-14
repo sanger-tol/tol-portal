@@ -7,7 +7,6 @@
 export { default as Home } from "./Home";
 export { default as SpeciesDetail } from "./SpeciesDetail";
 export { default as PublicSpeciesDetail } from "./PublicSpeciesDetail";
-export { default as SampleSelection } from "./SampleSelection";
 export { default as SpeciesRecollection } from "./SpeciesRecollection";
 export { default as SamplesStuck } from "./SamplesStuck";
 export { default as ProjectManagement } from "./ProjectManagement";

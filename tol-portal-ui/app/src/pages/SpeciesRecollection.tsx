@@ -44,7 +44,7 @@ function SpeciesRecollection() {
           "sample_calc_benchling_remaining_weight_sum": {
             rename: "Tissue Remaining"
           },
-          "extraction_calc_benchling_volume_ul_dna_sum": {
+          "extraction_container_calc_benchling_volume_ul_dna_sum": {
             rename: "Volume of Extraction"
           },
           "tissue_prep_calc_benchling_weight_mg_sum": {
@@ -79,7 +79,7 @@ function SpeciesRecollection() {
           active: [
             "scientific_name",
             "sample_calc_benchling_remaining_weight_sum",
-            "extraction_calc_benchling_volume_ul_dna_sum",
+            "extraction_container_calc_benchling_volume_ul_dna_sum",
             "tissue_prep_calc_benchling_weight_mg_sum",
             "sequencing_request_completion_date_hic_min",
             "sequencing_request_completion_date_pacbio_min",

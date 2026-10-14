@@ -14,7 +14,6 @@ import {
   ProjectManagement,
   TUMSteps,
   ARAReview,
-  SampleSelection,
   ManifestValidation,
 } from "./pages";
 import { portalValidationModule } from "./pages/ManifestValidation";
@@ -49,7 +48,6 @@ export const PAGE_ELEMENTS: TPageElements = {
 
   // Additional
   recollection: <SpeciesRecollection />,
-  "sample-selection": <SampleSelection />,
   "tum-steps": <TUMSteps />,
   "ara-review": <ARAReview />,
   "samples-stuck": <SamplesStuck />,
