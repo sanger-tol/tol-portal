@@ -6,6 +6,11 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-9942](https://jira.sanger.ac.uk/browse/TOLP-9942)
+
+12-10-2026
+- Fully support provenance
+
 ## [TOLP-10146](https://jira.sanger.ac.uk/browse/TOLP-10146)
 
 28-09-2026
