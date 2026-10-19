@@ -6,6 +6,14 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## tol-ui `6.0.0` & tol-sdk `3.0.0`
+
+11-09-2026
+- Added options to boards (& ability to support options on zones and views in the future)
+- Timelines
+- Cards
+- Lists of components (currently cards & timelines)
+
 ## [TOLP-9942](https://jira.sanger.ac.uk/browse/TOLP-9942)
 
 12-10-2026
