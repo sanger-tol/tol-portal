@@ -62,8 +62,8 @@ class TolApi {
   static async fetchTotalSpeciesSubmitted() {
     return await TolApi.fetchCount("species", {
       and_: {
-        goat_domain_name: {eq: {value: "Eukaryota"}},
-        grit_curation_grit_done_date_min: { exists: {} }
+        domain_name: {eq: {value: "Eukaryota"}},
+        curation_done_date_min: { exists: {} }
       }
     });
   }
@@ -71,8 +71,8 @@ class TolApi {
   static async fetchTotalSpeciesCollected() {
     return await TolApi.fetchCount("species", {
       and_: {
-        goat_domain_name: {eq: {value: "Eukaryota"}},
-        sts_sample_sts_col_date_min: { exists: {} }
+        domain_name: {eq: {value: "Eukaryota"}},
+        sample_col_date_min: { exists: {} }
       }
     });
   }
@@ -80,11 +80,11 @@ class TolApi {
   static async fetchTotalBasesSequenced() {
     return await TolApi.fetchStat(
       "species",
-      "tolqc_run_data_tolqc_bases_sum",
+      "run_data_bases_sum",
       "sum",
       {
         and_: {
-          goat_domain_name: {eq: {value: "Eukaryota"}},
+          domain_name: {eq: {value: "Eukaryota"}},
         }
       }
     );
