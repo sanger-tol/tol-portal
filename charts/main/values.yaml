@@ -105,6 +105,10 @@ tolcore:
     user: ""
     password: ""
     index_prefix: ""
+  quasar:
+    url: ""
+    api_path: ""
+    dataspace: ""
   api:
     enabled: true
     fullname: "tol-portal-api"
@@ -131,6 +135,9 @@ tolcore:
       S3_ACCESS_KEY: s3.access_key
       S3_SECRET_KEY: s3.secret_key
       S3_SECURE: s3.secure
+      QUASAR_URL: quasar.url
+      QUASAR_API_PATH: quasar.api_path
+      QUASAR_DATASPACE: quasar.dataspace
   flask:
     env: ""
   ui:
@@ -154,6 +161,9 @@ tolcore:
       REACT_APP_BOARDS_API_DATA_PATH: api.boards_api_data_path
       REACT_APP_PIPELINE_API_PATH: api.pipeline_api_path
       REACT_APP_PORTAL_DATASPACE: portal.dataspace
+      REACT_APP_QUASAR_URL: quasar.url
+      REACT_APP_QUASAR_API_PATH: quasar.api_path
+      REACT_APP_QUASAR_DATASPACE: quasar.dataspace
   s3:
     uri: ""
     access_key: ""

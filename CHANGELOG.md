@@ -6,6 +6,11 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10318](https://jira.sanger.ac.uk/browse/TOLP-10318)
+
+20-10-2026
+- API calls out to Quasar to fetch configuration and board info
+
 ## tol-ui `6.0.0` & tol-sdk `3.0.0`
 
 11-09-2026

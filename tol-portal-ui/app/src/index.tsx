@@ -74,6 +74,13 @@ const LOCAL_NAVIGATION = {
   order: [],
 };
 
+const CONFIG_DS = new TsDataSource({
+  apiDataPath: API_PATHS.API_DATA_PATH,
+  dataspace: env.QUASAR_DATASPACE,
+  url: env.QUASAR_URL,
+  apiPath: env.QUASAR_API_PATH,
+});
+
 const root = createRoot(document.getElementById("root")!);
 root.render(
   // Use a provider for validation statuses and policies.
@@ -85,6 +92,7 @@ root.render(
       brand={<img src={Logo} alt="ToL Portal Logo" style={{ height: 35 }} />}
       pageElements={PAGE_ELEMENTS}
       navigation={LOCAL_NAVIGATION}
+      configDataSource={CONFIG_DS}
       configurableBoards
       register
       customCallbackUrl={URL_PATHS.PROFILE}
