@@ -21,10 +21,12 @@ depends_on = None
 class TypeGetters:
     @staticmethod
     def date_interval(runtime_definition: dict) -> str:
+        del runtime_definition
         return 'long'
 
     @staticmethod
     def latest_date(runtime_definition: dict) -> str:
+        del runtime_definition
         return 'date'
 
     @staticmethod
