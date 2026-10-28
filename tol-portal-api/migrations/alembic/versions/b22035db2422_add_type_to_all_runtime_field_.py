@@ -58,12 +58,7 @@ def upgrade() -> None:
     # function (if needed)
     updates = []
     for row in config_attributes:
-        runtime_definition = json.loads(row.runtime_definition)
-        if not isinstance(runtime_definition, dict):
-            raise ValueError(
-                f'runtime_definition for data_source_config_attribute {row.id} '
-                'must be a JSON object'
-            )
+        runtime_definition = row.runtime_definition
 
         if 'function' in runtime_definition and 'type' not in runtime_definition:
             # Modify runtime definition
@@ -73,7 +68,7 @@ def upgrade() -> None:
             # Append update
             updates.append({
                 'id': row.id,
-                'runtime_definition': runtime_definition
+                'runtime_definition': json.dumps(runtime_definition)
             })
 
     # Save the changes
@@ -82,7 +77,7 @@ def upgrade() -> None:
             sa.text(
                 """
                 UPDATE data_source_config_attribute
-                SET runtime_definition = :runtime_definition
+                SET runtime_definition = CAST(:runtime_definition AS JSONB)
                 WHERE id = :id
                 """
             ),
@@ -108,12 +103,7 @@ def downgrade() -> None:
     # is a function runtime field (rather than a script runtime field)
     updates = []
     for row in config_attributes:
-        runtime_definition = json.loads(row.runtime_definition)
-        if not isinstance(runtime_definition, dict):
-            raise ValueError(
-                f'runtime_definition for data_source_config_attribute {row.id} '
-                'must be a JSON object'
-            )
+        runtime_definition = row.runtime_definition
 
         if 'function' in runtime_definition and 'type' in runtime_definition:
             del runtime_definition['type']
@@ -130,7 +120,7 @@ def downgrade() -> None:
             sa.text(
                 """
                 UPDATE data_source_config_attribute
-                SET runtime_definition = :runtime_definition
+                SET runtime_definition = CAST(:runtime_definition AS JSONB)
                 WHERE id = :id
                 """
             ),
