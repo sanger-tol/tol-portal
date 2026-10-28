@@ -6,6 +6,11 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10270](https://jira.sanger.ac.uk/browse/TOLP-10270)
+
+28-10-2026
+- Ensure all runtime field definitions have type information in the database
+
 ## [TOLP-10318](https://jira.sanger.ac.uk/browse/TOLP-10318)
 
 20-10-2026
