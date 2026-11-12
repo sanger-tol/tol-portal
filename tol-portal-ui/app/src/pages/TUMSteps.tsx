@@ -389,7 +389,15 @@ function TUMSteps() {
           ],
         },
       }}
-      actions={['Insert into Benchling Tissue Work List', 'Mark as Not Valid', 'Export into Benchling']}
+      actions={[
+        'Mark as Not Valid',
+        'LRES DNA',
+        'Registry',
+        'ToL MagAttract v3',
+        'ToL Plant MagAttract v5',
+        'ToL Sorbitol POE',
+        'ToL LoPOE'
+      ]}
       rowSelection={true}
       {...tissueBenchling}
     />
@@ -466,16 +474,13 @@ function TUMSteps() {
         },
       }}
       actions={[
-        'Export into Benchling',
         'Mark as Not Valid',
-        'LRES - DNA extraction',
-        'LRES - DNA extraction + HiC',
-        'HiC',
-        'HiC only',
-        'HiC + RNA',
-        'RNA',
-        'PiMmS',
-        'Export into Benchling'
+        'LRES DNA',
+        'Registry',
+        'ToL MagAttract v3',
+        'ToL Plant MagAttract v5',
+        'ToL Sorbitol POE',
+        'ToL LoPOE'
       ]}
       rowSelection={true}
       {...sampleSTS}
@@ -613,7 +618,15 @@ function TUMSteps() {
           ],
         },
       }}
-      actions={['Export into Benchling', 'Mark as Not Valid']}
+      actions={[
+        'Mark as Not Valid',
+        'LRES DNA',
+        'Registry',
+        'ToL MagAttract v3',
+        'ToL Plant MagAttract v5',
+        'ToL Sorbitol POE',
+        'ToL LoPOE'
+]}
       rowSelection={true}
       {...individualExhaustedAvailable}
     />

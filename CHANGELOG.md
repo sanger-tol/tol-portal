@@ -6,6 +6,11 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10386](https://jira.sanger.ac.uk/browse/TOLP-10386)
+
+12-11-2026
+- Change available actions on TUMSteps page
+
 ## [TOLP-10270](https://jira.sanger.ac.uk/browse/TOLP-10270)
 
 28-10-2026
