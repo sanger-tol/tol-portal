@@ -74,6 +74,7 @@ services:
       - REACT_APP_PIPELINE_API_PATH=${PIPELINE_API_PATH}
       - REACT_APP_QUASAR_URL=${QUASAR_URL}
       - REACT_APP_QUASAR_API_PATH=${QUASAR_API_PATH}
+      - REACT_APP_QUASAR_API_DATA_PATH=${QUASAR_API_DATA_PATH}
       - REACT_APP_QUASAR_DATASPACE=${QUASAR_DATASPACE}
 
     ports:
@@ -84,7 +85,7 @@ services:
       - '../components/components-ui/app/src/tol-ui:/usr/src/app/src/tol-ui'
 
   tol-portal-dbutils:
-    image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.0.10
+    image: gitlab-registry.internal.sanger.ac.uk/tol/tol-core/dbutils:1.1.0
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
