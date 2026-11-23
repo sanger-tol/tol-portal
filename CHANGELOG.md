@@ -6,6 +6,12 @@ SPDX-License-Identifier: MIT
 
 # Changelog
 
+## [TOLP-10346](https://jira.sanger.ac.uk/browse/TOLP-10486)
+
+23-11-2026
+- Update GoaT to use API v3
+- Correct error on individual exhauseted table filtering
+
 ## [TOLP-10386](https://jira.sanger.ac.uk/browse/TOLP-10386)
 
 12-11-2026
