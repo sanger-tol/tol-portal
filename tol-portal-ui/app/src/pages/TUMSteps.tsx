@@ -524,7 +524,7 @@ function TUMSteps() {
   const individualExhaustedTable = (
     <RemoteTable
       //noConfigModal
-      id="individual-exhausted"
+      id="individual-exhausted-v2"
       displaySource
       defaultSortByAttribute="id"
       fields={{
